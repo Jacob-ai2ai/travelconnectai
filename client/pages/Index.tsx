@@ -331,12 +331,14 @@ export default function Index() {
             money, and discover amazing experiences.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              className="bg-travel-blue hover:bg-travel-blue/90"
-            >
-              Start Planning with AI
-            </Button>
+            <Link to="/ai-planner">
+              <Button
+                size="lg"
+                className="bg-travel-blue hover:bg-travel-blue/90"
+              >
+                Start Planning with AI
+              </Button>
+            </Link>
             <Button size="lg" variant="outline">
               Browse Manually
             </Button>
