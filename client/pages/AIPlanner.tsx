@@ -315,7 +315,12 @@ export default function AIPlanner() {
                   {isListening && (
                     <div className="mt-2 flex items-center space-x-2 text-sm text-travel-blue">
                       <div className="w-2 h-2 bg-travel-blue rounded-full animate-pulse"></div>
-                      <span>Listening... Speak now</span>
+                      <span>🎤 Listening... Speak now (click stop when done)</span>
+                    </div>
+                  )}
+                  {!speechSupported && (
+                    <div className="mt-2 text-sm text-muted-foreground">
+                      ℹ️ Voice input requires a modern browser. Please type your request instead.
                     </div>
                   )}
                 </div>
