@@ -8,12 +8,19 @@ interface SpeechRecognition extends EventTarget {
   start(): void;
   stop(): void;
   onresult: (event: SpeechRecognitionEvent) => void;
+  onstart: () => void;
   onend: () => void;
+  onerror: (event: SpeechRecognitionErrorEvent) => void;
 }
 
 interface SpeechRecognitionEvent {
   resultIndex: number;
   results: SpeechRecognitionResultList;
+}
+
+interface SpeechRecognitionErrorEvent {
+  error: string;
+  message: string;
 }
 
 interface SpeechRecognitionResultList {
@@ -22,11 +29,13 @@ interface SpeechRecognitionResultList {
 }
 
 interface SpeechRecognitionResult {
+  isFinal: boolean;
   [index: number]: SpeechRecognitionAlternative;
 }
 
 interface SpeechRecognitionAlternative {
   transcript: string;
+  confidence: number;
 }
 
 interface Window {
