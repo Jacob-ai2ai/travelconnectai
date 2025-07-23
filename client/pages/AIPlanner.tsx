@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
-import { 
-  Mic, 
+import {
+  Mic,
   MicOff,
   Send,
   Sparkles,
@@ -20,7 +20,7 @@ import {
   Clock,
   Star,
   ArrowLeft,
-  Edit3
+  Edit3,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -60,29 +60,48 @@ export default function AIPlanner() {
       price: 899,
       priceType: "per person",
       rating: 4.2,
-      highlights: ["Ubud Rice Terraces", "Temple Visits", "Local Markets", "Beach Time"],
+      highlights: [
+        "Ubud Rice Terraces",
+        "Temple Visits",
+        "Local Markets",
+        "Beach Time",
+      ],
       category: "budget",
       itinerary: [
         {
           day: 1,
-          activities: ["Arrival in Denpasar", "Transfer to Ubud", "Welcome dinner"],
+          activities: [
+            "Arrival in Denpasar",
+            "Transfer to Ubud",
+            "Welcome dinner",
+          ],
           accommodation: "Budget Guesthouse in Ubud",
-          meals: ["Dinner"]
+          meals: ["Dinner"],
         },
         {
           day: 2,
-          activities: ["Tegallalang Rice Terraces", "Sacred Monkey Forest", "Traditional Market"],
+          activities: [
+            "Tegallalang Rice Terraces",
+            "Sacred Monkey Forest",
+            "Traditional Market",
+          ],
           accommodation: "Budget Guesthouse in Ubud",
-          meals: ["Breakfast", "Lunch", "Dinner"]
+          meals: ["Breakfast", "Lunch", "Dinner"],
         },
         {
           day: 3,
           activities: ["Temple hopping", "Cooking class", "Cultural show"],
           accommodation: "Budget Guesthouse in Ubud",
-          meals: ["Breakfast", "Lunch", "Dinner"]
-        }
+          meals: ["Breakfast", "Lunch", "Dinner"],
+        },
       ],
-      includes: ["Accommodation", "Daily breakfast", "Airport transfers", "Local guide", "Entrance fees"]
+      includes: [
+        "Accommodation",
+        "Daily breakfast",
+        "Airport transfers",
+        "Local guide",
+        "Entrance fees",
+      ],
     },
     {
       id: "standard-bali",
@@ -91,29 +110,48 @@ export default function AIPlanner() {
       price: 1599,
       priceType: "per person",
       rating: 4.6,
-      highlights: ["Luxury Resort Stay", "Private Tours", "Spa Treatments", "Fine Dining"],
+      highlights: [
+        "Luxury Resort Stay",
+        "Private Tours",
+        "Spa Treatments",
+        "Fine Dining",
+      ],
       category: "standard",
       itinerary: [
         {
           day: 1,
-          activities: ["VIP airport pickup", "Resort check-in", "Sunset dinner"],
+          activities: [
+            "VIP airport pickup",
+            "Resort check-in",
+            "Sunset dinner",
+          ],
           accommodation: "4-Star Resort in Seminyak",
-          meals: ["Welcome drink", "Dinner"]
+          meals: ["Welcome drink", "Dinner"],
         },
         {
           day: 2,
-          activities: ["Private Ubud tour", "Rice terrace walk", "Spa treatment"],
+          activities: [
+            "Private Ubud tour",
+            "Rice terrace walk",
+            "Spa treatment",
+          ],
           accommodation: "4-Star Resort in Seminyak",
-          meals: ["Breakfast", "Lunch", "Dinner"]
+          meals: ["Breakfast", "Lunch", "Dinner"],
         },
         {
           day: 3,
           activities: ["Water sports", "Beach club", "Sunset viewing"],
           accommodation: "4-Star Resort in Seminyak",
-          meals: ["Breakfast", "Lunch", "Dinner"]
-        }
+          meals: ["Breakfast", "Lunch", "Dinner"],
+        },
       ],
-      includes: ["4-star accommodation", "All meals", "Private transfers", "Spa session", "Activities"]
+      includes: [
+        "4-star accommodation",
+        "All meals",
+        "Private transfers",
+        "Spa session",
+        "Activities",
+      ],
     },
     {
       id: "luxury-bali",
@@ -122,44 +160,68 @@ export default function AIPlanner() {
       price: 3299,
       priceType: "per person",
       rating: 4.9,
-      highlights: ["5-Star Villas", "Private Butler", "Helicopter Tours", "Michelin Dining"],
+      highlights: [
+        "5-Star Villas",
+        "Private Butler",
+        "Helicopter Tours",
+        "Michelin Dining",
+      ],
       category: "luxury",
       itinerary: [
         {
           day: 1,
-          activities: ["Private jet arrival", "Villa check-in", "Private chef dinner"],
+          activities: [
+            "Private jet arrival",
+            "Villa check-in",
+            "Private chef dinner",
+          ],
           accommodation: "5-Star Private Villa",
-          meals: ["Champagne welcome", "Gourmet dinner"]
+          meals: ["Champagne welcome", "Gourmet dinner"],
         },
         {
           day: 2,
-          activities: ["Helicopter island tour", "Private yacht", "Spa treatment"],
+          activities: [
+            "Helicopter island tour",
+            "Private yacht",
+            "Spa treatment",
+          ],
           accommodation: "5-Star Private Villa",
-          meals: ["Breakfast", "Lunch", "Fine dining"]
+          meals: ["Breakfast", "Lunch", "Fine dining"],
         },
         {
           day: 3,
-          activities: ["Private temple tour", "Cooking with celebrity chef", "Cultural performance"],
+          activities: [
+            "Private temple tour",
+            "Cooking with celebrity chef",
+            "Cultural performance",
+          ],
           accommodation: "5-Star Private Villa",
-          meals: ["Breakfast", "Lunch", "Michelin dinner"]
-        }
+          meals: ["Breakfast", "Lunch", "Michelin dinner"],
+        },
       ],
-      includes: ["Luxury villa", "Private butler", "All transfers", "All activities", "Fine dining"]
-    }
+      includes: [
+        "Luxury villa",
+        "Private butler",
+        "All transfers",
+        "All activities",
+        "Fine dining",
+      ],
+    },
   ];
 
   useEffect(() => {
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+    if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
       setSpeechSupported(true);
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
       recognitionRef.current = new SpeechRecognition();
       recognitionRef.current.continuous = false;
       recognitionRef.current.interimResults = true;
-      recognitionRef.current.lang = 'en-US';
+      recognitionRef.current.lang = "en-US";
 
       recognitionRef.current.onresult = (event) => {
-        let finalTranscript = '';
-        let interimTranscript = '';
+        let finalTranscript = "";
+        let interimTranscript = "";
 
         for (let i = event.resultIndex; i < event.results.length; i++) {
           const transcript = event.results[i][0].transcript;
@@ -171,7 +233,7 @@ export default function AIPlanner() {
         }
 
         if (finalTranscript) {
-          setPrompt(prev => prev + ' ' + finalTranscript);
+          setPrompt((prev) => prev + " " + finalTranscript);
         }
       };
 
@@ -184,10 +246,12 @@ export default function AIPlanner() {
       };
 
       recognitionRef.current.onerror = (event) => {
-        console.error('Speech recognition error:', event.error);
+        console.error("Speech recognition error:", event.error);
         setIsListening(false);
-        if (event.error === 'not-allowed') {
-          alert('Microphone access is required for voice input. Please allow microphone access and try again.');
+        if (event.error === "not-allowed") {
+          alert(
+            "Microphone access is required for voice input. Please allow microphone access and try again.",
+          );
         }
       };
     } else {
@@ -200,7 +264,7 @@ export default function AIPlanner() {
       try {
         recognitionRef.current.start();
       } catch (error) {
-        console.error('Error starting speech recognition:', error);
+        console.error("Error starting speech recognition:", error);
         setIsListening(false);
       }
     }
@@ -211,7 +275,7 @@ export default function AIPlanner() {
       try {
         recognitionRef.current.stop();
       } catch (error) {
-        console.error('Error stopping speech recognition:', error);
+        console.error("Error stopping speech recognition:", error);
         setIsListening(false);
       }
     }
@@ -219,12 +283,12 @@ export default function AIPlanner() {
 
   const generateItinerary = async () => {
     if (!prompt.trim()) return;
-    
+
     setIsGenerating(true);
-    
+
     // Simulate AI processing
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     setTourPlans(sampleTourPlans);
     setIsGenerating(false);
     setShowResults(true);
@@ -232,19 +296,27 @@ export default function AIPlanner() {
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case "budget": return "bg-travel-green/10 text-travel-green border-travel-green/20";
-      case "standard": return "bg-travel-blue/10 text-travel-blue border-travel-blue/20";
-      case "luxury": return "bg-travel-purple/10 text-travel-purple border-travel-purple/20";
-      default: return "bg-muted";
+      case "budget":
+        return "bg-travel-green/10 text-travel-green border-travel-green/20";
+      case "standard":
+        return "bg-travel-blue/10 text-travel-blue border-travel-blue/20";
+      case "luxury":
+        return "bg-travel-purple/10 text-travel-purple border-travel-purple/20";
+      default:
+        return "bg-muted";
     }
   };
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case "budget": return "💰";
-      case "standard": return "⭐";
-      case "luxury": return "👑";
-      default: return "🌟";
+      case "budget":
+        return "💰";
+      case "standard":
+        return "⭐";
+      case "luxury":
+        return "👑";
+      default:
+        return "🌟";
     }
   };
 
@@ -254,7 +326,10 @@ export default function AIPlanner() {
       <header className="border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-4">
-            <Link to="/" className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors">
+            <Link
+              to="/"
+              className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors"
+            >
               <ArrowLeft className="h-5 w-5" />
               <span>Back to Home</span>
             </Link>
@@ -283,7 +358,9 @@ export default function AIPlanner() {
                 </span>
               </h1>
               <p className="text-xl text-muted-foreground mb-8">
-                Just describe where you want to go, when, and with whom. Our AI will create personalized itineraries with multiple options and budgets.
+                Just describe where you want to go, when, and with whom. Our AI
+                will create personalized itineraries with multiple options and
+                budgets.
               </p>
             </div>
 
@@ -307,20 +384,33 @@ export default function AIPlanner() {
                       className="absolute bottom-3 right-3"
                       onClick={isListening ? stopListening : startListening}
                       disabled={!speechSupported}
-                      title={speechSupported ? (isListening ? "Stop listening" : "Start voice input") : "Voice input not supported in this browser"}
+                      title={
+                        speechSupported
+                          ? isListening
+                            ? "Stop listening"
+                            : "Start voice input"
+                          : "Voice input not supported in this browser"
+                      }
                     >
-                      {isListening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
+                      {isListening ? (
+                        <MicOff className="h-4 w-4" />
+                      ) : (
+                        <Mic className="h-4 w-4" />
+                      )}
                     </Button>
                   </div>
                   {isListening && (
                     <div className="mt-2 flex items-center space-x-2 text-sm text-travel-blue">
                       <div className="w-2 h-2 bg-travel-blue rounded-full animate-pulse"></div>
-                      <span>🎤 Listening... Speak now (click stop when done)</span>
+                      <span>
+                        🎤 Listening... Speak now (click stop when done)
+                      </span>
                     </div>
                   )}
                   {!speechSupported && (
                     <div className="mt-2 text-sm text-muted-foreground">
-                      ℹ️ Voice input requires a modern browser. Please type your request instead.
+                      ℹ️ Voice input requires a modern browser. Please type your
+                      request instead.
                     </div>
                   )}
                 </div>
@@ -347,23 +437,26 @@ export default function AIPlanner() {
                 </div>
 
                 <div className="text-sm text-muted-foreground">
-                  💡 <strong>Pro tip:</strong> Be specific about your interests, budget, and travel style for better recommendations!
+                  💡 <strong>Pro tip:</strong> Be specific about your interests,
+                  budget, and travel style for better recommendations!
                 </div>
               </div>
             </Card>
 
             {/* Sample Prompts */}
             <div className="mt-12">
-              <h3 className="text-lg font-semibold mb-4">Need inspiration? Try these:</h3>
+              <h3 className="text-lg font-semibold mb-4">
+                Need inspiration? Try these:
+              </h3>
               <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
                 {[
                   "Planning a family trip to Japan for 10 days with 2 kids, love theme parks and cultural sites",
                   "Romantic honeymoon in Maldives for 5 days, luxury resorts and water activities",
                   "Adventure trip to New Zealand for 14 days, hiking, bungee jumping, and scenic drives",
-                  "Cultural exploration of Morocco for 8 days, traditional markets, desert, and historical sites"
+                  "Cultural exploration of Morocco for 8 days, traditional markets, desert, and historical sites",
                 ].map((example, index) => (
-                  <Card 
-                    key={index} 
+                  <Card
+                    key={index}
                     className="p-4 cursor-pointer hover:shadow-md transition-shadow border-travel-orange/20 hover:border-travel-orange/40"
                     onClick={() => setPrompt(example)}
                   >
@@ -384,10 +477,11 @@ export default function AIPlanner() {
                 Your Personalized Trip Options
               </h2>
               <p className="text-lg text-muted-foreground mb-6">
-                We've created multiple itineraries based on your preferences. Choose the one that fits your style and budget.
+                We've created multiple itineraries based on your preferences.
+                Choose the one that fits your style and budget.
               </p>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 onClick={() => setShowResults(false)}
                 className="mb-6"
               >
@@ -399,15 +493,24 @@ export default function AIPlanner() {
             {/* Tour Plans Grid */}
             <div className="grid lg:grid-cols-3 gap-6">
               {tourPlans.map((plan) => (
-                <Card key={plan.id} className="overflow-hidden hover:shadow-xl transition-shadow">
+                <Card
+                  key={plan.id}
+                  className="overflow-hidden hover:shadow-xl transition-shadow"
+                >
                   <CardHeader className="pb-4">
                     <div className="flex items-center justify-between mb-2">
-                      <Badge className={`${getCategoryColor(plan.category)} border`}>
-                        {getCategoryIcon(plan.category)} {plan.category.charAt(0).toUpperCase() + plan.category.slice(1)}
+                      <Badge
+                        className={`${getCategoryColor(plan.category)} border`}
+                      >
+                        {getCategoryIcon(plan.category)}{" "}
+                        {plan.category.charAt(0).toUpperCase() +
+                          plan.category.slice(1)}
                       </Badge>
                       <div className="flex items-center space-x-1">
                         <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                        <span className="text-sm font-medium">{plan.rating}</span>
+                        <span className="text-sm font-medium">
+                          {plan.rating}
+                        </span>
                       </div>
                     </div>
                     <CardTitle className="text-xl mb-2">{plan.title}</CardTitle>
@@ -418,7 +521,9 @@ export default function AIPlanner() {
                       </div>
                       <div className="flex items-center space-x-1">
                         <DollarSign className="h-4 w-4" />
-                        <span>${plan.price} {plan.priceType}</span>
+                        <span>
+                          ${plan.price} {plan.priceType}
+                        </span>
                       </div>
                     </div>
                   </CardHeader>
@@ -432,7 +537,11 @@ export default function AIPlanner() {
                       </h4>
                       <div className="flex flex-wrap gap-1">
                         {plan.highlights.map((highlight, index) => (
-                          <Badge key={index} variant="secondary" className="text-xs">
+                          <Badge
+                            key={index}
+                            variant="secondary"
+                            className="text-xs"
+                          >
                             {highlight}
                           </Badge>
                         ))}
@@ -463,7 +572,10 @@ export default function AIPlanner() {
                       <h4 className="font-semibold mb-2">Includes</h4>
                       <div className="space-y-1">
                         {plan.includes.slice(0, 3).map((item, index) => (
-                          <div key={index} className="text-sm text-muted-foreground flex items-center">
+                          <div
+                            key={index}
+                            className="text-sm text-muted-foreground flex items-center"
+                          >
                             <div className="w-1.5 h-1.5 bg-travel-green rounded-full mr-2"></div>
                             {item}
                           </div>
@@ -493,7 +605,9 @@ export default function AIPlanner() {
 
             {/* Additional Options */}
             <div className="mt-12 text-center">
-              <h3 className="text-xl font-semibold mb-4">Want Something Different?</h3>
+              <h3 className="text-xl font-semibold mb-4">
+                Want Something Different?
+              </h3>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button variant="outline" onClick={() => setShowResults(false)}>
                   <Edit3 className="h-4 w-4 mr-2" />
