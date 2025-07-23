@@ -277,6 +277,12 @@ export default function TripDetails() {
             </span>
           </div>
           <div className="flex items-center space-x-2">
+            <Link to={`/route-map/${planId}`}>
+              <Button variant="outline" size="sm">
+                <Route className="h-4 w-4 mr-2" />
+                Route Map
+              </Button>
+            </Link>
             <Button variant="outline" size="sm">
               <Heart className="h-4 w-4 mr-2" />
               Save
