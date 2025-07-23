@@ -151,20 +151,42 @@ export default function AIPlanner() {
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       recognitionRef.current = new SpeechRecognition();
-      recognitionRef.current.continuous = true;
+      recognitionRef.current.continuous = false;
       recognitionRef.current.interimResults = true;
       recognitionRef.current.lang = 'en-US';
 
       recognitionRef.current.onresult = (event) => {
-        let transcript = '';
+        let finalTranscript = '';
+        let interimTranscript = '';
+
         for (let i = event.resultIndex; i < event.results.length; i++) {
-          transcript += event.results[i][0].transcript;
+          const transcript = event.results[i][0].transcript;
+          if (event.results[i].isFinal) {
+            finalTranscript += transcript;
+          } else {
+            interimTranscript += transcript;
+          }
         }
-        setPrompt(transcript);
+
+        if (finalTranscript) {
+          setPrompt(prev => prev + ' ' + finalTranscript);
+        }
+      };
+
+      recognitionRef.current.onstart = () => {
+        setIsListening(true);
       };
 
       recognitionRef.current.onend = () => {
         setIsListening(false);
+      };
+
+      recognitionRef.current.onerror = (event) => {
+        console.error('Speech recognition error:', event.error);
+        setIsListening(false);
+        if (event.error === 'not-allowed') {
+          alert('Microphone access is required for voice input. Please allow microphone access and try again.');
+        }
       };
     }
   }, []);
