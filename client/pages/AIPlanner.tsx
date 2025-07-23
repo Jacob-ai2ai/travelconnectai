@@ -439,9 +439,11 @@ export default function AIPlanner() {
                       <Button className="w-full bg-travel-blue hover:bg-travel-blue/90">
                         Select This Plan
                       </Button>
-                      <Button variant="outline" className="w-full">
-                        View Full Details
-                      </Button>
+                      <Link to={`/trip-details/${plan.id}`}>
+                        <Button variant="outline" className="w-full">
+                          View Full Details
+                        </Button>
+                      </Link>
                     </div>
                   </CardContent>
                 </Card>
