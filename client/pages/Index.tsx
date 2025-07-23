@@ -159,9 +159,11 @@ export default function Index() {
                 Tell us your destination, dates, and travelers. We'll create
                 complete itineraries with budget options.
               </p>
-              <Button className="w-full bg-travel-blue hover:bg-travel-blue/90">
-                Start AI Planning
-              </Button>
+              <Link to="/ai-planner">
+                <Button className="w-full bg-travel-blue hover:bg-travel-blue/90">
+                  Start AI Planning
+                </Button>
+              </Link>
             </Card>
 
             <Card className="flex-1 max-w-md p-6 border-2 border-travel-orange/20 hover:border-travel-orange/50 transition-colors cursor-pointer">
