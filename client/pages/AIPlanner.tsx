@@ -48,6 +48,7 @@ export default function AIPlanner() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [tourPlans, setTourPlans] = useState<TourPlan[]>([]);
+  const [speechSupported, setSpeechSupported] = useState(false);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
 
   // Sample tour plans data
