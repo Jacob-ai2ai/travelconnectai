@@ -306,6 +306,8 @@ export default function AIPlanner() {
                       variant={isListening ? "destructive" : "outline"}
                       className="absolute bottom-3 right-3"
                       onClick={isListening ? stopListening : startListening}
+                      disabled={!speechSupported}
+                      title={speechSupported ? (isListening ? "Stop listening" : "Start voice input") : "Voice input not supported in this browser"}
                     >
                       {isListening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
                     </Button>
