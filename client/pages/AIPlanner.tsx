@@ -190,6 +190,8 @@ export default function AIPlanner() {
           alert('Microphone access is required for voice input. Please allow microphone access and try again.');
         }
       };
+    } else {
+      setSpeechSupported(false);
     }
   }, []);
 
