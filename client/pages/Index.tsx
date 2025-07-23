@@ -1,23 +1,23 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Plane, 
-  Home, 
-  Mountain, 
-  Calendar, 
-  Ticket, 
-  Wallet, 
-  Gift, 
-  Video, 
-  TrendingUp, 
+import {
+  Plane,
+  Home,
+  Mountain,
+  Calendar,
+  Ticket,
+  Wallet,
+  Gift,
+  Video,
+  TrendingUp,
   MapPin,
   Sparkles,
   Bot,
   Clock,
   Shield,
   Users,
-  Star
+  Star,
 } from "lucide-react";
 
 export default function Index() {
@@ -26,65 +26,68 @@ export default function Index() {
       icon: Home,
       title: "Vacation Rentals",
       description: "Beautiful properties worldwide with live virtual tours",
-      color: "travel-blue"
+      color: "travel-blue",
     },
     {
       icon: Plane,
       title: "Flights & Transport",
       description: "Best deals on flights, trains, and local commute",
-      color: "travel-orange"
+      color: "travel-orange",
     },
     {
       icon: Mountain,
       title: "Experiences",
       description: "Adventure sports, theme parks, food tours & camping",
-      color: "travel-green"
+      color: "travel-green",
     },
     {
       icon: Ticket,
       title: "Events",
       description: "Concerts, festivals, sports tickets & competitions",
-      color: "travel-purple"
+      color: "travel-purple",
     },
     {
       icon: Gift,
       title: "Travel Essentials",
       description: "Accessories, gear, and everything you need",
-      color: "travel-blue"
-    }
+      color: "travel-blue",
+    },
   ];
 
   const features = [
     {
       icon: Video,
       title: "Live Streaming",
-      description: "Request live demos and virtual property tours before booking"
+      description:
+        "Request live demos and virtual property tours before booking",
     },
     {
       icon: TrendingUp,
       title: "AI Promo Builder",
-      description: "Smart promotions based on your behavior and unsold inventory"
+      description:
+        "Smart promotions based on your behavior and unsold inventory",
     },
     {
       icon: MapPin,
       title: "Traveler's Radar",
-      description: "Discover nearby attractions within 50km of your destination"
+      description:
+        "Discover nearby attractions within 50km of your destination",
     },
     {
       icon: Calendar,
       title: "Smart Calendar",
-      description: "Prevents double bookings across all platforms"
+      description: "Prevents double bookings across all platforms",
     },
     {
       icon: Wallet,
       title: "Travel Wallet",
-      description: "Digital wallet with rewards and instant booking"
+      description: "Digital wallet with rewards and instant booking",
     },
     {
       icon: Sparkles,
       title: "Rewards System",
-      description: "Earn digital coins for bookings and referrals"
-    }
+      description: "Earn digital coins for bookings and referrals",
+    },
   ];
 
   return (
@@ -101,9 +104,24 @@ export default function Index() {
             </span>
           </div>
           <nav className="hidden md:flex items-center space-x-6">
-            <a href="#services" className="text-foreground/80 hover:text-foreground transition-colors">Services</a>
-            <a href="#features" className="text-foreground/80 hover:text-foreground transition-colors">Features</a>
-            <a href="#pricing" className="text-foreground/80 hover:text-foreground transition-colors">Pricing</a>
+            <a
+              href="#services"
+              className="text-foreground/80 hover:text-foreground transition-colors"
+            >
+              Services
+            </a>
+            <a
+              href="#features"
+              className="text-foreground/80 hover:text-foreground transition-colors"
+            >
+              Features
+            </a>
+            <a
+              href="#pricing"
+              className="text-foreground/80 hover:text-foreground transition-colors"
+            >
+              Pricing
+            </a>
             <Button variant="outline">Sign In</Button>
             <Button>Get Started</Button>
           </nav>
@@ -124,8 +142,8 @@ export default function Index() {
             Booking
           </h1>
           <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-            From vacation rentals to adventure experiences, book everything with live demos, 
-            smart deals, and complete AI-generated itineraries.
+            From vacation rentals to adventure experiences, book everything with
+            live demos, smart deals, and complete AI-generated itineraries.
           </p>
 
           {/* AI vs Manual Booking Choice */}
@@ -138,7 +156,8 @@ export default function Index() {
                 <h3 className="font-semibold">Book with AI</h3>
               </div>
               <p className="text-sm text-muted-foreground mb-4">
-                Tell us your destination, dates, and travelers. We'll create complete itineraries with budget options.
+                Tell us your destination, dates, and travelers. We'll create
+                complete itineraries with budget options.
               </p>
               <Button className="w-full bg-travel-blue hover:bg-travel-blue/90">
                 Start AI Planning
@@ -153,9 +172,13 @@ export default function Index() {
                 <h3 className="font-semibold">Book Manually</h3>
               </div>
               <p className="text-sm text-muted-foreground mb-4">
-                Browse and book each service individually with full control over your travel choices.
+                Browse and book each service individually with full control over
+                your travel choices.
               </p>
-              <Button variant="outline" className="w-full border-travel-orange text-travel-orange hover:bg-travel-orange hover:text-white">
+              <Button
+                variant="outline"
+                className="w-full border-travel-orange text-travel-orange hover:bg-travel-orange hover:text-white"
+              >
                 Explore Services
               </Button>
             </Card>
@@ -186,7 +209,8 @@ export default function Index() {
               Everything You Need for Travel
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Book all aspects of your journey in one place with AI-powered recommendations and live previews.
+              Book all aspects of your journey in one place with AI-powered
+              recommendations and live previews.
             </p>
           </div>
 
@@ -194,13 +218,22 @@ export default function Index() {
             {services.map((service, index) => {
               const Icon = service.icon;
               return (
-                <Card key={index} className="p-6 hover:shadow-lg transition-shadow border-0 bg-white/80 backdrop-blur">
+                <Card
+                  key={index}
+                  className="p-6 hover:shadow-lg transition-shadow border-0 bg-white/80 backdrop-blur"
+                >
                   <CardContent className="p-0">
-                    <div className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-${service.color}/10`}>
+                    <div
+                      className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-${service.color}/10`}
+                    >
                       <Icon className={`h-6 w-6 text-${service.color}`} />
                     </div>
-                    <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
-                    <p className="text-muted-foreground">{service.description}</p>
+                    <h3 className="text-xl font-semibold mb-2">
+                      {service.title}
+                    </h3>
+                    <p className="text-muted-foreground">
+                      {service.description}
+                    </p>
                   </CardContent>
                 </Card>
               );
@@ -217,7 +250,8 @@ export default function Index() {
               Advanced Features for Modern Travelers
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Cutting-edge technology to enhance your booking experience and travel planning.
+              Cutting-edge technology to enhance your booking experience and
+              travel planning.
             </p>
           </div>
 
@@ -229,7 +263,9 @@ export default function Index() {
                   <div className="w-16 h-16 bg-gradient-to-br from-travel-blue/10 to-travel-purple/10 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <Icon className="h-8 w-8 text-travel-blue" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                  <h3 className="text-xl font-semibold mb-2">
+                    {feature.title}
+                  </h3>
                   <p className="text-muted-foreground">{feature.description}</p>
                 </div>
               );
@@ -246,18 +282,21 @@ export default function Index() {
               Travel Wallet & Rewards
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Earn digital coins with every booking, referral, and achievement. 
+              Earn digital coins with every booking, referral, and achievement.
               Use your travel wallet for instant bookings and exclusive deals.
             </p>
-            
+
             <div className="grid md:grid-cols-2 gap-8">
               <Card className="p-8 border-0 bg-white/80 backdrop-blur">
                 <div className="w-16 h-16 bg-travel-blue/10 rounded-xl flex items-center justify-center mx-auto mb-4">
                   <Wallet className="h-8 w-8 text-travel-blue" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Digital Travel Wallet</h3>
+                <h3 className="text-xl font-semibold mb-2">
+                  Digital Travel Wallet
+                </h3>
                 <p className="text-muted-foreground mb-4">
-                  Preload funds and book instantly. Track spending and get exclusive wallet-only deals.
+                  Preload funds and book instantly. Track spending and get
+                  exclusive wallet-only deals.
                 </p>
                 <Button variant="outline">Setup Wallet</Button>
               </Card>
@@ -268,7 +307,8 @@ export default function Index() {
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Rewards Program</h3>
                 <p className="text-muted-foreground mb-4">
-                  Earn coins for bookings, reviews, referrals. Redeem for travel credits and upgrades.
+                  Earn coins for bookings, reviews, referrals. Redeem for travel
+                  credits and upgrades.
                 </p>
                 <Button variant="outline">Join Rewards</Button>
               </Card>
@@ -284,10 +324,14 @@ export default function Index() {
             Ready to Start Your Journey?
           </h2>
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Join thousands of travelers using AI to plan better trips, save money, and discover amazing experiences.
+            Join thousands of travelers using AI to plan better trips, save
+            money, and discover amazing experiences.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-travel-blue hover:bg-travel-blue/90">
+            <Button
+              size="lg"
+              className="bg-travel-blue hover:bg-travel-blue/90"
+            >
               Start Planning with AI
             </Button>
             <Button size="lg" variant="outline">
@@ -310,14 +354,23 @@ export default function Index() {
               </span>
             </div>
             <div className="flex items-center space-x-6 text-sm text-muted-foreground">
-              <a href="#" className="hover:text-foreground transition-colors">Privacy</a>
-              <a href="#" className="hover:text-foreground transition-colors">Terms</a>
-              <a href="#" className="hover:text-foreground transition-colors">Support</a>
-              <a href="#" className="hover:text-foreground transition-colors">About</a>
+              <a href="#" className="hover:text-foreground transition-colors">
+                Privacy
+              </a>
+              <a href="#" className="hover:text-foreground transition-colors">
+                Terms
+              </a>
+              <a href="#" className="hover:text-foreground transition-colors">
+                Support
+              </a>
+              <a href="#" className="hover:text-foreground transition-colors">
+                About
+              </a>
             </div>
           </div>
           <div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
-            © 2024 Traveltheworld.ai. All rights reserved. Powered by AI technology.
+            © 2024 Traveltheworld.ai. All rights reserved. Powered by AI
+            technology.
           </div>
         </div>
       </footer>
