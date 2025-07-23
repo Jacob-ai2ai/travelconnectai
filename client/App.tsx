@@ -33,14 +33,12 @@ const App = () => (
   </QueryClientProvider>
 );
 
+// Only create root if we're not in a development environment that might re-execute this module
 const container = document.getElementById("root")!;
+let root: any;
 
-// Check if root already exists to prevent multiple createRoot calls
-if (!container._reactRootContainer) {
-  const root = createRoot(container);
-  container._reactRootContainer = root;
+// Check if a root already exists on this container
+if (!(container as any)._reactInternalInstance) {
+  root = createRoot(container);
   root.render(<App />);
-} else {
-  // If root already exists, just render to the existing root
-  container._reactRootContainer.render(<App />);
 }
