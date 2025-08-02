@@ -99,7 +99,7 @@ export default function Stays() {
     { id: "riad", name: "Riads", category: "exotic", icon: "🕌", description: "Traditional Moroccan home with courtyards", emoji: "🏝️" },
 
     // Unique & Alternative Stays
-    { id: "treehouse", name: "Treehouses", category: "unique", icon: "🌳", description: "Elevated homes in trees, boutique eco-style", emoji: "🏞️" },
+    { id: "treehouse", name: "Treehouses", category: "unique", icon: "🌳", description: "Elevated homes in trees, boutique eco-style", emoji: "��️" },
     { id: "aframe", name: "A-Frames", category: "unique", icon: "⛺", description: "Triangular design, compact yet trendy", emoji: "🏞️" },
     { id: "yurt", name: "Yurts", category: "unique", icon: "⛺", description: "Circular tent-like structure for glamping", emoji: "🏞️" },
     { id: "tiny-house", name: "Tiny Houses", category: "unique", icon: "🏠", description: "Minimalist and mobile, often off-grid", emoji: "🏞️" },
@@ -639,7 +639,7 @@ export default function Stays() {
                       Join Live Tour
                     </Button>
                     <Button variant="outline" className="w-full" size="sm">
-                      Book Property
+                      Book Now
                     </Button>
                   </div>
                 </CardContent>
