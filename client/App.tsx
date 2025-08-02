@@ -12,6 +12,7 @@ import Flights from "./pages/Flights";
 import Xperiences from "./pages/Xperiences";
 import Events from "./pages/Events";
 import Essentials from "./pages/Essentials";
+import ExploreServices from "./pages/ExploreServices";
 import ListProperty from "./pages/ListProperty";
 import NotFound from "./pages/NotFound";
 
