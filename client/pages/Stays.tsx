@@ -680,10 +680,12 @@ export default function Stays() {
               )}
               
               {/* List Property Button */}
-              <Button size="sm" className="bg-travel-orange hover:bg-travel-orange/90">
-                <Plus className="h-4 w-4 mr-2" />
-                List My Property
-              </Button>
+              <Link to="/list-property">
+                <Button size="sm" className="bg-travel-orange hover:bg-travel-orange/90">
+                  <Plus className="h-4 w-4 mr-2" />
+                  List My Property
+                </Button>
+              </Link>
             </div>
           </div>
 
