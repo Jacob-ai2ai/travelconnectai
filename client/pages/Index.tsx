@@ -105,12 +105,12 @@ export default function Index() {
             </span>
           </div>
           <nav className="hidden md:flex items-center space-x-6">
-            <a
-              href="#stays"
+            <Link
+              to="/stays"
               className="text-foreground/80 hover:text-foreground transition-colors"
             >
               Stays
-            </a>
+            </Link>
             <a
               href="#flights"
               className="text-foreground/80 hover:text-foreground transition-colors"
