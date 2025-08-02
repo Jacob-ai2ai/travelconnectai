@@ -99,7 +99,7 @@ export default function Stays() {
     { id: "riad", name: "Riads", category: "exotic", icon: "🕌", description: "Traditional Moroccan home with courtyards", emoji: "🏝️" },
 
     // Unique & Alternative Stays
-    { id: "treehouse", name: "Treehouses", category: "unique", icon: "🌳", description: "Elevated homes in trees, boutique eco-style", emoji: "��️" },
+    { id: "treehouse", name: "Treehouses", category: "unique", icon: "🌳", description: "Elevated homes in trees, boutique eco-style", emoji: "🏞️" },
     { id: "aframe", name: "A-Frames", category: "unique", icon: "⛺", description: "Triangular design, compact yet trendy", emoji: "🏞️" },
     { id: "yurt", name: "Yurts", category: "unique", icon: "⛺", description: "Circular tent-like structure for glamping", emoji: "🏞️" },
     { id: "tiny-house", name: "Tiny Houses", category: "unique", icon: "🏠", description: "Minimalist and mobile, often off-grid", emoji: "🏞️" },
@@ -460,12 +460,15 @@ export default function Stays() {
             </div>
             
             <div className="flex items-center space-x-4">
-              {/* Current Location */}
-              <div className="flex items-center space-x-2 text-sm">
-                <MapPin className="h-4 w-4 text-travel-blue" />
-                <span className="text-muted-foreground">
-                  {isLoadingLocation ? "Detecting..." : currentLocation}
-                </span>
+              {/* Location Search */}
+              <div className="relative min-w-[250px]">
+                <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-travel-blue" />
+                <Input
+                  placeholder="Current location"
+                  value={isLoadingLocation ? "Detecting..." : currentLocation}
+                  onChange={(e) => setCurrentLocation(e.target.value)}
+                  className="pl-10 pr-4 text-sm"
+                />
               </div>
               
               {/* Travel Wallet */}
