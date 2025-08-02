@@ -106,25 +106,37 @@ export default function Index() {
           </div>
           <nav className="hidden md:flex items-center space-x-6">
             <a
-              href="#services"
+              href="#stays"
               className="text-foreground/80 hover:text-foreground transition-colors"
             >
-              Services
+              Stays
             </a>
             <a
-              href="#features"
+              href="#flights"
               className="text-foreground/80 hover:text-foreground transition-colors"
             >
-              Features
+              Flights
             </a>
             <a
-              href="#pricing"
+              href="#experiences"
               className="text-foreground/80 hover:text-foreground transition-colors"
             >
-              Pricing
+              Xperiences
+            </a>
+            <a
+              href="#events"
+              className="text-foreground/80 hover:text-foreground transition-colors"
+            >
+              Events
+            </a>
+            <a
+              href="#essentials"
+              className="text-foreground/80 hover:text-foreground transition-colors"
+            >
+              Essentials
             </a>
             <Button variant="outline">Sign In</Button>
-            <Button>Get Started</Button>
+            <Button>Become a Merchant</Button>
           </nav>
         </div>
       </header>
