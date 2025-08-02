@@ -8,6 +8,10 @@ import AIPlanner from "./pages/AIPlanner";
 import TripDetails from "./pages/TripDetails";
 import RouteMap from "./pages/RouteMap";
 import Stays from "./pages/Stays";
+import Flights from "./pages/Flights";
+import Xperiences from "./pages/Xperiences";
+import Events from "./pages/Events";
+import Essentials from "./pages/Essentials";
 import ListProperty from "./pages/ListProperty";
 import NotFound from "./pages/NotFound";
 
