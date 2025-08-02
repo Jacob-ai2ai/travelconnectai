@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { 
+import {
   ArrowLeft,
   Upload,
   MapPin,
@@ -20,7 +20,7 @@ import {
   AlertCircle,
   Sparkles,
   Video,
-  Tag
+  Tag,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -69,57 +69,105 @@ export default function ListProperty() {
     discountPercentage: 0,
     originalPrice: 0,
     hasLiveStream: false,
-    liveStreamSchedule: ""
+    liveStreamSchedule: "",
   });
-  
-  const [categorization, setCategorization] = useState<AutoCategorization | null>(null);
+
+  const [categorization, setCategorization] =
+    useState<AutoCategorization | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const amenityOptions = [
-    "WiFi", "Pool", "Gym", "Parking", "Kitchen", "AC", "Heating", 
-    "Balcony", "Garden", "Fireplace", "Hot Tub", "Beach Access", 
-    "Mountain View", "City View", "Pet Friendly", "24/7 Security"
+    "WiFi",
+    "Pool",
+    "Gym",
+    "Parking",
+    "Kitchen",
+    "AC",
+    "Heating",
+    "Balcony",
+    "Garden",
+    "Fireplace",
+    "Hot Tub",
+    "Beach Access",
+    "Mountain View",
+    "City View",
+    "Pet Friendly",
+    "24/7 Security",
   ];
 
   const propertyTypes = [
-    { id: "cabin", name: "Cabins", keywords: ["cabin", "log", "rustic", "forest", "mountain"] },
-    { id: "cottage", name: "Cottages", keywords: ["cottage", "countryside", "charming", "lakeside"] },
-    { id: "villa", name: "Villas", keywords: ["villa", "luxury", "private", "pool", "garden"] },
-    { id: "penthouse", name: "Penthouses", keywords: ["penthouse", "top floor", "city view", "luxury"] },
-    { id: "loft", name: "Lofts", keywords: ["loft", "industrial", "open plan", "urban"] },
-    { id: "bungalow", name: "Bungalows", keywords: ["bungalow", "tropical", "single story"] },
-    { id: "treehouse", name: "Treehouses", keywords: ["treehouse", "tree", "elevated", "nature"] },
-    { id: "tiny-house", name: "Tiny Houses", keywords: ["tiny", "small", "compact", "minimalist"] }
+    {
+      id: "cabin",
+      name: "Cabins",
+      keywords: ["cabin", "log", "rustic", "forest", "mountain"],
+    },
+    {
+      id: "cottage",
+      name: "Cottages",
+      keywords: ["cottage", "countryside", "charming", "lakeside"],
+    },
+    {
+      id: "villa",
+      name: "Villas",
+      keywords: ["villa", "luxury", "private", "pool", "garden"],
+    },
+    {
+      id: "penthouse",
+      name: "Penthouses",
+      keywords: ["penthouse", "top floor", "city view", "luxury"],
+    },
+    {
+      id: "loft",
+      name: "Lofts",
+      keywords: ["loft", "industrial", "open plan", "urban"],
+    },
+    {
+      id: "bungalow",
+      name: "Bungalows",
+      keywords: ["bungalow", "tropical", "single story"],
+    },
+    {
+      id: "treehouse",
+      name: "Treehouses",
+      keywords: ["treehouse", "tree", "elevated", "nature"],
+    },
+    {
+      id: "tiny-house",
+      name: "Tiny Houses",
+      keywords: ["tiny", "small", "compact", "minimalist"],
+    },
   ];
 
   const analyzeProperty = async () => {
     setIsAnalyzing(true);
-    
+
     // Simulate AI analysis delay
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     const analysis = performAutoCategorization(property);
     setCategorization(analysis);
     setIsAnalyzing(false);
   };
 
-  const performAutoCategorization = (prop: PropertyListing): AutoCategorization => {
+  const performAutoCategorization = (
+    prop: PropertyListing,
+  ): AutoCategorization => {
     const reasoning: string[] = [];
     let confidence = 85;
-    
+
     // Detect property type
     const description = (prop.title + " " + prop.description).toLowerCase();
     let detectedType = "villa"; // default
-    
+
     for (const type of propertyTypes) {
-      if (type.keywords.some(keyword => description.includes(keyword))) {
+      if (type.keywords.some((keyword) => description.includes(keyword))) {
         detectedType = type.id;
         reasoning.push(`Detected "${type.name}" from keywords in description`);
         break;
       }
     }
-    
+
     // Detect location category
     const location = prop.location.toLowerCase();
     let locationCategory = "urban";
@@ -133,24 +181,32 @@ export default function ListProperty() {
       locationCategory = "urban";
       reasoning.push("Urban location detected");
     }
-    
+
     // Determine deal eligibility
     const isDeal = prop.hasDiscount && prop.discountPercentage > 15;
     if (isDeal) {
-      reasoning.push(`${prop.discountPercentage}% discount qualifies for deals section`);
+      reasoning.push(
+        `${prop.discountPercentage}% discount qualifies for deals section`,
+      );
     }
-    
+
     // Determine live stream eligibility
-    const isLiveEligible = prop.hasLiveStream || prop.price > 200 || detectedType === "penthouse" || detectedType === "villa";
+    const isLiveEligible =
+      prop.hasLiveStream ||
+      prop.price > 200 ||
+      detectedType === "penthouse" ||
+      detectedType === "villa";
     if (isLiveEligible) {
-      reasoning.push("Property qualifies for live streaming based on type and price");
+      reasoning.push(
+        "Property qualifies for live streaming based on type and price",
+      );
     }
-    
+
     // Suggest overall category
     let suggestedCategory = "regular";
     if (isDeal) suggestedCategory = "deals";
     else if (isLiveEligible) suggestedCategory = "live-tours";
-    
+
     return {
       detectedPropertyType: detectedType,
       detectedLocation: locationCategory,
@@ -158,35 +214,37 @@ export default function ListProperty() {
       dealCategory: isDeal,
       liveStreamEligible: isLiveEligible,
       confidence,
-      reasoning
+      reasoning,
     };
   };
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    
+
     // Simulate property submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     // In a real app, this would save to database with the categorization
     console.log("Property submitted with categorization:", {
       property,
-      categorization
+      categorization,
     });
-    
+
     setIsSubmitting(false);
-    
+
     // Show success and redirect
-    alert("Property listed successfully! It has been automatically categorized and will appear in the appropriate section.");
+    alert(
+      "Property listed successfully! It has been automatically categorized and will appear in the appropriate section.",
+    );
     navigate("/stays");
   };
 
   const toggleAmenity = (amenity: string) => {
-    setProperty(prev => ({
+    setProperty((prev) => ({
       ...prev,
       amenities: prev.amenities.includes(amenity)
-        ? prev.amenities.filter(a => a !== amenity)
-        : [...prev.amenities, amenity]
+        ? prev.amenities.filter((a) => a !== amenity)
+        : [...prev.amenities, amenity],
     }));
   };
 
@@ -197,7 +255,10 @@ export default function ListProperty() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <Link to="/stays" className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors">
+              <Link
+                to="/stays"
+                className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors"
+              >
                 <ArrowLeft className="h-5 w-5" />
                 <span>Back to Stays</span>
               </Link>
@@ -221,7 +282,8 @@ export default function ListProperty() {
               List Your Property on Traveltheworld.ai
             </h1>
             <p className="text-lg text-muted-foreground mb-6">
-              Our AI will automatically categorize your property based on location, type, and features
+              Our AI will automatically categorize your property based on
+              location, type, and features
             </p>
             <Badge className="bg-travel-orange/10 text-travel-orange border-travel-orange/20">
               🤖 AI-Powered Auto-Categorization
@@ -240,68 +302,117 @@ export default function ListProperty() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
-                    <label className="text-sm font-medium mb-2 block">Property Title</label>
+                    <label className="text-sm font-medium mb-2 block">
+                      Property Title
+                    </label>
                     <Input
                       placeholder="e.g., Luxury Beachfront Villa with Pool"
                       value={property.title}
-                      onChange={(e) => setProperty(prev => ({ ...prev, title: e.target.value }))}
+                      onChange={(e) =>
+                        setProperty((prev) => ({
+                          ...prev,
+                          title: e.target.value,
+                        }))
+                      }
                     />
                   </div>
-                  
+
                   <div>
-                    <label className="text-sm font-medium mb-2 block">Description</label>
+                    <label className="text-sm font-medium mb-2 block">
+                      Description
+                    </label>
                     <Textarea
                       placeholder="Describe your property, its features, and what makes it special..."
                       value={property.description}
-                      onChange={(e) => setProperty(prev => ({ ...prev, description: e.target.value }))}
+                      onChange={(e) =>
+                        setProperty((prev) => ({
+                          ...prev,
+                          description: e.target.value,
+                        }))
+                      }
                       className="min-h-[100px]"
                     />
                   </div>
-                  
+
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-medium mb-2 block">Location</label>
+                      <label className="text-sm font-medium mb-2 block">
+                        Location
+                      </label>
                       <Input
                         placeholder="e.g., Seminyak, Bali"
                         value={property.location}
-                        onChange={(e) => setProperty(prev => ({ ...prev, location: e.target.value }))}
+                        onChange={(e) =>
+                          setProperty((prev) => ({
+                            ...prev,
+                            location: e.target.value,
+                          }))
+                        }
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium mb-2 block">Full Address</label>
+                      <label className="text-sm font-medium mb-2 block">
+                        Full Address
+                      </label>
                       <Input
                         placeholder="Street address"
                         value={property.address}
-                        onChange={(e) => setProperty(prev => ({ ...prev, address: e.target.value }))}
+                        onChange={(e) =>
+                          setProperty((prev) => ({
+                            ...prev,
+                            address: e.target.value,
+                          }))
+                        }
                       />
                     </div>
                   </div>
-                  
+
                   <div className="grid grid-cols-3 gap-4">
                     <div>
-                      <label className="text-sm font-medium mb-2 block">Price per night ($)</label>
+                      <label className="text-sm font-medium mb-2 block">
+                        Price per night ($)
+                      </label>
                       <Input
                         type="number"
                         value={property.price}
-                        onChange={(e) => setProperty(prev => ({ ...prev, price: parseInt(e.target.value) || 0 }))}
+                        onChange={(e) =>
+                          setProperty((prev) => ({
+                            ...prev,
+                            price: parseInt(e.target.value) || 0,
+                          }))
+                        }
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium mb-2 block">Bedrooms</label>
+                      <label className="text-sm font-medium mb-2 block">
+                        Bedrooms
+                      </label>
                       <Input
                         type="number"
                         min="1"
                         value={property.bedrooms}
-                        onChange={(e) => setProperty(prev => ({ ...prev, bedrooms: parseInt(e.target.value) || 1 }))}
+                        onChange={(e) =>
+                          setProperty((prev) => ({
+                            ...prev,
+                            bedrooms: parseInt(e.target.value) || 1,
+                          }))
+                        }
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium mb-2 block">Bathrooms</label>
+                      <label className="text-sm font-medium mb-2 block">
+                        Bathrooms
+                      </label>
                       <Input
                         type="number"
                         min="1"
                         value={property.bathrooms}
-                        onChange={(e) => setProperty(prev => ({ ...prev, bathrooms: parseInt(e.target.value) || 1 }))}
+                        onChange={(e) =>
+                          setProperty((prev) => ({
+                            ...prev,
+                            bathrooms: parseInt(e.target.value) || 1,
+                          }))
+                        }
                       />
                     </div>
                   </div>
@@ -318,7 +429,11 @@ export default function ListProperty() {
                     {amenityOptions.map((amenity) => (
                       <Button
                         key={amenity}
-                        variant={property.amenities.includes(amenity) ? "default" : "outline"}
+                        variant={
+                          property.amenities.includes(amenity)
+                            ? "default"
+                            : "outline"
+                        }
                         size="sm"
                         onClick={() => toggleAmenity(amenity)}
                         className="justify-start"
@@ -344,31 +459,53 @@ export default function ListProperty() {
                       type="checkbox"
                       id="hasDiscount"
                       checked={property.hasDiscount}
-                      onChange={(e) => setProperty(prev => ({ ...prev, hasDiscount: e.target.checked }))}
+                      onChange={(e) =>
+                        setProperty((prev) => ({
+                          ...prev,
+                          hasDiscount: e.target.checked,
+                        }))
+                      }
                     />
-                    <label htmlFor="hasDiscount" className="text-sm font-medium">
+                    <label
+                      htmlFor="hasDiscount"
+                      className="text-sm font-medium"
+                    >
                       Offer promotional discount
                     </label>
                   </div>
-                  
+
                   {property.hasDiscount && (
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="text-sm font-medium mb-2 block">Original Price ($)</label>
+                        <label className="text-sm font-medium mb-2 block">
+                          Original Price ($)
+                        </label>
                         <Input
                           type="number"
                           value={property.originalPrice}
-                          onChange={(e) => setProperty(prev => ({ ...prev, originalPrice: parseInt(e.target.value) || 0 }))}
+                          onChange={(e) =>
+                            setProperty((prev) => ({
+                              ...prev,
+                              originalPrice: parseInt(e.target.value) || 0,
+                            }))
+                          }
                         />
                       </div>
                       <div>
-                        <label className="text-sm font-medium mb-2 block">Discount (%)</label>
+                        <label className="text-sm font-medium mb-2 block">
+                          Discount (%)
+                        </label>
                         <Input
                           type="number"
                           min="1"
                           max="50"
                           value={property.discountPercentage}
-                          onChange={(e) => setProperty(prev => ({ ...prev, discountPercentage: parseInt(e.target.value) || 0 }))}
+                          onChange={(e) =>
+                            setProperty((prev) => ({
+                              ...prev,
+                              discountPercentage: parseInt(e.target.value) || 0,
+                            }))
+                          }
                         />
                       </div>
                     </div>
@@ -390,20 +527,35 @@ export default function ListProperty() {
                       type="checkbox"
                       id="hasLiveStream"
                       checked={property.hasLiveStream}
-                      onChange={(e) => setProperty(prev => ({ ...prev, hasLiveStream: e.target.checked }))}
+                      onChange={(e) =>
+                        setProperty((prev) => ({
+                          ...prev,
+                          hasLiveStream: e.target.checked,
+                        }))
+                      }
                     />
-                    <label htmlFor="hasLiveStream" className="text-sm font-medium">
+                    <label
+                      htmlFor="hasLiveStream"
+                      className="text-sm font-medium"
+                    >
                       Offer live virtual tours
                     </label>
                   </div>
-                  
+
                   {property.hasLiveStream && (
                     <div>
-                      <label className="text-sm font-medium mb-2 block">Available for live tours</label>
+                      <label className="text-sm font-medium mb-2 block">
+                        Available for live tours
+                      </label>
                       <Input
                         placeholder="e.g., Daily 10 AM - 6 PM"
                         value={property.liveStreamSchedule}
-                        onChange={(e) => setProperty(prev => ({ ...prev, liveStreamSchedule: e.target.value }))}
+                        onChange={(e) =>
+                          setProperty((prev) => ({
+                            ...prev,
+                            liveStreamSchedule: e.target.value,
+                          }))
+                        }
                       />
                     </div>
                   )}
@@ -421,9 +573,11 @@ export default function ListProperty() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <Button 
+                  <Button
                     onClick={analyzeProperty}
-                    disabled={!property.title || !property.location || isAnalyzing}
+                    disabled={
+                      !property.title || !property.location || isAnalyzing
+                    }
                     className="w-full mb-4"
                   >
                     {isAnalyzing ? (
@@ -438,44 +592,67 @@ export default function ListProperty() {
                       </>
                     )}
                   </Button>
-                  
+
                   {categorization && (
                     <div className="space-y-4">
                       <div className="flex items-center space-x-2">
                         <CheckCircle className="h-5 w-5 text-green-500" />
                         <span className="font-medium">Analysis Complete</span>
-                        <Badge variant="secondary">{categorization.confidence}% confident</Badge>
+                        <Badge variant="secondary">
+                          {categorization.confidence}% confident
+                        </Badge>
                       </div>
-                      
+
                       <div className="space-y-3">
                         <div>
                           <h4 className="font-medium text-sm">Property Type</h4>
-                          <p className="text-sm text-muted-foreground capitalize">{categorization.detectedPropertyType}</p>
+                          <p className="text-sm text-muted-foreground capitalize">
+                            {categorization.detectedPropertyType}
+                          </p>
                         </div>
-                        
+
                         <div>
-                          <h4 className="font-medium text-sm">Location Category</h4>
-                          <p className="text-sm text-muted-foreground capitalize">{categorization.detectedLocation}</p>
+                          <h4 className="font-medium text-sm">
+                            Location Category
+                          </h4>
+                          <p className="text-sm text-muted-foreground capitalize">
+                            {categorization.detectedLocation}
+                          </p>
                         </div>
-                        
+
                         <div>
-                          <h4 className="font-medium text-sm">Will appear in</h4>
-                          <Badge className={
-                            categorization.suggestedCategory === "deals" ? "bg-red-100 text-red-700" :
-                            categorization.suggestedCategory === "live-tours" ? "bg-blue-100 text-blue-700" :
-                            "bg-gray-100 text-gray-700"
-                          }>
-                            {categorization.suggestedCategory === "deals" && "💰 Amazing Deals"}
-                            {categorization.suggestedCategory === "live-tours" && "📹 Live Tours"}
-                            {categorization.suggestedCategory === "regular" && "🏠 All Properties"}
+                          <h4 className="font-medium text-sm">
+                            Will appear in
+                          </h4>
+                          <Badge
+                            className={
+                              categorization.suggestedCategory === "deals"
+                                ? "bg-red-100 text-red-700"
+                                : categorization.suggestedCategory ===
+                                    "live-tours"
+                                  ? "bg-blue-100 text-blue-700"
+                                  : "bg-gray-100 text-gray-700"
+                            }
+                          >
+                            {categorization.suggestedCategory === "deals" &&
+                              "💰 Amazing Deals"}
+                            {categorization.suggestedCategory ===
+                              "live-tours" && "📹 Live Tours"}
+                            {categorization.suggestedCategory === "regular" &&
+                              "🏠 All Properties"}
                           </Badge>
                         </div>
-                        
+
                         <div>
-                          <h4 className="font-medium text-sm mb-2">AI Reasoning</h4>
+                          <h4 className="font-medium text-sm mb-2">
+                            AI Reasoning
+                          </h4>
                           <div className="space-y-1">
                             {categorization.reasoning.map((reason, index) => (
-                              <p key={index} className="text-xs text-muted-foreground">
+                              <p
+                                key={index}
+                                className="text-xs text-muted-foreground"
+                              >
                                 • {reason}
                               </p>
                             ))}
@@ -494,9 +671,10 @@ export default function ListProperty() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground mb-4">
-                      Your property has been analyzed and will be automatically categorized for optimal visibility.
+                      Your property has been analyzed and will be automatically
+                      categorized for optimal visibility.
                     </p>
-                    <Button 
+                    <Button
                       onClick={handleSubmit}
                       disabled={isSubmitting}
                       className="w-full bg-travel-orange hover:bg-travel-orange/90"

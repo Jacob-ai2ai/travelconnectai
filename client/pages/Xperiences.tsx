@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { 
+import {
   MapPin,
   Wallet,
   Plus,
@@ -19,7 +19,7 @@ import {
   Heart,
   Calendar,
   Filter,
-  Zap
+  Zap,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -53,25 +53,87 @@ interface Experience {
 }
 
 export default function Xperiences() {
-  const [currentLocation, setCurrentLocation] = useState<string>("Detecting location...");
+  const [currentLocation, setCurrentLocation] = useState<string>(
+    "Detecting location...",
+  );
   const [walletBalance] = useState(1250.75);
   const [isSignedIn] = useState(true);
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [isLoadingLocation, setIsLoadingLocation] = useState(true);
 
   const experienceTypes: XperienceType[] = [
-    { id: "adventure", name: "Adventure", icon: "🏔️", description: "Thrilling outdoor activities" },
-    { id: "cultural", name: "Cultural", icon: "🏛️", description: "Local traditions and heritage" },
-    { id: "food", name: "Food Tours", icon: "🍜", description: "Culinary experiences" },
-    { id: "water", name: "Water Sports", icon: "🏄", description: "Ocean and lake activities" },
-    { id: "wellness", name: "Wellness", icon: "🧘", description: "Spa and mindfulness" },
-    { id: "wildlife", name: "Wildlife", icon: "🦁", description: "Animal encounters" },
-    { id: "extreme", name: "Extreme Sports", icon: "🪂", description: "Adrenaline activities" },
-    { id: "romantic", name: "Romantic", icon: "💕", description: "Couples experiences" },
-    { id: "family", name: "Family Fun", icon: "👨‍👩‍👧‍👦", description: "Kid-friendly activities" },
-    { id: "nightlife", name: "Nightlife", icon: "🌃", description: "Evening entertainment" },
-    { id: "photography", name: "Photography", icon: "📸", description: "Picture-perfect tours" },
-    { id: "learning", name: "Learning", icon: "🎨", description: "Educational workshops" }
+    {
+      id: "adventure",
+      name: "Adventure",
+      icon: "🏔️",
+      description: "Thrilling outdoor activities",
+    },
+    {
+      id: "cultural",
+      name: "Cultural",
+      icon: "🏛️",
+      description: "Local traditions and heritage",
+    },
+    {
+      id: "food",
+      name: "Food Tours",
+      icon: "🍜",
+      description: "Culinary experiences",
+    },
+    {
+      id: "water",
+      name: "Water Sports",
+      icon: "🏄",
+      description: "Ocean and lake activities",
+    },
+    {
+      id: "wellness",
+      name: "Wellness",
+      icon: "🧘",
+      description: "Spa and mindfulness",
+    },
+    {
+      id: "wildlife",
+      name: "Wildlife",
+      icon: "🦁",
+      description: "Animal encounters",
+    },
+    {
+      id: "extreme",
+      name: "Extreme Sports",
+      icon: "🪂",
+      description: "Adrenaline activities",
+    },
+    {
+      id: "romantic",
+      name: "Romantic",
+      icon: "💕",
+      description: "Couples experiences",
+    },
+    {
+      id: "family",
+      name: "Family Fun",
+      icon: "👨‍👩‍👧‍👦",
+      description: "Kid-friendly activities",
+    },
+    {
+      id: "nightlife",
+      name: "Nightlife",
+      icon: "🌃",
+      description: "Evening entertainment",
+    },
+    {
+      id: "photography",
+      name: "Photography",
+      icon: "📸",
+      description: "Picture-perfect tours",
+    },
+    {
+      id: "learning",
+      name: "Learning",
+      icon: "🎨",
+      description: "Educational workshops",
+    },
   ];
 
   const sampleExperiences: Experience[] = [
@@ -94,7 +156,7 @@ export default function Xperiences() {
       includes: ["Hotel pickup", "Guide", "Breakfast", "Equipment"],
       isLiveDemo: false,
       isDeal: true,
-      nextAvailable: "Tomorrow 3:30 AM"
+      nextAvailable: "Tomorrow 3:30 AM",
     },
     {
       id: "deal-2",
@@ -114,7 +176,7 @@ export default function Xperiences() {
       includes: ["Market tour", "Cooking lesson", "Lunch", "Recipes"],
       isLiveDemo: false,
       isDeal: true,
-      nextAvailable: "Today 9:00 AM"
+      nextAvailable: "Today 9:00 AM",
     },
 
     // Live Demo Experiences
@@ -135,7 +197,7 @@ export default function Xperiences() {
       isLiveDemo: true,
       liveViewers: 156,
       isDeal: false,
-      nextAvailable: "Today 8:00 AM"
+      nextAvailable: "Today 8:00 AM",
     },
     {
       id: "live-2",
@@ -154,7 +216,7 @@ export default function Xperiences() {
       isLiveDemo: true,
       liveViewers: 89,
       isDeal: false,
-      nextAvailable: "Tomorrow 7:00 AM"
+      nextAvailable: "Tomorrow 7:00 AM",
     },
 
     // Regular Experiences
@@ -174,7 +236,7 @@ export default function Xperiences() {
       includes: ["Boat transfer", "Equipment", "Lunch", "Guide"],
       isLiveDemo: false,
       isDeal: false,
-      nextAvailable: "Dec 25, 6:00 AM"
+      nextAvailable: "Dec 25, 6:00 AM",
     },
     {
       id: "regular-2",
@@ -192,8 +254,8 @@ export default function Xperiences() {
       includes: ["Massage", "Facial", "Refreshments", "Consultation"],
       isLiveDemo: false,
       isDeal: false,
-      nextAvailable: "Today 2:00 PM"
-    }
+      nextAvailable: "Today 2:00 PM",
+    },
   ];
 
   useEffect(() => {
@@ -209,7 +271,7 @@ export default function Xperiences() {
           setCurrentLocation("Location unavailable");
           setIsLoadingLocation(false);
           setExperiences(sampleExperiences);
-        }
+        },
       );
     } else {
       setCurrentLocation("Geolocation not supported");
@@ -218,27 +280,33 @@ export default function Xperiences() {
     }
   }, []);
 
-  const getDealExperiences = () => experiences.filter(e => e.isDeal);
-  const getLiveDemoExperiences = () => experiences.filter(e => e.isLiveDemo);
-  const getRegularExperiences = () => experiences.filter(e => !e.isDeal && !e.isLiveDemo);
+  const getDealExperiences = () => experiences.filter((e) => e.isDeal);
+  const getLiveDemoExperiences = () => experiences.filter((e) => e.isLiveDemo);
+  const getRegularExperiences = () =>
+    experiences.filter((e) => !e.isDeal && !e.isLiveDemo);
 
   const handleLocationSearch = (newLocation: string) => {
     setCurrentLocation(newLocation);
   };
 
   const handleLocationKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleLocationSearch(currentLocation);
     }
   };
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty.toLowerCase()) {
-      case 'easy': return 'bg-green-100 text-green-700';
-      case 'moderate': return 'bg-yellow-100 text-yellow-700';
-      case 'hard': return 'bg-red-100 text-red-700';
-      case 'relaxing': return 'bg-blue-100 text-blue-700';
-      default: return 'bg-gray-100 text-gray-700';
+      case "easy":
+        return "bg-green-100 text-green-700";
+      case "moderate":
+        return "bg-yellow-100 text-yellow-700";
+      case "hard":
+        return "bg-red-100 text-red-700";
+      case "relaxing":
+        return "bg-blue-100 text-blue-700";
+      default:
+        return "bg-gray-100 text-gray-700";
     }
   };
 
@@ -249,7 +317,10 @@ export default function Xperiences() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-4">
-              <Link to="/" className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors">
+              <Link
+                to="/"
+                className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors"
+              >
                 <ArrowLeft className="h-5 w-5" />
                 <span>Back to Home</span>
               </Link>
@@ -261,7 +332,7 @@ export default function Xperiences() {
                 </span>
               </div>
             </div>
-            
+
             <div className="flex items-center space-x-4">
               {/* Location Search */}
               <div className="relative min-w-[250px]">
@@ -274,17 +345,22 @@ export default function Xperiences() {
                   className="pl-10 pr-4 text-sm"
                 />
               </div>
-              
+
               {/* Travel Wallet */}
               {isSignedIn && (
                 <div className="flex items-center space-x-2 bg-travel-green/10 px-3 py-1 rounded-full">
                   <Wallet className="h-4 w-4 text-travel-green" />
-                  <span className="font-medium text-travel-green">${walletBalance.toFixed(2)}</span>
+                  <span className="font-medium text-travel-green">
+                    ${walletBalance.toFixed(2)}
+                  </span>
                 </div>
               )}
-              
+
               {/* List Experience Button */}
-              <Button size="sm" className="bg-travel-orange hover:bg-travel-orange/90">
+              <Button
+                size="sm"
+                className="bg-travel-orange hover:bg-travel-orange/90"
+              >
                 <Plus className="h-4 w-4 mr-2" />
                 List Experience
               </Button>
@@ -298,9 +374,14 @@ export default function Xperiences() {
         <section className="mb-12">
           <div className="flex overflow-x-auto space-x-6 pb-4">
             {experienceTypes.map((type) => (
-              <div key={type.id} className="flex flex-col items-center min-w-[80px] cursor-pointer hover:scale-105 transition-transform">
+              <div
+                key={type.id}
+                className="flex flex-col items-center min-w-[80px] cursor-pointer hover:scale-105 transition-transform"
+              >
                 <div className="text-4xl mb-2">{type.icon}</div>
-                <span className="text-sm font-medium text-center">{type.name}</span>
+                <span className="text-sm font-medium text-center">
+                  {type.name}
+                </span>
               </div>
             ))}
           </div>
@@ -314,26 +395,37 @@ export default function Xperiences() {
             </h2>
             <Badge className="bg-red-100 text-red-700">Limited Time</Badge>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {getDealExperiences().map((experience) => (
-              <Card key={experience.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+              <Card
+                key={experience.id}
+                className="overflow-hidden hover:shadow-lg transition-shadow"
+              >
                 <div className="relative">
                   <div className="aspect-video relative">
-                    <img src={experience.image} alt={experience.title} className="w-full h-full object-cover" />
+                    <img
+                      src={experience.image}
+                      alt={experience.title}
+                      className="w-full h-full object-cover"
+                    />
                     <div className="absolute top-2 left-2">
                       <Badge className="bg-red-500 text-white">
                         {experience.discount}% OFF
                       </Badge>
                     </div>
                     <div className="absolute top-2 right-2">
-                      <Button size="sm" variant="ghost" className="bg-white/80 hover:bg-white/90">
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        className="bg-white/80 hover:bg-white/90"
+                      >
                         <Heart className="h-4 w-4" />
                       </Button>
                     </div>
                   </div>
                 </div>
-                
+
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-2">
                     <Badge variant="outline">{experience.category}</Badge>
@@ -342,10 +434,12 @@ export default function Xperiences() {
                       <span className="text-sm">{experience.rating}</span>
                     </div>
                   </div>
-                  
+
                   <h3 className="font-bold mb-2 text-sm">{experience.title}</h3>
-                  <p className="text-xs text-muted-foreground mb-3">{experience.location} • {experience.provider}</p>
-                  
+                  <p className="text-xs text-muted-foreground mb-3">
+                    {experience.location} • {experience.provider}
+                  </p>
+
                   <div className="flex items-center space-x-4 mb-3 text-xs text-muted-foreground">
                     <div className="flex items-center space-x-1">
                       <Clock className="h-3 w-3" />
@@ -356,24 +450,31 @@ export default function Xperiences() {
                       <span>Max {experience.groupSize}</span>
                     </div>
                   </div>
-                  
+
                   <div className="mb-3">
-                    <Badge className={getDifficultyColor(experience.difficulty)} variant="secondary">
+                    <Badge
+                      className={getDifficultyColor(experience.difficulty)}
+                      variant="secondary"
+                    >
                       {experience.difficulty}
                     </Badge>
                   </div>
-                  
+
                   <div className="flex items-center justify-between mb-4">
                     <div>
                       <div className="flex items-center space-x-2">
-                        <span className="font-bold text-lg">${experience.price}</span>
+                        <span className="font-bold text-lg">
+                          ${experience.price}
+                        </span>
                         {experience.originalPrice && (
                           <span className="text-sm text-muted-foreground line-through">
                             ${experience.originalPrice}
                           </span>
                         )}
                       </div>
-                      <span className="text-xs text-muted-foreground">per person</span>
+                      <span className="text-xs text-muted-foreground">
+                        per person
+                      </span>
                     </div>
                     <div className="text-xs text-muted-foreground">
                       Next: {experience.nextAvailable}
@@ -403,13 +504,20 @@ export default function Xperiences() {
             </h2>
             <Badge className="bg-red-500 text-white animate-pulse">LIVE</Badge>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {getLiveDemoExperiences().map((experience) => (
-              <Card key={experience.id} className="overflow-hidden hover:shadow-lg transition-shadow border-2 border-red-200">
+              <Card
+                key={experience.id}
+                className="overflow-hidden hover:shadow-lg transition-shadow border-2 border-red-200"
+              >
                 <div className="relative">
                   <div className="aspect-video relative">
-                    <img src={experience.image} alt={experience.title} className="w-full h-full object-cover" />
+                    <img
+                      src={experience.image}
+                      alt={experience.title}
+                      className="w-full h-full object-cover"
+                    />
                     <div className="absolute top-2 left-2">
                       <Badge className="bg-red-500 text-white">
                         <Radio className="h-3 w-3 mr-1" />
@@ -417,14 +525,17 @@ export default function Xperiences() {
                       </Badge>
                     </div>
                     <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                      <Button size="sm" className="bg-white/90 text-black hover:bg-white">
+                      <Button
+                        size="sm"
+                        className="bg-white/90 text-black hover:bg-white"
+                      >
                         <Video className="h-4 w-4 mr-2" />
                         Join Live Demo
                       </Button>
                     </div>
                   </div>
                 </div>
-                
+
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-2">
                     <Badge variant="outline">{experience.category}</Badge>
@@ -433,10 +544,12 @@ export default function Xperiences() {
                       <span className="text-sm">{experience.rating}</span>
                     </div>
                   </div>
-                  
+
                   <h3 className="font-bold mb-2 text-sm">{experience.title}</h3>
-                  <p className="text-xs text-muted-foreground mb-3">{experience.location} • {experience.provider}</p>
-                  
+                  <p className="text-xs text-muted-foreground mb-3">
+                    {experience.location} • {experience.provider}
+                  </p>
+
                   <div className="flex items-center space-x-4 mb-3 text-xs text-muted-foreground">
                     <div className="flex items-center space-x-1">
                       <Clock className="h-3 w-3" />
@@ -447,17 +560,24 @@ export default function Xperiences() {
                       <span>Max {experience.groupSize}</span>
                     </div>
                   </div>
-                  
+
                   <div className="mb-3">
-                    <Badge className={getDifficultyColor(experience.difficulty)} variant="secondary">
+                    <Badge
+                      className={getDifficultyColor(experience.difficulty)}
+                      variant="secondary"
+                    >
                       {experience.difficulty}
                     </Badge>
                   </div>
-                  
+
                   <div className="flex items-center justify-between mb-4">
                     <div>
-                      <span className="font-bold text-lg">${experience.price}</span>
-                      <span className="text-xs text-muted-foreground ml-1">per person</span>
+                      <span className="font-bold text-lg">
+                        ${experience.price}
+                      </span>
+                      <span className="text-xs text-muted-foreground ml-1">
+                        per person
+                      </span>
                     </div>
                     <div className="text-xs text-muted-foreground">
                       Next: {experience.nextAvailable}
@@ -465,7 +585,10 @@ export default function Xperiences() {
                   </div>
 
                   <div className="space-y-2">
-                    <Button className="w-full bg-red-500 hover:bg-red-600" size="sm">
+                    <Button
+                      className="w-full bg-red-500 hover:bg-red-600"
+                      size="sm"
+                    >
                       <Video className="h-4 w-4 mr-2" />
                       Join Live Demo
                     </Button>
@@ -488,21 +611,32 @@ export default function Xperiences() {
               Filters
             </Button>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {getRegularExperiences().map((experience) => (
-              <Card key={experience.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+              <Card
+                key={experience.id}
+                className="overflow-hidden hover:shadow-lg transition-shadow"
+              >
                 <div className="relative">
                   <div className="aspect-video relative">
-                    <img src={experience.image} alt={experience.title} className="w-full h-full object-cover" />
+                    <img
+                      src={experience.image}
+                      alt={experience.title}
+                      className="w-full h-full object-cover"
+                    />
                     <div className="absolute top-2 right-2">
-                      <Button size="sm" variant="ghost" className="bg-white/80 hover:bg-white/90">
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        className="bg-white/80 hover:bg-white/90"
+                      >
                         <Heart className="h-4 w-4" />
                       </Button>
                     </div>
                   </div>
                 </div>
-                
+
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-2">
                     <Badge variant="outline">{experience.category}</Badge>
@@ -511,10 +645,12 @@ export default function Xperiences() {
                       <span className="text-sm">{experience.rating}</span>
                     </div>
                   </div>
-                  
+
                   <h3 className="font-bold mb-2 text-sm">{experience.title}</h3>
-                  <p className="text-xs text-muted-foreground mb-3">{experience.location}</p>
-                  
+                  <p className="text-xs text-muted-foreground mb-3">
+                    {experience.location}
+                  </p>
+
                   <div className="flex items-center space-x-4 mb-3 text-xs text-muted-foreground">
                     <div className="flex items-center space-x-1">
                       <Clock className="h-3 w-3" />
@@ -525,11 +661,15 @@ export default function Xperiences() {
                       <span>Max {experience.groupSize}</span>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-center justify-between mb-3">
                     <div>
-                      <span className="font-bold text-lg">${experience.price}</span>
-                      <span className="text-xs text-muted-foreground ml-1">per person</span>
+                      <span className="font-bold text-lg">
+                        ${experience.price}
+                      </span>
+                      <span className="text-xs text-muted-foreground ml-1">
+                        per person
+                      </span>
                     </div>
                   </div>
 

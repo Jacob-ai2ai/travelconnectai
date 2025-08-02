@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { 
+import {
   MapPin,
   Wallet,
   Plus,
@@ -19,7 +19,7 @@ import {
   Heart,
   ArrowRight,
   Calendar,
-  Filter
+  Filter,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -54,25 +54,87 @@ interface Flight {
 }
 
 export default function Flights() {
-  const [currentLocation, setCurrentLocation] = useState<string>("Detecting location...");
+  const [currentLocation, setCurrentLocation] = useState<string>(
+    "Detecting location...",
+  );
   const [walletBalance] = useState(1250.75);
   const [isSignedIn] = useState(true);
   const [flights, setFlights] = useState<Flight[]>([]);
   const [isLoadingLocation, setIsLoadingLocation] = useState(true);
 
   const flightTypes: FlightType[] = [
-    { id: "economy", name: "Economy", icon: "💺", description: "Budget-friendly comfort" },
-    { id: "premium", name: "Premium Economy", icon: "🛋️", description: "Extra space and comfort" },
-    { id: "business", name: "Business", icon: "💼", description: "Premium service and lounges" },
-    { id: "first", name: "First Class", icon: "👑", description: "Ultimate luxury experience" },
-    { id: "direct", name: "Direct Flights", icon: "✈️", description: "Non-stop convenience" },
-    { id: "connecting", name: "Connecting", icon: "🔄", description: "Budget with stops" },
-    { id: "red-eye", name: "Red-eye", icon: "🌙", description: "Overnight savings" },
-    { id: "last-minute", name: "Last Minute", icon: "⚡", description: "Quick departures" },
-    { id: "multi-city", name: "Multi-city", icon: "🌍", description: "Multiple destinations" },
-    { id: "group", name: "Group Bookings", icon: "👥", description: "10+ passengers" },
-    { id: "charter", name: "Private Charter", icon: "🛩️", description: "Exclusive flights" },
-    { id: "cargo", name: "Cargo Space", icon: "📦", description: "Extra luggage capacity" }
+    {
+      id: "economy",
+      name: "Economy",
+      icon: "💺",
+      description: "Budget-friendly comfort",
+    },
+    {
+      id: "premium",
+      name: "Premium Economy",
+      icon: "🛋️",
+      description: "Extra space and comfort",
+    },
+    {
+      id: "business",
+      name: "Business",
+      icon: "💼",
+      description: "Premium service and lounges",
+    },
+    {
+      id: "first",
+      name: "First Class",
+      icon: "👑",
+      description: "Ultimate luxury experience",
+    },
+    {
+      id: "direct",
+      name: "Direct Flights",
+      icon: "✈️",
+      description: "Non-stop convenience",
+    },
+    {
+      id: "connecting",
+      name: "Connecting",
+      icon: "🔄",
+      description: "Budget with stops",
+    },
+    {
+      id: "red-eye",
+      name: "Red-eye",
+      icon: "🌙",
+      description: "Overnight savings",
+    },
+    {
+      id: "last-minute",
+      name: "Last Minute",
+      icon: "⚡",
+      description: "Quick departures",
+    },
+    {
+      id: "multi-city",
+      name: "Multi-city",
+      icon: "🌍",
+      description: "Multiple destinations",
+    },
+    {
+      id: "group",
+      name: "Group Bookings",
+      icon: "👥",
+      description: "10+ passengers",
+    },
+    {
+      id: "charter",
+      name: "Private Charter",
+      icon: "🛩️",
+      description: "Exclusive flights",
+    },
+    {
+      id: "cargo",
+      name: "Cargo Space",
+      icon: "📦",
+      description: "Extra luggage capacity",
+    },
   ];
 
   const sampleFlights: Flight[] = [
@@ -96,7 +158,7 @@ export default function Flights() {
       isLiveDeal: false,
       isDeal: true,
       rating: 4.6,
-      reviews: 234
+      reviews: 234,
     },
     {
       id: "deal-2",
@@ -117,7 +179,7 @@ export default function Flights() {
       isLiveDeal: false,
       isDeal: true,
       rating: 4.9,
-      reviews: 567
+      reviews: 567,
     },
 
     // Live Deal Flights
@@ -139,7 +201,7 @@ export default function Flights() {
       liveViewers: 89,
       isDeal: false,
       rating: 4.8,
-      reviews: 1203
+      reviews: 1203,
     },
     {
       id: "live-2",
@@ -159,7 +221,7 @@ export default function Flights() {
       liveViewers: 45,
       isDeal: false,
       rating: 4.7,
-      reviews: 789
+      reviews: 789,
     },
 
     // Regular Flights
@@ -180,7 +242,7 @@ export default function Flights() {
       isLiveDeal: false,
       isDeal: false,
       rating: 4.2,
-      reviews: 456
+      reviews: 456,
     },
     {
       id: "regular-2",
@@ -199,8 +261,8 @@ export default function Flights() {
       isLiveDeal: false,
       isDeal: false,
       rating: 4.5,
-      reviews: 678
-    }
+      reviews: 678,
+    },
   ];
 
   useEffect(() => {
@@ -216,7 +278,7 @@ export default function Flights() {
           setCurrentLocation("Location unavailable");
           setIsLoadingLocation(false);
           setFlights(sampleFlights);
-        }
+        },
       );
     } else {
       setCurrentLocation("Geolocation not supported");
@@ -225,9 +287,10 @@ export default function Flights() {
     }
   }, []);
 
-  const getDealFlights = () => flights.filter(f => f.isDeal);
-  const getLiveDealFlights = () => flights.filter(f => f.isLiveDeal);
-  const getRegularFlights = () => flights.filter(f => !f.isDeal && !f.isLiveDeal);
+  const getDealFlights = () => flights.filter((f) => f.isDeal);
+  const getLiveDealFlights = () => flights.filter((f) => f.isLiveDeal);
+  const getRegularFlights = () =>
+    flights.filter((f) => !f.isDeal && !f.isLiveDeal);
 
   const handleLocationSearch = (newLocation: string) => {
     setCurrentLocation(newLocation);
@@ -235,7 +298,7 @@ export default function Flights() {
   };
 
   const handleLocationKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleLocationSearch(currentLocation);
     }
   };
@@ -247,7 +310,10 @@ export default function Flights() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-4">
-              <Link to="/" className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors">
+              <Link
+                to="/"
+                className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors"
+              >
                 <ArrowLeft className="h-5 w-5" />
                 <span>Back to Home</span>
               </Link>
@@ -259,7 +325,7 @@ export default function Flights() {
                 </span>
               </div>
             </div>
-            
+
             <div className="flex items-center space-x-4">
               {/* Location Search */}
               <div className="relative min-w-[250px]">
@@ -272,17 +338,22 @@ export default function Flights() {
                   className="pl-10 pr-4 text-sm"
                 />
               </div>
-              
+
               {/* Travel Wallet */}
               {isSignedIn && (
                 <div className="flex items-center space-x-2 bg-travel-blue/10 px-3 py-1 rounded-full">
                   <Wallet className="h-4 w-4 text-travel-blue" />
-                  <span className="font-medium text-travel-blue">${walletBalance.toFixed(2)}</span>
+                  <span className="font-medium text-travel-blue">
+                    ${walletBalance.toFixed(2)}
+                  </span>
                 </div>
               )}
-              
+
               {/* List Flight Button */}
-              <Button size="sm" className="bg-travel-orange hover:bg-travel-orange/90">
+              <Button
+                size="sm"
+                className="bg-travel-orange hover:bg-travel-orange/90"
+              >
                 <Plus className="h-4 w-4 mr-2" />
                 List Flight Service
               </Button>
@@ -296,9 +367,14 @@ export default function Flights() {
         <section className="mb-12">
           <div className="flex overflow-x-auto space-x-6 pb-4">
             {flightTypes.map((type) => (
-              <div key={type.id} className="flex flex-col items-center min-w-[80px] cursor-pointer hover:scale-105 transition-transform">
+              <div
+                key={type.id}
+                className="flex flex-col items-center min-w-[80px] cursor-pointer hover:scale-105 transition-transform"
+              >
                 <div className="text-4xl mb-2">{type.icon}</div>
-                <span className="text-sm font-medium text-center">{type.name}</span>
+                <span className="text-sm font-medium text-center">
+                  {type.name}
+                </span>
               </div>
             ))}
           </div>
@@ -312,10 +388,13 @@ export default function Flights() {
             </h2>
             <Badge className="bg-red-100 text-red-700">Limited Time</Badge>
           </div>
-          
+
           <div className="grid md:grid-cols-2 gap-6">
             {getDealFlights().map((flight) => (
-              <Card key={flight.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+              <Card
+                key={flight.id}
+                className="overflow-hidden hover:shadow-lg transition-shadow"
+              >
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center space-x-3">
@@ -324,7 +403,9 @@ export default function Flights() {
                       </div>
                       <div>
                         <h3 className="font-bold">{flight.airline}</h3>
-                        <p className="text-sm text-muted-foreground">{flight.flightNumber} • {flight.aircraft}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {flight.flightNumber} • {flight.aircraft}
+                        </p>
                       </div>
                     </div>
                     <div className="text-right">
@@ -340,37 +421,53 @@ export default function Flights() {
 
                   <div className="flex items-center justify-between mb-4">
                     <div className="text-center">
-                      <div className="font-semibold">{flight.departureTime}</div>
-                      <div className="text-sm text-muted-foreground">{flight.from}</div>
+                      <div className="font-semibold">
+                        {flight.departureTime}
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        {flight.from}
+                      </div>
                     </div>
                     <div className="flex-1 flex flex-col items-center mx-4">
-                      <div className="text-xs text-muted-foreground">{flight.duration}</div>
+                      <div className="text-xs text-muted-foreground">
+                        {flight.duration}
+                      </div>
                       <div className="w-full h-px bg-border my-1 relative">
                         <Plane className="h-3 w-3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-background text-travel-blue" />
                       </div>
-                      <div className="text-xs text-muted-foreground">{flight.stops === 0 ? "Direct" : `${flight.stops} stop`}</div>
+                      <div className="text-xs text-muted-foreground">
+                        {flight.stops === 0 ? "Direct" : `${flight.stops} stop`}
+                      </div>
                     </div>
                     <div className="text-center">
                       <div className="font-semibold">{flight.arrivalTime}</div>
-                      <div className="text-sm text-muted-foreground">{flight.to}</div>
+                      <div className="text-sm text-muted-foreground">
+                        {flight.to}
+                      </div>
                     </div>
                   </div>
 
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-2">
                       <Badge variant="outline">{flight.class}</Badge>
-                      <span className="text-sm text-muted-foreground">{flight.amenities.length} amenities</span>
+                      <span className="text-sm text-muted-foreground">
+                        {flight.amenities.length} amenities
+                      </span>
                     </div>
                     <div className="text-right">
                       <div className="flex items-center space-x-2">
-                        <span className="text-2xl font-bold">${flight.price}</span>
+                        <span className="text-2xl font-bold">
+                          ${flight.price}
+                        </span>
                         {flight.originalPrice && (
                           <span className="text-sm text-muted-foreground line-through">
                             ${flight.originalPrice}
                           </span>
                         )}
                       </div>
-                      <span className="text-xs text-muted-foreground">per person</span>
+                      <span className="text-xs text-muted-foreground">
+                        per person
+                      </span>
                     </div>
                   </div>
 
@@ -397,10 +494,13 @@ export default function Flights() {
             </h2>
             <Badge className="bg-red-500 text-white animate-pulse">LIVE</Badge>
           </div>
-          
+
           <div className="grid md:grid-cols-2 gap-6">
             {getLiveDealFlights().map((flight) => (
-              <Card key={flight.id} className="overflow-hidden hover:shadow-lg transition-shadow border-2 border-red-200">
+              <Card
+                key={flight.id}
+                className="overflow-hidden hover:shadow-lg transition-shadow border-2 border-red-200"
+              >
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center space-x-3">
@@ -409,7 +509,9 @@ export default function Flights() {
                       </div>
                       <div>
                         <h3 className="font-bold">{flight.airline}</h3>
-                        <p className="text-sm text-muted-foreground">{flight.flightNumber} • {flight.aircraft}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {flight.flightNumber} • {flight.aircraft}
+                        </p>
                       </div>
                     </div>
                     <div className="text-right">
@@ -426,35 +528,52 @@ export default function Flights() {
 
                   <div className="flex items-center justify-between mb-4">
                     <div className="text-center">
-                      <div className="font-semibold">{flight.departureTime}</div>
-                      <div className="text-sm text-muted-foreground">{flight.from}</div>
+                      <div className="font-semibold">
+                        {flight.departureTime}
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        {flight.from}
+                      </div>
                     </div>
                     <div className="flex-1 flex flex-col items-center mx-4">
-                      <div className="text-xs text-muted-foreground">{flight.duration}</div>
+                      <div className="text-xs text-muted-foreground">
+                        {flight.duration}
+                      </div>
                       <div className="w-full h-px bg-border my-1 relative">
                         <Plane className="h-3 w-3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-background text-red-500" />
                       </div>
-                      <div className="text-xs text-muted-foreground">Direct</div>
+                      <div className="text-xs text-muted-foreground">
+                        Direct
+                      </div>
                     </div>
                     <div className="text-center">
                       <div className="font-semibold">{flight.arrivalTime}</div>
-                      <div className="text-sm text-muted-foreground">{flight.to}</div>
+                      <div className="text-sm text-muted-foreground">
+                        {flight.to}
+                      </div>
                     </div>
                   </div>
 
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-2">
                       <Badge variant="outline">{flight.class}</Badge>
-                      <span className="text-sm text-muted-foreground">{flight.amenities.length} amenities</span>
+                      <span className="text-sm text-muted-foreground">
+                        {flight.amenities.length} amenities
+                      </span>
                     </div>
                     <div className="text-right">
                       <div className="text-2xl font-bold">${flight.price}</div>
-                      <span className="text-xs text-muted-foreground">per person</span>
+                      <span className="text-xs text-muted-foreground">
+                        per person
+                      </span>
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <Button className="w-full bg-red-500 hover:bg-red-600" size="sm">
+                    <Button
+                      className="w-full bg-red-500 hover:bg-red-600"
+                      size="sm"
+                    >
                       <Video className="h-4 w-4 mr-2" />
                       Join Live Deal
                     </Button>
@@ -477,37 +596,58 @@ export default function Flights() {
               Filters
             </Button>
           </div>
-          
+
           <div className="grid gap-4">
             {getRegularFlights().map((flight) => (
-              <Card key={flight.id} className="overflow-hidden hover:shadow-md transition-shadow">
+              <Card
+                key={flight.id}
+                className="overflow-hidden hover:shadow-md transition-shadow"
+              >
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4">
                       <div className="text-center">
-                        <div className="font-semibold">{flight.departureTime}</div>
-                        <div className="text-sm text-muted-foreground">{flight.from}</div>
+                        <div className="font-semibold">
+                          {flight.departureTime}
+                        </div>
+                        <div className="text-sm text-muted-foreground">
+                          {flight.from}
+                        </div>
                       </div>
                       <div className="flex flex-col items-center">
-                        <div className="text-xs text-muted-foreground">{flight.duration}</div>
+                        <div className="text-xs text-muted-foreground">
+                          {flight.duration}
+                        </div>
                         <ArrowRight className="h-4 w-4 text-muted-foreground" />
-                        <div className="text-xs text-muted-foreground">{flight.stops === 0 ? "Direct" : `${flight.stops} stop`}</div>
+                        <div className="text-xs text-muted-foreground">
+                          {flight.stops === 0
+                            ? "Direct"
+                            : `${flight.stops} stop`}
+                        </div>
                       </div>
                       <div className="text-center">
-                        <div className="font-semibold">{flight.arrivalTime}</div>
-                        <div className="text-sm text-muted-foreground">{flight.to}</div>
+                        <div className="font-semibold">
+                          {flight.arrivalTime}
+                        </div>
+                        <div className="text-sm text-muted-foreground">
+                          {flight.to}
+                        </div>
                       </div>
                     </div>
-                    
+
                     <div className="flex items-center space-x-4">
                       <div>
                         <div className="font-semibold">{flight.airline}</div>
-                        <div className="text-sm text-muted-foreground">{flight.flightNumber}</div>
+                        <div className="text-sm text-muted-foreground">
+                          {flight.flightNumber}
+                        </div>
                       </div>
                       <Badge variant="outline">{flight.class}</Badge>
                       <div className="text-right">
                         <div className="text-xl font-bold">${flight.price}</div>
-                        <div className="text-xs text-muted-foreground">per person</div>
+                        <div className="text-xs text-muted-foreground">
+                          per person
+                        </div>
                       </div>
                       <Button size="sm">Book</Button>
                     </div>

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { 
+import {
   MapPin,
   Wallet,
   Plus,
@@ -21,7 +21,7 @@ import {
   Filter,
   Music,
   Trophy,
-  PartyPopper
+  PartyPopper,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -59,25 +59,87 @@ interface Event {
 }
 
 export default function Events() {
-  const [currentLocation, setCurrentLocation] = useState<string>("Detecting location...");
+  const [currentLocation, setCurrentLocation] = useState<string>(
+    "Detecting location...",
+  );
   const [walletBalance] = useState(1250.75);
   const [isSignedIn] = useState(true);
   const [events, setEvents] = useState<Event[]>([]);
   const [isLoadingLocation, setIsLoadingLocation] = useState(true);
 
   const eventTypes: EventType[] = [
-    { id: "concerts", name: "Concerts", icon: "🎵", description: "Live music performances" },
-    { id: "festivals", name: "Festivals", icon: "🎪", description: "Cultural celebrations" },
-    { id: "sports", name: "Sports", icon: "🏆", description: "Athletic competitions" },
-    { id: "theater", name: "Theater", icon: "🎭", description: "Dramatic performances" },
-    { id: "comedy", name: "Comedy", icon: "😂", description: "Stand-up and humor" },
-    { id: "food", name: "Food Events", icon: "🍴", description: "Culinary experiences" },
-    { id: "art", name: "Art Shows", icon: "🎨", description: "Exhibitions and galleries" },
-    { id: "nightlife", name: "Nightlife", icon: "🌃", description: "Clubs and parties" },
-    { id: "cultural", name: "Cultural", icon: "🏛️", description: "Traditional events" },
-    { id: "seasonal", name: "Seasonal", icon: "🎄", description: "Holiday celebrations" },
-    { id: "wellness", name: "Wellness", icon: "🧘", description: "Health and mindfulness" },
-    { id: "business", name: "Business", icon: "💼", description: "Conferences and networking" }
+    {
+      id: "concerts",
+      name: "Concerts",
+      icon: "🎵",
+      description: "Live music performances",
+    },
+    {
+      id: "festivals",
+      name: "Festivals",
+      icon: "🎪",
+      description: "Cultural celebrations",
+    },
+    {
+      id: "sports",
+      name: "Sports",
+      icon: "🏆",
+      description: "Athletic competitions",
+    },
+    {
+      id: "theater",
+      name: "Theater",
+      icon: "🎭",
+      description: "Dramatic performances",
+    },
+    {
+      id: "comedy",
+      name: "Comedy",
+      icon: "😂",
+      description: "Stand-up and humor",
+    },
+    {
+      id: "food",
+      name: "Food Events",
+      icon: "🍴",
+      description: "Culinary experiences",
+    },
+    {
+      id: "art",
+      name: "Art Shows",
+      icon: "🎨",
+      description: "Exhibitions and galleries",
+    },
+    {
+      id: "nightlife",
+      name: "Nightlife",
+      icon: "🌃",
+      description: "Clubs and parties",
+    },
+    {
+      id: "cultural",
+      name: "Cultural",
+      icon: "🏛️",
+      description: "Traditional events",
+    },
+    {
+      id: "seasonal",
+      name: "Seasonal",
+      icon: "🎄",
+      description: "Holiday celebrations",
+    },
+    {
+      id: "wellness",
+      name: "Wellness",
+      icon: "🧘",
+      description: "Health and mindfulness",
+    },
+    {
+      id: "business",
+      name: "Business",
+      icon: "💼",
+      description: "Conferences and networking",
+    },
   ];
 
   const sampleEvents: Event[] = [
@@ -101,10 +163,15 @@ export default function Events() {
       capacity: 2000,
       ticketsLeft: 156,
       ageRestriction: "All ages",
-      highlights: ["Yoga workshops", "Live music", "Wellness talks", "Organic food"],
+      highlights: [
+        "Yoga workshops",
+        "Live music",
+        "Wellness talks",
+        "Organic food",
+      ],
       isLiveStream: false,
       isDeal: true,
-      featured: true
+      featured: true,
     },
     {
       id: "deal-2",
@@ -125,10 +192,15 @@ export default function Events() {
       capacity: 1500,
       ticketsLeft: 234,
       ageRestriction: "18+",
-      highlights: ["German beer", "Traditional music", "Authentic food", "Cultural shows"],
+      highlights: [
+        "German beer",
+        "Traditional music",
+        "Authentic food",
+        "Cultural shows",
+      ],
       isLiveStream: false,
       isDeal: true,
-      featured: false
+      featured: false,
     },
 
     // Live Stream Events
@@ -149,11 +221,16 @@ export default function Events() {
       capacity: 15000,
       ticketsLeft: 1234,
       ageRestriction: "All ages",
-      highlights: ["International artist", "State-of-art sound", "VIP packages", "Meet & greet"],
+      highlights: [
+        "International artist",
+        "State-of-art sound",
+        "VIP packages",
+        "Meet & greet",
+      ],
       isLiveStream: true,
       liveViewers: 15600,
       isDeal: false,
-      featured: true
+      featured: true,
     },
     {
       id: "live-2",
@@ -172,11 +249,16 @@ export default function Events() {
       capacity: 800,
       ticketsLeft: 67,
       ageRestriction: "21+",
-      highlights: ["Celebrity chefs", "Wine tastings", "Cooking demos", "Gala dinner"],
+      highlights: [
+        "Celebrity chefs",
+        "Wine tastings",
+        "Cooking demos",
+        "Gala dinner",
+      ],
       isLiveStream: true,
       liveViewers: 890,
       isDeal: false,
-      featured: false
+      featured: false,
     },
 
     // Regular Events
@@ -197,10 +279,15 @@ export default function Events() {
       capacity: 200,
       ticketsLeft: 45,
       ageRestriction: "All ages",
-      highlights: ["Traditional costumes", "Live gamelan", "Cultural storytelling", "Photo opportunities"],
+      highlights: [
+        "Traditional costumes",
+        "Live gamelan",
+        "Cultural storytelling",
+        "Photo opportunities",
+      ],
       isLiveStream: false,
       isDeal: false,
-      featured: false
+      featured: false,
     },
     {
       id: "regular-2",
@@ -219,11 +306,16 @@ export default function Events() {
       capacity: 300,
       ticketsLeft: 78,
       ageRestriction: "All ages",
-      highlights: ["Ocean views", "Local musicians", "Cocktails", "Sunset timing"],
+      highlights: [
+        "Ocean views",
+        "Local musicians",
+        "Cocktails",
+        "Sunset timing",
+      ],
       isLiveStream: false,
       isDeal: false,
-      featured: false
-    }
+      featured: false,
+    },
   ];
 
   useEffect(() => {
@@ -239,7 +331,7 @@ export default function Events() {
           setCurrentLocation("Location unavailable");
           setIsLoadingLocation(false);
           setEvents(sampleEvents);
-        }
+        },
       );
     } else {
       setCurrentLocation("Geolocation not supported");
@@ -248,25 +340,27 @@ export default function Events() {
     }
   }, []);
 
-  const getDealEvents = () => events.filter(e => e.isDeal);
-  const getLiveStreamEvents = () => events.filter(e => e.isLiveStream);
-  const getRegularEvents = () => events.filter(e => !e.isDeal && !e.isLiveStream);
+  const getDealEvents = () => events.filter((e) => e.isDeal);
+  const getLiveStreamEvents = () => events.filter((e) => e.isLiveStream);
+  const getRegularEvents = () =>
+    events.filter((e) => !e.isDeal && !e.isLiveStream);
 
   const handleLocationSearch = (newLocation: string) => {
     setCurrentLocation(newLocation);
   };
 
   const handleLocationKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleLocationSearch(currentLocation);
     }
   };
 
   const getTicketAvailability = (ticketsLeft: number, capacity: number) => {
     const percentage = (ticketsLeft / capacity) * 100;
-    if (percentage > 50) return { color: 'text-green-600', text: 'Available' };
-    if (percentage > 20) return { color: 'text-yellow-600', text: 'Selling Fast' };
-    return { color: 'text-red-600', text: 'Almost Sold Out' };
+    if (percentage > 50) return { color: "text-green-600", text: "Available" };
+    if (percentage > 20)
+      return { color: "text-yellow-600", text: "Selling Fast" };
+    return { color: "text-red-600", text: "Almost Sold Out" };
   };
 
   return (
@@ -276,7 +370,10 @@ export default function Events() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-4">
-              <Link to="/" className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors">
+              <Link
+                to="/"
+                className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors"
+              >
                 <ArrowLeft className="h-5 w-5" />
                 <span>Back to Home</span>
               </Link>
@@ -288,7 +385,7 @@ export default function Events() {
                 </span>
               </div>
             </div>
-            
+
             <div className="flex items-center space-x-4">
               {/* Location Search */}
               <div className="relative min-w-[250px]">
@@ -301,17 +398,22 @@ export default function Events() {
                   className="pl-10 pr-4 text-sm"
                 />
               </div>
-              
+
               {/* Travel Wallet */}
               {isSignedIn && (
                 <div className="flex items-center space-x-2 bg-travel-purple/10 px-3 py-1 rounded-full">
                   <Wallet className="h-4 w-4 text-travel-purple" />
-                  <span className="font-medium text-travel-purple">${walletBalance.toFixed(2)}</span>
+                  <span className="font-medium text-travel-purple">
+                    ${walletBalance.toFixed(2)}
+                  </span>
                 </div>
               )}
-              
+
               {/* List Event Button */}
-              <Button size="sm" className="bg-travel-orange hover:bg-travel-orange/90">
+              <Button
+                size="sm"
+                className="bg-travel-orange hover:bg-travel-orange/90"
+              >
                 <Plus className="h-4 w-4 mr-2" />
                 List Event
               </Button>
@@ -325,9 +427,14 @@ export default function Events() {
         <section className="mb-12">
           <div className="flex overflow-x-auto space-x-6 pb-4">
             {eventTypes.map((type) => (
-              <div key={type.id} className="flex flex-col items-center min-w-[80px] cursor-pointer hover:scale-105 transition-transform">
+              <div
+                key={type.id}
+                className="flex flex-col items-center min-w-[80px] cursor-pointer hover:scale-105 transition-transform"
+              >
                 <div className="text-4xl mb-2">{type.icon}</div>
-                <span className="text-sm font-medium text-center">{type.name}</span>
+                <span className="text-sm font-medium text-center">
+                  {type.name}
+                </span>
               </div>
             ))}
           </div>
@@ -341,13 +448,20 @@ export default function Events() {
             </h2>
             <Badge className="bg-red-100 text-red-700">Limited Time</Badge>
           </div>
-          
+
           <div className="grid md:grid-cols-2 gap-6">
             {getDealEvents().map((event) => (
-              <Card key={event.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+              <Card
+                key={event.id}
+                className="overflow-hidden hover:shadow-lg transition-shadow"
+              >
                 <div className="relative">
                   <div className="aspect-video relative">
-                    <img src={event.image} alt={event.title} className="w-full h-full object-cover" />
+                    <img
+                      src={event.image}
+                      alt={event.title}
+                      className="w-full h-full object-cover"
+                    />
                     <div className="absolute top-2 left-2">
                       <Badge className="bg-red-500 text-white">
                         {event.discount}% OFF
@@ -363,7 +477,7 @@ export default function Events() {
                     )}
                   </div>
                 </div>
-                
+
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between mb-3">
                     <Badge variant="outline">{event.category}</Badge>
@@ -372,18 +486,24 @@ export default function Events() {
                       <span className="text-sm">{event.rating}</span>
                     </div>
                   </div>
-                  
+
                   <h3 className="font-bold text-lg mb-2">{event.title}</h3>
-                  <p className="text-sm text-muted-foreground mb-3">{event.organizer}</p>
-                  
+                  <p className="text-sm text-muted-foreground mb-3">
+                    {event.organizer}
+                  </p>
+
                   <div className="space-y-2 mb-4">
                     <div className="flex items-center space-x-2">
                       <MapPin className="h-4 w-4 text-muted-foreground" />
-                      <span className="text-sm">{event.venue}, {event.location}</span>
+                      <span className="text-sm">
+                        {event.venue}, {event.location}
+                      </span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Calendar className="h-4 w-4 text-muted-foreground" />
-                      <span className="text-sm">{event.date} at {event.time}</span>
+                      <span className="text-sm">
+                        {event.date} at {event.time}
+                      </span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Clock className="h-4 w-4 text-muted-foreground" />
@@ -395,21 +515,34 @@ export default function Events() {
                     <div className="flex items-center space-x-4">
                       <div>
                         <div className="flex items-center space-x-2">
-                          <span className="text-2xl font-bold">${event.price}</span>
+                          <span className="text-2xl font-bold">
+                            ${event.price}
+                          </span>
                           {event.originalPrice && (
                             <span className="text-sm text-muted-foreground line-through">
                               ${event.originalPrice}
                             </span>
                           )}
                         </div>
-                        <span className="text-xs text-muted-foreground">per ticket</span>
+                        <span className="text-xs text-muted-foreground">
+                          per ticket
+                        </span>
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className={`text-sm font-medium ${getTicketAvailability(event.ticketsLeft, event.capacity).color}`}>
-                        {getTicketAvailability(event.ticketsLeft, event.capacity).text}
+                      <div
+                        className={`text-sm font-medium ${getTicketAvailability(event.ticketsLeft, event.capacity).color}`}
+                      >
+                        {
+                          getTicketAvailability(
+                            event.ticketsLeft,
+                            event.capacity,
+                          ).text
+                        }
                       </div>
-                      <div className="text-xs text-muted-foreground">{event.ticketsLeft} left</div>
+                      <div className="text-xs text-muted-foreground">
+                        {event.ticketsLeft} left
+                      </div>
                     </div>
                   </div>
 
@@ -436,13 +569,20 @@ export default function Events() {
             </h2>
             <Badge className="bg-red-500 text-white animate-pulse">LIVE</Badge>
           </div>
-          
+
           <div className="grid md:grid-cols-2 gap-6">
             {getLiveStreamEvents().map((event) => (
-              <Card key={event.id} className="overflow-hidden hover:shadow-lg transition-shadow border-2 border-red-200">
+              <Card
+                key={event.id}
+                className="overflow-hidden hover:shadow-lg transition-shadow border-2 border-red-200"
+              >
                 <div className="relative">
                   <div className="aspect-video relative">
-                    <img src={event.image} alt={event.title} className="w-full h-full object-cover" />
+                    <img
+                      src={event.image}
+                      alt={event.title}
+                      className="w-full h-full object-cover"
+                    />
                     <div className="absolute top-2 left-2">
                       <Badge className="bg-red-500 text-white">
                         <Radio className="h-3 w-3 mr-1" />
@@ -450,14 +590,17 @@ export default function Events() {
                       </Badge>
                     </div>
                     <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                      <Button size="sm" className="bg-white/90 text-black hover:bg-white">
+                      <Button
+                        size="sm"
+                        className="bg-white/90 text-black hover:bg-white"
+                      >
                         <Video className="h-4 w-4 mr-2" />
                         Watch Live
                       </Button>
                     </div>
                   </div>
                 </div>
-                
+
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between mb-3">
                     <Badge variant="outline">{event.category}</Badge>
@@ -466,36 +609,56 @@ export default function Events() {
                       <span className="text-sm">{event.rating}</span>
                     </div>
                   </div>
-                  
+
                   <h3 className="font-bold text-lg mb-2">{event.title}</h3>
-                  <p className="text-sm text-muted-foreground mb-3">{event.organizer}</p>
-                  
+                  <p className="text-sm text-muted-foreground mb-3">
+                    {event.organizer}
+                  </p>
+
                   <div className="space-y-2 mb-4">
                     <div className="flex items-center space-x-2">
                       <MapPin className="h-4 w-4 text-muted-foreground" />
-                      <span className="text-sm">{event.venue}, {event.location}</span>
+                      <span className="text-sm">
+                        {event.venue}, {event.location}
+                      </span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Calendar className="h-4 w-4 text-muted-foreground" />
-                      <span className="text-sm">{event.date} at {event.time}</span>
+                      <span className="text-sm">
+                        {event.date} at {event.time}
+                      </span>
                     </div>
                   </div>
 
                   <div className="flex items-center justify-between mb-4">
                     <div>
                       <span className="text-2xl font-bold">${event.price}</span>
-                      <span className="text-xs text-muted-foreground ml-1">per ticket</span>
+                      <span className="text-xs text-muted-foreground ml-1">
+                        per ticket
+                      </span>
                     </div>
                     <div className="text-right">
-                      <div className={`text-sm font-medium ${getTicketAvailability(event.ticketsLeft, event.capacity).color}`}>
-                        {getTicketAvailability(event.ticketsLeft, event.capacity).text}
+                      <div
+                        className={`text-sm font-medium ${getTicketAvailability(event.ticketsLeft, event.capacity).color}`}
+                      >
+                        {
+                          getTicketAvailability(
+                            event.ticketsLeft,
+                            event.capacity,
+                          ).text
+                        }
                       </div>
-                      <div className="text-xs text-muted-foreground">{event.ticketsLeft} left</div>
+                      <div className="text-xs text-muted-foreground">
+                        {event.ticketsLeft} left
+                      </div>
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <Button className="w-full bg-red-500 hover:bg-red-600" size="sm">
+                    <Button
+                      className="w-full bg-red-500 hover:bg-red-600"
+                      size="sm"
+                    >
                       <Video className="h-4 w-4 mr-2" />
                       Watch Live Preview
                     </Button>
@@ -518,16 +681,23 @@ export default function Events() {
               Filters
             </Button>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {getRegularEvents().map((event) => (
-              <Card key={event.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+              <Card
+                key={event.id}
+                className="overflow-hidden hover:shadow-lg transition-shadow"
+              >
                 <div className="relative">
                   <div className="aspect-video relative">
-                    <img src={event.image} alt={event.title} className="w-full h-full object-cover" />
+                    <img
+                      src={event.image}
+                      alt={event.title}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                 </div>
-                
+
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-2">
                     <Badge variant="outline">{event.category}</Badge>
@@ -536,19 +706,23 @@ export default function Events() {
                       <span className="text-sm">{event.rating}</span>
                     </div>
                   </div>
-                  
+
                   <h3 className="font-bold mb-2 text-sm">{event.title}</h3>
-                  <p className="text-xs text-muted-foreground mb-3">{event.venue}</p>
-                  
+                  <p className="text-xs text-muted-foreground mb-3">
+                    {event.venue}
+                  </p>
+
                   <div className="flex items-center space-x-2 mb-3">
                     <Calendar className="h-3 w-3 text-muted-foreground" />
                     <span className="text-xs">{event.date}</span>
                   </div>
-                  
+
                   <div className="flex items-center justify-between mb-3">
                     <div>
                       <span className="font-bold text-lg">${event.price}</span>
-                      <span className="text-xs text-muted-foreground ml-1">per ticket</span>
+                      <span className="text-xs text-muted-foreground ml-1">
+                        per ticket
+                      </span>
                     </div>
                     <div className="text-xs text-muted-foreground">
                       {event.ticketsLeft} left

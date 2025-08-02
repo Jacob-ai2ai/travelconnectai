@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { 
+import {
   MapPin,
   Wallet,
   Plus,
@@ -29,7 +29,7 @@ import {
   Tent,
   Castle,
   Palmtree,
-  ArrowLeft
+  ArrowLeft,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -64,7 +64,9 @@ interface Property {
 }
 
 export default function Stays() {
-  const [currentLocation, setCurrentLocation] = useState<string>("Detecting location...");
+  const [currentLocation, setCurrentLocation] = useState<string>(
+    "Detecting location...",
+  );
   const [destination, setDestination] = useState("");
   const [walletBalance] = useState(1250.75);
   const [isSignedIn] = useState(true); // Simulate signed in user
@@ -74,42 +76,224 @@ export default function Stays() {
 
   const propertyTypes: PropertyType[] = [
     // Nature & Countryside Escapes
-    { id: "cabin", name: "Cabins", category: "nature", icon: "🏕️", description: "Rustic and cozy, often in forests or mountains", emoji: "🌿" },
-    { id: "cottage", name: "Cottages", category: "nature", icon: "🏡", description: "Charming, usually countryside or lakeside", emoji: "🌿" },
-    { id: "chalet", name: "Chalets", category: "nature", icon: "🏔️", description: "Alpine-style home, typically near ski resorts", emoji: "🌿" },
-    { id: "farmstay", name: "Farmstays", category: "nature", icon: "🚜", description: "On working farms; offers rural immersion", emoji: "🌿" },
-    { id: "barn", name: "Barns", category: "nature", icon: "🏚️", description: "Modern homes built from old barns", emoji: "🌿" },
+    {
+      id: "cabin",
+      name: "Cabins",
+      category: "nature",
+      icon: "🏕️",
+      description: "Rustic and cozy, often in forests or mountains",
+      emoji: "🌿",
+    },
+    {
+      id: "cottage",
+      name: "Cottages",
+      category: "nature",
+      icon: "🏡",
+      description: "Charming, usually countryside or lakeside",
+      emoji: "🌿",
+    },
+    {
+      id: "chalet",
+      name: "Chalets",
+      category: "nature",
+      icon: "🏔️",
+      description: "Alpine-style home, typically near ski resorts",
+      emoji: "🌿",
+    },
+    {
+      id: "farmstay",
+      name: "Farmstays",
+      category: "nature",
+      icon: "🚜",
+      description: "On working farms; offers rural immersion",
+      emoji: "🌿",
+    },
+    {
+      id: "barn",
+      name: "Barns",
+      category: "nature",
+      icon: "🏚️",
+      description: "Modern homes built from old barns",
+      emoji: "🌿",
+    },
 
     // Coastal & Waterfront Homes
-    { id: "beach-house", name: "Beach Houses", category: "coastal", icon: "🏖️", description: "Located right on or near the beach", emoji: "🌊" },
-    { id: "lake-house", name: "Lakeside", category: "coastal", icon: "🏞️", description: "Next to lakes for fishing and peaceful views", emoji: "🌊" },
-    { id: "boathouse", name: "Waterfront", category: "coastal", icon: "🛥️", description: "House on water; may include dock space", emoji: "🌊" },
-    { id: "coastal-villa", name: "Coastal Villas", category: "coastal", icon: "🏖️", description: "Luxurious Mediterranean-style by the sea", emoji: "🌊" },
+    {
+      id: "beach-house",
+      name: "Beach Houses",
+      category: "coastal",
+      icon: "🏖️",
+      description: "Located right on or near the beach",
+      emoji: "🌊",
+    },
+    {
+      id: "lake-house",
+      name: "Lakeside",
+      category: "coastal",
+      icon: "🏞️",
+      description: "Next to lakes for fishing and peaceful views",
+      emoji: "🌊",
+    },
+    {
+      id: "boathouse",
+      name: "Waterfront",
+      category: "coastal",
+      icon: "🛥️",
+      description: "House on water; may include dock space",
+      emoji: "🌊",
+    },
+    {
+      id: "coastal-villa",
+      name: "Coastal Villas",
+      category: "coastal",
+      icon: "🏖️",
+      description: "Luxurious Mediterranean-style by the sea",
+      emoji: "🌊",
+    },
 
     // Urban & Luxury Getaways
-    { id: "penthouse", name: "Penthouses", category: "urban", icon: "🏙️", description: "Top-floor apartments with city views", emoji: "🏙️" },
-    { id: "loft", name: "Lofts", category: "urban", icon: "🏭", description: "Spacious urban apartment with industrial charm", emoji: "🏙️" },
-    { id: "luxury-condo", name: "Luxury Condos", category: "urban", icon: "🏢", description: "High-end apartments in sought-after destinations", emoji: "🏙️" },
-    { id: "townhouse", name: "Townhouses", category: "urban", icon: "🏘️", description: "Multi-level homes in cities or suburbs", emoji: "🏙️" },
+    {
+      id: "penthouse",
+      name: "Penthouses",
+      category: "urban",
+      icon: "🏙️",
+      description: "Top-floor apartments with city views",
+      emoji: "🏙️",
+    },
+    {
+      id: "loft",
+      name: "Lofts",
+      category: "urban",
+      icon: "🏭",
+      description: "Spacious urban apartment with industrial charm",
+      emoji: "🏙️",
+    },
+    {
+      id: "luxury-condo",
+      name: "Luxury Condos",
+      category: "urban",
+      icon: "🏢",
+      description: "High-end apartments in sought-after destinations",
+      emoji: "🏙️",
+    },
+    {
+      id: "townhouse",
+      name: "Townhouses",
+      category: "urban",
+      icon: "🏘️",
+      description: "Multi-level homes in cities or suburbs",
+      emoji: "🏙️",
+    },
 
     // Exotic & Experiential Stays
-    { id: "villa", name: "Villas", category: "exotic", icon: "🏛️", description: "Private luxury home with pool/garden", emoji: "🏝️" },
-    { id: "bungalow", name: "Bungalows", category: "exotic", icon: "🛖", description: "Single-story home, tropical or resort-style", emoji: "🏝️" },
-    { id: "overwater", name: "Overwater", category: "exotic", icon: "🏘️", description: "Built on stilts over water", emoji: "🏝️" },
-    { id: "riad", name: "Riads", category: "exotic", icon: "🕌", description: "Traditional Moroccan home with courtyards", emoji: "🏝️" },
+    {
+      id: "villa",
+      name: "Villas",
+      category: "exotic",
+      icon: "🏛️",
+      description: "Private luxury home with pool/garden",
+      emoji: "🏝️",
+    },
+    {
+      id: "bungalow",
+      name: "Bungalows",
+      category: "exotic",
+      icon: "🛖",
+      description: "Single-story home, tropical or resort-style",
+      emoji: "🏝️",
+    },
+    {
+      id: "overwater",
+      name: "Overwater",
+      category: "exotic",
+      icon: "🏘️",
+      description: "Built on stilts over water",
+      emoji: "🏝️",
+    },
+    {
+      id: "riad",
+      name: "Riads",
+      category: "exotic",
+      icon: "🕌",
+      description: "Traditional Moroccan home with courtyards",
+      emoji: "🏝️",
+    },
 
     // Unique & Alternative Stays
-    { id: "treehouse", name: "Treehouses", category: "unique", icon: "🌳", description: "Elevated homes in trees, boutique eco-style", emoji: "🏞️" },
-    { id: "aframe", name: "A-Frames", category: "unique", icon: "⛺", description: "Triangular design, compact yet trendy", emoji: "🏞️" },
-    { id: "yurt", name: "Yurts", category: "unique", icon: "⛺", description: "Circular tent-like structure for glamping", emoji: "🏞️" },
-    { id: "tiny-house", name: "Tiny Houses", category: "unique", icon: "🏠", description: "Minimalist and mobile, often off-grid", emoji: "🏞️" },
-    { id: "container", name: "Containers", category: "unique", icon: "��", description: "Built from shipping containers, modern", emoji: "🏞️" },
-    { id: "dome", name: "Domes", category: "unique", icon: "🔮", description: "Geodesic architecture, eco-conscious", emoji: "🏞️" },
+    {
+      id: "treehouse",
+      name: "Treehouses",
+      category: "unique",
+      icon: "🌳",
+      description: "Elevated homes in trees, boutique eco-style",
+      emoji: "🏞️",
+    },
+    {
+      id: "aframe",
+      name: "A-Frames",
+      category: "unique",
+      icon: "⛺",
+      description: "Triangular design, compact yet trendy",
+      emoji: "🏞️",
+    },
+    {
+      id: "yurt",
+      name: "Yurts",
+      category: "unique",
+      icon: "⛺",
+      description: "Circular tent-like structure for glamping",
+      emoji: "🏞️",
+    },
+    {
+      id: "tiny-house",
+      name: "Tiny Houses",
+      category: "unique",
+      icon: "🏠",
+      description: "Minimalist and mobile, often off-grid",
+      emoji: "🏞️",
+    },
+    {
+      id: "container",
+      name: "Containers",
+      category: "unique",
+      icon: "��",
+      description: "Built from shipping containers, modern",
+      emoji: "🏞️",
+    },
+    {
+      id: "dome",
+      name: "Domes",
+      category: "unique",
+      icon: "🔮",
+      description: "Geodesic architecture, eco-conscious",
+      emoji: "🏞️",
+    },
 
     // Desert & Remote Retreats
-    { id: "earth-house", name: "Earth Houses", category: "desert", icon: "🏜️", description: "Built underground with natural materials", emoji: "🏜️" },
-    { id: "adobe", name: "Adobe Homes", category: "desert", icon: "🧱", description: "Desert climates with traditional materials", emoji: "🏜️" },
-    { id: "desert-villa", name: "Desert Villas", category: "desert", icon: "🏛️", description: "Open-plan with panoramic desert views", emoji: "🏜️" }
+    {
+      id: "earth-house",
+      name: "Earth Houses",
+      category: "desert",
+      icon: "🏜️",
+      description: "Built underground with natural materials",
+      emoji: "🏜️",
+    },
+    {
+      id: "adobe",
+      name: "Adobe Homes",
+      category: "desert",
+      icon: "🧱",
+      description: "Desert climates with traditional materials",
+      emoji: "🏜️",
+    },
+    {
+      id: "desert-villa",
+      name: "Desert Villas",
+      category: "desert",
+      icon: "🏛️",
+      description: "Open-plan with panoramic desert views",
+      emoji: "🏜️",
+    },
   ];
 
   const sampleProperties: Property[] = [
@@ -131,7 +315,7 @@ export default function Stays() {
       discount: 28,
       host: "Made Sujana",
       beds: 3,
-      baths: 2
+      baths: 2,
     },
     {
       id: "deal-2",
@@ -150,7 +334,7 @@ export default function Stays() {
       discount: 29,
       host: "Ubud Retreats",
       beds: 2,
-      baths: 1
+      baths: 1,
     },
     {
       id: "deal-3",
@@ -169,7 +353,7 @@ export default function Stays() {
       discount: 31,
       host: "Sanur Beach Resort",
       beds: 1,
-      baths: 1
+      baths: 1,
     },
 
     // Live Stream Properties
@@ -189,7 +373,7 @@ export default function Stays() {
       isDeal: false,
       host: "Bali Luxury Stays",
       beds: 4,
-      baths: 3
+      baths: 3,
     },
     {
       id: "live-2",
@@ -207,7 +391,7 @@ export default function Stays() {
       isDeal: false,
       host: "Authentic Bali",
       beds: 2,
-      baths: 2
+      baths: 2,
     },
     {
       id: "live-3",
@@ -225,7 +409,7 @@ export default function Stays() {
       isDeal: false,
       host: "Urban Spaces",
       beds: 1,
-      baths: 1
+      baths: 1,
     },
 
     // Regular Properties
@@ -244,7 +428,7 @@ export default function Stays() {
       isDeal: false,
       host: "Mountain Lake Resort",
       beds: 2,
-      baths: 2
+      baths: 2,
     },
     {
       id: "regular-2",
@@ -261,7 +445,7 @@ export default function Stays() {
       isDeal: false,
       host: "Green Retreats",
       beds: 1,
-      baths: 1
+      baths: 1,
     },
     {
       id: "regular-3",
@@ -278,7 +462,7 @@ export default function Stays() {
       isDeal: false,
       host: "Bali Farm Experience",
       beds: 2,
-      baths: 1
+      baths: 1,
     },
     {
       id: "regular-4",
@@ -290,12 +474,17 @@ export default function Stays() {
       rating: 4.2,
       reviews: 89,
       image: "/placeholder.svg",
-      amenities: ["Compact Design", "Solar Power", "Kitchenette", "Outdoor Deck"],
+      amenities: [
+        "Compact Design",
+        "Solar Power",
+        "Kitchenette",
+        "Outdoor Deck",
+      ],
       isLiveStream: false,
       isDeal: false,
       host: "Tiny Living Bali",
       beds: 1,
-      baths: 1
+      baths: 1,
     },
     {
       id: "regular-5",
@@ -307,12 +496,17 @@ export default function Stays() {
       rating: 4.7,
       reviews: 112,
       image: "/placeholder.svg",
-      amenities: ["Golf Course View", "Private Terrace", "24/7 Security", "Pool Access"],
+      amenities: [
+        "Golf Course View",
+        "Private Terrace",
+        "24/7 Security",
+        "Pool Access",
+      ],
       isLiveStream: false,
       isDeal: false,
       host: "Nusa Dua Residences",
       beds: 3,
-      baths: 2
+      baths: 2,
     },
     {
       id: "regular-6",
@@ -329,7 +523,7 @@ export default function Stays() {
       isDeal: false,
       host: "Container Living",
       beds: 1,
-      baths: 1
+      baths: 1,
     },
     {
       id: "regular-7",
@@ -346,7 +540,7 @@ export default function Stays() {
       isDeal: false,
       host: "Dome Experiences",
       beds: 1,
-      baths: 1
+      baths: 1,
     },
     {
       id: "regular-8",
@@ -358,12 +552,17 @@ export default function Stays() {
       rating: 4.8,
       reviews: 145,
       image: "/placeholder.svg",
-      amenities: ["Courtyard", "Traditional Architecture", "Cultural Tours", "Spa"],
+      amenities: [
+        "Courtyard",
+        "Traditional Architecture",
+        "Cultural Tours",
+        "Spa",
+      ],
       isLiveStream: false,
       isDeal: false,
       host: "Cultural Heritage Stays",
       beds: 2,
-      baths: 2
+      baths: 2,
     },
     {
       id: "regular-9",
@@ -375,12 +574,17 @@ export default function Stays() {
       rating: 4.4,
       reviews: 93,
       image: "/placeholder.svg",
-      amenities: ["Mountain Views", "Compact Design", "Fireplace", "Hiking Trails"],
+      amenities: [
+        "Mountain Views",
+        "Compact Design",
+        "Fireplace",
+        "Hiking Trails",
+      ],
       isLiveStream: false,
       isDeal: false,
       host: "Mountain Cabins",
       beds: 1,
-      baths: 1
+      baths: 1,
     },
     {
       id: "regular-10",
@@ -392,13 +596,18 @@ export default function Stays() {
       rating: 4.9,
       reviews: 76,
       image: "/placeholder.svg",
-      amenities: ["Direct Water Access", "Boat Included", "Snorkeling", "Sunset Views"],
+      amenities: [
+        "Direct Water Access",
+        "Boat Included",
+        "Snorkeling",
+        "Sunset Views",
+      ],
       isLiveStream: false,
       isDeal: false,
       host: "Seaside Adventures",
       beds: 2,
-      baths: 1
-    }
+      baths: 1,
+    },
   ];
 
   // Properties for different destinations
@@ -414,14 +623,19 @@ export default function Stays() {
       rating: 4.9,
       reviews: 234,
       image: "/placeholder.svg",
-      amenities: ["Eiffel Tower View", "Luxury Furnishing", "Concierge", "WiFi"],
+      amenities: [
+        "Eiffel Tower View",
+        "Luxury Furnishing",
+        "Concierge",
+        "WiFi",
+      ],
       isLiveStream: true,
       liveViewers: 89,
       isDeal: true,
       discount: 25,
       host: "Paris Luxury Stays",
       beds: 3,
-      baths: 2
+      baths: 2,
     },
     {
       id: "paris-2",
@@ -433,13 +647,18 @@ export default function Stays() {
       rating: 4.6,
       reviews: 156,
       image: "/placeholder.svg",
-      amenities: ["Artistic Quarter", "City Views", "Historic Building", "WiFi"],
+      amenities: [
+        "Artistic Quarter",
+        "City Views",
+        "Historic Building",
+        "WiFi",
+      ],
       isLiveStream: false,
       isDeal: false,
       host: "Bohemian Paris",
       beds: 2,
-      baths: 1
-    }
+      baths: 1,
+    },
   ];
 
   const tokyoProperties: Property[] = [
@@ -461,7 +680,7 @@ export default function Stays() {
       discount: 27,
       host: "Tokyo Modern Living",
       beds: 2,
-      baths: 1
+      baths: 1,
     },
     {
       id: "tokyo-2",
@@ -473,13 +692,18 @@ export default function Stays() {
       rating: 4.8,
       reviews: 267,
       image: "/placeholder.svg",
-      amenities: ["Traditional Design", "Tatami Rooms", "Tea Ceremony", "Garden"],
+      amenities: [
+        "Traditional Design",
+        "Tatami Rooms",
+        "Tea Ceremony",
+        "Garden",
+      ],
       isLiveStream: false,
       isDeal: false,
       host: "Authentic Tokyo",
       beds: 1,
-      baths: 1
-    }
+      baths: 1,
+    },
   ];
 
   const newYorkProperties: Property[] = [
@@ -501,7 +725,7 @@ export default function Stays() {
       discount: 27,
       host: "NYC Elite Properties",
       beds: 4,
-      baths: 3
+      baths: 3,
     },
     {
       id: "ny-2",
@@ -513,13 +737,18 @@ export default function Stays() {
       rating: 4.5,
       reviews: 189,
       image: "/placeholder.svg",
-      amenities: ["Manhattan Views", "Industrial Design", "High Ceilings", "WiFi"],
+      amenities: [
+        "Manhattan Views",
+        "Industrial Design",
+        "High Ceilings",
+        "WiFi",
+      ],
       isLiveStream: false,
       isDeal: false,
       host: "Brooklyn Living",
       beds: 2,
-      baths: 2
-    }
+      baths: 2,
+    },
   ];
 
   const londonProperties: Property[] = [
@@ -541,7 +770,7 @@ export default function Stays() {
       discount: 21,
       host: "London Heritage Stays",
       beds: 3,
-      baths: 2
+      baths: 2,
     },
     {
       id: "london-2",
@@ -553,13 +782,18 @@ export default function Stays() {
       rating: 4.4,
       reviews: 98,
       image: "/placeholder.svg",
-      amenities: ["Market Access", "Cozy Interior", "Traditional Design", "WiFi"],
+      amenities: [
+        "Market Access",
+        "Cozy Interior",
+        "Traditional Design",
+        "WiFi",
+      ],
       isLiveStream: false,
       isDeal: false,
       host: "London Local Stays",
       beds: 2,
-      baths: 1
-    }
+      baths: 1,
+    },
   ];
 
   useEffect(() => {
@@ -577,7 +811,7 @@ export default function Stays() {
           setCurrentLocation("Location unavailable");
           setIsLoadingLocation(false);
           setProperties(sampleProperties);
-        }
+        },
       );
     } else {
       setCurrentLocation("Geolocation not supported");
@@ -589,15 +823,15 @@ export default function Stays() {
   const getPropertiesForLocation = (location: string): Property[] => {
     const locationLower = location.toLowerCase();
 
-    if (locationLower.includes('bali')) {
+    if (locationLower.includes("bali")) {
       return sampleProperties;
-    } else if (locationLower.includes('paris')) {
+    } else if (locationLower.includes("paris")) {
       return parisProperties;
-    } else if (locationLower.includes('tokyo')) {
+    } else if (locationLower.includes("tokyo")) {
       return tokyoProperties;
-    } else if (locationLower.includes('new york')) {
+    } else if (locationLower.includes("new york")) {
       return newYorkProperties;
-    } else if (locationLower.includes('london')) {
+    } else if (locationLower.includes("london")) {
       return londonProperties;
     } else {
       // Default to Bali properties if location not found
@@ -612,22 +846,24 @@ export default function Stays() {
   };
 
   const handleLocationKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleLocationSearch(currentLocation);
     }
   };
 
   const getFilteredProperties = () => {
     if (selectedCategory === "all") return properties;
-    return properties.filter(property => property.type === selectedCategory);
+    return properties.filter((property) => property.type === selectedCategory);
   };
 
-  const getDealProperties = () => properties.filter(p => p.isDeal);
-  const getLiveStreamProperties = () => properties.filter(p => p.isLiveStream);
-  const getRegularProperties = () => properties.filter(p => !p.isDeal && !p.isLiveStream);
+  const getDealProperties = () => properties.filter((p) => p.isDeal);
+  const getLiveStreamProperties = () =>
+    properties.filter((p) => p.isLiveStream);
+  const getRegularProperties = () =>
+    properties.filter((p) => !p.isDeal && !p.isLiveStream);
 
   const getCategoryProperties = (category: string) => {
-    return propertyTypes.filter(type => type.category === category);
+    return propertyTypes.filter((type) => type.category === category);
   };
 
   return (
@@ -638,7 +874,10 @@ export default function Stays() {
           {/* Top Row */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-4">
-              <Link to="/" className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors">
+              <Link
+                to="/"
+                className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors"
+              >
                 <ArrowLeft className="h-5 w-5" />
                 <span>Back to Home</span>
               </Link>
@@ -650,7 +889,7 @@ export default function Stays() {
                 </span>
               </div>
             </div>
-            
+
             <div className="flex items-center space-x-4">
               {/* Location Search */}
               <div className="relative min-w-[250px]">
@@ -670,26 +909,29 @@ export default function Stays() {
                   <Search className="h-3 w-3" />
                 </Button>
               </div>
-              
+
               {/* Travel Wallet */}
               {isSignedIn && (
                 <div className="flex items-center space-x-2 bg-travel-blue/10 px-3 py-1 rounded-full">
                   <Wallet className="h-4 w-4 text-travel-blue" />
-                  <span className="font-medium text-travel-blue">${walletBalance.toFixed(2)}</span>
+                  <span className="font-medium text-travel-blue">
+                    ${walletBalance.toFixed(2)}
+                  </span>
                 </div>
               )}
-              
+
               {/* List Property Button */}
               <Link to="/list-property">
-                <Button size="sm" className="bg-travel-orange hover:bg-travel-orange/90">
+                <Button
+                  size="sm"
+                  className="bg-travel-orange hover:bg-travel-orange/90"
+                >
                   <Plus className="h-4 w-4 mr-2" />
                   List My Property
                 </Button>
               </Link>
             </div>
           </div>
-
-
         </div>
       </header>
 
@@ -698,9 +940,14 @@ export default function Stays() {
         <section className="mb-12">
           <div className="flex overflow-x-auto space-x-6 pb-4">
             {propertyTypes.map((type) => (
-              <div key={type.id} className="flex flex-col items-center min-w-[80px] cursor-pointer hover:scale-105 transition-transform">
+              <div
+                key={type.id}
+                className="flex flex-col items-center min-w-[80px] cursor-pointer hover:scale-105 transition-transform"
+              >
                 <div className="text-4xl mb-2">{type.icon}</div>
-                <span className="text-sm font-medium text-center">{type.name}</span>
+                <span className="text-sm font-medium text-center">
+                  {type.name}
+                </span>
               </div>
             ))}
           </div>
@@ -714,26 +961,37 @@ export default function Stays() {
             </h2>
             <Badge className="bg-red-100 text-red-700">Limited Time</Badge>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {getDealProperties().map((property) => (
-              <Card key={property.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+              <Card
+                key={property.id}
+                className="overflow-hidden hover:shadow-lg transition-shadow"
+              >
                 <div className="relative">
                   <div className="aspect-video relative">
-                    <img src={property.image} alt={property.name} className="w-full h-full object-cover" />
+                    <img
+                      src={property.image}
+                      alt={property.name}
+                      className="w-full h-full object-cover"
+                    />
                     <div className="absolute top-2 left-2">
                       <Badge className="bg-red-500 text-white">
                         {property.discount}% OFF
                       </Badge>
                     </div>
                     <div className="absolute top-2 right-2">
-                      <Button size="sm" variant="ghost" className="bg-white/80 hover:bg-white/90">
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        className="bg-white/80 hover:bg-white/90"
+                      >
                         <Heart className="h-4 w-4" />
                       </Button>
                     </div>
                   </div>
                 </div>
-                
+
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="font-bold text-sm">{property.name}</h3>
@@ -742,24 +1000,32 @@ export default function Stays() {
                       <span className="text-xs">{property.rating}</span>
                     </div>
                   </div>
-                  
-                  <p className="text-xs text-muted-foreground mb-2">{property.location} • {property.distance}km away</p>
-                  <p className="text-xs text-muted-foreground mb-3">{property.beds} beds • {property.baths} baths</p>
-                  
+
+                  <p className="text-xs text-muted-foreground mb-2">
+                    {property.location} • {property.distance}km away
+                  </p>
+                  <p className="text-xs text-muted-foreground mb-3">
+                    {property.beds} beds • {property.baths} baths
+                  </p>
+
                   <div className="flex items-center justify-between mb-3">
                     <div>
                       <div className="flex items-center space-x-2">
-                        <span className="font-bold text-lg">${property.price}</span>
+                        <span className="font-bold text-lg">
+                          ${property.price}
+                        </span>
                         {property.originalPrice && (
                           <span className="text-sm text-muted-foreground line-through">
                             ${property.originalPrice}
                           </span>
                         )}
                       </div>
-                      <span className="text-xs text-muted-foreground">per night</span>
+                      <span className="text-xs text-muted-foreground">
+                        per night
+                      </span>
                     </div>
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Button variant="outline" className="w-full" size="sm">
                       <Eye className="h-4 w-4 mr-2" />
@@ -783,13 +1049,20 @@ export default function Stays() {
             </h2>
             <Badge className="bg-red-500 text-white animate-pulse">LIVE</Badge>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {getLiveStreamProperties().map((property) => (
-              <Card key={property.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+              <Card
+                key={property.id}
+                className="overflow-hidden hover:shadow-lg transition-shadow"
+              >
                 <div className="relative">
                   <div className="aspect-video relative">
-                    <img src={property.image} alt={property.name} className="w-full h-full object-cover" />
+                    <img
+                      src={property.image}
+                      alt={property.name}
+                      className="w-full h-full object-cover"
+                    />
                     <div className="absolute top-2 left-2">
                       <Badge className="bg-red-500 text-white">
                         <Radio className="h-3 w-3 mr-1" />
@@ -797,14 +1070,17 @@ export default function Stays() {
                       </Badge>
                     </div>
                     <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                      <Button size="sm" className="bg-white/90 text-black hover:bg-white">
+                      <Button
+                        size="sm"
+                        className="bg-white/90 text-black hover:bg-white"
+                      >
                         <Video className="h-4 w-4 mr-2" />
                         Join Live Tour
                       </Button>
                     </div>
                   </div>
                 </div>
-                
+
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="font-bold text-sm">{property.name}</h3>
@@ -813,19 +1089,30 @@ export default function Stays() {
                       <span className="text-xs">{property.rating}</span>
                     </div>
                   </div>
-                  
-                  <p className="text-xs text-muted-foreground mb-2">{property.location} • {property.distance}km away</p>
-                  <p className="text-xs text-muted-foreground mb-3">{property.beds} beds • {property.baths} baths</p>
-                  
+
+                  <p className="text-xs text-muted-foreground mb-2">
+                    {property.location} • {property.distance}km away
+                  </p>
+                  <p className="text-xs text-muted-foreground mb-3">
+                    {property.beds} beds • {property.baths} baths
+                  </p>
+
                   <div className="flex items-center justify-between mb-3">
                     <div>
-                      <span className="font-bold text-lg">${property.price}</span>
-                      <span className="text-xs text-muted-foreground ml-1">per night</span>
+                      <span className="font-bold text-lg">
+                        ${property.price}
+                      </span>
+                      <span className="text-xs text-muted-foreground ml-1">
+                        per night
+                      </span>
                     </div>
                   </div>
-                  
+
                   <div className="space-y-2">
-                    <Button className="w-full bg-red-500 hover:bg-red-600" size="sm">
+                    <Button
+                      className="w-full bg-red-500 hover:bg-red-600"
+                      size="sm"
+                    >
                       <Video className="h-4 w-4 mr-2" />
                       Join Live Tour
                     </Button>
@@ -848,21 +1135,32 @@ export default function Stays() {
               Filters
             </Button>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {getRegularProperties().map((property) => (
-              <Card key={property.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+              <Card
+                key={property.id}
+                className="overflow-hidden hover:shadow-lg transition-shadow"
+              >
                 <div className="relative">
                   <div className="aspect-video relative">
-                    <img src={property.image} alt={property.name} className="w-full h-full object-cover" />
+                    <img
+                      src={property.image}
+                      alt={property.name}
+                      className="w-full h-full object-cover"
+                    />
                     <div className="absolute top-2 right-2">
-                      <Button size="sm" variant="ghost" className="bg-white/80 hover:bg-white/90">
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        className="bg-white/80 hover:bg-white/90"
+                      >
                         <Heart className="h-4 w-4" />
                       </Button>
                     </div>
                   </div>
                 </div>
-                
+
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="font-bold text-sm">{property.name}</h3>
@@ -871,17 +1169,25 @@ export default function Stays() {
                       <span className="text-xs">{property.rating}</span>
                     </div>
                   </div>
-                  
-                  <p className="text-xs text-muted-foreground mb-2">{property.location} • {property.distance}km away</p>
-                  <p className="text-xs text-muted-foreground mb-3">{property.beds} beds • {property.baths} baths</p>
-                  
+
+                  <p className="text-xs text-muted-foreground mb-2">
+                    {property.location} • {property.distance}km away
+                  </p>
+                  <p className="text-xs text-muted-foreground mb-3">
+                    {property.beds} beds • {property.baths} baths
+                  </p>
+
                   <div className="flex items-center justify-between mb-3">
                     <div>
-                      <span className="font-bold text-lg">${property.price}</span>
-                      <span className="text-xs text-muted-foreground ml-1">per night</span>
+                      <span className="font-bold text-lg">
+                        ${property.price}
+                      </span>
+                      <span className="text-xs text-muted-foreground ml-1">
+                        per night
+                      </span>
                     </div>
                   </div>
-                  
+
                   <Button className="w-full" size="sm">
                     View Details
                   </Button>
