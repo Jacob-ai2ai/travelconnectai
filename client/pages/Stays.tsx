@@ -293,123 +293,13 @@ export default function Stays() {
       <div className="container mx-auto px-4 py-8">
         {/* Property Type Categories */}
         <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-6">Browse by Property Type</h2>
-          
-          {/* Category Sections */}
-          <div className="space-y-8">
-            {/* Nature & Countryside */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4 flex items-center">
-                <span className="text-2xl mr-2">🌿</span>
-                Nature & Countryside Escapes
-              </h3>
-              <div className="flex overflow-x-auto space-x-4 pb-4">
-                {getCategoryProperties("nature").map((type) => (
-                  <Card key={type.id} className="min-w-[200px] cursor-pointer hover:shadow-md transition-shadow">
-                    <CardContent className="p-4 text-center">
-                      <div className="text-3xl mb-2">{type.icon}</div>
-                      <h4 className="font-medium mb-1">{type.name}</h4>
-                      <p className="text-xs text-muted-foreground">{type.description}</p>
-                    </CardContent>
-                  </Card>
-                ))}
+          <div className="flex overflow-x-auto space-x-6 pb-4">
+            {propertyTypes.map((type) => (
+              <div key={type.id} className="flex flex-col items-center min-w-[80px] cursor-pointer hover:scale-105 transition-transform">
+                <div className="text-4xl mb-2">{type.icon}</div>
+                <span className="text-sm font-medium text-center">{type.name}</span>
               </div>
-            </div>
-
-            {/* Coastal & Waterfront */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4 flex items-center">
-                <span className="text-2xl mr-2">🌊</span>
-                Coastal & Waterfront Homes
-              </h3>
-              <div className="flex overflow-x-auto space-x-4 pb-4">
-                {getCategoryProperties("coastal").map((type) => (
-                  <Card key={type.id} className="min-w-[200px] cursor-pointer hover:shadow-md transition-shadow">
-                    <CardContent className="p-4 text-center">
-                      <div className="text-3xl mb-2">{type.icon}</div>
-                      <h4 className="font-medium mb-1">{type.name}</h4>
-                      <p className="text-xs text-muted-foreground">{type.description}</p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-
-            {/* Urban & Luxury */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4 flex items-center">
-                <span className="text-2xl mr-2">🏙️</span>
-                Urban & Luxury Getaways
-              </h3>
-              <div className="flex overflow-x-auto space-x-4 pb-4">
-                {getCategoryProperties("urban").map((type) => (
-                  <Card key={type.id} className="min-w-[200px] cursor-pointer hover:shadow-md transition-shadow">
-                    <CardContent className="p-4 text-center">
-                      <div className="text-3xl mb-2">{type.icon}</div>
-                      <h4 className="font-medium mb-1">{type.name}</h4>
-                      <p className="text-xs text-muted-foreground">{type.description}</p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-
-            {/* Exotic & Experiential */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4 flex items-center">
-                <span className="text-2xl mr-2">🏝️</span>
-                Exotic & Experiential Stays
-              </h3>
-              <div className="flex overflow-x-auto space-x-4 pb-4">
-                {getCategoryProperties("exotic").map((type) => (
-                  <Card key={type.id} className="min-w-[200px] cursor-pointer hover:shadow-md transition-shadow">
-                    <CardContent className="p-4 text-center">
-                      <div className="text-3xl mb-2">{type.icon}</div>
-                      <h4 className="font-medium mb-1">{type.name}</h4>
-                      <p className="text-xs text-muted-foreground">{type.description}</p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-
-            {/* Unique & Alternative */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4 flex items-center">
-                <span className="text-2xl mr-2">🏞️</span>
-                Unique & Alternative Stays
-              </h3>
-              <div className="flex overflow-x-auto space-x-4 pb-4">
-                {getCategoryProperties("unique").map((type) => (
-                  <Card key={type.id} className="min-w-[200px] cursor-pointer hover:shadow-md transition-shadow">
-                    <CardContent className="p-4 text-center">
-                      <div className="text-3xl mb-2">{type.icon}</div>
-                      <h4 className="font-medium mb-1">{type.name}</h4>
-                      <p className="text-xs text-muted-foreground">{type.description}</p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-
-            {/* Desert & Remote */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4 flex items-center">
-                <span className="text-2xl mr-2">🏜️</span>
-                Desert & Remote Retreats
-              </h3>
-              <div className="flex overflow-x-auto space-x-4 pb-4">
-                {getCategoryProperties("desert").map((type) => (
-                  <Card key={type.id} className="min-w-[200px] cursor-pointer hover:shadow-md transition-shadow">
-                    <CardContent className="p-4 text-center">
-                      <div className="text-3xl mb-2">{type.icon}</div>
-                      <h4 className="font-medium mb-1">{type.name}</h4>
-                      <p className="text-xs text-muted-foreground">{type.description}</p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
         </section>
 
