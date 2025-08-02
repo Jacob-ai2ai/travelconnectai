@@ -88,7 +88,7 @@ export default function Stays() {
 
     // Urban & Luxury Getaways
     { id: "penthouse", name: "Penthouses", category: "urban", icon: "🏙️", description: "Top-floor apartments with city views", emoji: "🏙️" },
-    { id: "loft", name: "Lofts", category: "urban", icon: "��", description: "Spacious urban apartment with industrial charm", emoji: "🏙️" },
+    { id: "loft", name: "Lofts", category: "urban", icon: "🏭", description: "Spacious urban apartment with industrial charm", emoji: "🏙️" },
     { id: "luxury-condo", name: "Luxury Condos", category: "urban", icon: "🏢", description: "High-end apartments in sought-after destinations", emoji: "🏙️" },
     { id: "townhouse", name: "Townhouses", category: "urban", icon: "🏘️", description: "Multi-level homes in cities or suburbs", emoji: "🏙️" },
 
@@ -409,7 +409,7 @@ export default function Stays() {
           // Simulate reverse geocoding
           setCurrentLocation("Denpasar, Bali, Indonesia");
           setIsLoadingLocation(false);
-          setProperties(sampleProperties);
+          setProperties(getPropertiesForLocation("Denpasar, Bali, Indonesia"));
         },
         (error) => {
           console.error("Error getting location:", error);
@@ -424,6 +424,37 @@ export default function Stays() {
       setProperties(sampleProperties);
     }
   }, []);
+
+  const getPropertiesForLocation = (location: string): Property[] => {
+    const locationLower = location.toLowerCase();
+
+    if (locationLower.includes('bali')) {
+      return sampleProperties;
+    } else if (locationLower.includes('paris')) {
+      return parisProperties;
+    } else if (locationLower.includes('tokyo')) {
+      return tokyoProperties;
+    } else if (locationLower.includes('new york')) {
+      return newYorkProperties;
+    } else if (locationLower.includes('london')) {
+      return londonProperties;
+    } else {
+      // Default to Bali properties if location not found
+      return sampleProperties;
+    }
+  };
+
+  const handleLocationSearch = (newLocation: string) => {
+    setCurrentLocation(newLocation);
+    const locationProperties = getPropertiesForLocation(newLocation);
+    setProperties(locationProperties);
+  };
+
+  const handleLocationKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleLocationSearch(currentLocation);
+    }
+  };
 
   const getFilteredProperties = () => {
     if (selectedCategory === "all") return properties;
