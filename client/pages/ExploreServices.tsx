@@ -50,13 +50,11 @@ interface FeaturedItem {
 }
 
 export default function ExploreServices() {
-  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [currentLocation, setCurrentLocation] = useState("Denpasar, Bali");
   const [walletBalance] = useState(1250.75);
   const [isSignedIn] = useState(true);
   const [selectedFilter, setSelectedFilter] = useState("all");
-  const [activeTab, setActiveTab] = useState("all");
 
   const featuredDeals: FeaturedItem[] = [
     {
