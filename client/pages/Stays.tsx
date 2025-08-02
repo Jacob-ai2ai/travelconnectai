@@ -401,6 +401,167 @@ export default function Stays() {
     }
   ];
 
+  // Properties for different destinations
+  const parisProperties: Property[] = [
+    {
+      id: "paris-1",
+      name: "Luxury Penthouse Champs-Élysées",
+      type: "penthouse",
+      location: "8th Arrondissement, Paris",
+      distance: 0.5,
+      price: 450,
+      originalPrice: 600,
+      rating: 4.9,
+      reviews: 234,
+      image: "/placeholder.svg",
+      amenities: ["Eiffel Tower View", "Luxury Furnishing", "Concierge", "WiFi"],
+      isLiveStream: true,
+      liveViewers: 89,
+      isDeal: true,
+      discount: 25,
+      host: "Paris Luxury Stays",
+      beds: 3,
+      baths: 2
+    },
+    {
+      id: "paris-2",
+      name: "Charming Montmartre Loft",
+      type: "loft",
+      location: "Montmartre, Paris",
+      distance: 3.2,
+      price: 180,
+      rating: 4.6,
+      reviews: 156,
+      image: "/placeholder.svg",
+      amenities: ["Artistic Quarter", "City Views", "Historic Building", "WiFi"],
+      isLiveStream: false,
+      isDeal: false,
+      host: "Bohemian Paris",
+      beds: 2,
+      baths: 1
+    }
+  ];
+
+  const tokyoProperties: Property[] = [
+    {
+      id: "tokyo-1",
+      name: "Modern Shibuya Apartment",
+      type: "luxury-condo",
+      location: "Shibuya, Tokyo",
+      distance: 1.1,
+      price: 220,
+      originalPrice: 300,
+      rating: 4.7,
+      reviews: 198,
+      image: "/placeholder.svg",
+      amenities: ["City Center", "Modern Design", "JR Access", "WiFi"],
+      isLiveStream: true,
+      liveViewers: 52,
+      isDeal: true,
+      discount: 27,
+      host: "Tokyo Modern Living",
+      beds: 2,
+      baths: 1
+    },
+    {
+      id: "tokyo-2",
+      name: "Traditional Ryokan Experience",
+      type: "riad",
+      location: "Asakusa, Tokyo",
+      distance: 5.8,
+      price: 160,
+      rating: 4.8,
+      reviews: 267,
+      image: "/placeholder.svg",
+      amenities: ["Traditional Design", "Tatami Rooms", "Tea Ceremony", "Garden"],
+      isLiveStream: false,
+      isDeal: false,
+      host: "Authentic Tokyo",
+      beds: 1,
+      baths: 1
+    }
+  ];
+
+  const newYorkProperties: Property[] = [
+    {
+      id: "ny-1",
+      name: "Manhattan Skyline Penthouse",
+      type: "penthouse",
+      location: "Upper East Side, New York",
+      distance: 2.3,
+      price: 550,
+      originalPrice: 750,
+      rating: 4.9,
+      reviews: 312,
+      image: "/placeholder.svg",
+      amenities: ["Central Park View", "24/7 Doorman", "Rooftop Access", "Gym"],
+      isLiveStream: true,
+      liveViewers: 124,
+      isDeal: true,
+      discount: 27,
+      host: "NYC Elite Properties",
+      beds: 4,
+      baths: 3
+    },
+    {
+      id: "ny-2",
+      name: "Brooklyn Industrial Loft",
+      type: "loft",
+      location: "DUMBO, Brooklyn",
+      distance: 8.7,
+      price: 280,
+      rating: 4.5,
+      reviews: 189,
+      image: "/placeholder.svg",
+      amenities: ["Manhattan Views", "Industrial Design", "High Ceilings", "WiFi"],
+      isLiveStream: false,
+      isDeal: false,
+      host: "Brooklyn Living",
+      beds: 2,
+      baths: 2
+    }
+  ];
+
+  const londonProperties: Property[] = [
+    {
+      id: "london-1",
+      name: "Thames View Townhouse",
+      type: "townhouse",
+      location: "Westminster, London",
+      distance: 1.5,
+      price: 380,
+      originalPrice: 480,
+      rating: 4.8,
+      reviews: 145,
+      image: "/placeholder.svg",
+      amenities: ["River Views", "Historic Building", "Garden", "WiFi"],
+      isLiveStream: true,
+      liveViewers: 67,
+      isDeal: true,
+      discount: 21,
+      host: "London Heritage Stays",
+      beds: 3,
+      baths: 2
+    },
+    {
+      id: "london-2",
+      name: "Cozy Camden Cottage",
+      type: "cottage",
+      location: "Camden, London",
+      distance: 4.2,
+      price: 150,
+      rating: 4.4,
+      reviews: 98,
+      image: "/placeholder.svg",
+      amenities: ["Market Access", "Cozy Interior", "Traditional Design", "WiFi"],
+      isLiveStream: false,
+      isDeal: false,
+      host: "London Local Stays",
+      beds: 2,
+      baths: 1
+    }
+  ];
+
   useEffect(() => {
     // Get user's current location
     if (navigator.geolocation) {
