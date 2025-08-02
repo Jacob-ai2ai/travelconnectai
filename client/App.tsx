@@ -30,6 +30,10 @@ export default function App() {
           <Route path="/trip-details/:planId" element={<TripDetails />} />
           <Route path="/route-map/:planId" element={<RouteMap />} />
           <Route path="/stays" element={<Stays />} />
+          <Route path="/flights" element={<Flights />} />
+          <Route path="/xperiences" element={<Xperiences />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/essentials" element={<Essentials />} />
           <Route path="/list-property" element={<ListProperty />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
