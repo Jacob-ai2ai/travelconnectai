@@ -2,13 +2,8 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
+import ServiceHeader from "@/components/ServiceHeader";
 import {
-  ArrowLeft,
-  Search,
-  Filter,
-  MapPin,
-  Wallet,
   Star,
   DollarSign,
   Clock,
@@ -27,7 +22,7 @@ import {
   Video,
   Radio
 } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface ServiceCategory {
   id: string;
