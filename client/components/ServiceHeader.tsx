@@ -81,7 +81,7 @@ export default function ServiceHeader({
           <div className="flex items-center">
             <Link to="/list-property">
               <Button variant="outline" className="bg-travel-orange/10 border-travel-orange text-travel-orange hover:bg-travel-orange hover:text-white">
-                Become a Travel Merchant
+                Become a Merchant
               </Button>
             </Link>
           </div>
