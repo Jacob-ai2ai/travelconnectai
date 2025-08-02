@@ -88,7 +88,7 @@ export default function Stays() {
 
     // Urban & Luxury Getaways
     { id: "penthouse", name: "Penthouses", category: "urban", icon: "🏙️", description: "Top-floor apartments with city views", emoji: "🏙️" },
-    { id: "loft", name: "Lofts", category: "urban", icon: "🏭", description: "Spacious urban apartment with industrial charm", emoji: "🏙️" },
+    { id: "loft", name: "Lofts", category: "urban", icon: "��", description: "Spacious urban apartment with industrial charm", emoji: "🏙️" },
     { id: "luxury-condo", name: "Luxury Condos", category: "urban", icon: "🏢", description: "High-end apartments in sought-after destinations", emoji: "🏙️" },
     { id: "townhouse", name: "Townhouses", category: "urban", icon: "🏘️", description: "Multi-level homes in cities or suburbs", emoji: "🏙️" },
 
@@ -487,21 +487,7 @@ export default function Stays() {
             </div>
           </div>
 
-          {/* Search Bar */}
-          <div className="max-w-2xl">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder={`Search stays in ${currentLocation} or enter a destination...`}
-                value={destination}
-                onChange={(e) => setDestination(e.target.value)}
-                className="pl-10 pr-20"
-              />
-              <Button size="sm" className="absolute right-1 top-1/2 transform -translate-y-1/2">
-                Search
-              </Button>
-            </div>
-          </div>
+
         </div>
       </header>
 
