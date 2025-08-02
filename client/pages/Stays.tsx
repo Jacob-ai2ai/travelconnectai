@@ -615,7 +615,7 @@ export default function Stays() {
   const parisProperties: Property[] = [
     {
       id: "paris-1",
-      name: "Luxury Penthouse Champs-Élysées",
+      name: "Luxury Penthouse Champs-Élys��es",
       type: "penthouse",
       location: "8th Arrondissement, Paris",
       distance: 0.5,
@@ -869,72 +869,16 @@ export default function Stays() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted">
-      {/* Header */}
-      <header className="border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          {/* Top Row */}
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center space-x-4">
-              <Link
-                to="/"
-                className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <ArrowLeft className="h-5 w-5" />
-                <span>Back to Home</span>
-              </Link>
-              <div className="h-6 w-px bg-border"></div>
-              <div className="flex items-center space-x-2">
-                <Home className="h-6 w-6 text-travel-blue" />
-                <span className="text-xl font-bold bg-gradient-to-r from-travel-blue to-travel-purple bg-clip-text text-transparent">
-                  Stays
-                </span>
-              </div>
-            </div>
-
-            <div className="flex items-center space-x-4">
-              {/* Location Search */}
-              <div className="relative min-w-[250px]">
-                <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-travel-blue" />
-                <Input
-                  placeholder="Enter destination (e.g., Paris, Tokyo, New York)"
-                  value={isLoadingLocation ? "Detecting..." : currentLocation}
-                  onChange={(e) => setCurrentLocation(e.target.value)}
-                  onKeyPress={handleLocationKeyPress}
-                  className="pl-10 pr-16 text-sm"
-                />
-                <Button
-                  size="sm"
-                  className="absolute right-1 top-1/2 transform -translate-y-1/2 h-7"
-                  onClick={() => handleLocationSearch(currentLocation)}
-                >
-                  <Search className="h-3 w-3" />
-                </Button>
-              </div>
-
-              {/* Travel Wallet */}
-              {isSignedIn && (
-                <div className="flex items-center space-x-2 bg-travel-blue/10 px-3 py-1 rounded-full">
-                  <Wallet className="h-4 w-4 text-travel-blue" />
-                  <span className="font-medium text-travel-blue">
-                    ${walletBalance.toFixed(2)}
-                  </span>
-                </div>
-              )}
-
-              {/* List Property Button */}
-              <Link to="/list-property">
-                <Button
-                  size="sm"
-                  className="bg-travel-orange hover:bg-travel-orange/90"
-                >
-                  <Plus className="h-4 w-4 mr-2" />
-                  List My Property
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
+      <ServiceHeader
+        currentLocation={isLoadingLocation ? "Detecting..." : currentLocation}
+        walletBalance={walletBalance}
+        isSignedIn={isSignedIn}
+        searchQuery={currentLocation}
+        onSearchChange={(value) => {
+          setCurrentLocation(value);
+          handleLocationSearch(value);
+        }}
+      />
 
       <div className="container mx-auto px-4 py-8">
         {/* Property Type Categories */}
