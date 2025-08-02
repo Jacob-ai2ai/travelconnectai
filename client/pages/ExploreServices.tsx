@@ -207,14 +207,14 @@ export default function ExploreServices() {
       <header className="border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4 flex-1">
               <Link to="/" className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors">
                 <ArrowLeft className="h-5 w-5" />
                 <span>Back to Home</span>
               </Link>
               <div className="h-6 w-px bg-border"></div>
 
-              {/* Search Bar - Moved from bottom */}
+              {/* Search Bar */}
               <div className="flex-1 max-w-md">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -226,16 +226,23 @@ export default function ExploreServices() {
                   />
                 </div>
               </div>
-            </div>
 
-            <div className="flex items-center space-x-4">
-              {/* Travel Wallet */}
+              {/* Travel Wallet - Moved beside search */}
               {isSignedIn && (
                 <div className="flex items-center space-x-2 bg-travel-blue/10 px-3 py-1 rounded-full">
                   <Wallet className="h-4 w-4 text-travel-blue" />
                   <span className="font-medium text-travel-blue">${walletBalance.toFixed(2)}</span>
                 </div>
               )}
+            </div>
+
+            {/* Become a Merchant Button - At the end */}
+            <div className="flex items-center">
+              <Link to="/list-property">
+                <Button variant="outline" className="bg-travel-orange/10 border-travel-orange text-travel-orange hover:bg-travel-orange hover:text-white">
+                  Become a Travel Merchant
+                </Button>
+              </Link>
             </div>
           </div>
 
