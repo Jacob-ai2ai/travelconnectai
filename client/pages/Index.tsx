@@ -190,12 +190,14 @@ export default function Index() {
                 Browse and book each service individually with full control over
                 your travel choices.
               </p>
-              <Button
-                variant="outline"
-                className="w-full border-travel-orange text-travel-orange hover:bg-travel-orange hover:text-white"
-              >
-                Explore Services
-              </Button>
+              <Link to="/explore-services">
+                <Button
+                  variant="outline"
+                  className="w-full border-travel-orange text-travel-orange hover:bg-travel-orange hover:text-white"
+                >
+                  Explore Services
+                </Button>
+              </Link>
             </Card>
           </div>
 
