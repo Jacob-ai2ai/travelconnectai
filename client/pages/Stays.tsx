@@ -656,11 +656,19 @@ export default function Stays() {
               <div className="relative min-w-[250px]">
                 <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-travel-blue" />
                 <Input
-                  placeholder="Current location"
+                  placeholder="Enter destination (e.g., Paris, Tokyo, New York)"
                   value={isLoadingLocation ? "Detecting..." : currentLocation}
                   onChange={(e) => setCurrentLocation(e.target.value)}
-                  className="pl-10 pr-4 text-sm"
+                  onKeyPress={handleLocationKeyPress}
+                  className="pl-10 pr-16 text-sm"
                 />
+                <Button
+                  size="sm"
+                  className="absolute right-1 top-1/2 transform -translate-y-1/2 h-7"
+                  onClick={() => handleLocationSearch(currentLocation)}
+                >
+                  <Search className="h-3 w-3" />
+                </Button>
               </div>
               
               {/* Travel Wallet */}
