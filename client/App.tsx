@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import AIPlanner from "./pages/AIPlanner";
 import TripDetails from "./pages/TripDetails";
 import RouteMap from "./pages/RouteMap";
+import Stays from "./pages/Stays";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
