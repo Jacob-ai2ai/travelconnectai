@@ -26,19 +26,19 @@ export default function App() {
         <Sonner />
         <BrowserRouter>
           <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/ai-planner" element={<AIPlanner />} />
-          <Route path="/trip-details/:planId" element={<TripDetails />} />
-          <Route path="/route-map/:planId" element={<RouteMap />} />
-          <Route path="/stays" element={<Stays />} />
-          <Route path="/flights" element={<Flights />} />
-          <Route path="/xperiences" element={<Xperiences />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/essentials" element={<Essentials />} />
-          <Route path="/explore-services" element={<ExploreServices />} />
-          <Route path="/list-property" element={<ListProperty />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
+            <Route path="/" element={<Index />} />
+            <Route path="/ai-planner" element={<AIPlanner />} />
+            <Route path="/trip-details/:planId" element={<TripDetails />} />
+            <Route path="/route-map/:planId" element={<RouteMap />} />
+            <Route path="/stays" element={<Stays />} />
+            <Route path="/flights" element={<Flights />} />
+            <Route path="/xperiences" element={<Xperiences />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/essentials" element={<Essentials />} />
+            <Route path="/explore-services" element={<ExploreServices />} />
+            <Route path="/list-property" element={<ListProperty />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { 
+import {
   ArrowLeft,
   Search,
   Wallet,
@@ -9,7 +9,7 @@ import {
   Plane,
   Mountain,
   Ticket,
-  ShoppingBag
+  ShoppingBag,
 } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
@@ -21,12 +21,12 @@ interface ServiceHeaderProps {
   onSearchChange: (value: string) => void;
 }
 
-export default function ServiceHeader({ 
-  currentLocation, 
-  walletBalance, 
-  isSignedIn = true, 
-  searchQuery, 
-  onSearchChange 
+export default function ServiceHeader({
+  currentLocation,
+  walletBalance,
+  isSignedIn = true,
+  searchQuery,
+  onSearchChange,
 }: ServiceHeaderProps) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -49,12 +49,15 @@ export default function ServiceHeader({
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-4 flex-1">
-            <Link to="/" className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors">
+            <Link
+              to="/"
+              className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors"
+            >
               <ArrowLeft className="h-5 w-5" />
               <span>Back to Home</span>
             </Link>
             <div className="h-6 w-px bg-border"></div>
-            
+
             {/* Search Bar */}
             <div className="flex-1 max-w-md">
               <div className="relative">
@@ -67,20 +70,25 @@ export default function ServiceHeader({
                 />
               </div>
             </div>
-            
+
             {/* Travel Wallet */}
             {isSignedIn && (
               <div className="flex items-center space-x-2 bg-travel-blue/10 px-3 py-1 rounded-full">
                 <Wallet className="h-4 w-4 text-travel-blue" />
-                <span className="font-medium text-travel-blue">${walletBalance.toFixed(2)}</span>
+                <span className="font-medium text-travel-blue">
+                  ${walletBalance.toFixed(2)}
+                </span>
               </div>
             )}
           </div>
-          
+
           {/* Become a Merchant Button */}
           <div className="flex items-center">
             <Link to="/list-property">
-              <Button variant="outline" className="bg-travel-orange/10 border-travel-orange text-travel-orange hover:bg-travel-orange hover:text-white">
+              <Button
+                variant="outline"
+                className="bg-travel-orange/10 border-travel-orange text-travel-orange hover:bg-travel-orange hover:text-white"
+              >
                 Become a Merchant
               </Button>
             </Link>
@@ -89,7 +97,7 @@ export default function ServiceHeader({
 
         {/* Service Tabs */}
         <div className="flex items-center justify-center space-x-1 bg-muted p-1 rounded-lg">
-          <Button 
+          <Button
             variant={activeTab === "all" ? "default" : "ghost"}
             size="sm"
             onClick={() => navigate("/explore-services")}
@@ -98,8 +106,8 @@ export default function ServiceHeader({
             <Search className="h-4 w-4" />
             <span>All</span>
           </Button>
-          
-          <Button 
+
+          <Button
             variant={activeTab === "stays" ? "default" : "ghost"}
             size="sm"
             onClick={() => navigate("/stays")}
@@ -108,8 +116,8 @@ export default function ServiceHeader({
             <Home className="h-4 w-4" />
             <span>Stays</span>
           </Button>
-          
-          <Button 
+
+          <Button
             variant={activeTab === "flights" ? "default" : "ghost"}
             size="sm"
             onClick={() => navigate("/flights")}
@@ -118,8 +126,8 @@ export default function ServiceHeader({
             <Plane className="h-4 w-4" />
             <span>Flights</span>
           </Button>
-          
-          <Button 
+
+          <Button
             variant={activeTab === "xperiences" ? "default" : "ghost"}
             size="sm"
             onClick={() => navigate("/xperiences")}
@@ -128,8 +136,8 @@ export default function ServiceHeader({
             <Mountain className="h-4 w-4" />
             <span>Xperiences</span>
           </Button>
-          
-          <Button 
+
+          <Button
             variant={activeTab === "events" ? "default" : "ghost"}
             size="sm"
             onClick={() => navigate("/events")}
@@ -138,8 +146,8 @@ export default function ServiceHeader({
             <Ticket className="h-4 w-4" />
             <span>Events</span>
           </Button>
-          
-          <Button 
+
+          <Button
             variant={activeTab === "essentials" ? "default" : "ghost"}
             size="sm"
             onClick={() => navigate("/essentials")}
