@@ -74,42 +74,42 @@ export default function Stays() {
 
   const propertyTypes: PropertyType[] = [
     // Nature & Countryside Escapes
-    { id: "cabin", name: "Cozy Retreats", category: "nature", icon: "🏕️", description: "Rustic and cozy, often in forests or mountains", emoji: "🌿" },
-    { id: "cottage", name: "Countryside Charm", category: "nature", icon: "🏡", description: "Charming, usually countryside or lakeside", emoji: "🌿" },
-    { id: "chalet", name: "Alpine Escapes", category: "nature", icon: "🏔️", description: "Alpine-style home, typically near ski resorts", emoji: "🌿" },
-    { id: "farmstay", name: "Farm Life", category: "nature", icon: "🚜", description: "On working farms; offers rural immersion", emoji: "🌿" },
-    { id: "barn", name: "Rustic Modern", category: "nature", icon: "🏚️", description: "Modern homes built from old barns", emoji: "🌿" },
+    { id: "cabin", name: "Cabins", category: "nature", icon: "🏕️", description: "Rustic and cozy, often in forests or mountains", emoji: "🌿" },
+    { id: "cottage", name: "Cottages", category: "nature", icon: "🏡", description: "Charming, usually countryside or lakeside", emoji: "🌿" },
+    { id: "chalet", name: "Chalets", category: "nature", icon: "🏔️", description: "Alpine-style home, typically near ski resorts", emoji: "🌿" },
+    { id: "farmstay", name: "Farmstays", category: "nature", icon: "🚜", description: "On working farms; offers rural immersion", emoji: "🌿" },
+    { id: "barn", name: "Barns", category: "nature", icon: "🏚️", description: "Modern homes built from old barns", emoji: "🌿" },
 
     // Coastal & Waterfront Homes
-    { id: "beach-house", name: "Beach Vibes", category: "coastal", icon: "🏖️", description: "Located right on or near the beach", emoji: "🌊" },
-    { id: "lake-house", name: "Lakeside Living", category: "coastal", icon: "🏞️", description: "Next to lakes for fishing and peaceful views", emoji: "🌊" },
-    { id: "boathouse", name: "Waterfront Life", category: "coastal", icon: "🛥️", description: "House on water; may include dock space", emoji: "🌊" },
-    { id: "coastal-villa", name: "Seaside Luxury", category: "coastal", icon: "🏖️", description: "Luxurious Mediterranean-style by the sea", emoji: "🌊" },
+    { id: "beach-house", name: "Beach Houses", category: "coastal", icon: "🏖️", description: "Located right on or near the beach", emoji: "🌊" },
+    { id: "lake-house", name: "Lakeside", category: "coastal", icon: "🏞️", description: "Next to lakes for fishing and peaceful views", emoji: "🌊" },
+    { id: "boathouse", name: "Waterfront", category: "coastal", icon: "🛥️", description: "House on water; may include dock space", emoji: "🌊" },
+    { id: "coastal-villa", name: "Coastal Villas", category: "coastal", icon: "🏖️", description: "Luxurious Mediterranean-style by the sea", emoji: "🌊" },
 
     // Urban & Luxury Getaways
-    { id: "penthouse", name: "Sky High Living", category: "urban", icon: "🏙️", description: "Top-floor apartments with city views", emoji: "🏙️" },
-    { id: "loft", name: "Industrial Chic", category: "urban", icon: "🏭", description: "Spacious urban apartment with industrial charm", emoji: "🏙️" },
-    { id: "luxury-condo", name: "City Luxury", category: "urban", icon: "🏢", description: "High-end apartments in sought-after destinations", emoji: "🏙️" },
-    { id: "townhouse", name: "Urban Oasis", category: "urban", icon: "🏘️", description: "Multi-level homes in cities or suburbs", emoji: "🏙️" },
+    { id: "penthouse", name: "Penthouses", category: "urban", icon: "🏙️", description: "Top-floor apartments with city views", emoji: "🏙️" },
+    { id: "loft", name: "Lofts", category: "urban", icon: "🏭", description: "Spacious urban apartment with industrial charm", emoji: "🏙️" },
+    { id: "luxury-condo", name: "Luxury Condos", category: "urban", icon: "🏢", description: "High-end apartments in sought-after destinations", emoji: "🏙️" },
+    { id: "townhouse", name: "Townhouses", category: "urban", icon: "🏘️", description: "Multi-level homes in cities or suburbs", emoji: "🏙️" },
 
     // Exotic & Experiential Stays
-    { id: "villa", name: "Private Paradise", category: "exotic", icon: "🏛️", description: "Private luxury home with pool/garden", emoji: "🏝️" },
-    { id: "bungalow", name: "Tropical Bliss", category: "exotic", icon: "🛖", description: "Single-story home, tropical or resort-style", emoji: "��️" },
-    { id: "overwater", name: "Floating Dreams", category: "exotic", icon: "🏘️", description: "Built on stilts over water", emoji: "🏝️" },
-    { id: "riad", name: "Cultural Immersion", category: "exotic", icon: "🕌", description: "Traditional Moroccan home with courtyards", emoji: "🏝️" },
+    { id: "villa", name: "Villas", category: "exotic", icon: "🏛️", description: "Private luxury home with pool/garden", emoji: "🏝️" },
+    { id: "bungalow", name: "Bungalows", category: "exotic", icon: "🛖", description: "Single-story home, tropical or resort-style", emoji: "🏝️" },
+    { id: "overwater", name: "Overwater", category: "exotic", icon: "🏘️", description: "Built on stilts over water", emoji: "🏝️" },
+    { id: "riad", name: "Riads", category: "exotic", icon: "🕌", description: "Traditional Moroccan home with courtyards", emoji: "🏝️" },
 
     // Unique & Alternative Stays
-    { id: "treehouse", name: "Elevated Escapes", category: "unique", icon: "🌳", description: "Elevated homes in trees, boutique eco-style", emoji: "🏞️" },
-    { id: "aframe", name: "Geometric Getaways", category: "unique", icon: "⛺", description: "Triangular design, compact yet trendy", emoji: "🏞️" },
-    { id: "yurt", name: "Nomadic Living", category: "unique", icon: "⛺", description: "Circular tent-like structure for glamping", emoji: "🏞️" },
-    { id: "tiny-house", name: "Minimalist Life", category: "unique", icon: "🏠", description: "Minimalist and mobile, often off-grid", emoji: "🏞️" },
-    { id: "container", name: "Modular Living", category: "unique", icon: "📦", description: "Built from shipping containers, modern", emoji: "🏞️" },
-    { id: "dome", name: "Futuristic Stays", category: "unique", icon: "🔮", description: "Geodesic architecture, eco-conscious", emoji: "🏞️" },
+    { id: "treehouse", name: "Treehouses", category: "unique", icon: "🌳", description: "Elevated homes in trees, boutique eco-style", emoji: "🏞️" },
+    { id: "aframe", name: "A-Frames", category: "unique", icon: "⛺", description: "Triangular design, compact yet trendy", emoji: "🏞️" },
+    { id: "yurt", name: "Yurts", category: "unique", icon: "⛺", description: "Circular tent-like structure for glamping", emoji: "🏞️" },
+    { id: "tiny-house", name: "Tiny Houses", category: "unique", icon: "🏠", description: "Minimalist and mobile, often off-grid", emoji: "🏞️" },
+    { id: "container", name: "Containers", category: "unique", icon: "📦", description: "Built from shipping containers, modern", emoji: "🏞️" },
+    { id: "dome", name: "Domes", category: "unique", icon: "🔮", description: "Geodesic architecture, eco-conscious", emoji: "🏞️" },
 
     // Desert & Remote Retreats
-    { id: "earth-house", name: "Underground Vibes", category: "desert", icon: "🏜️", description: "Built underground with natural materials", emoji: "🏜️" },
-    { id: "adobe", name: "Desert Charm", category: "desert", icon: "🧱", description: "Desert climates with traditional materials", emoji: "🏜️" },
-    { id: "desert-villa", name: "Desert Luxury", category: "desert", icon: "🏛️", description: "Open-plan with panoramic desert views", emoji: "🏜️" }
+    { id: "earth-house", name: "Earth Houses", category: "desert", icon: "🏜️", description: "Built underground with natural materials", emoji: "🏜️" },
+    { id: "adobe", name: "Adobe Homes", category: "desert", icon: "🧱", description: "Desert climates with traditional materials", emoji: "🏜️" },
+    { id: "desert-villa", name: "Desert Villas", category: "desert", icon: "🏛️", description: "Open-plan with panoramic desert views", emoji: "🏜️" }
   ];
 
   const sampleProperties: Property[] = [
