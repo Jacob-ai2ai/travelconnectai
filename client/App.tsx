@@ -26,6 +26,7 @@ export default function App() {
           <Route path="/trip-details/:planId" element={<TripDetails />} />
           <Route path="/route-map/:planId" element={<RouteMap />} />
           <Route path="/stays" element={<Stays />} />
+          <Route path="/list-property" element={<ListProperty />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
           </Routes>
