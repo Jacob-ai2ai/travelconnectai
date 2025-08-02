@@ -111,30 +111,30 @@ export default function Index() {
             >
               Stays
             </Link>
-            <a
-              href="#flights"
+            <Link
+              to="/flights"
               className="text-foreground/80 hover:text-foreground transition-colors"
             >
               Flights
-            </a>
-            <a
-              href="#experiences"
+            </Link>
+            <Link
+              to="/xperiences"
               className="text-foreground/80 hover:text-foreground transition-colors"
             >
               Xperiences
-            </a>
-            <a
-              href="#events"
+            </Link>
+            <Link
+              to="/events"
               className="text-foreground/80 hover:text-foreground transition-colors"
             >
               Events
-            </a>
-            <a
-              href="#essentials"
+            </Link>
+            <Link
+              to="/essentials"
               className="text-foreground/80 hover:text-foreground transition-colors"
             >
               Essentials
-            </a>
+            </Link>
             <Button variant="outline">Sign In</Button>
             <Button>Become a Merchant</Button>
           </nav>
