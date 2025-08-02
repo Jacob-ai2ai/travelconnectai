@@ -313,62 +313,16 @@ export default function Xperiences() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted">
-      {/* Header */}
-      <header className="border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center space-x-4">
-              <Link
-                to="/"
-                className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <ArrowLeft className="h-5 w-5" />
-                <span>Back to Home</span>
-              </Link>
-              <div className="h-6 w-px bg-border"></div>
-              <div className="flex items-center space-x-2">
-                <Mountain className="h-6 w-6 text-travel-green" />
-                <span className="text-xl font-bold bg-gradient-to-r from-travel-green to-travel-blue bg-clip-text text-transparent">
-                  Xperiences
-                </span>
-              </div>
-            </div>
-
-            <div className="flex items-center space-x-4">
-              {/* Location Search */}
-              <div className="relative min-w-[250px]">
-                <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-travel-green" />
-                <Input
-                  placeholder="Experience destination (e.g., Bali, Tokyo, Paris)"
-                  value={isLoadingLocation ? "Detecting..." : currentLocation}
-                  onChange={(e) => setCurrentLocation(e.target.value)}
-                  onKeyPress={handleLocationKeyPress}
-                  className="pl-10 pr-4 text-sm"
-                />
-              </div>
-
-              {/* Travel Wallet */}
-              {isSignedIn && (
-                <div className="flex items-center space-x-2 bg-travel-green/10 px-3 py-1 rounded-full">
-                  <Wallet className="h-4 w-4 text-travel-green" />
-                  <span className="font-medium text-travel-green">
-                    ${walletBalance.toFixed(2)}
-                  </span>
-                </div>
-              )}
-
-              {/* List Experience Button */}
-              <Button
-                size="sm"
-                className="bg-travel-orange hover:bg-travel-orange/90"
-              >
-                <Plus className="h-4 w-4 mr-2" />
-                List Experience
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
+      <ServiceHeader
+        currentLocation={isLoadingLocation ? "Detecting..." : currentLocation}
+        walletBalance={walletBalance}
+        isSignedIn={isSignedIn}
+        searchQuery={currentLocation}
+        onSearchChange={(value) => {
+          setCurrentLocation(value);
+          handleLocationSearch(value);
+        }}
+      />
 
       <div className="container mx-auto px-4 py-8">
         {/* Experience Type Categories */}
