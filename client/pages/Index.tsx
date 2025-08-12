@@ -382,6 +382,9 @@ export default function Index() {
               <a href="#" className="hover:text-foreground transition-colors">
                 Support
               </a>
+              <Link to="/document-download" className="hover:text-foreground transition-colors">
+                SRS Document
+              </Link>
               <a href="#" className="hover:text-foreground transition-colors">
                 About
               </a>
