@@ -38,6 +38,7 @@ export default function App() {
             <Route path="/essentials" element={<Essentials />} />
             <Route path="/explore-services" element={<ExploreServices />} />
             <Route path="/list-property" element={<ListProperty />} />
+            <Route path="/document-download" element={<DocumentDownload />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
