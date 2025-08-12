@@ -14,6 +14,7 @@ import Events from "./pages/Events";
 import Essentials from "./pages/Essentials";
 import ExploreServices from "./pages/ExploreServices";
 import ListProperty from "./pages/ListProperty";
+import DocumentDownload from "./pages/DocumentDownload";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
