@@ -62,6 +62,7 @@ export default function Flights() {
   const [isSignedIn] = useState(true);
   const [flights, setFlights] = useState<Flight[]>([]);
   const [isLoadingLocation, setIsLoadingLocation] = useState(true);
+  const [locationError, setLocationError] = useState<string | null>(null);
 
   const flightTypes: FlightType[] = [
     {
@@ -267,25 +268,83 @@ export default function Flights() {
   ];
 
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setCurrentLocation("Denpasar, Bali, Indonesia");
-          setIsLoadingLocation(false);
-          setFlights(sampleFlights);
-        },
-        (error) => {
-          console.error("Error getting location:", error);
-          setCurrentLocation("Location unavailable");
-          setIsLoadingLocation(false);
-          setFlights(sampleFlights);
-        },
-      );
-    } else {
-      setCurrentLocation("Geolocation not supported");
+    const fallback = (msg: string) => {
+      setLocationError(msg);
+      setCurrentLocation("Location unavailable");
       setIsLoadingLocation(false);
       setFlights(sampleFlights);
+    };
+
+    if (!("geolocation" in navigator)) {
+      fallback("Geolocation not supported in this browser. Using default location.");
+      return;
     }
+    if (!window.isSecureContext) {
+      fallback("Geolocation requires HTTPS. Using default location.");
+      return;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const anyNavigator: any = navigator as any;
+    if (anyNavigator.permissions && anyNavigator.permissions.query) {
+      try {
+        anyNavigator.permissions
+          .query({ name: "geolocation" as PermissionName })
+          .then((result: PermissionStatus) => {
+            if (result.state === "denied") {
+              fallback("Location permission denied. Using default location.");
+            } else {
+              navigator.geolocation.getCurrentPosition(
+                () => {
+                  setCurrentLocation("Denpasar, Bali, Indonesia");
+                  setIsLoadingLocation(false);
+                  setFlights(sampleFlights);
+                },
+                (error) => {
+                  const codeMsg =
+                    error.code === 1
+                      ? "Permission denied"
+                      : error.code === 2
+                        ? "Position unavailable"
+                        : error.code === 3
+                          ? "Request timed out"
+                          : "Unknown error";
+                  console.warn("Geolocation error", {
+                    code: error.code,
+                    message: error.message,
+                  });
+                  fallback(`${codeMsg}. Using default location.`);
+                },
+                { timeout: 8000, maximumAge: 60000, enableHighAccuracy: false },
+              );
+            }
+          });
+        return;
+      } catch {
+        // continue
+      }
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      () => {
+        setCurrentLocation("Denpasar, Bali, Indonesia");
+        setIsLoadingLocation(false);
+        setFlights(sampleFlights);
+      },
+      (error) => {
+        const codeMsg =
+          error.code === 1
+            ? "Permission denied"
+            : error.code === 2
+              ? "Position unavailable"
+              : error.code === 3
+                ? "Request timed out"
+                : "Unknown error";
+        console.warn("Geolocation error", { code: error.code, message: error.message });
+        fallback(`${codeMsg}. Using default location.`);
+      },
+      { timeout: 8000, maximumAge: 60000, enableHighAccuracy: false },
+    );
   }, []);
 
   const getDealFlights = () => flights.filter((f) => f.isDeal);
@@ -318,6 +377,11 @@ export default function Flights() {
       />
 
       <div className="container mx-auto px-4 py-8">
+        {locationError && (
+          <div className="mb-6 rounded-lg border border-yellow-200 bg-yellow-50 px-4 py-3 text-sm text-yellow-800">
+            {locationError}
+          </div>
+        )}
         {/* Flight Type Categories */}
         <section className="mb-12">
           <div className="flex overflow-x-auto space-x-6 pb-4">
