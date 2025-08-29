@@ -74,6 +74,7 @@ export default function Stays() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [properties, setProperties] = useState<Property[]>([]);
   const [isLoadingLocation, setIsLoadingLocation] = useState(true);
+  const [locationError, setLocationError] = useState<string | null>(null);
 
   const propertyTypes: PropertyType[] = [
     // Nature & Countryside Escapes
@@ -249,7 +250,7 @@ export default function Stays() {
       id: "tiny-house",
       name: "Tiny Houses",
       category: "unique",
-      icon: "🏠",
+      icon: "���",
       description: "Minimalist and mobile, often off-grid",
       emoji: "🏞️",
     },
@@ -798,27 +799,88 @@ export default function Stays() {
   ];
 
   useEffect(() => {
-    // Get user's current location
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          // Simulate reverse geocoding
-          setCurrentLocation("Denpasar, Bali, Indonesia");
-          setIsLoadingLocation(false);
-          setProperties(getPropertiesForLocation("Denpasar, Bali, Indonesia"));
-        },
-        (error) => {
-          console.error("Error getting location:", error);
-          setCurrentLocation("Location unavailable");
-          setIsLoadingLocation(false);
-          setProperties(sampleProperties);
-        },
-      );
-    } else {
-      setCurrentLocation("Geolocation not supported");
+    const fallback = (msg: string) => {
+      setLocationError(msg);
+      setCurrentLocation("Location unavailable");
       setIsLoadingLocation(false);
       setProperties(sampleProperties);
+    };
+
+    // Must be in a secure context (https) and supported
+    if (!("geolocation" in navigator)) {
+      fallback("Geolocation not supported in this browser. Using default location.");
+      return;
     }
+    if (!window.isSecureContext) {
+      fallback("Geolocation requires HTTPS. Using default location.");
+      return;
+    }
+
+    // Optional: check permissions API to avoid unwanted prompts in iframes
+    // Not all browsers support this, so guard it
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const anyNavigator: any = navigator as any;
+    if (anyNavigator.permissions && anyNavigator.permissions.query) {
+      try {
+        anyNavigator.permissions
+          .query({ name: "geolocation" as PermissionName })
+          .then((result: PermissionStatus) => {
+            if (result.state === "denied") {
+              fallback("Location permission denied. Using default location.");
+            } else {
+              navigator.geolocation.getCurrentPosition(
+                () => {
+                  setCurrentLocation("Denpasar, Bali, Indonesia");
+                  setIsLoadingLocation(false);
+                  setProperties(
+                    getPropertiesForLocation("Denpasar, Bali, Indonesia"),
+                  );
+                },
+                (error) => {
+                  const codeMsg =
+                    error.code === 1
+                      ? "Permission denied"
+                      : error.code === 2
+                        ? "Position unavailable"
+                        : error.code === 3
+                          ? "Request timed out"
+                          : "Unknown error";
+                  console.warn("Geolocation error", {
+                    code: error.code,
+                    message: error.message,
+                  });
+                  fallback(`${codeMsg}. Using default location.`);
+                },
+                { timeout: 8000, maximumAge: 60000, enableHighAccuracy: false },
+              );
+            }
+          });
+        return;
+      } catch {
+        // continue to direct geolocation call below
+      }
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      () => {
+        setCurrentLocation("Denpasar, Bali, Indonesia");
+        setIsLoadingLocation(false);
+        setProperties(getPropertiesForLocation("Denpasar, Bali, Indonesia"));
+      },
+      (error) => {
+        const codeMsg =
+          error.code === 1
+            ? "Permission denied"
+            : error.code === 2
+              ? "Position unavailable"
+              : error.code === 3
+                ? "Request timed out"
+                : "Unknown error";
+        console.warn("Geolocation error", { code: error.code, message: error.message });
+        fallback(`${codeMsg}. Using default location.`);
+      },
+      { timeout: 8000, maximumAge: 60000, enableHighAccuracy: false },
+    );
   }, []);
 
   const getPropertiesForLocation = (location: string): Property[] => {
@@ -881,6 +943,11 @@ export default function Stays() {
       />
 
       <div className="container mx-auto px-4 py-8">
+        {locationError && (
+          <div className="mb-6 rounded-lg border border-yellow-200 bg-yellow-50 px-4 py-3 text-sm text-yellow-800">
+            {locationError}
+          </div>
+        )}
         {/* Property Type Categories */}
         <section className="mb-12">
           <div className="flex overflow-x-auto space-x-6 pb-4">
