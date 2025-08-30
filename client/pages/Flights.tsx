@@ -276,7 +276,9 @@ export default function Flights() {
     };
 
     if (!("geolocation" in navigator)) {
-      fallback("Geolocation not supported in this browser. Using default location.");
+      fallback(
+        "Geolocation not supported in this browser. Using default location.",
+      );
       return;
     }
     if (!window.isSecureContext) {
@@ -340,7 +342,10 @@ export default function Flights() {
               : error.code === 3
                 ? "Request timed out"
                 : "Unknown error";
-        console.warn("Geolocation error", { code: error.code, message: error.message });
+        console.warn("Geolocation error", {
+          code: error.code,
+          message: error.message,
+        });
         fallback(`${codeMsg}. Using default location.`);
       },
       { timeout: 8000, maximumAge: 60000, enableHighAccuracy: false },
