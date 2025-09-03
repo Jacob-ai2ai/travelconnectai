@@ -117,8 +117,8 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
         <Tabs value={activeTab} onValueChange={(value) => {
           setActiveTab(value as "signin" | "signup");
           setSignInError("");
-        }}>
-          <TabsList className="grid w-full grid-cols-2">
+        }} className="flex flex-col min-h-0">
+          <TabsList className="grid w-full grid-cols-2 flex-shrink-0">
             <TabsTrigger value="signin">Sign In</TabsTrigger>
             <TabsTrigger value="signup">Sign Up</TabsTrigger>
           </TabsList>
@@ -250,7 +250,7 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
           </TabsContent>
 
           {/* Sign Up Tab */}
-          <TabsContent value="signup" className="space-y-4">
+          <TabsContent value="signup" className="space-y-4 flex-1 overflow-y-auto">
             {/* Social Login Options */}
             <div className="space-y-3">
               <div className="text-center text-sm text-muted-foreground mb-3">
