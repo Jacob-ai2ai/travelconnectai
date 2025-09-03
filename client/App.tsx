@@ -17,6 +17,7 @@ import ListProperty from "./pages/ListProperty";
 import DocumentDownload from "./pages/DocumentDownload";
 import ForgotPassword from "./pages/ForgotPassword";
 import Onboarding from "./pages/Onboarding";
+import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -43,6 +44,7 @@ export default function App() {
             <Route path="/document-download" element={<DocumentDownload />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/onboarding" element={<Onboarding />} />
+            <Route path="/terms" element={<Terms />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
