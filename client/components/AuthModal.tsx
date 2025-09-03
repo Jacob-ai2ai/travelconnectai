@@ -125,6 +125,14 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
 
           {/* Sign In Tab */}
           <TabsContent value="signin" className="space-y-4">
+            {/* Demo Info */}
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-center">
+              <p className="text-blue-800 text-xs">
+                <strong>Demo:</strong> Try "demo@travelconnect.ai" with password "password123"
+                or use any other email to see the registration prompt.
+              </p>
+            </div>
+
             <form onSubmit={handleSignIn} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="userId">Email or Phone Number</Label>
