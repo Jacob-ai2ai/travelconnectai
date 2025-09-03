@@ -198,29 +198,7 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
                 </div>
               </div>
 
-              {/* Error Messages */}
-              {signInError === "account-not-found" && (
-                <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
-                  <div className="text-red-800 font-medium mb-2">
-                    Account not found
-                  </div>
-                  <p className="text-red-700 text-sm mb-3">
-                    We couldn't find an account with that email or phone number.
-                    You need to register first to access Travel Connect.
-                  </p>
-                  <Button
-                    type="button"
-                    onClick={() => {
-                      setActiveTab("signup");
-                      setSignInError("");
-                    }}
-                    className="w-full bg-travel-blue hover:bg-travel-blue/90"
-                  >
-                    Sign Up Now
-                  </Button>
-                </div>
-              )}
-
+              {/* Password Error Message */}
               {signInError === "invalid-password" && (
                 <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-center">
                   <p className="text-red-800 text-sm">
@@ -229,13 +207,45 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
                 </div>
               )}
 
-              <Button
-                type="submit"
-                className="w-full bg-travel-blue hover:bg-travel-blue/90"
-                disabled={isSigningIn}
-              >
-                {isSigningIn ? "Signing In..." : "Sign In"}
-              </Button>
+              {/* Dynamic Button Area */}
+              {signInError === "account-not-found" ? (
+                <div className="space-y-3">
+                  <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 text-center">
+                    <div className="text-orange-800 font-medium mb-2">
+                      Account not found
+                    </div>
+                    <p className="text-orange-700 text-sm">
+                      This email/phone isn't registered. Please sign up first to access Travel Connect.
+                    </p>
+                  </div>
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      setActiveTab("signup");
+                      setSignInError("");
+                    }}
+                    className="w-full bg-travel-green hover:bg-travel-green/90 text-white"
+                  >
+                    Create Account Now
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setSignInError("")}
+                    className="w-full"
+                  >
+                    Try Different Email
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  type="submit"
+                  className="w-full bg-travel-blue hover:bg-travel-blue/90"
+                  disabled={isSigningIn}
+                >
+                  {isSigningIn ? "Signing In..." : "Sign In"}
+                </Button>
+              )}
             </form>
           </TabsContent>
 
