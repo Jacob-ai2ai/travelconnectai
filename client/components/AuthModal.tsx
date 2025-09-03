@@ -94,6 +94,10 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
     // TODO: Implement actual sign-up API call
     // Simulate successful signup
     onClose();
+
+    // Check if user selected property owner role in a previous flow
+    // For now, we'll direct all new signups to regular onboarding
+    // Property owners can be directed to /property-onboarding specifically
     navigate("/onboarding");
   };
 
