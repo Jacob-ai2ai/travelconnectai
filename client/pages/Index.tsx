@@ -142,7 +142,9 @@ export default function Index() {
             <Button variant="outline" onClick={() => setIsAuthModalOpen(true)}>
               Sign In
             </Button>
-            <Button>Become a Merchant</Button>
+            <Link to="/property-onboarding">
+              <Button>Become a Merchant</Button>
+            </Link>
           </nav>
         </div>
       </header>
