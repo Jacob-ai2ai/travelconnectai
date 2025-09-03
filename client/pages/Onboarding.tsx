@@ -6,15 +6,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { useNavigate } from "react-router-dom";
-import { 
-  User, 
-  Building2, 
-  Store, 
-  Mountain, 
-  Beach, 
-  MapPin, 
-  Heart, 
-  Camera, 
+import {
+  User,
+  Building2,
+  Store,
+  Mountain,
+  Waves,
+  MapPin,
+  Heart,
+  Camera,
   Utensils,
   Music,
   Briefcase,
@@ -83,7 +83,7 @@ export default function Onboarding() {
 
   const travelThemes = [
     { id: "adventure", title: "Adventure & Sports", icon: Mountain, description: "Hiking, skiing, extreme sports" },
-    { id: "beach", title: "Beach & Relaxation", icon: Beach, description: "Beaches, spas, resorts" },
+    { id: "beach", title: "Beach & Relaxation", icon: Waves, description: "Beaches, spas, resorts" },
     { id: "culture", title: "Culture & History", icon: MapPin, description: "Museums, heritage sites" },
     { id: "romance", title: "Romance & Honeymoon", icon: Heart, description: "Romantic getaways" },
     { id: "photography", title: "Photography", icon: Camera, description: "Instagram-worthy spots" },
