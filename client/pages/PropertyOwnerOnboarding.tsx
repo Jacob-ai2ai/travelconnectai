@@ -1,0 +1,478 @@
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Progress } from "@/components/ui/progress";
+import { Badge } from "@/components/ui/badge";
+import { useNavigate } from "react-router-dom";
+import { 
+  Building2, 
+  Home, 
+  Hotel, 
+  Building, 
+  Castle, 
+  TreePine, 
+  Plus,
+  ArrowRight,
+  ArrowLeft,
+  MapPin,
+  Star,
+  Wifi,
+  Car,
+  Waves,
+  Dog,
+  ChefHat,
+  Snowflake,
+  Spa,
+  Utensils,
+  Plane,
+  Briefcase,
+  Accessibility,
+  Baby,
+  Shirt,
+  Upload,
+  Camera,
+  Video,
+  DollarSign,
+  CreditCard,
+  Shield,
+  FileText,
+  CheckCircle,
+  Sparkles,
+  Eye
+} from "lucide-react";
+
+type OnboardingStep = "account" | "property-type" | "details" | "amenities" | "media" | "pricing" | "verification" | "success";
+
+interface PropertyOwnerProfile {
+  // Account info
+  email: string;
+  phone: string;
+  password: string;
+  confirmPassword: string;
+  agreeToTerms: boolean;
+  
+  // Property info
+  propertyType: string;
+  propertyName: string;
+  location: string;
+  starRating: string;
+  numberOfRooms: string;
+  
+  // Amenities
+  amenities: string[];
+  
+  // Media
+  photos: File[];
+  videos: File[];
+  virtualTourLink: string;
+  
+  // Pricing
+  basePrice: string;
+  seasonalPricing: string;
+  cancellationPolicy: string;
+  paymentMethods: string[];
+  
+  // Verification
+  idProof: File | null;
+  bankAccount: string;
+}
+
+export default function PropertyOwnerOnboarding() {
+  const navigate = useNavigate();
+  const [currentStep, setCurrentStep] = useState<OnboardingStep>("account");
+  const [profile, setProfile] = useState<PropertyOwnerProfile>({
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
+    agreeToTerms: false,
+    propertyType: "",
+    propertyName: "",
+    location: "",
+    starRating: "",
+    numberOfRooms: "",
+    amenities: [],
+    photos: [],
+    videos: [],
+    virtualTourLink: "",
+    basePrice: "",
+    seasonalPricing: "",
+    cancellationPolicy: "",
+    paymentMethods: [],
+    idProof: null,
+    bankAccount: "",
+  });
+
+  const steps: OnboardingStep[] = ["account", "property-type", "details", "amenities", "media", "pricing", "verification", "success"];
+  const currentStepIndex = steps.indexOf(currentStep);
+  const progress = ((currentStepIndex + 1) / steps.length) * 100;
+
+  const propertyTypes = [
+    { id: "hotel", title: "Hotel / Resort", icon: Hotel, description: "Full-service accommodation" },
+    { id: "homestay", title: "Homestay", icon: Home, description: "Family-run accommodation" },
+    { id: "hostel", title: "Hostel", icon: Building2, description: "Budget-friendly shared spaces" },
+    { id: "villa", title: "Villa / Apartment", icon: Building, description: "Private rental properties" },
+    { id: "guesthouse", title: "Guesthouse", icon: Castle, description: "Small intimate properties" },
+    { id: "farmstay", title: "Farm Stay", icon: TreePine, description: "Rural farm experiences" },
+    { id: "others", title: "Others", icon: Plus, description: "Unique property types" },
+  ];
+
+  const amenitiesList = [
+    { id: "wifi", title: "Free Wi-Fi", icon: Wifi },
+    { id: "parking", title: "Parking", icon: Car },
+    { id: "pool", title: "Swimming Pool", icon: Waves },
+    { id: "pets", title: "Pet-friendly", icon: Dog },
+    { id: "kitchen", title: "Kitchen", icon: ChefHat },
+    { id: "ac", title: "Air Conditioning", icon: Snowflake },
+    { id: "spa", title: "Spa / Wellness", icon: Spa },
+    { id: "restaurant", title: "Restaurant / Bar", icon: Utensils },
+    { id: "airport", title: "Airport Pickup", icon: Plane },
+    { id: "business", title: "Business Facilities", icon: Briefcase },
+    { id: "accessibility", title: "Accessibility", icon: Accessibility },
+    { id: "child", title: "Child-friendly", icon: Baby },
+    { id: "laundry", title: "Laundry", icon: Shirt },
+  ];
+
+  const paymentMethodsList = [
+    { id: "cards", title: "Credit/Debit Cards" },
+    { id: "upi", title: "UPI" },
+    { id: "paypal", title: "PayPal" },
+    { id: "bank", title: "Bank Transfer" },
+  ];
+
+  const handleNext = () => {
+    const stepIndex = steps.indexOf(currentStep);
+    if (stepIndex < steps.length - 1) {
+      setCurrentStep(steps[stepIndex + 1]);
+    }
+  };
+
+  const handleBack = () => {
+    const stepIndex = steps.indexOf(currentStep);
+    if (stepIndex > 0) {
+      setCurrentStep(steps[stepIndex - 1]);
+    }
+  };
+
+  const handleSocialLogin = (provider: string) => {
+    console.log(`Social login with ${provider}`);
+    // TODO: Implement social login
+    handleNext();
+  };
+
+  const handleAccountSetup = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (profile.password !== profile.confirmPassword) {
+      alert("Passwords don't match!");
+      return;
+    }
+    if (!profile.agreeToTerms) {
+      alert("Please agree to the terms and privacy policy!");
+      return;
+    }
+    handleNext();
+  };
+
+  const handlePropertyTypeSelect = (typeId: string) => {
+    setProfile({ ...profile, propertyType: typeId });
+  };
+
+  const handleAmenityToggle = (amenityId: string) => {
+    const newAmenities = profile.amenities.includes(amenityId)
+      ? profile.amenities.filter(a => a !== amenityId)
+      : [...profile.amenities, amenityId];
+    setProfile({ ...profile, amenities: newAmenities });
+  };
+
+  const handlePaymentMethodToggle = (methodId: string) => {
+    const newMethods = profile.paymentMethods.includes(methodId)
+      ? profile.paymentMethods.filter(m => m !== methodId)
+      : [...profile.paymentMethods, methodId];
+    setProfile({ ...profile, paymentMethods: newMethods });
+  };
+
+  const handleFileUpload = (files: FileList | null, type: 'photos' | 'videos' | 'id') => {
+    if (!files) return;
+    
+    if (type === 'photos') {
+      setProfile({ ...profile, photos: [...profile.photos, ...Array.from(files)] });
+    } else if (type === 'videos') {
+      setProfile({ ...profile, videos: [...profile.videos, ...Array.from(files)] });
+    } else if (type === 'id' && files[0]) {
+      setProfile({ ...profile, idProof: files[0] });
+    }
+  };
+
+  const canProceed = () => {
+    switch (currentStep) {
+      case "account":
+        return profile.email && profile.password && profile.confirmPassword && profile.agreeToTerms;
+      case "property-type":
+        return profile.propertyType !== "";
+      case "details":
+        return profile.propertyName && profile.location && profile.starRating && profile.numberOfRooms;
+      case "amenities":
+        return true; // Optional step
+      case "media":
+        return profile.photos.length > 0;
+      case "pricing":
+        return profile.basePrice && profile.cancellationPolicy && profile.paymentMethods.length > 0;
+      case "verification":
+        return profile.idProof && profile.bankAccount;
+      default:
+        return true;
+    }
+  };
+
+  const handleComplete = () => {
+    console.log("Property owner onboarding completed:", profile);
+    // TODO: Submit to backend
+    navigate("/property-dashboard");
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-teal-50">
+      {/* Header */}
+      <header className="border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-gradient-to-br from-teal-500 to-teal-600 rounded-lg flex items-center justify-center">
+                <Building2 className="h-5 w-5 text-white" />
+              </div>
+              <span className="text-xl font-bold bg-gradient-to-r from-teal-600 to-teal-700 bg-clip-text text-transparent">
+                Travel Connect
+              </span>
+            </div>
+            {currentStep !== "success" && (
+              <div className="text-sm text-muted-foreground">
+                Step {currentStepIndex + 1} of {steps.length}
+              </div>
+            )}
+          </div>
+        </div>
+      </header>
+
+      <div className="container mx-auto px-4 py-8 max-w-4xl">
+        {/* Progress Bar */}
+        {currentStep !== "success" && (
+          <div className="mb-8">
+            <Progress value={progress} className="h-2 bg-teal-100" />
+            <div className="flex justify-between mt-2 text-xs text-teal-600">
+              <span>Account</span>
+              <span>Property</span>
+              <span>Details</span>
+              <span>Amenities</span>
+              <span>Media</span>
+              <span>Pricing</span>
+              <span>Verify</span>
+              <span>Done</span>
+            </div>
+          </div>
+        )}
+
+        {/* Step 0: Account Setup */}
+        {currentStep === "account" && (
+          <div className="space-y-6">
+            <div className="text-center">
+              <h1 className="text-3xl font-bold mb-2 text-gray-900">Create your Travel Connect Account</h1>
+              <p className="text-muted-foreground">Join as a property owner and start welcoming guests</p>
+            </div>
+
+            <Card className="shadow-lg border-0 bg-white/80 backdrop-blur">
+              <CardContent className="p-8">
+                {/* Social Login Options */}
+                <div className="space-y-3 mb-6">
+                  <div className="text-center text-sm text-muted-foreground mb-4">
+                    Quick Signup
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-3">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="h-12 border-teal-200 hover:bg-teal-50"
+                      onClick={() => handleSocialLogin("google")}
+                    >
+                      <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                      </svg>
+                      Google
+                    </Button>
+                    
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="h-12 border-teal-200 hover:bg-teal-50"
+                      onClick={() => handleSocialLogin("facebook")}
+                    >
+                      <svg className="mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                      </svg>
+                      Facebook
+                    </Button>
+                    
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="h-12 border-teal-200 hover:bg-teal-50"
+                      onClick={() => handleSocialLogin("apple")}
+                    >
+                      <svg className="mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                      </svg>
+                      Apple
+                    </Button>
+                    
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="h-12 border-teal-200 hover:bg-teal-50"
+                      onClick={() => handleSocialLogin("meta")}
+                    >
+                      <svg className="mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                      </svg>
+                      Meta
+                    </Button>
+                  </div>
+
+                  <div className="relative">
+                    <div className="absolute inset-0 flex items-center">
+                      <span className="w-full border-t border-teal-200" />
+                    </div>
+                    <div className="relative flex justify-center text-xs uppercase">
+                      <span className="bg-white px-2 text-muted-foreground">
+                        Or continue with email
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Manual Signup Form */}
+                <form onSubmit={handleAccountSetup} className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email Address *</Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="Enter your email"
+                        value={profile.email}
+                        onChange={(e) => setProfile({ ...profile, email: e.target.value })}
+                        className="border-teal-200 focus:border-teal-500"
+                        required
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="phone">Phone Number</Label>
+                      <Input
+                        id="phone"
+                        type="tel"
+                        placeholder="Enter your phone"
+                        value={profile.phone}
+                        onChange={(e) => setProfile({ ...profile, phone: e.target.value })}
+                        className="border-teal-200 focus:border-teal-500"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="password">Password *</Label>
+                      <Input
+                        id="password"
+                        type="password"
+                        placeholder="Create password"
+                        value={profile.password}
+                        onChange={(e) => setProfile({ ...profile, password: e.target.value })}
+                        className="border-teal-200 focus:border-teal-500"
+                        required
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="confirm-password">Confirm Password *</Label>
+                      <Input
+                        id="confirm-password"
+                        type="password"
+                        placeholder="Confirm password"
+                        value={profile.confirmPassword}
+                        onChange={(e) => setProfile({ ...profile, confirmPassword: e.target.value })}
+                        className="border-teal-200 focus:border-teal-500"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="terms"
+                      checked={profile.agreeToTerms}
+                      onCheckedChange={(checked) => 
+                        setProfile({ ...profile, agreeToTerms: checked as boolean })
+                      }
+                    />
+                    <Label htmlFor="terms" className="text-sm">
+                      I agree to{" "}
+                      <a href="/terms" className="text-teal-600 hover:underline">
+                        Terms & Privacy Policy
+                      </a>
+                    </Label>
+                  </div>
+
+                  <Button
+                    type="submit"
+                    className="w-full bg-teal-600 hover:bg-teal-700 h-12"
+                    disabled={!canProceed()}
+                  >
+                    Create Account
+                  </Button>
+
+                  <div className="text-center text-sm text-muted-foreground">
+                    Already have an account?{" "}
+                    <button
+                      type="button"
+                      onClick={() => navigate("/")}
+                      className="text-teal-600 hover:underline"
+                    >
+                      Sign in
+                    </button>
+                  </div>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Navigation Buttons */}
+        {currentStep !== "success" && currentStep !== "account" && (
+          <div className="flex justify-between items-center mt-8">
+            <Button
+              variant="outline"
+              onClick={handleBack}
+              className="border-teal-200 text-teal-600 hover:bg-teal-50"
+            >
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back
+            </Button>
+
+            <Button
+              onClick={handleNext}
+              disabled={!canProceed()}
+              className="bg-teal-600 hover:bg-teal-700"
+            >
+              {currentStep === "verification" ? "Submit for Verification" : "Continue"}
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
