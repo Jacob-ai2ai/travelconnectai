@@ -24,6 +24,8 @@ import {
 } from "lucide-react";
 
 export default function Index() {
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
   const services = [
     {
       icon: Home,
@@ -137,7 +139,9 @@ export default function Index() {
             >
               Essentials
             </Link>
-            <Button variant="outline">Sign In</Button>
+            <Button variant="outline" onClick={() => setIsAuthModalOpen(true)}>
+              Sign In
+            </Button>
             <Button>Become a Merchant</Button>
           </nav>
         </div>
@@ -398,6 +402,13 @@ export default function Index() {
           </div>
         </div>
       </footer>
+
+      {/* Authentication Modal */}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        defaultTab="signin"
+      />
     </div>
   );
 }
