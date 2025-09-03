@@ -124,7 +124,7 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
           </TabsList>
 
           {/* Sign In Tab */}
-          <TabsContent value="signin" className="space-y-4">
+          <TabsContent value="signin" className="space-y-4 flex-1 overflow-y-auto">
             {/* Demo Info */}
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-center">
               <p className="text-blue-800 text-xs">
