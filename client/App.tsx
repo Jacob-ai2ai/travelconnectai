@@ -41,6 +41,8 @@ export default function App() {
             <Route path="/explore-services" element={<ExploreServices />} />
             <Route path="/list-property" element={<ListProperty />} />
             <Route path="/document-download" element={<DocumentDownload />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/onboarding" element={<Onboarding />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
