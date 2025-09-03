@@ -379,21 +379,24 @@ export default function Index() {
               </span>
             </div>
             <div className="flex items-center space-x-6 text-sm text-muted-foreground">
-              <a href="#" className="hover:text-foreground transition-colors">
+              <Link to="/terms" className="hover:text-foreground transition-colors">
                 Privacy
-              </a>
-              <a href="#" className="hover:text-foreground transition-colors">
+              </Link>
+              <Link to="/terms" className="hover:text-foreground transition-colors">
                 Terms
-              </a>
-              <a href="#" className="hover:text-foreground transition-colors">
+              </Link>
+              <button
+                onClick={() => setIsAuthModalOpen(true)}
+                className="hover:text-foreground transition-colors"
+              >
                 Support
-              </a>
+              </button>
               <Link to="/document-download" className="hover:text-foreground transition-colors">
                 SRS Document
               </Link>
-              <a href="#" className="hover:text-foreground transition-colors">
+              <Link to="/terms" className="hover:text-foreground transition-colors">
                 About
-              </a>
+              </Link>
             </div>
           </div>
           <div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
