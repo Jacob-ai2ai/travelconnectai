@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Mail, Phone, Lock, Eye, EyeOff, User } from "lucide-react";
 
 interface AuthModalProps {
@@ -15,6 +15,7 @@ interface AuthModalProps {
 }
 
 export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: AuthModalProps) {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(defaultTab);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -58,7 +59,10 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
       return;
     }
     console.log("Sign up attempt:", signUpData);
-    // TODO: Implement actual sign-up logic
+    // TODO: Implement actual sign-up API call
+    // Simulate successful signup
+    onClose();
+    navigate("/onboarding");
   };
 
   const handleSocialLogin = (provider: string) => {
