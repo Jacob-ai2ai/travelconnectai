@@ -274,6 +274,48 @@ export default function PropertyOwnerOnboarding() {
           </div>
         )}
 
+        {/* Step 1: Property Type Selection */}
+        {currentStep === "property-type" && (
+          <div className="space-y-6">
+            <div className="text-center">
+              <h1 className="text-3xl font-bold mb-2 text-gray-900">Welcome! Let's set up your property on Travel Connect</h1>
+              <p className="text-muted-foreground">What type of property are you listing?</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {propertyTypes.map((type) => {
+                const Icon = type.icon;
+                const isSelected = profile.propertyType === type.id;
+
+                return (
+                  <Card
+                    key={type.id}
+                    className={`cursor-pointer transition-all hover:shadow-lg border-0 bg-white/80 backdrop-blur ${
+                      isSelected ? "ring-2 ring-teal-500 bg-teal-50/80" : "hover:bg-teal-50/50"
+                    }`}
+                    onClick={() => handlePropertyTypeSelect(type.id)}
+                  >
+                    <CardContent className="p-6 text-center">
+                      <div className={`w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4 ${
+                        isSelected ? "bg-teal-100" : "bg-gray-100"
+                      }`}>
+                        <Icon className={`h-8 w-8 ${isSelected ? "text-teal-600" : "text-gray-600"}`} />
+                      </div>
+                      <h3 className="text-lg font-semibold mb-2">{type.title}</h3>
+                      <p className="text-muted-foreground text-sm">{type.description}</p>
+                      {isSelected && (
+                        <div className="mt-4">
+                          <CheckCircle className="h-6 w-6 text-teal-600 mx-auto" />
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
         {/* Step 0: Account Setup */}
         {currentStep === "account" && (
           <div className="space-y-6">
@@ -447,6 +489,144 @@ export default function PropertyOwnerOnboarding() {
                 </form>
               </CardContent>
             </Card>
+          </div>
+        )}
+
+        {/* Step 2: Property Details */}
+        {currentStep === "details" && (
+          <div className="space-y-6">
+            <div className="text-center">
+              <h1 className="text-3xl font-bold mb-2 text-gray-900">Property Details</h1>
+              <p className="text-muted-foreground">Tell us more about your property</p>
+            </div>
+
+            <Card className="shadow-lg border-0 bg-white/80 backdrop-blur">
+              <CardContent className="p-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="md:col-span-2 space-y-2">
+                    <Label htmlFor="property-name">Property Name *</Label>
+                    <Input
+                      id="property-name"
+                      placeholder="Enter your property name"
+                      value={profile.propertyName}
+                      onChange={(e) => setProfile({ ...profile, propertyName: e.target.value })}
+                      className="border-teal-200 focus:border-teal-500"
+                    />
+                  </div>
+
+                  <div className="md:col-span-2 space-y-2">
+                    <Label htmlFor="location">Location *</Label>
+                    <div className="relative">
+                      <Input
+                        id="location"
+                        placeholder="Enter property address"
+                        value={profile.location}
+                        onChange={(e) => setProfile({ ...profile, location: e.target.value })}
+                        className="border-teal-200 focus:border-teal-500 pl-10"
+                      />
+                      <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-teal-500" />
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Google Maps integration coming soon
+                    </p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="property-type-edit">Property Type *</Label>
+                    <select
+                      id="property-type-edit"
+                      value={profile.propertyType}
+                      onChange={(e) => setProfile({ ...profile, propertyType: e.target.value })}
+                      className="w-full h-10 px-3 py-2 text-sm border border-teal-200 rounded-md focus:border-teal-500 focus:outline-none"
+                    >
+                      <option value="">Select property type</option>
+                      {propertyTypes.map((type) => (
+                        <option key={type.id} value={type.id}>
+                          {type.title}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="star-rating">Star Rating *</Label>
+                    <select
+                      id="star-rating"
+                      value={profile.starRating}
+                      onChange={(e) => setProfile({ ...profile, starRating: e.target.value })}
+                      className="w-full h-10 px-3 py-2 text-sm border border-teal-200 rounded-md focus:border-teal-500 focus:outline-none"
+                    >
+                      <option value="">Select rating</option>
+                      {[1, 2, 3, 4, 5].map((rating) => (
+                        <option key={rating} value={rating}>
+                          {rating} Star{rating > 1 ? 's' : ''}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="md:col-span-2 space-y-2">
+                    <Label htmlFor="rooms">Number of Rooms/Units *</Label>
+                    <Input
+                      id="rooms"
+                      type="number"
+                      placeholder="Enter number of rooms"
+                      value={profile.numberOfRooms}
+                      onChange={(e) => setProfile({ ...profile, numberOfRooms: e.target.value })}
+                      className="border-teal-200 focus:border-teal-500"
+                      min="1"
+                    />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Step 3: Amenities & Features */}
+        {currentStep === "amenities" && (
+          <div className="space-y-6">
+            <div className="text-center">
+              <h1 className="text-3xl font-bold mb-2 text-gray-900">Amenities & Features</h1>
+              <p className="text-muted-foreground">What amenities does your property offer?</p>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {amenitiesList.map((amenity) => {
+                const Icon = amenity.icon;
+                const isSelected = profile.amenities.includes(amenity.id);
+
+                return (
+                  <Card
+                    key={amenity.id}
+                    className={`cursor-pointer transition-all hover:shadow-lg border-0 bg-white/80 backdrop-blur ${
+                      isSelected ? "ring-2 ring-teal-500 bg-teal-50/80" : "hover:bg-teal-50/50"
+                    }`}
+                    onClick={() => handleAmenityToggle(amenity.id)}
+                  >
+                    <CardContent className="p-4 text-center">
+                      <div className={`w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-3 ${
+                        isSelected ? "bg-teal-100" : "bg-gray-100"
+                      }`}>
+                        <Icon className={`h-6 w-6 ${isSelected ? "text-teal-600" : "text-gray-600"}`} />
+                      </div>
+                      <h4 className="font-medium text-sm">{amenity.title}</h4>
+                      {isSelected && (
+                        <div className="mt-2">
+                          <CheckCircle className="h-4 w-4 text-teal-600 mx-auto" />
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+
+            <div className="text-center">
+              <Badge variant="secondary" className="text-sm">
+                {profile.amenities.length} amenities selected
+              </Badge>
+            </div>
           </div>
         )}
 
