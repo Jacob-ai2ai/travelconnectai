@@ -154,6 +154,12 @@ export default function Onboarding() {
 
   const handleRoleSelect = (roleId: string) => {
     setProfile({ ...profile, role: roleId });
+
+    // Redirect property owners to their specific onboarding flow
+    if (roleId === "property-owner") {
+      navigate("/property-onboarding");
+      return;
+    }
   };
 
   const handleThemeToggle = (themeId: string) => {
