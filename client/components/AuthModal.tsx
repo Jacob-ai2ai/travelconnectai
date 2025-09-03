@@ -129,7 +129,7 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-center">
               <p className="text-blue-800 text-xs">
                 <strong>Demo:</strong> Try "demo@travelconnect.ai" with password "password123"
-                or use any other email to see the registration prompt.
+                or use any unregistered email to see the button change to registration prompt.
               </p>
             </div>
 
@@ -323,7 +323,7 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
             {/* Manual Signup Form */}
             <form onSubmit={handleSignUp} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email">Email Address ✉️ *</Label>
+                <Label htmlFor="email">Email Address ��️ *</Label>
                 <Input
                   id="email"
                   type="email"
