@@ -630,6 +630,372 @@ export default function PropertyOwnerOnboarding() {
           </div>
         )}
 
+        {/* Step 4: Upload Property Media */}
+        {currentStep === "media" && (
+          <div className="space-y-6">
+            <div className="text-center">
+              <h1 className="text-3xl font-bold mb-2 text-gray-900">Upload Property Media</h1>
+              <p className="text-muted-foreground">Showcase your property with high-quality photos and videos</p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Photos Upload */}
+              <Card className="shadow-lg border-0 bg-white/80 backdrop-blur">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Camera className="h-5 w-5 mr-2 text-teal-600" />
+                    Upload Photos *
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="border-2 border-dashed border-teal-300 rounded-lg p-8 text-center hover:bg-teal-50/50 transition-colors">
+                    <Upload className="h-12 w-12 text-teal-400 mx-auto mb-4" />
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Drag and drop photos here, or click to select
+                    </p>
+                    <input
+                      type="file"
+                      multiple
+                      accept="image/*"
+                      onChange={(e) => handleFileUpload(e.target.files, 'photos')}
+                      className="hidden"
+                      id="photos-upload"
+                    />
+                    <label htmlFor="photos-upload">
+                      <Button variant="outline" className="border-teal-200 text-teal-600 hover:bg-teal-50" asChild>
+                        <span>Select Photos</span>
+                      </Button>
+                    </label>
+                  </div>
+                  {profile.photos.length > 0 && (
+                    <div className="mt-4">
+                      <p className="text-sm text-teal-600 font-medium">
+                        {profile.photos.length} photo(s) uploaded
+                      </p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Videos Upload */}
+              <Card className="shadow-lg border-0 bg-white/80 backdrop-blur">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Video className="h-5 w-5 mr-2 text-teal-600" />
+                    Upload Videos (Optional)
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:bg-gray-50 transition-colors">
+                    <Video className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Upload property tour videos
+                    </p>
+                    <input
+                      type="file"
+                      multiple
+                      accept="video/*"
+                      onChange={(e) => handleFileUpload(e.target.files, 'videos')}
+                      className="hidden"
+                      id="videos-upload"
+                    />
+                    <label htmlFor="videos-upload">
+                      <Button variant="outline" asChild>
+                        <span>Select Videos</span>
+                      </Button>
+                    </label>
+                  </div>
+                  {profile.videos.length > 0 && (
+                    <div className="mt-4">
+                      <p className="text-sm text-gray-600 font-medium">
+                        {profile.videos.length} video(s) uploaded
+                      </p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Virtual Tour Link */}
+            <Card className="shadow-lg border-0 bg-white/80 backdrop-blur">
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Eye className="h-5 w-5 mr-2 text-teal-600" />
+                  Virtual Tour Link (Optional)
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  <Label htmlFor="virtual-tour">360° Virtual Tour URL</Label>
+                  <Input
+                    id="virtual-tour"
+                    type="url"
+                    placeholder="https://your-virtual-tour-link.com"
+                    value={profile.virtualTourLink}
+                    onChange={(e) => setProfile({ ...profile, virtualTourLink: e.target.value })}
+                    className="border-teal-200 focus:border-teal-500"
+                  />
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Tip */}
+            <div className="bg-teal-50 border border-teal-200 rounded-lg p-4">
+              <div className="flex items-center">
+                <Sparkles className="h-5 w-5 text-teal-600 mr-2" />
+                <p className="text-teal-800 font-medium">
+                  High-quality images attract 3x more bookings!
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Step 5: Pricing & Policies */}
+        {currentStep === "pricing" && (
+          <div className="space-y-6">
+            <div className="text-center">
+              <h1 className="text-3xl font-bold mb-2 text-gray-900">Pricing & Policies</h1>
+              <p className="text-muted-foreground">Set your rates and policies</p>
+            </div>
+
+            <Card className="shadow-lg border-0 bg-white/80 backdrop-blur">
+              <CardContent className="p-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="base-price">Base Price per Night *</Label>
+                    <div className="relative">
+                      <Input
+                        id="base-price"
+                        type="number"
+                        placeholder="Enter base price"
+                        value={profile.basePrice}
+                        onChange={(e) => setProfile({ ...profile, basePrice: e.target.value })}
+                        className="border-teal-200 focus:border-teal-500 pl-10"
+                        min="0"
+                      />
+                      <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-teal-500" />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="seasonal-pricing">Seasonal Pricing (Optional)</Label>
+                    <Input
+                      id="seasonal-pricing"
+                      placeholder="Peak season rates"
+                      value={profile.seasonalPricing}
+                      onChange={(e) => setProfile({ ...profile, seasonalPricing: e.target.value })}
+                      className="border-teal-200 focus:border-teal-500"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="cancellation-policy">Cancellation Policy *</Label>
+                    <select
+                      id="cancellation-policy"
+                      value={profile.cancellationPolicy}
+                      onChange={(e) => setProfile({ ...profile, cancellationPolicy: e.target.value })}
+                      className="w-full h-10 px-3 py-2 text-sm border border-teal-200 rounded-md focus:border-teal-500 focus:outline-none"
+                    >
+                      <option value="">Select policy</option>
+                      <option value="flexible">Flexible - Free cancellation 24h before</option>
+                      <option value="moderate">Moderate - Free cancellation 5 days before</option>
+                      <option value="strict">Strict - 50% refund up to 1 week before</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>Payment Methods Accepted *</Label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {paymentMethodsList.map((method) => (
+                        <div key={method.id} className="flex items-center space-x-2">
+                          <Checkbox
+                            id={method.id}
+                            checked={profile.paymentMethods.includes(method.id)}
+                            onCheckedChange={() => handlePaymentMethodToggle(method.id)}
+                          />
+                          <Label htmlFor={method.id} className="text-sm">{method.title}</Label>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Step 6: Verification & Publishing */}
+        {currentStep === "verification" && (
+          <div className="space-y-6">
+            <div className="text-center">
+              <h1 className="text-3xl font-bold mb-2 text-gray-900">Verification & Publishing</h1>
+              <p className="text-muted-foreground">Final step to get your property verified</p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* ID Proof Upload */}
+              <Card className="shadow-lg border-0 bg-white/80 backdrop-blur">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Shield className="h-5 w-5 mr-2 text-teal-600" />
+                    Upload ID Proof / Business License *
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="border-2 border-dashed border-teal-300 rounded-lg p-6 text-center hover:bg-teal-50/50 transition-colors">
+                    <FileText className="h-10 w-10 text-teal-400 mx-auto mb-3" />
+                    <p className="text-sm text-muted-foreground mb-3">
+                      Upload government ID or business license
+                    </p>
+                    <input
+                      type="file"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                      onChange={(e) => handleFileUpload(e.target.files, 'id')}
+                      className="hidden"
+                      id="id-upload"
+                    />
+                    <label htmlFor="id-upload">
+                      <Button variant="outline" className="border-teal-200 text-teal-600 hover:bg-teal-50" asChild>
+                        <span>Select Document</span>
+                      </Button>
+                    </label>
+                  </div>
+                  {profile.idProof && (
+                    <div className="mt-3">
+                      <p className="text-sm text-teal-600 font-medium">
+                        ✓ Document uploaded: {profile.idProof.name}
+                      </p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Bank Account Setup */}
+              <Card className="shadow-lg border-0 bg-white/80 backdrop-blur">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <CreditCard className="h-5 w-5 mr-2 text-teal-600" />
+                    Bank Account / Payment Setup *
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="bank-account">Bank Account Number</Label>
+                      <Input
+                        id="bank-account"
+                        placeholder="Enter bank account number"
+                        value={profile.bankAccount}
+                        onChange={(e) => setProfile({ ...profile, bankAccount: e.target.value })}
+                        className="border-teal-200 focus:border-teal-500"
+                      />
+                    </div>
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                      <p className="text-blue-800 text-xs">
+                        💡 You can also connect Stripe, PayPal, or other payment processors later from your dashboard.
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+              <div className="flex items-start">
+                <Shield className="h-5 w-5 text-amber-600 mr-2 mt-0.5" />
+                <div>
+                  <p className="text-amber-800 font-medium mb-1">Verification Process</p>
+                  <p className="text-amber-700 text-sm">
+                    Our team will review your property details and documentation within 24-48 hours.
+                    You'll receive an email notification once your property is approved and live on the platform.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Step 7: Success Screen */}
+        {currentStep === "success" && (
+          <div className="text-center space-y-6 max-w-2xl mx-auto">
+            <div className="relative">
+              {/* Confetti Animation Placeholder */}
+              <div className="absolute inset-0 pointer-events-none">
+                <div className="animate-bounce delay-100">
+                  <Sparkles className="h-6 w-6 text-yellow-400 absolute top-4 left-1/4" />
+                </div>
+                <div className="animate-bounce delay-200">
+                  <Sparkles className="h-4 w-4 text-blue-400 absolute top-8 right-1/4" />
+                </div>
+                <div className="animate-bounce delay-300">
+                  <Sparkles className="h-5 w-5 text-green-400 absolute top-12 left-1/3" />
+                </div>
+                <div className="animate-bounce delay-500">
+                  <Sparkles className="h-4 w-4 text-pink-400 absolute top-6 right-1/3" />
+                </div>
+              </div>
+
+              <div className="w-32 h-32 bg-gradient-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <CheckCircle className="h-16 w-16 text-white" />
+              </div>
+            </div>
+
+            <div>
+              <h1 className="text-4xl font-bold mb-4 text-gray-900">Congratulations! 🎉</h1>
+              <p className="text-lg text-muted-foreground mb-8">
+                Your property has been submitted! Our team will review and publish it soon.
+              </p>
+            </div>
+
+            <Card className="shadow-lg border-0 bg-white/80 backdrop-blur p-6">
+              <div className="space-y-4">
+                <h3 className="font-semibold text-lg">What happens next?</h3>
+                <div className="text-left space-y-3">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-6 h-6 bg-teal-100 rounded-full flex items-center justify-center">
+                      <span className="text-teal-600 text-xs font-bold">1</span>
+                    </div>
+                    <p className="text-sm">Our team reviews your property (24-48 hours)</p>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-6 h-6 bg-teal-100 rounded-full flex items-center justify-center">
+                      <span className="text-teal-600 text-xs font-bold">2</span>
+                    </div>
+                    <p className="text-sm">Property goes live on Travel Connect</p>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-6 h-6 bg-teal-100 rounded-full flex items-center justify-center">
+                      <span className="text-teal-600 text-xs font-bold">3</span>
+                    </div>
+                    <p className="text-sm">Start receiving bookings from travelers!</p>
+                  </div>
+                </div>
+              </div>
+            </Card>
+
+            <div className="space-y-4">
+              <Button
+                onClick={handleComplete}
+                size="lg"
+                className="bg-teal-600 hover:bg-teal-700 h-12 px-8"
+              >
+                Manage My Property
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+
+              <div>
+                <button
+                  onClick={() => setCurrentStep("property-type")}
+                  className="text-teal-600 hover:underline text-sm"
+                >
+                  Add Another Property
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Navigation Buttons */}
         {currentStep !== "success" && currentStep !== "account" && (
           <div className="flex justify-between items-center mt-8">
