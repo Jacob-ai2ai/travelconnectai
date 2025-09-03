@@ -15,6 +15,8 @@ import Essentials from "./pages/Essentials";
 import ExploreServices from "./pages/ExploreServices";
 import ListProperty from "./pages/ListProperty";
 import DocumentDownload from "./pages/DocumentDownload";
+import ForgotPassword from "./pages/ForgotPassword";
+import Onboarding from "./pages/Onboarding";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
