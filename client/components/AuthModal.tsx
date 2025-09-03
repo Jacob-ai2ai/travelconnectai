@@ -107,7 +107,7 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto mx-4">
         <DialogHeader>
           <DialogTitle className="text-center text-2xl font-bold">
             {activeTab === "signin" ? "Welcome Back" : "Create your Travel Connect account"}
