@@ -30,6 +30,8 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
     confirmPassword: "",
     agreeToTerms: false,
   });
+  const [signInError, setSignInError] = useState("");
+  const [isSigningIn, setIsSigningIn] = useState(false);
 
   const validatePassword = (password: string) => {
     const requirements = {
@@ -42,10 +44,40 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
     return requirements;
   };
 
-  const handleSignIn = (e: React.FormEvent) => {
+  const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Sign in attempt:", signInData);
-    // TODO: Implement actual sign-in logic
+    setSignInError("");
+    setIsSigningIn(true);
+
+    // Simulate API call to check if user exists
+    setTimeout(() => {
+      // TODO: Replace with actual API call to check user existence
+      // For demo purposes, we'll simulate that only certain emails are "registered"
+      const registeredUsers = [
+        "demo@travelconnect.ai",
+        "test@example.com",
+        "user@gmail.com",
+        "+1234567890"
+      ];
+
+      const userExists = registeredUsers.some(user =>
+        user.toLowerCase() === signInData.userId.toLowerCase()
+      );
+
+      if (!userExists) {
+        setSignInError("account-not-found");
+      } else {
+        // Simulate password check (in real app, this would be handled by backend)
+        if (signInData.password === "password123") {
+          console.log("Sign in successful:", signInData);
+          onClose();
+          // TODO: Handle successful login (set auth state, redirect, etc.)
+        } else {
+          setSignInError("invalid-password");
+        }
+      }
+      setIsSigningIn(false);
+    }, 1000);
   };
 
   const handleSignUp = (e: React.FormEvent) => {
@@ -82,7 +114,10 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
           </DialogTitle>
         </DialogHeader>
 
-        <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as "signin" | "signup")}>
+        <Tabs value={activeTab} onValueChange={(value) => {
+          setActiveTab(value as "signin" | "signup");
+          setSignInError("");
+        }}>
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="signin">Sign In</TabsTrigger>
             <TabsTrigger value="signup">Sign Up</TabsTrigger>
@@ -99,7 +134,10 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
                     type="text"
                     placeholder="Enter your email or phone number"
                     value={signInData.userId}
-                    onChange={(e) => setSignInData({ ...signInData, userId: e.target.value })}
+                    onChange={(e) => {
+                      setSignInData({ ...signInData, userId: e.target.value });
+                      setSignInError("");
+                    }}
                     className="pl-10"
                     required
                   />
@@ -121,7 +159,10 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
                     value={signInData.password}
-                    onChange={(e) => setSignInData({ ...signInData, password: e.target.value })}
+                    onChange={(e) => {
+                      setSignInData({ ...signInData, password: e.target.value });
+                      setSignInError("");
+                    }}
                     className="pl-10 pr-10"
                     required
                   />
@@ -149,8 +190,43 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
                 </div>
               </div>
 
-              <Button type="submit" className="w-full bg-travel-blue hover:bg-travel-blue/90">
-                Sign In
+              {/* Error Messages */}
+              {signInError === "account-not-found" && (
+                <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
+                  <div className="text-red-800 font-medium mb-2">
+                    Account not found
+                  </div>
+                  <p className="text-red-700 text-sm mb-3">
+                    We couldn't find an account with that email or phone number.
+                    You need to register first to access Travel Connect.
+                  </p>
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      setActiveTab("signup");
+                      setSignInError("");
+                    }}
+                    className="w-full bg-travel-blue hover:bg-travel-blue/90"
+                  >
+                    Sign Up Now
+                  </Button>
+                </div>
+              )}
+
+              {signInError === "invalid-password" && (
+                <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-center">
+                  <p className="text-red-800 text-sm">
+                    Incorrect password. Please try again or reset your password.
+                  </p>
+                </div>
+              )}
+
+              <Button
+                type="submit"
+                className="w-full bg-travel-blue hover:bg-travel-blue/90"
+                disabled={isSigningIn}
+              >
+                {isSigningIn ? "Signing In..." : "Sign In"}
               </Button>
             </form>
           </TabsContent>
