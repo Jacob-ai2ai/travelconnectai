@@ -24,6 +24,7 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
     password: "",
   });
   const [signUpData, setSignUpData] = useState({
+    username: "",
     email: "",
     phone: "",
     password: "",
@@ -326,6 +327,24 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
 
             {/* Manual Signup Form */}
             <form onSubmit={handleSignUp} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="username">Username *</Label>
+                <div className="relative">
+                  <Input
+                    id="username"
+                    type="text"
+                    placeholder="Choose a username"
+                    value={signUpData.username}
+                    onChange={(e) => setSignUpData({ ...signUpData, username: e.target.value })}
+                    className="pl-10"
+                    required
+                  />
+                  <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+                    <User className="h-4 w-4 text-muted-foreground" />
+                  </div>
+                </div>
+              </div>
+
               <div className="space-y-2">
                 <Label htmlFor="email">Email Address ��️ *</Label>
                 <Input
