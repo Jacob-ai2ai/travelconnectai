@@ -18,6 +18,7 @@ import DocumentDownload from "./pages/DocumentDownload";
 import ForgotPassword from "./pages/ForgotPassword";
 import Onboarding from "./pages/Onboarding";
 import PropertyOwnerOnboarding from "./pages/PropertyOwnerOnboarding";
+import VendorCategories from "./pages/VendorCategories";
 import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
 
