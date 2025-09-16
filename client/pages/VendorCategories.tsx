@@ -24,7 +24,7 @@ export default function VendorCategories() {
       title: "Stays",
       description: "List hotels, vacation rentals and accommodations",
       icon: Home,
-      to: "/stays",
+      to: "/property-onboarding",
     },
     {
       id: "experiences",
