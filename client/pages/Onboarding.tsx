@@ -25,10 +25,15 @@ import {
   ArrowRight,
   ArrowLeft,
   CheckCircle,
-  Globe
+  Globe,
 } from "lucide-react";
 
-type OnboardingStep = "role" | "themes" | "destinations" | "travelerType" | "complete";
+type OnboardingStep =
+  | "role"
+  | "themes"
+  | "destinations"
+  | "travelerType"
+  | "complete";
 
 interface UserProfile {
   role: string;
@@ -75,34 +80,111 @@ export default function Onboarding() {
     {
       id: "travel-vendor",
       title: "Travel Vendor",
-      description: "I provide travel services (airlines, stays, experiences, events, products)",
+      description:
+        "I provide travel services (airlines, stays, experiences, events, products)",
       icon: Store,
       color: "travel-orange",
     },
   ];
 
   const travelThemes = [
-    { id: "adventure", title: "Adventure & Sports", icon: Mountain, description: "Hiking, skiing, extreme sports" },
-    { id: "beach", title: "Beach & Relaxation", icon: Waves, description: "Beaches, spas, resorts" },
-    { id: "culture", title: "Culture & History", icon: MapPin, description: "Museums, heritage sites" },
-    { id: "romance", title: "Romance & Honeymoon", icon: Heart, description: "Romantic getaways" },
-    { id: "photography", title: "Photography", icon: Camera, description: "Instagram-worthy spots" },
-    { id: "food", title: "Food & Wine", icon: Utensils, description: "Culinary experiences" },
-    { id: "nightlife", title: "Nightlife & Entertainment", icon: Music, description: "Clubs, bars, concerts" },
-    { id: "business", title: "Business Travel", icon: Briefcase, description: "Work trips, conferences" },
-    { id: "family", title: "Family Fun", icon: Users, description: "Kid-friendly activities" },
-    { id: "backpacking", title: "Backpacking & Budget", icon: Backpack, description: "Budget travel, hostels" },
-    { id: "luxury", title: "Luxury Travel", icon: Star, description: "Premium experiences" },
-    { id: "wellness", title: "Wellness & Spa", icon: Sparkles, description: "Health, meditation, yoga" },
+    {
+      id: "adventure",
+      title: "Adventure & Sports",
+      icon: Mountain,
+      description: "Hiking, skiing, extreme sports",
+    },
+    {
+      id: "beach",
+      title: "Beach & Relaxation",
+      icon: Waves,
+      description: "Beaches, spas, resorts",
+    },
+    {
+      id: "culture",
+      title: "Culture & History",
+      icon: MapPin,
+      description: "Museums, heritage sites",
+    },
+    {
+      id: "romance",
+      title: "Romance & Honeymoon",
+      icon: Heart,
+      description: "Romantic getaways",
+    },
+    {
+      id: "photography",
+      title: "Photography",
+      icon: Camera,
+      description: "Instagram-worthy spots",
+    },
+    {
+      id: "food",
+      title: "Food & Wine",
+      icon: Utensils,
+      description: "Culinary experiences",
+    },
+    {
+      id: "nightlife",
+      title: "Nightlife & Entertainment",
+      icon: Music,
+      description: "Clubs, bars, concerts",
+    },
+    {
+      id: "business",
+      title: "Business Travel",
+      icon: Briefcase,
+      description: "Work trips, conferences",
+    },
+    {
+      id: "family",
+      title: "Family Fun",
+      icon: Users,
+      description: "Kid-friendly activities",
+    },
+    {
+      id: "backpacking",
+      title: "Backpacking & Budget",
+      icon: Backpack,
+      description: "Budget travel, hostels",
+    },
+    {
+      id: "luxury",
+      title: "Luxury Travel",
+      icon: Star,
+      description: "Premium experiences",
+    },
+    {
+      id: "wellness",
+      title: "Wellness & Spa",
+      icon: Sparkles,
+      description: "Health, meditation, yoga",
+    },
   ];
 
   const popularDestinations = [
-    "Bali, Indonesia", "Paris, France", "Tokyo, Japan", "New York, USA", 
-    "London, UK", "Dubai, UAE", "Bangkok, Thailand", "Rome, Italy",
-    "Barcelona, Spain", "Amsterdam, Netherlands", "Sydney, Australia", 
-    "Singapore", "Istanbul, Turkey", "Prague, Czech Republic",
-    "Santorini, Greece", "Maldives", "Iceland", "Swiss Alps",
-    "Mumbai, India", "Rio de Janeiro, Brazil", "Cairo, Egypt", "Morocco"
+    "Bali, Indonesia",
+    "Paris, France",
+    "Tokyo, Japan",
+    "New York, USA",
+    "London, UK",
+    "Dubai, UAE",
+    "Bangkok, Thailand",
+    "Rome, Italy",
+    "Barcelona, Spain",
+    "Amsterdam, Netherlands",
+    "Sydney, Australia",
+    "Singapore",
+    "Istanbul, Turkey",
+    "Prague, Czech Republic",
+    "Santorini, Greece",
+    "Maldives",
+    "Iceland",
+    "Swiss Alps",
+    "Mumbai, India",
+    "Rio de Janeiro, Brazil",
+    "Cairo, Egypt",
+    "Morocco",
   ];
 
   const travelerTypes = [
@@ -170,14 +252,14 @@ export default function Onboarding() {
 
   const handleThemeToggle = (themeId: string) => {
     const newThemes = profile.themes.includes(themeId)
-      ? profile.themes.filter(t => t !== themeId)
+      ? profile.themes.filter((t) => t !== themeId)
       : [...profile.themes, themeId];
     setProfile({ ...profile, themes: newThemes });
   };
 
   const handleDestinationToggle = (destination: string) => {
     const newDestinations = profile.destinations.includes(destination)
-      ? profile.destinations.filter(d => d !== destination)
+      ? profile.destinations.filter((d) => d !== destination)
       : [...profile.destinations, destination];
     setProfile({ ...profile, destinations: newDestinations });
   };
@@ -238,32 +320,46 @@ export default function Onboarding() {
         {currentStep === "role" && (
           <div className="space-y-6">
             <div className="text-center">
-              <h1 className="text-3xl font-bold mb-2">Welcome to Travel Connect!</h1>
-              <p className="text-muted-foreground">Let's get you set up. What brings you here?</p>
+              <h1 className="text-3xl font-bold mb-2">
+                Welcome to Travel Connect!
+              </h1>
+              <p className="text-muted-foreground">
+                Let's get you set up. What brings you here?
+              </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6">
               {roles.map((role) => {
                 const Icon = role.icon;
                 const isSelected = profile.role === role.id;
-                
+
                 return (
                   <Card
                     key={role.id}
                     className={`cursor-pointer transition-all hover:shadow-lg ${
-                      isSelected ? `border-${role.color} ring-2 ring-${role.color}/20` : ""
+                      isSelected
+                        ? `border-${role.color} ring-2 ring-${role.color}/20`
+                        : ""
                     }`}
                     onClick={() => handleRoleSelect(role.id)}
                   >
                     <CardContent className="p-6 text-center">
-                      <div className={`w-16 h-16 bg-${role.color}/10 rounded-xl flex items-center justify-center mx-auto mb-4`}>
+                      <div
+                        className={`w-16 h-16 bg-${role.color}/10 rounded-xl flex items-center justify-center mx-auto mb-4`}
+                      >
                         <Icon className={`h-8 w-8 text-${role.color}`} />
                       </div>
-                      <h3 className="text-xl font-semibold mb-2">{role.title}</h3>
-                      <p className="text-muted-foreground">{role.description}</p>
+                      <h3 className="text-xl font-semibold mb-2">
+                        {role.title}
+                      </h3>
+                      <p className="text-muted-foreground">
+                        {role.description}
+                      </p>
                       {isSelected && (
                         <div className="mt-4">
-                          <CheckCircle className={`h-6 w-6 text-${role.color} mx-auto`} />
+                          <CheckCircle
+                            className={`h-6 w-6 text-${role.color} mx-auto`}
+                          />
                         </div>
                       )}
                     </CardContent>
@@ -278,9 +374,12 @@ export default function Onboarding() {
         {currentStep === "themes" && (
           <div className="space-y-6">
             <div className="text-center">
-              <h1 className="text-3xl font-bold mb-2">What kind of trips do you love?</h1>
+              <h1 className="text-3xl font-bold mb-2">
+                What kind of trips do you love?
+              </h1>
               <p className="text-muted-foreground">
-                Choose at least 3 themes that interest you. This helps us personalize your experience.
+                Choose at least 3 themes that interest you. This helps us
+                personalize your experience.
               </p>
             </div>
 
@@ -288,12 +387,14 @@ export default function Onboarding() {
               {travelThemes.map((theme) => {
                 const Icon = theme.icon;
                 const isSelected = profile.themes.includes(theme.id);
-                
+
                 return (
                   <Card
                     key={theme.id}
                     className={`cursor-pointer transition-all hover:shadow-lg ${
-                      isSelected ? "border-travel-blue ring-2 ring-travel-blue/20 bg-travel-blue/5" : ""
+                      isSelected
+                        ? "border-travel-blue ring-2 ring-travel-blue/20 bg-travel-blue/5"
+                        : ""
                     }`}
                     onClick={() => handleThemeToggle(theme.id)}
                   >
@@ -301,8 +402,12 @@ export default function Onboarding() {
                       <div className="w-12 h-12 bg-travel-blue/10 rounded-lg flex items-center justify-center mx-auto mb-3">
                         <Icon className="h-6 w-6 text-travel-blue" />
                       </div>
-                      <h4 className="font-semibold mb-1 text-sm">{theme.title}</h4>
-                      <p className="text-xs text-muted-foreground">{theme.description}</p>
+                      <h4 className="font-semibold mb-1 text-sm">
+                        {theme.title}
+                      </h4>
+                      <p className="text-xs text-muted-foreground">
+                        {theme.description}
+                      </p>
                       {isSelected && (
                         <div className="mt-2">
                           <CheckCircle className="h-4 w-4 text-travel-blue mx-auto" />
@@ -326,28 +431,35 @@ export default function Onboarding() {
         {currentStep === "destinations" && (
           <div className="space-y-6">
             <div className="text-center">
-              <h1 className="text-3xl font-bold mb-2">Where would you like to go?</h1>
+              <h1 className="text-3xl font-bold mb-2">
+                Where would you like to go?
+              </h1>
               <p className="text-muted-foreground">
-                Select destinations that are on your bucket list or places you'd like to visit.
+                Select destinations that are on your bucket list or places you'd
+                like to visit.
               </p>
             </div>
 
             <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-3">
               {popularDestinations.map((destination) => {
                 const isSelected = profile.destinations.includes(destination);
-                
+
                 return (
                   <Card
                     key={destination}
                     className={`cursor-pointer transition-all hover:shadow-lg ${
-                      isSelected ? "border-travel-green ring-2 ring-travel-green/20 bg-travel-green/5" : ""
+                      isSelected
+                        ? "border-travel-green ring-2 ring-travel-green/20 bg-travel-green/5"
+                        : ""
                     }`}
                     onClick={() => handleDestinationToggle(destination)}
                   >
                     <CardContent className="p-3 text-center">
                       <div className="flex items-center justify-center space-x-2">
                         <MapPin className="h-4 w-4 text-travel-green" />
-                        <span className="text-sm font-medium">{destination}</span>
+                        <span className="text-sm font-medium">
+                          {destination}
+                        </span>
                         {isSelected && (
                           <CheckCircle className="h-4 w-4 text-travel-green" />
                         )}
@@ -365,17 +477,19 @@ export default function Onboarding() {
             </div>
 
             <div className="max-w-md mx-auto">
-              <Label htmlFor="custom-destination">Add your own destination</Label>
+              <Label htmlFor="custom-destination">
+                Add your own destination
+              </Label>
               <div className="flex space-x-2">
                 <Input
                   id="custom-destination"
                   placeholder="Enter a city or country"
                   onKeyPress={(e) => {
-                    if (e.key === 'Enter') {
+                    if (e.key === "Enter") {
                       const value = (e.target as HTMLInputElement).value.trim();
                       if (value && !profile.destinations.includes(value)) {
                         handleDestinationToggle(value);
-                        (e.target as HTMLInputElement).value = '';
+                        (e.target as HTMLInputElement).value = "";
                       }
                     }
                   }}
@@ -389,9 +503,12 @@ export default function Onboarding() {
         {currentStep === "travelerType" && (
           <div className="space-y-6">
             <div className="text-center">
-              <h1 className="text-3xl font-bold mb-2">How do you usually travel?</h1>
+              <h1 className="text-3xl font-bold mb-2">
+                How do you usually travel?
+              </h1>
               <p className="text-muted-foreground">
-                This helps us suggest the right accommodations and activities for you.
+                This helps us suggest the right accommodations and activities
+                for you.
               </p>
             </div>
 
@@ -399,12 +516,14 @@ export default function Onboarding() {
               {travelerTypes.map((type) => {
                 const Icon = type.icon;
                 const isSelected = profile.travelerType === type.id;
-                
+
                 return (
                   <Card
                     key={type.id}
                     className={`cursor-pointer transition-all hover:shadow-lg ${
-                      isSelected ? "border-travel-purple ring-2 ring-travel-purple/20 bg-travel-purple/5" : ""
+                      isSelected
+                        ? "border-travel-purple ring-2 ring-travel-purple/20 bg-travel-purple/5"
+                        : ""
                     }`}
                     onClick={() => handleTravelerTypeSelect(type.id)}
                   >
@@ -412,8 +531,12 @@ export default function Onboarding() {
                       <div className="w-16 h-16 bg-travel-purple/10 rounded-xl flex items-center justify-center mx-auto mb-4">
                         <Icon className="h-8 w-8 text-travel-purple" />
                       </div>
-                      <h3 className="text-lg font-semibold mb-2">{type.title}</h3>
-                      <p className="text-muted-foreground">{type.description}</p>
+                      <h3 className="text-lg font-semibold mb-2">
+                        {type.title}
+                      </h3>
+                      <p className="text-muted-foreground">
+                        {type.description}
+                      </p>
                       {isSelected && (
                         <div className="mt-4">
                           <CheckCircle className="h-6 w-6 text-travel-purple mx-auto" />
@@ -433,21 +556,37 @@ export default function Onboarding() {
             <div className="w-24 h-24 bg-gradient-to-br from-travel-blue to-travel-purple rounded-full flex items-center justify-center mx-auto">
               <Sparkles className="h-12 w-12 text-white" />
             </div>
-            
+
             <div>
               <h1 className="text-3xl font-bold mb-4">You're all set!</h1>
               <p className="text-lg text-muted-foreground mb-6">
-                Welcome to Travel Connect! Our AI is now personalizing your experience based on your preferences.
+                Welcome to Travel Connect! Our AI is now personalizing your
+                experience based on your preferences.
               </p>
             </div>
 
             <div className="bg-muted/50 rounded-lg p-6 text-left">
               <h3 className="font-semibold mb-4">Your Profile Summary:</h3>
               <div className="space-y-2 text-sm">
-                <div><strong>Role:</strong> {roles.find(r => r.id === profile.role)?.title}</div>
-                <div><strong>Travel Themes:</strong> {profile.themes.length} selected</div>
-                <div><strong>Destinations:</strong> {profile.destinations.length} selected</div>
-                <div><strong>Travel Style:</strong> {travelerTypes.find(t => t.id === profile.travelerType)?.title}</div>
+                <div>
+                  <strong>Role:</strong>{" "}
+                  {roles.find((r) => r.id === profile.role)?.title}
+                </div>
+                <div>
+                  <strong>Travel Themes:</strong> {profile.themes.length}{" "}
+                  selected
+                </div>
+                <div>
+                  <strong>Destinations:</strong> {profile.destinations.length}{" "}
+                  selected
+                </div>
+                <div>
+                  <strong>Travel Style:</strong>{" "}
+                  {
+                    travelerTypes.find((t) => t.id === profile.travelerType)
+                      ?.title
+                  }
+                </div>
               </div>
             </div>
 

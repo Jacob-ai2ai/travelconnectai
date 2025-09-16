@@ -381,10 +381,16 @@ export default function Index() {
               </span>
             </div>
             <div className="flex items-center space-x-6 text-sm text-muted-foreground">
-              <Link to="/terms" className="hover:text-foreground transition-colors">
+              <Link
+                to="/terms"
+                className="hover:text-foreground transition-colors"
+              >
                 Privacy
               </Link>
-              <Link to="/terms" className="hover:text-foreground transition-colors">
+              <Link
+                to="/terms"
+                className="hover:text-foreground transition-colors"
+              >
                 Terms
               </Link>
               <button
@@ -393,10 +399,16 @@ export default function Index() {
               >
                 Support
               </button>
-              <Link to="/document-download" className="hover:text-foreground transition-colors">
+              <Link
+                to="/document-download"
+                className="hover:text-foreground transition-colors"
+              >
                 SRS Document
               </Link>
-              <Link to="/terms" className="hover:text-foreground transition-colors">
+              <Link
+                to="/terms"
+                className="hover:text-foreground transition-colors"
+              >
                 About
               </Link>
             </div>
