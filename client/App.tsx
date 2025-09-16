@@ -19,6 +19,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Onboarding from "./pages/Onboarding";
 import PropertyOwnerOnboarding from "./pages/PropertyOwnerOnboarding";
 import VendorCategories from "./pages/VendorCategories";
+import Admin from "./pages/Admin";
 import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
 
