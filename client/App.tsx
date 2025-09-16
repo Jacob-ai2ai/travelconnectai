@@ -47,6 +47,7 @@ export default function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/onboarding" element={<Onboarding />} />
             <Route path="/property-onboarding" element={<PropertyOwnerOnboarding />} />
+            <Route path="/vendors" element={<VendorCategories />} />
             <Route path="/terms" element={<Terms />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
