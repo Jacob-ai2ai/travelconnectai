@@ -71,11 +71,11 @@ export default function Onboarding() {
       color: "travel-blue",
     },
     {
-      id: "property-owner",
-      title: "Property Owner",
-      description: "I want to list my property",
-      icon: Building2,
-      color: "travel-green",
+      id: "admin",
+      title: "Admin",
+      description: "I manage platform operations",
+      icon: Briefcase,
+      color: "travel-purple",
     },
     {
       id: "travel-vendor",
@@ -237,9 +237,9 @@ export default function Onboarding() {
   const handleRoleSelect = (roleId: string) => {
     setProfile({ ...profile, role: roleId });
 
-    // Redirect property owners and travel vendors to their specific flows
-    if (roleId === "property-owner") {
-      navigate("/property-onboarding");
+    // Redirect travel vendors and admins to their specific flows
+    if (roleId === "admin") {
+      navigate("/admin");
       return;
     }
 
