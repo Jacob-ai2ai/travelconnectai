@@ -84,12 +84,12 @@ export default function ServiceHeader({
 
           {/* Become a Merchant Button */}
           <div className="flex items-center">
-            <Link to="/list-property">
+            <Link to="/vendors">
               <Button
                 variant="outline"
                 className="bg-travel-orange/10 border-travel-orange text-travel-orange hover:bg-travel-orange hover:text-white"
               >
-                Become a Merchant
+                Become a Travel Vendor
               </Button>
             </Link>
           </div>

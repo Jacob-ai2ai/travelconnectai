@@ -73,9 +73,9 @@ export default function Onboarding() {
       color: "travel-green",
     },
     {
-      id: "merchant",
-      title: "Merchant/Service Provider",
-      description: "I want to offer travel services",
+      id: "travel-vendor",
+      title: "Travel Vendor",
+      description: "I provide travel services (airlines, stays, experiences, events, products)",
       icon: Store,
       color: "travel-orange",
     },
@@ -155,9 +155,15 @@ export default function Onboarding() {
   const handleRoleSelect = (roleId: string) => {
     setProfile({ ...profile, role: roleId });
 
-    // Redirect property owners to their specific onboarding flow
+    // Redirect property owners and travel vendors to their specific flows
     if (roleId === "property-owner") {
       navigate("/property-onboarding");
+      return;
+    }
+
+    if (roleId === "travel-vendor") {
+      // Send vendors to a vendor categories page where they can choose their vendor type
+      navigate("/vendors");
       return;
     }
   };
