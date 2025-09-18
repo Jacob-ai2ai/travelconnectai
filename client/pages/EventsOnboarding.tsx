@@ -73,6 +73,22 @@ export default function EventsOnboarding() {
                 </div>
 
                 <div className="space-y-3">
+                  <Label>Your Role(s)</Label>
+                  <div className="grid grid-cols-1 gap-2">
+                    {eventRoleOptions.map(r => (
+                      <label key={r.id} className="inline-flex items-center space-x-2">
+                        <input
+                          type="checkbox"
+                          checked={eventRoles.includes(r.id)}
+                          onChange={() => setEventRoles(prev => prev.includes(r.id) ? prev.filter(x => x !== r.id) : [...prev, r.id])}
+                        />
+                        <span className="text-sm">{r.label}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-3">
                   <Label>Event Type</Label>
                   <Input value={eventType} onChange={(e) => setEventType(e.target.value)} />
                 </div>
