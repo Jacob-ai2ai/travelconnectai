@@ -152,19 +152,9 @@ export default function Index() {
             <Button variant="outline" onClick={() => setIsAuthModalOpen(true)}>
               Sign In
             </Button>
-            <Button onClick={() => {
-              const signedIn = localStorage.getItem('isSignedIn') === 'true';
-              if (signedIn) {
-                navigate('/vendors');
-              } else {
-                const params = new URLSearchParams(window.location.search);
-                params.set('next', '/vendors');
-                params.set('auth', 'signin');
-                const newUrl = `${window.location.pathname}?${params.toString()}`;
-                window.history.replaceState({}, '', newUrl);
-                setIsAuthModalOpen(true);
-              }
-            }}>Become a Travel Vendor</Button>
+            <Link to="/vendors">
+              <Button>Become a Travel Vendor</Button>
+            </Link>
           </nav>
         </div>
       </header>
