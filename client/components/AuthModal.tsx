@@ -115,18 +115,9 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
     }
   };
 
-  const handleSocialLogin = async (provider: string) => {
-    if (!hasSupabase) {
-      console.log(`Social login with ${provider} (demo)`);
-      return;
-    }
-    const { data, error } = await supabase.auth.signInWithOAuth({ provider });
-    if (error) {
-      console.error(error);
-    } else {
-      // OAuth will redirect; Supabase handles the flow
-      console.log('OAuth started', data);
-    }
+  const handleSocialLogin = (provider: string) => {
+    console.log(`Social login with ${provider}`);
+    // TODO: Implement social login
   };
 
   const passwordRequirements = validatePassword(signUpData.password);
