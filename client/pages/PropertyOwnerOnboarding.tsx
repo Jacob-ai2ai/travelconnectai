@@ -394,21 +394,57 @@ export default function PropertyOwnerOnboarding() {
                   <div className="md:col-span-2 space-y-2">
                     {profile.role === 'owner' && (
                       <div>
-                        <Label>Do you have property managers or co-hosts?</Label>
-                        <div className="flex space-x-2 mt-2">
-                          <Button variant="outline" onClick={() => setProfile({ ...profile, /* open manager input UI */ })}>Add Managers</Button>
-                          <Button variant="outline" onClick={() => setProfile({ ...profile, /* open cohost input UI */ })}>Add Co-hosts</Button>
+                        <Label>Property managers</Label>
+                        <div className="flex items-center space-x-2 mt-2">
+                          <Input id="manager-email" placeholder="Manager email" value={managerInput} onChange={(e) => setManagerInput(e.target.value)} />
+                          <Button onClick={addManager}>Add</Button>
                         </div>
-                        <p className="text-sm text-muted-foreground mt-2">You can add managers and co-hosts after signup.</p>
+
+                        <div className="flex flex-wrap gap-2 mt-2">
+                          {profile.managers.map((m, idx) => (
+                            <div key={m} className="px-3 py-1 bg-gray-100 rounded-full flex items-center space-x-2">
+                              <span className="text-sm">{m}</span>
+                              <button onClick={() => removeManager(idx)} className="text-xs text-red-500">×</button>
+                            </div>
+                          ))}
+                        </div>
+
+                        <Label className="mt-4">Co-hosts</Label>
+                        <div className="flex items-center space-x-2 mt-2">
+                          <Input id="cohost-email" placeholder="Co-host email" value={cohostInput} onChange={(e) => setCohostInput(e.target.value)} />
+                          <Button onClick={addCohost}>Add</Button>
+                        </div>
+
+                        <div className="flex flex-wrap gap-2 mt-2">
+                          {profile.cohosts.map((c, idx) => (
+                            <div key={c} className="px-3 py-1 bg-gray-100 rounded-full flex items-center space-x-2">
+                              <span className="text-sm">{c}</span>
+                              <button onClick={() => removeCohost(idx)} className="text-xs text-red-500">×</button>
+                            </div>
+                          ))}
+                        </div>
+
+                        <p className="text-sm text-muted-foreground mt-2">You can add managers and co-hosts now or later.</p>
                       </div>
                     )}
 
                     {profile.role === 'manager' && (
                       <div>
                         <Label>Add Co-hosts</Label>
-                        <div className="mt-2">
-                          <Button variant="outline" onClick={() => setProfile({ ...profile, /* open cohost input UI */ })}>Add Co-hosts</Button>
+                        <div className="flex items-center space-x-2 mt-2">
+                          <Input id="cohost-email-2" placeholder="Co-host email" value={cohostInput} onChange={(e) => setCohostInput(e.target.value)} />
+                          <Button onClick={addCohost}>Add</Button>
                         </div>
+
+                        <div className="flex flex-wrap gap-2 mt-2">
+                          {profile.cohosts.map((c, idx) => (
+                            <div key={c} className="px-3 py-1 bg-gray-100 rounded-full flex items-center space-x-2">
+                              <span className="text-sm">{c}</span>
+                              <button onClick={() => removeCohost(idx)} className="text-xs text-red-500">×</button>
+                            </div>
+                          ))}
+                        </div>
+
                         <p className="text-sm text-muted-foreground mt-2">Managers can add co-hosts only.</p>
                       </div>
                     )}
