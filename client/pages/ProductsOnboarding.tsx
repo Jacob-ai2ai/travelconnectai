@@ -17,6 +17,11 @@ export default function ProductsOnboarding() {
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [stock, setStock] = useState("");
+  const [productRoles, setProductRoles] = useState<string[]>([]);
+
+  const productRoleOptions = [
+    { id: 'merchant', label: 'Merchant (B2C)' },
+  ];
   const steps: Step[] = ["details", "media", "pricing", "verification", "success"];
   const idx = steps.indexOf(step);
   const progress = ((idx + 1) / steps.length) * 100;
