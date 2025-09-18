@@ -17,7 +17,7 @@ export default function FlightsOnboarding() {
   const [iata, setIata] = useState("");
   const [hubs, setHubs] = useState("");
   const [fleetSize, setFleetSize] = useState("");
-  const [flightRoles, setFlightRoles] = useState<string[]>([]);
+  const [flightRole, setFlightRole] = useState("");
   const [photos, setPhotos] = useState<File[]>([]);
   const [basePrice, setBasePrice] = useState("");
 
@@ -32,7 +32,7 @@ export default function FlightsOnboarding() {
   const canProceed = () => {
     switch (step) {
       case "details":
-        return airline && iata && flightRoles.length > 0;
+        return airline && iata && flightRole !== "";
       case "media":
         return true;
       case "pricing":
@@ -60,7 +60,7 @@ export default function FlightsOnboarding() {
 
   const handleComplete = () => {
     // placeholder: submit payload to backend
-    console.log({ airline, iata, hubs, fleetSize, roles: flightRoles, basePrice });
+    console.log({ airline, iata, hubs, fleetSize, role: flightRole, basePrice });
     navigate("/vendors");
   };
 
@@ -86,19 +86,16 @@ export default function FlightsOnboarding() {
                 </div>
 
                 <div className="space-y-3">
-                  <Label>Your Role(s)</Label>
-                  <div className="grid grid-cols-1 gap-2">
-                    {flightRoleOptions.map(r => (
-                      <label key={r.id} className="inline-flex items-center space-x-2">
-                        <input
-                          type="checkbox"
-                          checked={flightRoles.includes(r.id)}
-                          onChange={() => setFlightRoles(prev => prev.includes(r.id) ? prev.filter(x => x !== r.id) : [...prev, r.id])}
-                        />
-                        <span className="text-sm">{r.label}</span>
-                      </label>
-                    ))}
-                  </div>
+                  <Label>Role</Label>
+                  <select
+                    className="w-full h-10 px-3 py-2 text-sm border rounded-md"
+                    value={flightRole}
+                    onChange={(e) => setFlightRole(e.target.value)}
+                  >
+                    <option value="">Select role</option>
+                    <option value="airline-partner">Airline Partner</option>
+                    <option value="ota-partner">OTA Partner (Reseller)</option>
+                  </select>
                 </div>
 
                 <div className="space-y-3">
