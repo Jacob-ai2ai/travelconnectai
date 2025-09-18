@@ -213,8 +213,8 @@ export default function PropertyOwnerOnboarding() {
 
   const canProceed = () => {
     switch (currentStep) {
-      case "account":
-        return profile.email && profile.password && profile.confirmPassword && profile.agreeToTerms;
+      case "role":
+        return profile.role !== "";
       case "property-type":
         return profile.propertyType !== "";
       case "details":
