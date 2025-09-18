@@ -26,6 +26,15 @@ import {
 
 export default function Index() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const auth = params.get("auth");
+    if (auth) {
+      setIsAuthModalOpen(true);
+    }
+  }, [location.search]);
 
   const services = [
     {
@@ -425,7 +434,7 @@ export default function Index() {
       <AuthModal
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
-        defaultTab="signin"
+        defaultTab={new URLSearchParams(location.search).get("auth") === "signup" ? "signup" : "signin"}
       />
     </div>
   );
