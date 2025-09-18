@@ -30,6 +30,7 @@ import {
 
 type OnboardingStep =
   | "role"
+  | "vendorCategory"
   | "themes"
   | "destinations"
   | "travelerType"
