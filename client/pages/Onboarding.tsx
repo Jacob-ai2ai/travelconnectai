@@ -406,6 +406,47 @@ export default function Onboarding() {
         )}
 
         {/* Step 2: Travel Themes */}
+        {currentStep === "vendorCategory" && (
+          <div className="space-y-6">
+            <div className="text-center">
+              <h1 className="text-3xl font-bold mb-2">What kind of vendor are you?</h1>
+              <p className="text-muted-foreground">Choose the category that best describes your business.</p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              {vendorTypes.map((v) => {
+                const Icon = v.icon;
+                const isSelected = profile.vendorType === v.id;
+
+                return (
+                  <Card
+                    key={v.id}
+                    className={`cursor-pointer transition-all hover:shadow-lg ${
+                      isSelected
+                        ? `border-${v.color} ring-2 ring-${v.color}/20`
+                        : ""
+                    }`}
+                    onClick={() => { handleVendorSelect(v.id); }}
+                  >
+                    <CardContent className="p-6 text-center">
+                      <div className={`w-16 h-16 bg-${v.color}/10 rounded-xl flex items-center justify-center mx-auto mb-4`}>
+                        <Icon className={`h-8 w-8 text-${v.color}`} />
+                      </div>
+                      <h3 className="text-xl font-semibold mb-2">{v.title}</h3>
+                      <p className="text-muted-foreground">{v.description}</p>
+                      {isSelected && (
+                        <div className="mt-4">
+                          <CheckCircle className={`h-6 w-6 text-${v.color} mx-auto`} />
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
         {currentStep === "themes" && (
           <div className="space-y-6">
             <div className="text-center">
