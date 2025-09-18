@@ -53,32 +53,9 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
     setSignInError("");
     setIsSigningIn(true);
 
-    if (hasSupabase) {
-      try {
-        if (!signInData.userId.includes("@")) {
-          setSignInError("Please sign in with email when using Supabase.");
-          setIsSigningIn(false);
-          return;
-        }
-        const res = await supabase.auth.signInWithPassword({ email: signInData.userId, password: signInData.password });
-        if (res.error) {
-          setSignInError(res.error.message);
-        } else if (res.data) {
-          localStorage.setItem("isSignedIn", "true");
-          localStorage.setItem("user", JSON.stringify(res.data.user));
-          if (nextPath) navigate(nextPath);
-          else onClose();
-        }
-      } catch (err: any) {
-        setSignInError(err.message || "Sign in failed");
-      } finally {
-        setIsSigningIn(false);
-      }
-      return;
-    }
-
-    // Fallback demo behavior
+    // Simulate API call to check if user exists
     setTimeout(() => {
+      // For demo purposes, we'll simulate that only certain emails are "registered"
       const registeredUsers = [
         "demo@travelconnect.ai",
         "test@example.com",
@@ -93,9 +70,13 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
       if (!userExists) {
         setSignInError("account-not-found");
       } else {
+        // Simulate password check (in real app, this would be handled by backend)
         if (signInData.password === "password123") {
+          console.log("Sign in successful:", signInData);
+          // Persist simple auth flag for guarded routes (replace with real auth flow)
           localStorage.setItem("isSignedIn", "true");
           localStorage.setItem("user", JSON.stringify({ id: signInData.userId }));
+          // Redirect to next if provided
           if (nextPath) {
             navigate(nextPath);
           } else {
@@ -106,7 +87,7 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
         }
       }
       setIsSigningIn(false);
-    }, 500);
+    }, 1000);
   };
 
   const handleSignUp = async (e: React.FormEvent) => {
