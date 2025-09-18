@@ -70,6 +70,22 @@ export default function ProductsOnboarding() {
                   <Input value={productName} onChange={(e) => setProductName(e.target.value)} />
                 </div>
 
+                <div className="space-y-3">
+                  <Label>Your Role(s)</Label>
+                  <div className="grid grid-cols-1 gap-2">
+                    {productRoleOptions.map(r => (
+                      <label key={r.id} className="inline-flex items-center space-x-2">
+                        <input
+                          type="checkbox"
+                          checked={productRoles.includes(r.id)}
+                          onChange={() => setProductRoles(prev => prev.includes(r.id) ? prev.filter(x => x !== r.id) : [...prev, r.id])}
+                        />
+                        <span className="text-sm">{r.label}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <Label>SKU</Label>
