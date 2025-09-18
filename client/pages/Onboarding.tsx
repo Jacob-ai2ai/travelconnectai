@@ -69,7 +69,7 @@ export default function Onboarding() {
     additionalInfo: {},
   });
 
-  const steps = ["role", "themes", "destinations", "travelerType", "complete"];
+  const steps = ["role", "vendorCategory", "themes", "destinations", "travelerType", "complete"];
   const currentStepIndex = steps.indexOf(currentStep);
   const progress = ((currentStepIndex + 1) / steps.length) * 100;
 
