@@ -19,8 +19,17 @@ export default function ExperiencesOnboarding() {
   const [capacity, setCapacity] = useState("");
   const [experienceType, setExperienceType] = useState("");
   const [otherExperience, setOtherExperience] = useState("");
+  const [experienceRoles, setExperienceRoles] = useState<string[]>([]);
   const [price, setPrice] = useState("");
   const [photos, setPhotos] = useState<File[]>([]);
+
+  const experienceRoleOptions = [
+    { id: 'experience-host', label: 'Experience Host' },
+    { id: 'guide', label: 'Guide' },
+    { id: 'service-provider', label: 'Service Provider' },
+    { id: 'agency', label: 'Agency' },
+    { id: 'tour-operator', label: 'Tour Operator' },
+  ];
   const steps: Step[] = ["details", "media", "pricing", "verification", "success"];
   const idx = steps.indexOf(step);
   const progress = ((idx + 1) / steps.length) * 100;
