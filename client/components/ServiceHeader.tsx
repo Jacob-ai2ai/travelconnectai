@@ -84,14 +84,20 @@ export default function ServiceHeader({
 
           {/* Become a Merchant Button */}
           <div className="flex items-center">
-            <Link to="/vendors">
-              <Button
-                variant="outline"
-                className="bg-travel-orange/10 border-travel-orange text-travel-orange hover:bg-travel-orange hover:text-white"
-              >
-                Become a Travel Vendor
-              </Button>
-            </Link>
+            <Button
+              variant="outline"
+              className="bg-travel-orange/10 border-travel-orange text-travel-orange hover:bg-travel-orange hover:text-white"
+              onClick={() => {
+                const signedIn = localStorage.getItem('isSignedIn') === 'true';
+                if (signedIn) {
+                  navigate('/vendors');
+                } else {
+                  navigate('/?auth=signin&next=/vendors');
+                }
+              }}
+            >
+              Become a Travel Vendor
+            </Button>
           </div>
         </div>
 
