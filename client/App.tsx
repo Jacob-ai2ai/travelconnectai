@@ -60,6 +60,7 @@ export default function App() {
             <Route path="/experiences-onboarding" element={<ExperiencesOnboarding />} />
             <Route path="/events-onboarding" element={<EventsOnboarding />} />
             <Route path="/products-onboarding" element={<ProductsOnboarding />} />
+            <Route path="/travel-agent-onboarding" element={<TravelAgentOnboarding />} />
             <Route path="/vendors" element={<VendorCategories />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/terms" element={<Terms />} />
