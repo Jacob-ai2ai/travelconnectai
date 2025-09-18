@@ -284,6 +284,9 @@ export default function Onboarding() {
 
   const handleVendorSelect = (vendorId: string) => {
     setProfile({ ...profile, vendorType: vendorId });
+    if (vendorId === "stays") {
+      navigate("/property-onboarding");
+    }
   };
 
   const handleThemeToggle = (themeId: string) => {
