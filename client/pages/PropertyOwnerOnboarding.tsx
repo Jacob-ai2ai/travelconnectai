@@ -108,6 +108,8 @@ export default function PropertyOwnerOnboarding() {
     paymentMethods: [],
     idProof: null,
     bankAccount: "",
+    managers: [],
+    cohosts: [],
   });
 
   const steps: OnboardingStep[] = ["property-details", "amenities", "media", "pricing", "verification", "success"];
