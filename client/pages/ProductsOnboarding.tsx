@@ -17,7 +17,7 @@ export default function ProductsOnboarding() {
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [stock, setStock] = useState("");
-  const [productRoles, setProductRoles] = useState<string[]>([]);
+  const [productRole, setProductRole] = useState("");
 
   const productRoleOptions = [
     { id: 'merchant', label: 'Merchant (B2C)' },
@@ -29,7 +29,7 @@ export default function ProductsOnboarding() {
   const canProceed = () => {
     switch (step) {
       case "details":
-        return productName && sku && productRoles.length > 0;
+        return productName && sku && productRole !== "";
       case "pricing":
         return price !== "";
       default:
@@ -47,7 +47,7 @@ export default function ProductsOnboarding() {
   };
 
   const handleComplete = () => {
-    console.log({ productName, sku, category, price, stock, roles: productRoles });
+    console.log({ productName, sku, category, price, stock, role: productRole });
     navigate("/vendors");
   };
 
@@ -71,19 +71,15 @@ export default function ProductsOnboarding() {
                 </div>
 
                 <div className="space-y-3">
-                  <Label>Your Role(s)</Label>
-                  <div className="grid grid-cols-1 gap-2">
-                    {productRoleOptions.map(r => (
-                      <label key={r.id} className="inline-flex items-center space-x-2">
-                        <input
-                          type="checkbox"
-                          checked={productRoles.includes(r.id)}
-                          onChange={() => setProductRoles(prev => prev.includes(r.id) ? prev.filter(x => x !== r.id) : [...prev, r.id])}
-                        />
-                        <span className="text-sm">{r.label}</span>
-                      </label>
-                    ))}
-                  </div>
+                  <Label>Role</Label>
+                  <select
+                    className="w-full h-10 px-3 py-2 text-sm border rounded-md"
+                    value={productRole}
+                    onChange={(e) => setProductRole(e.target.value)}
+                  >
+                    <option value="">Select role</option>
+                    <option value="merchant">Merchant (B2C)</option>
+                  </select>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
