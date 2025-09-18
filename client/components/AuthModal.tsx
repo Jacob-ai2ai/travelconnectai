@@ -81,6 +81,7 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
             navigate(nextPath);
           } else {
             onClose();
+            navigate('/vendors');
           }
         } else {
           setSignInError("invalid-password");
