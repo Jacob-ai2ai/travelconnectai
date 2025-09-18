@@ -47,7 +47,7 @@ export default function ProductsOnboarding() {
   };
 
   const handleComplete = () => {
-    console.log({ productName, sku, category, price, stock });
+    console.log({ productName, sku, category, price, stock, roles: productRoles });
     navigate("/vendors");
   };
 
