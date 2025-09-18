@@ -79,6 +79,29 @@ export default function ExperiencesOnboarding() {
                   <Input value={location} onChange={(e) => setLocation(e.target.value)} />
                 </div>
 
+                <div className="space-y-3">
+                  <Label>Experience Type</Label>
+                  <select
+                    className="w-full h-10 px-3 py-2 text-sm border rounded-md"
+                    value={experienceType}
+                    onChange={(e) => setExperienceType(e.target.value)}
+                  >
+                    <option value="">Select type</option>
+                    <option value="snorkeling">Snorkeling</option>
+                    <option value="surfing">Surfing</option>
+                    <option value="skiing">Skiing</option>
+                    <option value="hiking">Hiking</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                {experienceType === "other" && (
+                  <div className="space-y-3">
+                    <Label>Other experience</Label>
+                    <Input value={otherExperience} onChange={(e) => setOtherExperience(e.target.value)} />
+                  </div>
+                )}
+
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <Label>Duration (hrs)</Label>
