@@ -21,6 +21,7 @@ export default function ProductsOnboarding() {
 
   const productRoleOptions = [
     { id: 'merchant', label: 'Merchant (B2C)' },
+    { id: 'reseller', label: 'Reseller (Used / Second-hand seller)' },
   ];
   const steps: Step[] = ["details", "media", "pricing", "verification", "success"];
   const idx = steps.indexOf(step);
