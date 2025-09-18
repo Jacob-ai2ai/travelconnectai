@@ -26,6 +26,7 @@ import FlightsOnboarding from "./pages/FlightsOnboarding";
 import ExperiencesOnboarding from "./pages/ExperiencesOnboarding";
 import EventsOnboarding from "./pages/EventsOnboarding";
 import ProductsOnboarding from "./pages/ProductsOnboarding";
+import TravelAgentOnboarding from "./pages/TravelAgentOnboarding";
 
 const queryClient = new QueryClient();
 
