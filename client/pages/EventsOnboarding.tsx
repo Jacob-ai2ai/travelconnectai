@@ -49,7 +49,7 @@ export default function EventsOnboarding() {
   };
 
   const handleComplete = () => {
-    console.log({ organizer, eventType, dates, venue, ticketPrice });
+    console.log({ organizer, eventType, dates, venue, ticketPrice, roles: eventRoles });
     navigate("/vendors");
   };
 
