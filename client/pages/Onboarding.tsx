@@ -327,25 +327,52 @@ export default function Onboarding() {
 
   const handleVendorSelect = (vendorId: string) => {
     setProfile({ ...profile, vendorType: vendorId });
-    if (vendorId === "stays") {
-      navigate("/property-onboarding");
-      return;
+
+    const signedIn = localStorage.getItem("isSignedIn") === "true";
+
+    // If signed in, go straight to the vendor-specific onboarding
+    if (signedIn) {
+      if (vendorId === "stays") {
+        navigate("/property-onboarding");
+        return;
+      }
+      if (vendorId === "airlines") {
+        navigate("/flights-onboarding");
+        return;
+      }
+      if (vendorId === "events") {
+        navigate("/events-onboarding");
+        return;
+      }
+      if (vendorId === "experiences") {
+        navigate("/experiences-onboarding");
+        return;
+      }
+      if (vendorId === "products") {
+        navigate("/products-onboarding");
+        return;
+      }
     }
-    if (vendorId === "airlines") {
-      navigate("/flights-onboarding");
-      return;
-    }
-    if (vendorId === "events") {
-      navigate("/events-onboarding");
-      return;
-    }
-    if (vendorId === "experiences") {
-      navigate("/experiences-onboarding");
-      return;
-    }
-    if (vendorId === "products") {
-      navigate("/products-onboarding");
-      return;
+
+    // If not signed in, just store the selection so the user can continue selecting
+    // and proceed; also store a `next` param so after sign-in we can redirect them.
+    const nextPath =
+      vendorId === "stays"
+        ? "/property-onboarding"
+        : vendorId === "airlines"
+        ? "/flights-onboarding"
+        : vendorId === "events"
+        ? "/events-onboarding"
+        : vendorId === "experiences"
+        ? "/experiences-onboarding"
+        : vendorId === "products"
+        ? "/products-onboarding"
+        : undefined;
+
+    if (nextPath) {
+      const params = new URLSearchParams(window.location.search);
+      params.set("next", nextPath);
+      window.history.replaceState({}, "", `${window.location.pathname}?${params.toString()}`);
     }
   };
 
