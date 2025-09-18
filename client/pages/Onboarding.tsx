@@ -650,6 +650,11 @@ export default function Onboarding() {
                   <strong>Role:</strong>{" "}
                   {roles.find((r) => r.id === profile.role)?.title}
                 </div>
+                {profile.role === 'travel-vendor' && (
+                  <div>
+                    <strong>Vendor Type:</strong> {vendorTypes.find(v => v.id === profile.vendorType)?.title}
+                  </div>
+                )}
                 <div>
                   <strong>Travel Themes:</strong> {profile.themes.length}{" "}
                   selected
