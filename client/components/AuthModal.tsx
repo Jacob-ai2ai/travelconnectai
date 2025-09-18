@@ -124,12 +124,8 @@ export default function AuthModal({
       }),
     );
 
-    // Redirect to next if provided
-    if (nextPath) {
-      navigate(nextPath);
-    } else {
-      onClose();
-    }
+    // Redirect to next if provided, otherwise go to onboarding
+    navigate(nextPath || "/onboarding");
   };
 
   const handleSocialLogin = (provider: string) => {
