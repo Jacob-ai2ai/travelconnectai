@@ -570,22 +570,6 @@ export default function AuthModal({
                 Create Account
               </Button>
 
-              <div className="text-center mt-2">
-                <Button
-                  variant="ghost"
-                  type="button"
-                  onClick={() => {
-                    localStorage.setItem("isGuest", "true");
-                    if (nextPath) navigate(nextPath);
-                    else {
-                      onClose();
-                      navigate("/onboarding");
-                    }
-                  }}
-                >
-                  Continue as guest
-                </Button>
-              </div>
 
               <div className="text-center text-sm text-muted-foreground">
                 Already have an account?{" "}
