@@ -26,6 +26,7 @@ import {
   ArrowLeft,
   CheckCircle,
   Globe,
+  Plane,
 } from "lucide-react";
 
 type OnboardingStep =
