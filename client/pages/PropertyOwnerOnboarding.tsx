@@ -48,6 +48,9 @@ import {
 type OnboardingStep = "role" | "property-type" | "details" | "amenities" | "media" | "pricing" | "verification" | "success";
 
 interface PropertyOwnerProfile {
+  // Role
+  role: string;
+
   // Account info
   email: string;
   phone: string;
