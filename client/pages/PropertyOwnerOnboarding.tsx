@@ -281,9 +281,7 @@ export default function PropertyOwnerOnboarding() {
           <div className="mb-8">
             <Progress value={progress} className="h-2 bg-teal-100" />
             <div className="flex justify-between mt-2 text-xs text-teal-600">
-              <span>Account</span>
-              <span>Property</span>
-              <span>Details</span>
+              <span>Property Details</span>
               <span>Amenities</span>
               <span>Media</span>
               <span>Pricing</span>
