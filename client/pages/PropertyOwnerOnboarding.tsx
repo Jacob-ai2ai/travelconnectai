@@ -518,6 +518,7 @@ export default function PropertyOwnerOnboarding() {
                         <div className="flex items-center space-x-2 mt-2">
                           <Input id="cohost-email-2" placeholder="Co-host email" value={cohostInput} onChange={(e) => setCohostInput(e.target.value)} />
                           <Button onClick={addCohost}>Add</Button>
+                          <Button variant="outline" className="ml-2" onClick={() => setBulkOpen(true)}>Bulk Invite</Button>
                         </div>
 
                         <div className="flex flex-wrap gap-2 mt-2">
