@@ -314,8 +314,8 @@ export default function Onboarding() {
 
     // For travel vendors, continue the onboarding and ask for vendor category
     if (roleId === "travel-vendor") {
-      // move to vendor category step
-      setCurrentStep("vendorCategory");
+      // open vendor categories page
+      navigate("/vendors");
       return;
     }
 
