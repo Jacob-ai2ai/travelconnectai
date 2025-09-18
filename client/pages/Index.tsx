@@ -27,6 +27,7 @@ import {
 export default function Index() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
