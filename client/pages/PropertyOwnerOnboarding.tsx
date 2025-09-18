@@ -107,7 +107,7 @@ export default function PropertyOwnerOnboarding() {
     bankAccount: "",
   });
 
-  const steps: OnboardingStep[] = ["account", "property-type", "details", "amenities", "media", "pricing", "verification", "success"];
+  const steps: OnboardingStep[] = ["role", "property-type", "details", "amenities", "media", "pricing", "verification", "success"];
   const currentStepIndex = steps.indexOf(currentStep);
   const progress = ((currentStepIndex + 1) / steps.length) * 100;
 
