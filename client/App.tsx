@@ -51,7 +51,7 @@ export default function App() {
             <Route path="/list-property" element={<ListProperty />} />
             <Route path="/document-download" element={<DocumentDownload />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/vendor-selection" element={<Onboarding />} />
+            <Route path="/onboarding" element={<Onboarding />} />
             <Route
               path="/property-onboarding"
               element={<PropertyOwnerOnboarding />}
