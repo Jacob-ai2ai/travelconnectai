@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Mail, Phone, Lock, Eye, EyeOff, User } from "lucide-react";
+import { supabase, hasSupabase } from "@/lib/supabase";
 
 interface AuthModalProps {
   isOpen: boolean;
