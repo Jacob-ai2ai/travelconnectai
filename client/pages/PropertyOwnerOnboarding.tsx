@@ -124,6 +124,8 @@ export default function PropertyOwnerOnboarding() {
   // Manager / co-host inputs
   const [managerInput, setManagerInput] = useState("");
   const [cohostInput, setCohostInput] = useState("");
+  const [bulkOpen, setBulkOpen] = useState(false);
+  const [bulkText, setBulkText] = useState("");
 
   const addManager = () => {
     const email = managerInput.trim().toLowerCase();
