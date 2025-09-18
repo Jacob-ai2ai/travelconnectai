@@ -122,6 +122,15 @@ export default function PropertyOwnerOnboarding() {
     { id: "others", title: "Others", icon: Plus, description: "Unique property types" },
   ];
 
+  // Guard: ensure user is authenticated; if not, redirect to sign-in page with next param
+  useEffect(() => {
+    const signedIn = localStorage.getItem("isSignedIn") === "true";
+    if (!signedIn) {
+      navigate(`/?auth=signin&next=/property-onboarding`);
+      return;
+    }
+  }, [navigate]);
+
   const amenitiesList = [
     { id: "wifi", title: "Free Wi-Fi", icon: Wifi },
     { id: "parking", title: "Parking", icon: Car },
@@ -280,7 +289,34 @@ export default function PropertyOwnerOnboarding() {
           </div>
         )}
 
-        {/* Step 1: Property Type Selection */}
+        {/* Step 1: Role Selection */}
+        {currentStep === "role" && (
+          <div className="space-y-6">
+            <div className="text-center">
+              <h1 className="text-3xl font-bold mb-2 text-gray-900">Choose your role for Stays</h1>
+              <p className="text-muted-foreground">Are you a property owner or a property manager? This helps us tailor the onboarding.</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              {[
+                { id: 'owner', title: 'Property Owner', desc: 'I own the property and manage listings & payouts' },
+                { id: 'manager', title: 'Property Manager', desc: 'I manage properties on behalf of owners' },
+              ].map((r) => (
+                <Card key={r.id} className={`cursor-pointer transition-all hover:shadow-lg ${profile.role === r.id ? 'ring-2 ring-teal-500 bg-teal-50/80' : 'hover:bg-teal-50/50'}`} onClick={() => { setProfile({ ...profile, role: r.id }); handleNext(); }}>
+                  <CardContent className="p-6 text-center">
+                    <div className={`w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4 ${profile.role === r.id ? 'bg-teal-100' : 'bg-gray-100'}`}>
+                      <Briefcase className={`h-8 w-8 ${profile.role === r.id ? 'text-teal-600' : 'text-gray-600'}`} />
+                    </div>
+                    <h3 className="text-lg font-semibold mb-2">{r.title}</h3>
+                    <p className="text-muted-foreground text-sm">{r.desc}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Step 2: Property Type Selection */}
         {currentStep === "property-type" && (
           <div className="space-y-6">
             <div className="text-center">
