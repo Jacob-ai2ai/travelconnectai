@@ -488,7 +488,7 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
               </Button>
 
               <div className="text-center mt-2">
-                <Button variant="ghost" type="button" onClick={() => { localStorage.setItem('isGuest', 'true'); if (nextPath) navigate(nextPath); else { onClose(); navigate('/onboarding'); } }}>
+                <Button variant="ghost" type="button" onClick={() => { localStorage.setItem('isGuest', 'true'); if (nextPath) navigate(nextPath); else { onClose(); navigate('/vendors'); } }}>
                   Continue as guest
                 </Button>
               </div>
