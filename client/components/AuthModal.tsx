@@ -93,7 +93,6 @@ export default function AuthModal({
             navigate(nextPath);
           } else {
             onClose();
-            navigate("/vendors");
           }
         } else {
           setSignInError("invalid-password");
