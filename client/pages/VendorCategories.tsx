@@ -2,14 +2,7 @@ import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import {
-  Plane,
-  Home,
-  ShoppingBag,
-  Ticket,
-  Mountain,
-  Layers,
-} from "lucide-react";
+import { Plane, Home, ShoppingBag, Ticket, Mountain, Layers } from "lucide-react";
 
 export default function VendorCategories() {
   const categories = [
