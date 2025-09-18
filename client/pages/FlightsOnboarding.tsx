@@ -74,7 +74,7 @@ export default function FlightsOnboarding() {
       role: flightRole,
       basePrice,
     });
-    navigate("/vendors");
+    navigate("/onboarding");
   };
 
   return (

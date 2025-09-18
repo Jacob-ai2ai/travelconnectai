@@ -63,7 +63,7 @@ export default function EventsOnboarding() {
       ticketPrice,
       role: eventRole,
     });
-    navigate("/vendors");
+    navigate("/onboarding");
   };
 
   return (
