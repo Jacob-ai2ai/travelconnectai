@@ -44,7 +44,7 @@ import {
   Eye
 } from "lucide-react";
 
-type OnboardingStep = "account" | "property-type" | "details" | "amenities" | "media" | "pricing" | "verification" | "success";
+type OnboardingStep = "role" | "property-type" | "details" | "amenities" | "media" | "pricing" | "verification" | "success";
 
 interface PropertyOwnerProfile {
   // Account info
