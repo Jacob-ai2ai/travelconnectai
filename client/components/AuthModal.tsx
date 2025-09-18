@@ -112,7 +112,7 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
       navigate(nextPath);
     } else {
       onClose();
-      navigate("/onboarding");
+      navigate("/vendors");
     }
   };
 
