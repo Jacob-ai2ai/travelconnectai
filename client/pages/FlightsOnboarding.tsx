@@ -60,7 +60,7 @@ export default function FlightsOnboarding() {
 
   const handleComplete = () => {
     // placeholder: submit payload to backend
-    console.log({ airline, iata, hubs, fleetSize, basePrice });
+    console.log({ airline, iata, hubs, fleetSize, roles: flightRoles, basePrice });
     navigate("/vendors");
   };
 
