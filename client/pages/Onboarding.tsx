@@ -239,16 +239,28 @@ export default function Onboarding() {
   ];
 
   const handleNext = () => {
-    const stepIndex = steps.indexOf(currentStep);
-    if (stepIndex < steps.length - 1) {
-      setCurrentStep(steps[stepIndex + 1] as OnboardingStep);
+    let stepIndex = steps.indexOf(currentStep);
+    while (stepIndex < steps.length - 1) {
+      stepIndex++;
+      const next = steps[stepIndex];
+      if (next === "vendorCategory" && profile.role !== "travel-vendor") {
+        continue; // skip vendorCategory unless user is a vendor
+      }
+      setCurrentStep(next as OnboardingStep);
+      break;
     }
   };
 
   const handleBack = () => {
-    const stepIndex = steps.indexOf(currentStep);
-    if (stepIndex > 0) {
-      setCurrentStep(steps[stepIndex - 1] as OnboardingStep);
+    let stepIndex = steps.indexOf(currentStep);
+    while (stepIndex > 0) {
+      stepIndex--;
+      const prev = steps[stepIndex];
+      if (prev === "vendorCategory" && profile.role !== "travel-vendor") {
+        continue; // skip vendorCategory when navigating back
+      }
+      setCurrentStep(prev as OnboardingStep);
+      break;
     }
   };
 
