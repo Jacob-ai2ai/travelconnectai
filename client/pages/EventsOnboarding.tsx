@@ -17,6 +17,13 @@ export default function EventsOnboarding() {
   const [dates, setDates] = useState("");
   const [venue, setVenue] = useState("");
   const [ticketPrice, setTicketPrice] = useState("");
+  const [eventRoles, setEventRoles] = useState<string[]>([]);
+
+  const eventRoleOptions = [
+    { id: 'event-organizer', label: 'Event Organizer' },
+    { id: 'event-manager', label: 'Event/Venue Manager' },
+    { id: 'promoter', label: 'Promoter / Ticket Reseller' },
+  ];
   const steps: Step[] = ["details", "media", "pricing", "verification", "success"];
   const idx = steps.indexOf(step);
   const progress = ((idx + 1) / steps.length) * 100;
