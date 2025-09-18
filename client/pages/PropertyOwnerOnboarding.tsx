@@ -1056,7 +1056,7 @@ export default function PropertyOwnerOnboarding() {
         )}
 
         {/* Navigation Buttons */}
-        {currentStep !== "success" && currentStep !== "account" && (
+        {currentStep !== "success" && (
           <div className="flex justify-between items-center mt-8">
             <Button
               variant="outline"
