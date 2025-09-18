@@ -280,6 +280,12 @@ export default function Onboarding() {
       setCurrentStep("vendorCategory");
       return;
     }
+
+    // Travel agents go to the travel agent onboarding
+    if (roleId === "travel-agent") {
+      navigate("/travel-agent-onboarding");
+      return;
+    }
   };
 
   const handleVendorSelect = (vendorId: string) => {
