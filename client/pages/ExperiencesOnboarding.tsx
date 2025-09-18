@@ -51,7 +51,7 @@ export default function ExperiencesOnboarding() {
   };
 
   const handleComplete = () => {
-    console.log({ title, location, duration, capacity, price });
+    console.log({ title, location, duration, capacity, experienceType: experienceType === 'other' ? otherExperience : experienceType, price });
     navigate("/vendors");
   };
 
