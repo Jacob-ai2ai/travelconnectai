@@ -18,7 +18,7 @@ export default function VendorCategories() {
       title: "Airlines",
       description: "Offer flight inventory and services",
       icon: Plane,
-      to: "/flights",
+      to: "/flights-onboarding",
     },
     {
       id: "stays",
@@ -32,21 +32,21 @@ export default function VendorCategories() {
       title: "Experiences",
       description: "Offer tours, activities and guided experiences",
       icon: Mountain,
-      to: "/xperiences",
+      to: "/experiences-onboarding",
     },
     {
       id: "events",
       title: "Events",
       description: "Sell tickets and manage event listings",
       icon: Ticket,
-      to: "/events",
+      to: "/events-onboarding",
     },
     {
       id: "products",
       title: "Products & Essentials",
       description: "Sell travel products, gear and essentials",
       icon: ShoppingBag,
-      to: "/essentials",
+      to: "/products-onboarding",
     },
     {
       id: "services",
