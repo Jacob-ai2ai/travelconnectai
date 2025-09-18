@@ -327,6 +327,8 @@ export default function Onboarding() {
     }
   };
 
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
   const handleVendorSelect = (vendorId: string) => {
     setProfile({ ...profile, vendorType: vendorId });
 
@@ -356,8 +358,7 @@ export default function Onboarding() {
       }
     }
 
-    // If not signed in, just store the selection so the user can continue selecting
-    // and proceed; also store a `next` param so after sign-in we can redirect them.
+    // If not signed in, set next param and open auth modal so user must sign up
     const nextPath =
       vendorId === "stays"
         ? "/property-onboarding"
@@ -373,8 +374,10 @@ export default function Onboarding() {
 
     if (nextPath) {
       const params = new URLSearchParams(window.location.search);
+      params.set("auth", "signin");
       params.set("next", nextPath);
       window.history.replaceState({}, "", `${window.location.pathname}?${params.toString()}`);
+      setIsAuthModalOpen(true);
     }
   };
 
