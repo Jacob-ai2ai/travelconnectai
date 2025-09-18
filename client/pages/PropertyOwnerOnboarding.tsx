@@ -116,6 +116,46 @@ export default function PropertyOwnerOnboarding() {
   const currentStepIndex = steps.indexOf(currentStep);
   const progress = ((currentStepIndex + 1) / steps.length) * 100;
 
+  // Manager / co-host inputs
+  const [managerInput, setManagerInput] = useState("");
+  const [cohostInput, setCohostInput] = useState("");
+
+  const addManager = () => {
+    const email = managerInput.trim().toLowerCase();
+    if (!/^\S+@\S+\.\S+$/.test(email)) return;
+    if ((profile as any).managers?.includes(email)) {
+      setManagerInput("");
+      return;
+    }
+    setProfile({ ...profile, managers: [...(profile as any).managers || [], email] } as any);
+    setManagerInput("");
+  };
+
+  const removeManager = (index: number) => {
+    const next = [...((profile as any).managers || [])];
+    next.splice(index, 1);
+    setProfile({ ...profile, managers: next } as any);
+  };
+
+  const addCohost = () => {
+    const email = cohostInput.trim().toLowerCase();
+    if (!/^\S+@\S+\.\S+$/.test(email)) return;
+    if ((profile as any).cohosts?.includes(email)) {
+      setCohostInput("");
+      return;
+    }
+    setProfile({ ...profile, cohosts: [...(profile as any).cohosts || [], email] } as any);
+    setCohostInput("");
+  };
+
+  const removeCohost = (index: number) => {
+    const next = [...((profile as any).cohosts || [])];
+    next.splice(index, 1);
+    setProfile({ ...profile, cohosts: next } as any);
+  };
+  const currentStepIndex = steps.indexOf(currentStep);
+  const progress = ((currentStepIndex + 1) / steps.length) * 100;
+
   const propertyTypes = [
     { id: "hotel", title: "Hotel / Resort", icon: Hotel, description: "Full-service accommodation" },
     { id: "homestay", title: "Homestay", icon: Home, description: "Family-run accommodation" },
