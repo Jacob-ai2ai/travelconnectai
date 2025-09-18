@@ -38,6 +38,7 @@ type OnboardingStep =
 
 interface UserProfile {
   role: string;
+  vendorType?: string;
   themes: string[];
   destinations: string[];
   travelerType: string;
@@ -47,6 +48,14 @@ interface UserProfile {
     travelFrequency?: string;
   };
 }
+
+  const vendorTypes = [
+    { id: "airlines", title: "Airlines", description: "Flight operators and carriers", icon: Plane, color: "travel-orange" },
+    { id: "stays", title: "Stays/Accommodations", description: "Hotels, hostels, homestays", icon: Building2, color: "travel-blue" },
+    { id: "experiences", title: "Experiences", description: "Tours, activities, excursions", icon: Star, color: "travel-purple" },
+    { id: "events", title: "Events & Conferences", description: "Event organisers and ticketing", icon: Music, color: "travel-green" },
+    { id: "products", title: "Travel Products", description: "Retailers and travel products", icon: Store, color: "travel-teal" },
+  ];
 
 export default function Onboarding() {
   const navigate = useNavigate();
