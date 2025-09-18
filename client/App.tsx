@@ -51,6 +51,10 @@ export default function App() {
               path="/property-onboarding"
               element={<PropertyOwnerOnboarding />}
             />
+            <Route path="/flights-onboarding" element={/* lazy map to flights onboarding */ null} />
+            <Route path="/experiences-onboarding" element={/* lazy */ null} />
+            <Route path="/events-onboarding" element={/* lazy */ null} />
+            <Route path="/products-onboarding" element={/* lazy */ null} />
             <Route path="/vendors" element={<VendorCategories />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/terms" element={<Terms />} />
