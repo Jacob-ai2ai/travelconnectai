@@ -368,15 +368,17 @@ export default function PropertyOwnerOnboarding() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="md:col-span-2 space-y-2">
                     <Label>Role *</Label>
-                    <div className="flex items-center space-x-4">
-                      <label className="inline-flex items-center">
-                        <input type="radio" name="role" value="owner" checked={profile.role === 'owner'} onChange={() => setProfile({ ...profile, role: 'owner' })} />
-                        <span className="ml-2">Property Owner</span>
-                      </label>
-                      <label className="inline-flex items-center">
-                        <input type="radio" name="role" value="manager" checked={profile.role === 'manager'} onChange={() => setProfile({ ...profile, role: 'manager' })} />
-                        <span className="ml-2">Property Manager</span>
-                      </label>
+                    <div className="flex items-center">
+                      <select
+                        id="role"
+                        value={profile.role}
+                        onChange={(e) => setProfile({ ...profile, role: e.target.value })}
+                        className="w-full h-10 px-3 py-2 text-sm border border-teal-200 rounded-md focus:border-teal-500 focus:outline-none"
+                      >
+                        <option value="">Select role</option>
+                        <option value="owner">Property Owner</option>
+                        <option value="manager">Property Manager</option>
+                      </select>
                     </div>
                   </div>
 
