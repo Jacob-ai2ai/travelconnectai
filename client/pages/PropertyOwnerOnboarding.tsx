@@ -84,6 +84,7 @@ export default function PropertyOwnerOnboarding() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState<OnboardingStep>("role");
   const [profile, setProfile] = useState<PropertyOwnerProfile>({
+    role: "",
     email: "",
     phone: "",
     password: "",
