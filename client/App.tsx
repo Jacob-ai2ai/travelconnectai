@@ -70,7 +70,7 @@ export default function App() {
               path="/travel-agent-onboarding"
               element={<TravelAgentOnboarding />}
             />
-            <Route path="/vendors" element={<Onboarding />} />
+            <Route path="/vendors" element={<VendorCategories />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/terms" element={<Terms />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
