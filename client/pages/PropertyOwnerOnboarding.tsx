@@ -82,7 +82,7 @@ interface PropertyOwnerProfile {
 
 export default function PropertyOwnerOnboarding() {
   const navigate = useNavigate();
-  const [currentStep, setCurrentStep] = useState<OnboardingStep>("account");
+  const [currentStep, setCurrentStep] = useState<OnboardingStep>("role");
   const [profile, setProfile] = useState<PropertyOwnerProfile>({
     email: "",
     phone: "",
