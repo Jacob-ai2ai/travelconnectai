@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import { handleDemo } from "./routes/demo";
 import { handleDownloadSRS, handleDocumentPreview } from "./routes/download";
+import { handleCreateInvites } from "./routes/invites";
 
 export function createServer() {
   const app = express();
