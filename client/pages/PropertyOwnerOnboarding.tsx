@@ -157,9 +157,6 @@ export default function PropertyOwnerOnboarding() {
     next.splice(index, 1);
     setProfile({ ...profile, cohosts: next } as any);
   };
-  const currentStepIndex = steps.indexOf(currentStep);
-  const progress = ((currentStepIndex + 1) / steps.length) * 100;
-
   const propertyTypes = [
     { id: "hotel", title: "Hotel / Resort", icon: Hotel, description: "Full-service accommodation" },
     { id: "homestay", title: "Homestay", icon: Home, description: "Family-run accommodation" },
