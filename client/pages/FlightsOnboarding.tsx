@@ -32,7 +32,7 @@ export default function FlightsOnboarding() {
   const canProceed = () => {
     switch (step) {
       case "details":
-        return airline && iata;
+        return airline && iata && flightRoles.length > 0;
       case "media":
         return true;
       case "pricing":
