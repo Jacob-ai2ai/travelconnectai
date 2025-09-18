@@ -486,7 +486,29 @@ export default function PropertyOwnerOnboarding() {
                           ))}
                         </div>
 
+                        <div className="flex items-center space-x-2 mt-4">
+                          <Button variant="outline" onClick={() => setBulkOpen(true)}>Bulk Invite</Button>
+                        </div>
+
                         <p className="text-sm text-muted-foreground mt-2">You can add managers and co-hosts now or later.</p>
+
+                        {bulkOpen && (
+                          <div className="mt-3">
+                            <Label>Paste emails (comma, newline or space separated)</Label>
+                            <Textarea value={bulkText} onChange={(e) => setBulkText(e.target.value)} />
+                            <div className="flex space-x-2 mt-2">
+                              <Button onClick={() => {
+                                const emails = bulkText.split(/[\s,]+/).map(s=>s.trim().toLowerCase()).filter(Boolean);
+                                const valid = emails.filter(e=>/^\S+@\S+\.\S+$/.test(e));
+                                const uniqueManagers = Array.from(new Set([...(profile.managers||[]), ...valid]));
+                                setProfile({...profile, managers: uniqueManagers});
+                                setBulkText("");
+                                setBulkOpen(false);
+                              }}>Import</Button>
+                              <Button variant="ghost" onClick={() => { setBulkOpen(false); setBulkText(""); }}>Cancel</Button>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     )}
 
