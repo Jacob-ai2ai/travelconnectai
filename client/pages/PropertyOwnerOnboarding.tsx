@@ -176,6 +176,8 @@ export default function PropertyOwnerOnboarding() {
       alert("Please agree to the terms and privacy policy!");
       return;
     }
+    // Persist auth flag
+    localStorage.setItem("isSignedIn", "true");
     handleNext();
   };
 
