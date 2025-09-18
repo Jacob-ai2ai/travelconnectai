@@ -17,7 +17,7 @@ export default function EventsOnboarding() {
   const [dates, setDates] = useState("");
   const [venue, setVenue] = useState("");
   const [ticketPrice, setTicketPrice] = useState("");
-  const [eventRoles, setEventRoles] = useState<string[]>([]);
+  const [eventRole, setEventRole] = useState("");
 
   const eventRoleOptions = [
     { id: 'event-organizer', label: 'Event Organizer' },
@@ -31,7 +31,7 @@ export default function EventsOnboarding() {
   const canProceed = () => {
     switch (step) {
       case "details":
-        return organizer && eventType && eventRoles.length > 0;
+        return organizer && eventType && eventRole !== "";
       case "pricing":
         return ticketPrice !== "";
       default:
@@ -49,7 +49,7 @@ export default function EventsOnboarding() {
   };
 
   const handleComplete = () => {
-    console.log({ organizer, eventType, dates, venue, ticketPrice, roles: eventRoles });
+    console.log({ organizer, eventType, dates, venue, ticketPrice, role: eventRole });
     navigate("/vendors");
   };
 
@@ -73,19 +73,17 @@ export default function EventsOnboarding() {
                 </div>
 
                 <div className="space-y-3">
-                  <Label>Your Role(s)</Label>
-                  <div className="grid grid-cols-1 gap-2">
-                    {eventRoleOptions.map(r => (
-                      <label key={r.id} className="inline-flex items-center space-x-2">
-                        <input
-                          type="checkbox"
-                          checked={eventRoles.includes(r.id)}
-                          onChange={() => setEventRoles(prev => prev.includes(r.id) ? prev.filter(x => x !== r.id) : [...prev, r.id])}
-                        />
-                        <span className="text-sm">{r.label}</span>
-                      </label>
-                    ))}
-                  </div>
+                  <Label>Role</Label>
+                  <select
+                    className="w-full h-10 px-3 py-2 text-sm border rounded-md"
+                    value={eventRole}
+                    onChange={(e) => setEventRole(e.target.value)}
+                  >
+                    <option value="">Select role</option>
+                    <option value="event-organizer">Event Organizer</option>
+                    <option value="event-manager">Event/Venue Manager</option>
+                    <option value="promoter">Promoter / Ticket Reseller</option>
+                  </select>
                 </div>
 
                 <div className="space-y-3">
