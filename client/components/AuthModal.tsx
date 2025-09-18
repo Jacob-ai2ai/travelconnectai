@@ -54,10 +54,32 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
     setSignInError("");
     setIsSigningIn(true);
 
-    // Simulate API call to check if user exists
+    if (hasSupabase) {
+      try {
+        if (!signInData.userId.includes("@")) {
+          setSignInError("Please sign in with email when using Supabase.");
+          setIsSigningIn(false);
+          return;
+        }
+        const res = await supabase.auth.signInWithPassword({ email: signInData.userId, password: signInData.password });
+        if (res.error) {
+          setSignInError(res.error.message);
+        } else if (res.data) {
+          localStorage.setItem("isSignedIn", "true");
+          localStorage.setItem("user", JSON.stringify(res.data.user));
+          if (nextPath) navigate(nextPath);
+          else onClose();
+        }
+      } catch (err: any) {
+        setSignInError(err.message || "Sign in failed");
+      } finally {
+        setIsSigningIn(false);
+      }
+      return;
+    }
+
+    // Fallback demo behavior
     setTimeout(() => {
-      // TODO: Replace with actual API call to check user existence
-      // For demo purposes, we'll simulate that only certain emails are "registered"
       const registeredUsers = [
         "demo@travelconnect.ai",
         "test@example.com",
@@ -72,13 +94,9 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
       if (!userExists) {
         setSignInError("account-not-found");
       } else {
-        // Simulate password check (in real app, this would be handled by backend)
         if (signInData.password === "password123") {
-          console.log("Sign in successful:", signInData);
-          // Persist simple auth flag for guarded routes (replace with real auth flow)
           localStorage.setItem("isSignedIn", "true");
           localStorage.setItem("user", JSON.stringify({ id: signInData.userId }));
-          // Redirect to next if provided
           if (nextPath) {
             navigate(nextPath);
           } else {
@@ -89,10 +107,10 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
         }
       }
       setIsSigningIn(false);
-    }, 1000);
+    }, 500);
   };
 
-  const handleSignUp = (e: React.FormEvent) => {
+  const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     if (signUpData.password !== signUpData.confirmPassword) {
       alert("Passwords don't match!");
@@ -102,13 +120,39 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
       alert("Please agree to the terms and privacy policy!");
       return;
     }
+
+    if (hasSupabase) {
+      const { data, error } = await supabase.auth.signUp({
+        email: signUpData.email,
+        password: signUpData.password,
+        options: {
+          data: { phone: signUpData.phone, username: signUpData.username }
+        }
+      });
+
+      if (error) {
+        alert(error.message);
+        return;
+      }
+
+      // Supabase returns a user only after confirmation in some cases
+      localStorage.setItem("isSignedIn", "true");
+      if (data?.user) localStorage.setItem("user", JSON.stringify(data.user));
+
+      if (nextPath) {
+        navigate(nextPath);
+      } else {
+        onClose();
+        navigate("/onboarding");
+      }
+      return;
+    }
+
+    // Fallback demo behavior
     console.log("Sign up attempt:", signUpData);
-    // TODO: Implement actual sign-up API call
-    // Simulate successful signup: persist auth and redirect
     localStorage.setItem("isSignedIn", "true");
     localStorage.setItem("user", JSON.stringify({ email: signUpData.email, username: signUpData.username }));
 
-    // Redirect to next if provided
     if (nextPath) {
       navigate(nextPath);
     } else {
@@ -117,9 +161,18 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
     }
   };
 
-  const handleSocialLogin = (provider: string) => {
-    console.log(`Social login with ${provider}`);
-    // TODO: Implement social login
+  const handleSocialLogin = async (provider: string) => {
+    if (!hasSupabase) {
+      console.log(`Social login with ${provider} (demo)`);
+      return;
+    }
+    const { data, error } = await supabase.auth.signInWithOAuth({ provider });
+    if (error) {
+      console.error(error);
+    } else {
+      // OAuth will redirect; Supabase handles the flow
+      console.log('OAuth started', data);
+    }
   };
 
   const passwordRequirements = validatePassword(signUpData.password);
@@ -487,6 +540,12 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
               >
                 Create Account
               </Button>
+
+              <div className="text-center mt-2">
+                <Button variant="ghost" type="button" onClick={() => { localStorage.setItem('isGuest', 'true'); if (nextPath) navigate(nextPath); else { onClose(); navigate('/onboarding'); } }}>
+                  Continue as guest
+                </Button>
+              </div>
 
               <div className="text-center text-sm text-muted-foreground">
                 Already have an account?{" "}
