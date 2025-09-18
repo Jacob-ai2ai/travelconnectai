@@ -20,11 +20,17 @@ export default function EventsOnboarding() {
   const [eventRole, setEventRole] = useState("");
 
   const eventRoleOptions = [
-    { id: 'event-organizer', label: 'Event Organizer' },
-    { id: 'event-manager', label: 'Event/Venue Manager' },
-    { id: 'promoter', label: 'Promoter / Ticket Reseller' },
+    { id: "event-organizer", label: "Event Organizer" },
+    { id: "event-manager", label: "Event/Venue Manager" },
+    { id: "promoter", label: "Promoter / Ticket Reseller" },
   ];
-  const steps: Step[] = ["details", "media", "pricing", "verification", "success"];
+  const steps: Step[] = [
+    "details",
+    "media",
+    "pricing",
+    "verification",
+    "success",
+  ];
   const idx = steps.indexOf(step);
   const progress = ((idx + 1) / steps.length) * 100;
 
@@ -49,7 +55,14 @@ export default function EventsOnboarding() {
   };
 
   const handleComplete = () => {
-    console.log({ organizer, eventType, dates, venue, ticketPrice, role: eventRole });
+    console.log({
+      organizer,
+      eventType,
+      dates,
+      venue,
+      ticketPrice,
+      role: eventRole,
+    });
     navigate("/vendors");
   };
 
@@ -63,13 +76,20 @@ export default function EventsOnboarding() {
             <CardContent className="p-6">
               <div className="space-y-4">
                 <div className="text-center">
-                  <h1 className="text-2xl font-semibold">Event Organizer Details</h1>
-                  <p className="text-sm text-muted-foreground">Tell us about the event</p>
+                  <h1 className="text-2xl font-semibold">
+                    Event Organizer Details
+                  </h1>
+                  <p className="text-sm text-muted-foreground">
+                    Tell us about the event
+                  </p>
                 </div>
 
                 <div className="space-y-3">
                   <Label>Organizer</Label>
-                  <Input value={organizer} onChange={(e) => setOrganizer(e.target.value)} />
+                  <Input
+                    value={organizer}
+                    onChange={(e) => setOrganizer(e.target.value)}
+                  />
                 </div>
 
                 <div className="space-y-3">
@@ -88,19 +108,27 @@ export default function EventsOnboarding() {
 
                 <div className="space-y-3">
                   <Label>Event Type</Label>
-                  <Input value={eventType} onChange={(e) => setEventType(e.target.value)} />
+                  <Input
+                    value={eventType}
+                    onChange={(e) => setEventType(e.target.value)}
+                  />
                 </div>
 
                 <div className="space-y-3">
                   <Label>Dates / Schedule</Label>
-                  <Input value={dates} onChange={(e) => setDates(e.target.value)} />
+                  <Input
+                    value={dates}
+                    onChange={(e) => setDates(e.target.value)}
+                  />
                 </div>
 
                 <div className="space-y-3">
                   <Label>Venue</Label>
-                  <Input value={venue} onChange={(e) => setVenue(e.target.value)} />
+                  <Input
+                    value={venue}
+                    onChange={(e) => setVenue(e.target.value)}
+                  />
                 </div>
-
               </div>
             </CardContent>
           </Card>
@@ -119,7 +147,11 @@ export default function EventsOnboarding() {
           <Card>
             <CardContent className="p-6">
               <Label>Ticket Price</Label>
-              <Input type="number" value={ticketPrice} onChange={(e) => setTicketPrice(e.target.value)} />
+              <Input
+                type="number"
+                value={ticketPrice}
+                onChange={(e) => setTicketPrice(e.target.value)}
+              />
             </CardContent>
           </Card>
         )}
@@ -138,7 +170,9 @@ export default function EventsOnboarding() {
             <CardContent className="p-6 text-center">
               <Music className="mx-auto mb-4 h-8 w-8 text-teal-600" />
               <h3 className="text-xl font-semibold">Event Submitted</h3>
-              <p className="text-sm text-muted-foreground">Your event will be reviewed shortly.</p>
+              <p className="text-sm text-muted-foreground">
+                Your event will be reviewed shortly.
+              </p>
             </CardContent>
           </Card>
         )}

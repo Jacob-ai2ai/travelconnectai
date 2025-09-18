@@ -20,10 +20,16 @@ export default function ProductsOnboarding() {
   const [productRole, setProductRole] = useState("");
 
   const productRoleOptions = [
-    { id: 'merchant', label: 'Merchant (B2C)' },
-    { id: 'reseller', label: 'Reseller (Used / Second-hand seller)' },
+    { id: "merchant", label: "Merchant (B2C)" },
+    { id: "reseller", label: "Reseller (Used / Second-hand seller)" },
   ];
-  const steps: Step[] = ["details", "media", "pricing", "verification", "success"];
+  const steps: Step[] = [
+    "details",
+    "media",
+    "pricing",
+    "verification",
+    "success",
+  ];
   const idx = steps.indexOf(step);
   const progress = ((idx + 1) / steps.length) * 100;
 
@@ -48,7 +54,14 @@ export default function ProductsOnboarding() {
   };
 
   const handleComplete = () => {
-    console.log({ productName, sku, category, price, stock, role: productRole });
+    console.log({
+      productName,
+      sku,
+      category,
+      price,
+      stock,
+      role: productRole,
+    });
     navigate("/vendors");
   };
 
@@ -63,12 +76,17 @@ export default function ProductsOnboarding() {
               <div className="space-y-4">
                 <div className="text-center">
                   <h1 className="text-2xl font-semibold">Product Details</h1>
-                  <p className="text-sm text-muted-foreground">Add your product information</p>
+                  <p className="text-sm text-muted-foreground">
+                    Add your product information
+                  </p>
                 </div>
 
                 <div className="space-y-3">
                   <Label>Product Name</Label>
-                  <Input value={productName} onChange={(e) => setProductName(e.target.value)} />
+                  <Input
+                    value={productName}
+                    onChange={(e) => setProductName(e.target.value)}
+                  />
                 </div>
 
                 <div className="space-y-3">
@@ -80,26 +98,37 @@ export default function ProductsOnboarding() {
                   >
                     <option value="">Select role</option>
                     <option value="merchant">Merchant (B2C)</option>
-                    <option value="reseller">Reseller (Used / Second-hand seller)</option>
+                    <option value="reseller">
+                      Reseller (Used / Second-hand seller)
+                    </option>
                   </select>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <Label>SKU</Label>
-                    <Input value={sku} onChange={(e) => setSku(e.target.value)} />
+                    <Input
+                      value={sku}
+                      onChange={(e) => setSku(e.target.value)}
+                    />
                   </div>
                   <div>
                     <Label>Category</Label>
-                    <Input value={category} onChange={(e) => setCategory(e.target.value)} />
+                    <Input
+                      value={category}
+                      onChange={(e) => setCategory(e.target.value)}
+                    />
                   </div>
                 </div>
 
                 <div className="space-y-3">
                   <Label>Stock Quantity</Label>
-                  <Input value={stock} onChange={(e) => setStock(e.target.value)} type="number" />
+                  <Input
+                    value={stock}
+                    onChange={(e) => setStock(e.target.value)}
+                    type="number"
+                  />
                 </div>
-
               </div>
             </CardContent>
           </Card>
@@ -118,7 +147,11 @@ export default function ProductsOnboarding() {
           <Card>
             <CardContent className="p-6">
               <Label>Price</Label>
-              <Input type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
+              <Input
+                type="number"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+              />
             </CardContent>
           </Card>
         )}
@@ -137,7 +170,9 @@ export default function ProductsOnboarding() {
             <CardContent className="p-6 text-center">
               <Store className="mx-auto mb-4 h-8 w-8 text-teal-600" />
               <h3 className="text-xl font-semibold">Product Submitted</h3>
-              <p className="text-sm text-muted-foreground">Your product will be reviewed shortly.</p>
+              <p className="text-sm text-muted-foreground">
+                Your product will be reviewed shortly.
+              </p>
             </CardContent>
           </Card>
         )}

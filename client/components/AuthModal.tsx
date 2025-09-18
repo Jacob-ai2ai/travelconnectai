@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,7 +19,11 @@ interface AuthModalProps {
   defaultTab?: "signin" | "signup";
 }
 
-export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: AuthModalProps) {
+export default function AuthModal({
+  isOpen,
+  onClose,
+  defaultTab = "signin",
+}: AuthModalProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const params = new URLSearchParams(location.search);
@@ -60,11 +69,11 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
         "demo@travelconnect.ai",
         "test@example.com",
         "user@gmail.com",
-        "+1234567890"
+        "+1234567890",
       ];
 
-      const userExists = registeredUsers.some(user =>
-        user.toLowerCase() === signInData.userId.toLowerCase()
+      const userExists = registeredUsers.some(
+        (user) => user.toLowerCase() === signInData.userId.toLowerCase(),
       );
 
       if (!userExists) {
@@ -75,13 +84,16 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
           console.log("Sign in successful:", signInData);
           // Persist simple auth flag for guarded routes (replace with real auth flow)
           localStorage.setItem("isSignedIn", "true");
-          localStorage.setItem("user", JSON.stringify({ id: signInData.userId }));
+          localStorage.setItem(
+            "user",
+            JSON.stringify({ id: signInData.userId }),
+          );
           // Redirect to next if provided
           if (nextPath) {
             navigate(nextPath);
           } else {
             onClose();
-            navigate('/vendors');
+            navigate("/vendors");
           }
         } else {
           setSignInError("invalid-password");
@@ -105,7 +117,13 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
     console.log("Sign up attempt:", signUpData);
     // Simulate successful signup: persist auth and redirect
     localStorage.setItem("isSignedIn", "true");
-    localStorage.setItem("user", JSON.stringify({ email: signUpData.email, username: signUpData.username }));
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        email: signUpData.email,
+        username: signUpData.username,
+      }),
+    );
 
     // Redirect to next if provided
     if (nextPath) {
@@ -129,26 +147,36 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
       <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto mx-4">
         <DialogHeader>
           <DialogTitle className="text-center text-2xl font-bold">
-            {activeTab === "signin" ? "Welcome Back" : "Create your Travel Connect account"}
+            {activeTab === "signin"
+              ? "Welcome Back"
+              : "Create your Travel Connect account"}
           </DialogTitle>
         </DialogHeader>
 
-        <Tabs value={activeTab} onValueChange={(value) => {
-          setActiveTab(value as "signin" | "signup");
-          setSignInError("");
-        }} className="flex flex-col min-h-0">
+        <Tabs
+          value={activeTab}
+          onValueChange={(value) => {
+            setActiveTab(value as "signin" | "signup");
+            setSignInError("");
+          }}
+          className="flex flex-col min-h-0"
+        >
           <TabsList className="grid w-full grid-cols-2 flex-shrink-0">
             <TabsTrigger value="signin">Sign In</TabsTrigger>
             <TabsTrigger value="signup">Sign Up</TabsTrigger>
           </TabsList>
 
           {/* Sign In Tab */}
-          <TabsContent value="signin" className="space-y-4 flex-1 overflow-y-auto">
+          <TabsContent
+            value="signin"
+            className="space-y-4 flex-1 overflow-y-auto"
+          >
             {/* Demo Info */}
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-center">
               <p className="text-blue-800 text-xs">
-                <strong>Demo:</strong> Try "demo@travelconnect.ai" with password "password123"
-                or use any unregistered email to see the button change to registration prompt.
+                <strong>Demo:</strong> Try "demo@travelconnect.ai" with password
+                "password123" or use any unregistered email to see the button
+                change to registration prompt.
               </p>
             </div>
 
@@ -169,7 +197,7 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
                     required
                   />
                   <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
-                    {signInData.userId.includes('@') ? (
+                    {signInData.userId.includes("@") ? (
                       <Mail className="h-4 w-4 text-muted-foreground" />
                     ) : (
                       <Phone className="h-4 w-4 text-muted-foreground" />
@@ -187,7 +215,10 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
                     placeholder="Enter your password"
                     value={signInData.password}
                     onChange={(e) => {
-                      setSignInData({ ...signInData, password: e.target.value });
+                      setSignInData({
+                        ...signInData,
+                        password: e.target.value,
+                      });
                       setSignInError("");
                     }}
                     className="pl-10 pr-10"
@@ -234,7 +265,8 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
                       Account not found
                     </div>
                     <p className="text-orange-700 text-sm">
-                      This email/phone isn't registered. Please sign up first to access Travel Connect.
+                      This email/phone isn't registered. Please sign up first to
+                      access Travel Connect.
                     </p>
                   </div>
                   <Button
@@ -269,13 +301,16 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
           </TabsContent>
 
           {/* Sign Up Tab */}
-          <TabsContent value="signup" className="space-y-4 flex-1 overflow-y-auto">
+          <TabsContent
+            value="signup"
+            className="space-y-4 flex-1 overflow-y-auto"
+          >
             {/* Social Login Options */}
             <div className="space-y-3">
               <div className="text-center text-sm text-muted-foreground mb-3">
                 Quick Signup (Social Login)
               </div>
-              
+
               <Button
                 type="button"
                 variant="outline"
@@ -302,27 +337,35 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
                 </svg>
                 Continue with Google
               </Button>
-              
+
               <Button
                 type="button"
                 variant="outline"
                 className="w-full"
                 onClick={() => handleSocialLogin("facebook")}
               >
-                <svg className="mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                <svg
+                  className="mr-2 h-4 w-4"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                 </svg>
                 Continue with Facebook
               </Button>
-              
+
               <Button
                 type="button"
                 variant="outline"
                 className="w-full"
                 onClick={() => handleSocialLogin("linkedin")}
               >
-                <svg className="mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                <svg
+                  className="mr-2 h-4 w-4"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                 </svg>
                 Continue with LinkedIn
               </Button>
@@ -349,7 +392,9 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
                     type="text"
                     placeholder="Choose a username"
                     value={signUpData.username}
-                    onChange={(e) => setSignUpData({ ...signUpData, username: e.target.value })}
+                    onChange={(e) =>
+                      setSignUpData({ ...signUpData, username: e.target.value })
+                    }
                     className="pl-10"
                     required
                   />
@@ -366,7 +411,9 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
                   type="email"
                   placeholder="Enter your email address"
                   value={signUpData.email}
-                  onChange={(e) => setSignUpData({ ...signUpData, email: e.target.value })}
+                  onChange={(e) =>
+                    setSignUpData({ ...signUpData, email: e.target.value })
+                  }
                   required
                 />
               </div>
@@ -378,7 +425,9 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
                   type="tel"
                   placeholder="Enter your phone number"
                   value={signUpData.phone}
-                  onChange={(e) => setSignUpData({ ...signUpData, phone: e.target.value })}
+                  onChange={(e) =>
+                    setSignUpData({ ...signUpData, phone: e.target.value })
+                  }
                 />
               </div>
 
@@ -390,7 +439,9 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
                     type={showPassword ? "text" : "password"}
                     placeholder="Create a password"
                     value={signUpData.password}
-                    onChange={(e) => setSignUpData({ ...signUpData, password: e.target.value })}
+                    onChange={(e) =>
+                      setSignUpData({ ...signUpData, password: e.target.value })
+                    }
                     className="pr-10"
                     required
                   />
@@ -406,28 +457,48 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
                     )}
                   </button>
                 </div>
-                
+
                 {/* Password Requirements */}
                 {signUpData.password && (
                   <div className="text-xs space-y-1">
-                    <div className={`flex items-center ${passwordRequirements.length ? 'text-green-600' : 'text-red-600'}`}>
-                      <span className="mr-1">{passwordRequirements.length ? '✓' : '×'}</span>
+                    <div
+                      className={`flex items-center ${passwordRequirements.length ? "text-green-600" : "text-red-600"}`}
+                    >
+                      <span className="mr-1">
+                        {passwordRequirements.length ? "✓" : "×"}
+                      </span>
                       At least 8 characters
                     </div>
-                    <div className={`flex items-center ${passwordRequirements.special ? 'text-green-600' : 'text-red-600'}`}>
-                      <span className="mr-1">{passwordRequirements.special ? '✓' : '×'}</span>
+                    <div
+                      className={`flex items-center ${passwordRequirements.special ? "text-green-600" : "text-red-600"}`}
+                    >
+                      <span className="mr-1">
+                        {passwordRequirements.special ? "✓" : "×"}
+                      </span>
                       At least 1 special character
                     </div>
-                    <div className={`flex items-center ${passwordRequirements.number ? 'text-green-600' : 'text-red-600'}`}>
-                      <span className="mr-1">{passwordRequirements.number ? '✓' : '×'}</span>
+                    <div
+                      className={`flex items-center ${passwordRequirements.number ? "text-green-600" : "text-red-600"}`}
+                    >
+                      <span className="mr-1">
+                        {passwordRequirements.number ? "✓" : "×"}
+                      </span>
                       At least 1 number
                     </div>
-                    <div className={`flex items-center ${passwordRequirements.uppercase ? 'text-green-600' : 'text-red-600'}`}>
-                      <span className="mr-1">{passwordRequirements.uppercase ? '✓' : '×'}</span>
+                    <div
+                      className={`flex items-center ${passwordRequirements.uppercase ? "text-green-600" : "text-red-600"}`}
+                    >
+                      <span className="mr-1">
+                        {passwordRequirements.uppercase ? "✓" : "×"}
+                      </span>
                       At least 1 capital letter
                     </div>
-                    <div className={`flex items-center ${passwordRequirements.lowercase ? 'text-green-600' : 'text-red-600'}`}>
-                      <span className="mr-1">{passwordRequirements.lowercase ? '✓' : '×'}</span>
+                    <div
+                      className={`flex items-center ${passwordRequirements.lowercase ? "text-green-600" : "text-red-600"}`}
+                    >
+                      <span className="mr-1">
+                        {passwordRequirements.lowercase ? "✓" : "×"}
+                      </span>
                       At least 1 lowercase letter
                     </div>
                   </div>
@@ -442,7 +513,12 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
                     type={showConfirmPassword ? "text" : "password"}
                     placeholder="Confirm your password"
                     value={signUpData.confirmPassword}
-                    onChange={(e) => setSignUpData({ ...signUpData, confirmPassword: e.target.value })}
+                    onChange={(e) =>
+                      setSignUpData({
+                        ...signUpData,
+                        confirmPassword: e.target.value,
+                      })
+                    }
                     className="pr-10"
                     required
                   />
@@ -458,22 +534,31 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
                     )}
                   </button>
                 </div>
-                {signUpData.confirmPassword && signUpData.password !== signUpData.confirmPassword && (
-                  <p className="text-xs text-red-600">Passwords don't match</p>
-                )}
+                {signUpData.confirmPassword &&
+                  signUpData.password !== signUpData.confirmPassword && (
+                    <p className="text-xs text-red-600">
+                      Passwords don't match
+                    </p>
+                  )}
               </div>
 
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="terms"
                   checked={signUpData.agreeToTerms}
-                  onCheckedChange={(checked) => 
-                    setSignUpData({ ...signUpData, agreeToTerms: checked as boolean })
+                  onCheckedChange={(checked) =>
+                    setSignUpData({
+                      ...signUpData,
+                      agreeToTerms: checked as boolean,
+                    })
                   }
                 />
                 <Label htmlFor="terms" className="text-sm">
                   ✅ I agree to{" "}
-                  <Link to="/terms" className="text-travel-blue hover:underline">
+                  <Link
+                    to="/terms"
+                    className="text-travel-blue hover:underline"
+                  >
                     Terms & Privacy Policy
                   </Link>
                 </Label>
@@ -482,13 +567,28 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
               <Button
                 type="submit"
                 className="w-full bg-travel-blue hover:bg-travel-blue/90"
-                disabled={!isPasswordValid || signUpData.password !== signUpData.confirmPassword || !signUpData.agreeToTerms}
+                disabled={
+                  !isPasswordValid ||
+                  signUpData.password !== signUpData.confirmPassword ||
+                  !signUpData.agreeToTerms
+                }
               >
                 Create Account
               </Button>
 
               <div className="text-center mt-2">
-                <Button variant="ghost" type="button" onClick={() => { localStorage.setItem('isGuest', 'true'); if (nextPath) navigate(nextPath); else { onClose(); navigate('/vendors'); } }}>
+                <Button
+                  variant="ghost"
+                  type="button"
+                  onClick={() => {
+                    localStorage.setItem("isGuest", "true");
+                    if (nextPath) navigate(nextPath);
+                    else {
+                      onClose();
+                      navigate("/vendors");
+                    }
+                  }}
+                >
                   Continue as guest
                 </Button>
               </div>

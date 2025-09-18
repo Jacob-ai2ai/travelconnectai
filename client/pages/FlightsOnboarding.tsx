@@ -22,10 +22,16 @@ export default function FlightsOnboarding() {
   const [basePrice, setBasePrice] = useState("");
 
   const flightRoleOptions = [
-    { id: 'airline-partner', label: 'Airline Partner' },
-    { id: 'ota-partner', label: 'OTA Partner (Reseller)' },
+    { id: "airline-partner", label: "Airline Partner" },
+    { id: "ota-partner", label: "OTA Partner (Reseller)" },
   ];
-  const steps: Step[] = ["details", "media", "pricing", "verification", "success"];
+  const steps: Step[] = [
+    "details",
+    "media",
+    "pricing",
+    "verification",
+    "success",
+  ];
   const idx = steps.indexOf(step);
   const progress = ((idx + 1) / steps.length) * 100;
 
@@ -55,12 +61,19 @@ export default function FlightsOnboarding() {
 
   const handleFileUpload = (files: FileList | null) => {
     if (!files) return;
-    setPhotos(prev => [...prev, ...Array.from(files)]);
+    setPhotos((prev) => [...prev, ...Array.from(files)]);
   };
 
   const handleComplete = () => {
     // placeholder: submit payload to backend
-    console.log({ airline, iata, hubs, fleetSize, role: flightRole, basePrice });
+    console.log({
+      airline,
+      iata,
+      hubs,
+      fleetSize,
+      role: flightRole,
+      basePrice,
+    });
     navigate("/vendors");
   };
 
@@ -77,12 +90,17 @@ export default function FlightsOnboarding() {
               <div className="space-y-4">
                 <div className="text-center">
                   <h1 className="text-2xl font-semibold">Airline Details</h1>
-                  <p className="text-sm text-muted-foreground">Provide basic airline information</p>
+                  <p className="text-sm text-muted-foreground">
+                    Provide basic airline information
+                  </p>
                 </div>
 
                 <div className="space-y-3">
                   <Label>Airline Name</Label>
-                  <Input value={airline} onChange={(e) => setAirline(e.target.value)} />
+                  <Input
+                    value={airline}
+                    onChange={(e) => setAirline(e.target.value)}
+                  />
                 </div>
 
                 <div className="space-y-3">
@@ -100,19 +118,29 @@ export default function FlightsOnboarding() {
 
                 <div className="space-y-3">
                   <Label>IATA Code</Label>
-                  <Input value={iata} onChange={(e) => setIata(e.target.value)} maxLength={3} />
+                  <Input
+                    value={iata}
+                    onChange={(e) => setIata(e.target.value)}
+                    maxLength={3}
+                  />
                 </div>
 
                 <div className="space-y-3">
                   <Label>Hubs (comma separated)</Label>
-                  <Input value={hubs} onChange={(e) => setHubs(e.target.value)} />
+                  <Input
+                    value={hubs}
+                    onChange={(e) => setHubs(e.target.value)}
+                  />
                 </div>
 
                 <div className="space-y-3">
                   <Label>Fleet Size</Label>
-                  <Input type="number" value={fleetSize} onChange={(e) => setFleetSize(e.target.value)} />
+                  <Input
+                    type="number"
+                    value={fleetSize}
+                    onChange={(e) => setFleetSize(e.target.value)}
+                  />
                 </div>
-
               </div>
             </CardContent>
           </Card>
@@ -123,9 +151,18 @@ export default function FlightsOnboarding() {
             <CardContent className="p-6">
               <div className="space-y-4">
                 <h2 className="text-lg font-medium">Media</h2>
-                <p className="text-sm text-muted-foreground">Add logos, fleet images or route maps</p>
-                <input type="file" accept="image/*" multiple onChange={(e) => handleFileUpload(e.target.files)} />
-                <div className="mt-2 text-sm text-teal-600">{photos.length} file(s) selected</div>
+                <p className="text-sm text-muted-foreground">
+                  Add logos, fleet images or route maps
+                </p>
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={(e) => handleFileUpload(e.target.files)}
+                />
+                <div className="mt-2 text-sm text-teal-600">
+                  {photos.length} file(s) selected
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -137,8 +174,14 @@ export default function FlightsOnboarding() {
               <div className="space-y-4">
                 <h2 className="text-lg font-medium">Pricing & Routes</h2>
                 <Label>Base Fare Example</Label>
-                <Input type="number" value={basePrice} onChange={(e) => setBasePrice(e.target.value)} />
-                <p className="text-sm text-muted-foreground">You can configure detailed fares later.</p>
+                <Input
+                  type="number"
+                  value={basePrice}
+                  onChange={(e) => setBasePrice(e.target.value)}
+                />
+                <p className="text-sm text-muted-foreground">
+                  You can configure detailed fares later.
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -148,7 +191,9 @@ export default function FlightsOnboarding() {
           <Card>
             <CardContent className="p-6">
               <h2 className="text-lg font-medium">Verification</h2>
-              <p className="text-sm text-muted-foreground">Upload regulatory documents and business license.</p>
+              <p className="text-sm text-muted-foreground">
+                Upload regulatory documents and business license.
+              </p>
               <input type="file" accept=".pdf,.jpg,.png" />
             </CardContent>
           </Card>
@@ -159,7 +204,9 @@ export default function FlightsOnboarding() {
             <CardContent className="p-6 text-center">
               <Plane className="mx-auto mb-4 h-8 w-8 text-teal-600" />
               <h3 className="text-xl font-semibold">All set!</h3>
-              <p className="text-sm text-muted-foreground">Your airline listing is submitted for review.</p>
+              <p className="text-sm text-muted-foreground">
+                Your airline listing is submitted for review.
+              </p>
             </CardContent>
           </Card>
         )}

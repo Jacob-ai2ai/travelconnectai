@@ -24,13 +24,19 @@ export default function ExperiencesOnboarding() {
   const [photos, setPhotos] = useState<File[]>([]);
 
   const experienceRoleOptions = [
-    { id: 'experience-host', label: 'Experience Host' },
-    { id: 'guide', label: 'Guide' },
-    { id: 'service-provider', label: 'Service Provider' },
-    { id: 'agency', label: 'Agency' },
-    { id: 'tour-operator', label: 'Tour Operator' },
+    { id: "experience-host", label: "Experience Host" },
+    { id: "guide", label: "Guide" },
+    { id: "service-provider", label: "Service Provider" },
+    { id: "agency", label: "Agency" },
+    { id: "tour-operator", label: "Tour Operator" },
   ];
-  const steps: Step[] = ["details", "media", "pricing", "verification", "success"];
+  const steps: Step[] = [
+    "details",
+    "media",
+    "pricing",
+    "verification",
+    "success",
+  ];
   const idx = steps.indexOf(step);
   const progress = ((idx + 1) / steps.length) * 100;
 
@@ -56,11 +62,20 @@ export default function ExperiencesOnboarding() {
 
   const handleFileUpload = (files: FileList | null) => {
     if (!files) return;
-    setPhotos(prev => [...prev, ...Array.from(files)]);
+    setPhotos((prev) => [...prev, ...Array.from(files)]);
   };
 
   const handleComplete = () => {
-    console.log({ title, location, duration, capacity, role: experienceRole, experienceType: experienceType === 'other' ? otherExperience : experienceType, price });
+    console.log({
+      title,
+      location,
+      duration,
+      capacity,
+      role: experienceRole,
+      experienceType:
+        experienceType === "other" ? otherExperience : experienceType,
+      price,
+    });
     navigate("/vendors");
   };
 
@@ -75,12 +90,17 @@ export default function ExperiencesOnboarding() {
               <div className="space-y-4">
                 <div className="text-center">
                   <h1 className="text-2xl font-semibold">Experience Details</h1>
-                  <p className="text-sm text-muted-foreground">Describe your experience</p>
+                  <p className="text-sm text-muted-foreground">
+                    Describe your experience
+                  </p>
                 </div>
 
                 <div className="space-y-3">
                   <Label>Title</Label>
-                  <Input value={title} onChange={(e) => setTitle(e.target.value)} />
+                  <Input
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
                 </div>
 
                 <div className="space-y-3">
@@ -101,7 +121,10 @@ export default function ExperiencesOnboarding() {
 
                 <div className="space-y-3">
                   <Label>Location</Label>
-                  <Input value={location} onChange={(e) => setLocation(e.target.value)} />
+                  <Input
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                  />
                 </div>
 
                 <div className="space-y-3">
@@ -123,21 +146,29 @@ export default function ExperiencesOnboarding() {
                 {experienceType === "other" && (
                   <div className="space-y-3">
                     <Label>Other experience</Label>
-                    <Input value={otherExperience} onChange={(e) => setOtherExperience(e.target.value)} />
+                    <Input
+                      value={otherExperience}
+                      onChange={(e) => setOtherExperience(e.target.value)}
+                    />
                   </div>
                 )}
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <Label>Duration (hrs)</Label>
-                    <Input value={duration} onChange={(e) => setDuration(e.target.value)} />
+                    <Input
+                      value={duration}
+                      onChange={(e) => setDuration(e.target.value)}
+                    />
                   </div>
                   <div>
                     <Label>Capacity</Label>
-                    <Input value={capacity} onChange={(e) => setCapacity(e.target.value)} />
+                    <Input
+                      value={capacity}
+                      onChange={(e) => setCapacity(e.target.value)}
+                    />
                   </div>
                 </div>
-
               </div>
             </CardContent>
           </Card>
@@ -147,8 +178,15 @@ export default function ExperiencesOnboarding() {
           <Card>
             <CardContent className="p-6">
               <Label>Photos</Label>
-              <input type="file" accept="image/*" multiple onChange={(e) => handleFileUpload(e.target.files)} />
-              <div className="text-sm text-teal-600 mt-2">{photos.length} file(s) selected</div>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={(e) => handleFileUpload(e.target.files)}
+              />
+              <div className="text-sm text-teal-600 mt-2">
+                {photos.length} file(s) selected
+              </div>
             </CardContent>
           </Card>
         )}
@@ -157,7 +195,11 @@ export default function ExperiencesOnboarding() {
           <Card>
             <CardContent className="p-6">
               <Label>Price per person</Label>
-              <Input type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
+              <Input
+                type="number"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+              />
             </CardContent>
           </Card>
         )}
@@ -176,7 +218,9 @@ export default function ExperiencesOnboarding() {
             <CardContent className="p-6 text-center">
               <Star className="mx-auto mb-4 h-8 w-8 text-amber-500" />
               <h3 className="text-xl font-semibold">Listing Submitted</h3>
-              <p className="text-sm text-muted-foreground">Your experience will be reviewed shortly.</p>
+              <p className="text-sm text-muted-foreground">
+                Your experience will be reviewed shortly.
+              </p>
             </CardContent>
           </Card>
         )}

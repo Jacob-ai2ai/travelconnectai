@@ -50,13 +50,43 @@ interface UserProfile {
   };
 }
 
-  const vendorTypes = [
-    { id: "airlines", title: "Airlines", description: "Flight operators and carriers", icon: Plane, color: "travel-orange" },
-    { id: "stays", title: "Stays/Accommodations", description: "Hotels, hostels, homestays", icon: Building2, color: "travel-blue" },
-    { id: "experiences", title: "Experiences", description: "Tours, activities, excursions", icon: Star, color: "travel-purple" },
-    { id: "events", title: "Events & Conferences", description: "Event organisers and ticketing", icon: Music, color: "travel-green" },
-    { id: "products", title: "Travel Products", description: "Retailers and travel products", icon: Store, color: "travel-teal" },
-  ];
+const vendorTypes = [
+  {
+    id: "airlines",
+    title: "Airlines",
+    description: "Flight operators and carriers",
+    icon: Plane,
+    color: "travel-orange",
+  },
+  {
+    id: "stays",
+    title: "Stays/Accommodations",
+    description: "Hotels, hostels, homestays",
+    icon: Building2,
+    color: "travel-blue",
+  },
+  {
+    id: "experiences",
+    title: "Experiences",
+    description: "Tours, activities, excursions",
+    icon: Star,
+    color: "travel-purple",
+  },
+  {
+    id: "events",
+    title: "Events & Conferences",
+    description: "Event organisers and ticketing",
+    icon: Music,
+    color: "travel-green",
+  },
+  {
+    id: "products",
+    title: "Travel Products",
+    description: "Retailers and travel products",
+    icon: Store,
+    color: "travel-teal",
+  },
+];
 
 export default function Onboarding() {
   const navigate = useNavigate();
@@ -70,7 +100,14 @@ export default function Onboarding() {
     additionalInfo: {},
   });
 
-  const steps = ["role", "vendorCategory", "themes", "destinations", "travelerType", "complete"];
+  const steps = [
+    "role",
+    "vendorCategory",
+    "themes",
+    "destinations",
+    "travelerType",
+    "complete",
+  ];
   const currentStepIndex = steps.indexOf(currentStep);
   const progress = ((currentStepIndex + 1) / steps.length) * 100;
 
@@ -438,8 +475,12 @@ export default function Onboarding() {
         {currentStep === "vendorCategory" && (
           <div className="space-y-6">
             <div className="text-center">
-              <h1 className="text-3xl font-bold mb-2">What kind of vendor are you?</h1>
-              <p className="text-muted-foreground">Choose the category that best describes your business.</p>
+              <h1 className="text-3xl font-bold mb-2">
+                What kind of vendor are you?
+              </h1>
+              <p className="text-muted-foreground">
+                Choose the category that best describes your business.
+              </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6">
@@ -455,17 +496,23 @@ export default function Onboarding() {
                         ? `border-${v.color} ring-2 ring-${v.color}/20`
                         : ""
                     }`}
-                    onClick={() => { handleVendorSelect(v.id); }}
+                    onClick={() => {
+                      handleVendorSelect(v.id);
+                    }}
                   >
                     <CardContent className="p-6 text-center">
-                      <div className={`w-16 h-16 bg-${v.color}/10 rounded-xl flex items-center justify-center mx-auto mb-4`}>
+                      <div
+                        className={`w-16 h-16 bg-${v.color}/10 rounded-xl flex items-center justify-center mx-auto mb-4`}
+                      >
                         <Icon className={`h-8 w-8 text-${v.color}`} />
                       </div>
                       <h3 className="text-xl font-semibold mb-2">{v.title}</h3>
                       <p className="text-muted-foreground">{v.description}</p>
                       {isSelected && (
                         <div className="mt-4">
-                          <CheckCircle className={`h-6 w-6 text-${v.color} mx-auto`} />
+                          <CheckCircle
+                            className={`h-6 w-6 text-${v.color} mx-auto`}
+                          />
                         </div>
                       )}
                     </CardContent>
@@ -677,9 +724,13 @@ export default function Onboarding() {
                   <strong>Role:</strong>{" "}
                   {roles.find((r) => r.id === profile.role)?.title}
                 </div>
-                {profile.role === 'travel-vendor' && (
+                {profile.role === "travel-vendor" && (
                   <div>
-                    <strong>Vendor Type:</strong> {vendorTypes.find(v => v.id === profile.vendorType)?.title}
+                    <strong>Vendor Type:</strong>{" "}
+                    {
+                      vendorTypes.find((v) => v.id === profile.vendorType)
+                        ?.title
+                    }
                   </div>
                 )}
                 <div>

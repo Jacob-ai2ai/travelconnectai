@@ -433,7 +433,11 @@ export default function Index() {
       <AuthModal
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
-        defaultTab={new URLSearchParams(location.search).get("auth") === "signup" ? "signup" : "signin"}
+        defaultTab={
+          new URLSearchParams(location.search).get("auth") === "signup"
+            ? "signup"
+            : "signin"
+        }
       />
     </div>
   );
