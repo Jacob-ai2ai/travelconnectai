@@ -376,7 +376,7 @@ export default function PropertyOwnerOnboarding() {
         )}
 
         {/* Step 0: Account Setup */}
-        {currentStep === "account" && (
+        {false && (
           <div className="space-y-6">
             <div className="text-center">
               <h1 className="text-3xl font-bold mb-2 text-gray-900">Create your Travel Connect Account</h1>
