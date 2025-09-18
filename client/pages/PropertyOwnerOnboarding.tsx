@@ -161,6 +161,8 @@ export default function PropertyOwnerOnboarding() {
   const handleSocialLogin = (provider: string) => {
     console.log(`Social login with ${provider}`);
     // TODO: Implement social login
+    // Ensure user is marked signed-in
+    localStorage.setItem("isSignedIn", "true");
     handleNext();
   };
 
