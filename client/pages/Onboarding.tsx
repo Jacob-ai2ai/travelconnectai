@@ -313,6 +313,8 @@ export default function Onboarding() {
     switch (currentStep) {
       case "role":
         return profile.role !== "";
+      case "vendorCategory":
+        return profile.vendorType && profile.vendorType !== "";
       case "themes":
         return profile.themes.length >= 3;
       case "destinations":
