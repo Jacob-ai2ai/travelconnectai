@@ -37,7 +37,7 @@ export default function ExperiencesOnboarding() {
   const canProceed = () => {
     switch (step) {
       case "details":
-        return title && location;
+        return title && location && experienceRoles.length > 0;
       case "pricing":
         return price !== "";
       default:
