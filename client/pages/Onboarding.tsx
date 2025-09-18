@@ -281,6 +281,10 @@ export default function Onboarding() {
     }
   };
 
+  const handleVendorSelect = (vendorId: string) => {
+    setProfile({ ...profile, vendorType: vendorId });
+  };
+
   const handleThemeToggle = (themeId: string) => {
     const newThemes = profile.themes.includes(themeId)
       ? profile.themes.filter((t) => t !== themeId)
