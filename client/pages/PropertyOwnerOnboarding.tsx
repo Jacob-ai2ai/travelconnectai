@@ -8,6 +8,7 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { supabase, hasSupabase } from "@/lib/supabase";
 import { 
   Building2, 
   Home, 
