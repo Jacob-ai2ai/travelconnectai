@@ -86,6 +86,22 @@ export default function FlightsOnboarding() {
                 </div>
 
                 <div className="space-y-3">
+                  <Label>Your Role(s)</Label>
+                  <div className="grid grid-cols-1 gap-2">
+                    {flightRoleOptions.map(r => (
+                      <label key={r.id} className="inline-flex items-center space-x-2">
+                        <input
+                          type="checkbox"
+                          checked={flightRoles.includes(r.id)}
+                          onChange={() => setFlightRoles(prev => prev.includes(r.id) ? prev.filter(x => x !== r.id) : [...prev, r.id])}
+                        />
+                        <span className="text-sm">{r.label}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-3">
                   <Label>IATA Code</Label>
                   <Input value={iata} onChange={(e) => setIata(e.target.value)} maxLength={3} />
                 </div>
