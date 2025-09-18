@@ -1089,7 +1089,7 @@ export default function PropertyOwnerOnboarding() {
 
               <div>
                 <button
-                  onClick={() => setCurrentStep("property-type")}
+                  onClick={() => setCurrentStep("property-details")}
                   className="text-teal-600 hover:underline text-sm"
                 >
                   Add Another Property
