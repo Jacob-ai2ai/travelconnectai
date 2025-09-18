@@ -81,6 +81,10 @@ interface PropertyOwnerProfile {
   // Verification
   idProof: File | null;
   bankAccount: string;
+
+  // Collaborators
+  managers?: string[];
+  cohosts?: string[];
 }
 
 export default function PropertyOwnerOnboarding() {
