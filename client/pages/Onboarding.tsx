@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useState } from "react";
 import AuthModal from "@/components/AuthModal";
 import {
   User,
