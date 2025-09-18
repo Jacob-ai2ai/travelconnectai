@@ -124,7 +124,8 @@ export default function AuthModal({
       }),
     );
 
-    // Redirect to next if provided, otherwise go to onboarding
+    // Close modal and redirect to next if provided, otherwise go to onboarding
+    onClose();
     navigate(nextPath || "/onboarding");
   };
 
