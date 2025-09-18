@@ -101,38 +101,12 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
       return;
     }
 
-    if (hasSupabase) {
-      const { data, error } = await supabase.auth.signUp({
-        email: signUpData.email,
-        password: signUpData.password,
-        options: {
-          data: { phone: signUpData.phone, username: signUpData.username }
-        }
-      });
-
-      if (error) {
-        alert(error.message);
-        return;
-      }
-
-      // Supabase returns a user only after confirmation in some cases
-      localStorage.setItem("isSignedIn", "true");
-      if (data?.user) localStorage.setItem("user", JSON.stringify(data.user));
-
-      if (nextPath) {
-        navigate(nextPath);
-      } else {
-        onClose();
-        navigate("/onboarding");
-      }
-      return;
-    }
-
-    // Fallback demo behavior
     console.log("Sign up attempt:", signUpData);
+    // Simulate successful signup: persist auth and redirect
     localStorage.setItem("isSignedIn", "true");
     localStorage.setItem("user", JSON.stringify({ email: signUpData.email, username: signUpData.username }));
 
+    // Redirect to next if provided
     if (nextPath) {
       navigate(nextPath);
     } else {
