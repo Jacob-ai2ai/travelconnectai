@@ -817,6 +817,19 @@ export default function Onboarding() {
           </div>
         )}
       </div>
+
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => {
+          setIsAuthModalOpen(false);
+          const params = new URLSearchParams(window.location.search);
+          params.delete("auth");
+          params.delete("next");
+          const q = params.toString();
+          window.history.replaceState({}, "", `${window.location.pathname}${q ? `?${q}` : ""}`);
+        }}
+        defaultTab="signin"
+      />
     </div>
   );
 }
