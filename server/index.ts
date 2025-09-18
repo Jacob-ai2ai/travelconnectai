@@ -21,5 +21,8 @@ export function createServer() {
   app.get("/api/download-srs", handleDownloadSRS);
   app.get("/api/document-preview", handleDocumentPreview);
 
+  // Invites endpoint for vendor/property collaborators
+  app.post("/api/invites", handleCreateInvites);
+
   return app;
 }
