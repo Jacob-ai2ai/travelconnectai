@@ -17,8 +17,14 @@ export default function FlightsOnboarding() {
   const [iata, setIata] = useState("");
   const [hubs, setHubs] = useState("");
   const [fleetSize, setFleetSize] = useState("");
+  const [flightRoles, setFlightRoles] = useState<string[]>([]);
   const [photos, setPhotos] = useState<File[]>([]);
   const [basePrice, setBasePrice] = useState("");
+
+  const flightRoleOptions = [
+    { id: 'airline-partner', label: 'Airline Partner' },
+    { id: 'ota-partner', label: 'OTA Partner (Reseller)' },
+  ];
   const steps: Step[] = ["details", "media", "pricing", "verification", "success"];
   const idx = steps.indexOf(step);
   const progress = ((idx + 1) / steps.length) * 100;
