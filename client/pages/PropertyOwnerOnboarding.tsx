@@ -289,10 +289,28 @@ export default function PropertyOwnerOnboarding() {
     }
   };
 
-  const handleComplete = () => {
+  const handleComplete = async () => {
     console.log("Property owner onboarding completed:", profile);
-    // TODO: Submit to backend
-    navigate("/property-dashboard");
+    try {
+      const res = await fetch('/api/invites', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ propertyName: profile.propertyName, role: profile.role, managers: profile.managers || [], cohosts: profile.cohosts || [] }),
+      });
+      const json = await res.json();
+      if (!res.ok) {
+        throw new Error(json.error || 'Failed to save invites');
+      }
+      // show toast
+      const { toast } = await import('@/hooks/use-toast');
+      toast({ title: 'Invites saved', description: json.message });
+    } catch (err: any) {
+      const { toast } = await import('@/hooks/use-toast');
+      toast({ title: 'Invite failed', description: err.message || 'Failed to save invites' });
+    }
+
+    // Navigate to dashboard
+    navigate('/property-dashboard');
   };
 
   return (
