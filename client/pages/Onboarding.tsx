@@ -255,15 +255,16 @@ export default function Onboarding() {
   const handleRoleSelect = (roleId: string) => {
     setProfile({ ...profile, role: roleId });
 
-    // Redirect travel vendors and admins to their specific flows
+    // Redirect admins to their specific flow
     if (roleId === "admin") {
       navigate("/admin");
       return;
     }
 
+    // For travel vendors, continue the onboarding and ask for vendor category
     if (roleId === "travel-vendor") {
-      // Send vendors to a vendor categories page where they can choose their vendor type
-      navigate("/vendors");
+      // move to vendor category step
+      setCurrentStep("vendorCategory");
       return;
     }
   };
