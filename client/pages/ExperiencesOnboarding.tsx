@@ -19,7 +19,7 @@ export default function ExperiencesOnboarding() {
   const [capacity, setCapacity] = useState("");
   const [experienceType, setExperienceType] = useState("");
   const [otherExperience, setOtherExperience] = useState("");
-  const [experienceRoles, setExperienceRoles] = useState<string[]>([]);
+  const [experienceRole, setExperienceRole] = useState("");
   const [price, setPrice] = useState("");
   const [photos, setPhotos] = useState<File[]>([]);
 
@@ -37,7 +37,7 @@ export default function ExperiencesOnboarding() {
   const canProceed = () => {
     switch (step) {
       case "details":
-        return title && location && experienceRoles.length > 0;
+        return title && location && experienceRole !== "";
       case "pricing":
         return price !== "";
       default:
@@ -60,7 +60,7 @@ export default function ExperiencesOnboarding() {
   };
 
   const handleComplete = () => {
-    console.log({ title, location, duration, capacity, roles: experienceRoles, experienceType: experienceType === 'other' ? otherExperience : experienceType, price });
+    console.log({ title, location, duration, capacity, role: experienceRole, experienceType: experienceType === 'other' ? otherExperience : experienceType, price });
     navigate("/vendors");
   };
 
@@ -84,21 +84,19 @@ export default function ExperiencesOnboarding() {
                 </div>
 
                 <div className="space-y-3">
-                  <Label>Your Role(s)</Label>
-                  <div className="grid grid-cols-2 gap-2">
-                    {experienceRoleOptions.map(r => (
-                      <label key={r.id} className="inline-flex items-center space-x-2">
-                        <input
-                          type="checkbox"
-                          checked={experienceRoles.includes(r.id)}
-                          onChange={() => {
-                            setExperienceRoles(prev => prev.includes(r.id) ? prev.filter(x => x !== r.id) : [...prev, r.id]);
-                          }}
-                        />
-                        <span className="text-sm">{r.label}</span>
-                      </label>
-                    ))}
-                  </div>
+                  <Label>Role</Label>
+                  <select
+                    className="w-full h-10 px-3 py-2 text-sm border rounded-md"
+                    value={experienceRole}
+                    onChange={(e) => setExperienceRole(e.target.value)}
+                  >
+                    <option value="">Select role</option>
+                    <option value="experience-host">Experience Host</option>
+                    <option value="guide">Guide</option>
+                    <option value="service-provider">Service Provider</option>
+                    <option value="agency">Agency</option>
+                    <option value="tour-operator">Tour Operator</option>
+                  </select>
                 </div>
 
                 <div className="space-y-3">
