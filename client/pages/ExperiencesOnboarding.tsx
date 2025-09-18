@@ -17,6 +17,8 @@ export default function ExperiencesOnboarding() {
   const [location, setLocation] = useState("");
   const [duration, setDuration] = useState("");
   const [capacity, setCapacity] = useState("");
+  const [experienceType, setExperienceType] = useState("");
+  const [otherExperience, setOtherExperience] = useState("");
   const [price, setPrice] = useState("");
   const [photos, setPhotos] = useState<File[]>([]);
   const steps: Step[] = ["details", "media", "pricing", "verification", "success"];
