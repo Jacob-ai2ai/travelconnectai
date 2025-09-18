@@ -31,7 +31,7 @@ export default function EventsOnboarding() {
   const canProceed = () => {
     switch (step) {
       case "details":
-        return organizer && eventType;
+        return organizer && eventType && eventRoles.length > 0;
       case "pricing":
         return ticketPrice !== "";
       default:
