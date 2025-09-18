@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Mail, Phone, Lock, Eye, EyeOff, User } from "lucide-react";
 
 interface AuthModalProps {
@@ -16,6 +16,9 @@ interface AuthModalProps {
 
 export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: AuthModalProps) {
   const navigate = useNavigate();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const nextPath = params.get("next") || undefined;
   const [activeTab, setActiveTab] = useState(defaultTab);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -71,8 +74,15 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
         // Simulate password check (in real app, this would be handled by backend)
         if (signInData.password === "password123") {
           console.log("Sign in successful:", signInData);
-          onClose();
-          // TODO: Handle successful login (set auth state, redirect, etc.)
+          // Persist simple auth flag for guarded routes (replace with real auth flow)
+          localStorage.setItem("isSignedIn", "true");
+          localStorage.setItem("user", JSON.stringify({ id: signInData.userId }));
+          // Redirect to next if provided
+          if (nextPath) {
+            navigate(nextPath);
+          } else {
+            onClose();
+          }
         } else {
           setSignInError("invalid-password");
         }
@@ -93,13 +103,17 @@ export default function AuthModal({ isOpen, onClose, defaultTab = "signin" }: Au
     }
     console.log("Sign up attempt:", signUpData);
     // TODO: Implement actual sign-up API call
-    // Simulate successful signup
-    onClose();
+    // Simulate successful signup: persist auth and redirect
+    localStorage.setItem("isSignedIn", "true");
+    localStorage.setItem("user", JSON.stringify({ email: signUpData.email, username: signUpData.username }));
 
-    // Check if user selected property owner role in a previous flow
-    // For now, we'll direct all new signups to regular onboarding
-    // Property owners can be directed to /property-onboarding specifically
-    navigate("/onboarding");
+    // Redirect to next if provided
+    if (nextPath) {
+      navigate(nextPath);
+    } else {
+      onClose();
+      navigate("/onboarding");
+    }
   };
 
   const handleSocialLogin = (provider: string) => {
