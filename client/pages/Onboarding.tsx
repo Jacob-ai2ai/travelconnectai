@@ -85,6 +85,13 @@ export default function Onboarding() {
       icon: Store,
       color: "travel-orange",
     },
+    {
+      id: "travel-agent",
+      title: "Travel Agent / Agency",
+      description: "I organise trips for clients and manage bookings",
+      icon: Users,
+      color: "travel-green",
+    },
   ];
 
   const travelThemes = [
@@ -328,7 +335,7 @@ export default function Onboarding() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-4 gap-6">
               {roles.map((role) => {
                 const Icon = role.icon;
                 const isSelected = profile.role === role.id;
