@@ -71,13 +71,6 @@ export default function Onboarding() {
       color: "travel-blue",
     },
     {
-      id: "admin",
-      title: "Admin",
-      description: "I manage platform operations",
-      icon: Briefcase,
-      color: "travel-purple",
-    },
-    {
       id: "travel-vendor",
       title: "Travel Vendor",
       description:
@@ -91,6 +84,13 @@ export default function Onboarding() {
       description: "I organise trips for clients and manage bookings",
       icon: Users,
       color: "travel-green",
+    },
+    {
+      id: "admin",
+      title: "Admin",
+      description: "I manage platform operations",
+      icon: Briefcase,
+      color: "travel-purple",
     },
   ];
 
