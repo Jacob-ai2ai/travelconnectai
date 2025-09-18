@@ -84,6 +84,24 @@ export default function ExperiencesOnboarding() {
                 </div>
 
                 <div className="space-y-3">
+                  <Label>Your Role(s)</Label>
+                  <div className="grid grid-cols-2 gap-2">
+                    {experienceRoleOptions.map(r => (
+                      <label key={r.id} className="inline-flex items-center space-x-2">
+                        <input
+                          type="checkbox"
+                          checked={experienceRoles.includes(r.id)}
+                          onChange={() => {
+                            setExperienceRoles(prev => prev.includes(r.id) ? prev.filter(x => x !== r.id) : [...prev, r.id]);
+                          }}
+                        />
+                        <span className="text-sm">{r.label}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-3">
                   <Label>Location</Label>
                   <Input value={location} onChange={(e) => setLocation(e.target.value)} />
                 </div>
