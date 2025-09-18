@@ -63,6 +63,7 @@ export default function Onboarding() {
   const [currentStep, setCurrentStep] = useState<OnboardingStep>("role");
   const [profile, setProfile] = useState<UserProfile>({
     role: "",
+    vendorType: "",
     themes: [],
     destinations: [],
     travelerType: "",
