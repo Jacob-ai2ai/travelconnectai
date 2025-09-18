@@ -583,7 +583,7 @@ export default function AuthModal({
                     if (nextPath) navigate(nextPath);
                     else {
                       onClose();
-                      navigate("/onboarding");
+                      navigate("/vendor-selection");
                     }
                   }}
                 >

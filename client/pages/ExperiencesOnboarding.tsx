@@ -76,7 +76,7 @@ export default function ExperiencesOnboarding() {
         experienceType === "other" ? otherExperience : experienceType,
       price,
     });
-    navigate("/onboarding");
+    navigate("/vendor-selection");
   };
 
   return (

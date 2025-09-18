@@ -62,7 +62,7 @@ export default function ProductsOnboarding() {
       stock,
       role: productRole,
     });
-    navigate("/onboarding");
+    navigate("/vendor-selection");
   };
 
   return (

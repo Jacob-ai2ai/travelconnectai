@@ -90,9 +90,9 @@ export default function ServiceHeader({
               onClick={() => {
                 const signedIn = localStorage.getItem("isSignedIn") === "true";
                 if (signedIn) {
-                  navigate("/onboarding");
+                  navigate("/vendor-selection");
                 } else {
-                  navigate("/?auth=signin&next=/onboarding");
+                  navigate("/?auth=signin&next=/vendor-selection");
                 }
               }}
             >
