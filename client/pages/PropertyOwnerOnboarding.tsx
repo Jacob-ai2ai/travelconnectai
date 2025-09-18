@@ -595,8 +595,8 @@ export default function PropertyOwnerOnboarding() {
           </div>
         )}
 
-        {/* Step 2: Property Details */}
-        {currentStep === "details" && (
+        {/* Step 2: Property Details (merged into property-details) */}
+        {false && (
           <div className="space-y-6">
             <div className="text-center">
               <h1 className="text-3xl font-bold mb-2 text-gray-900">Property Details</h1>
