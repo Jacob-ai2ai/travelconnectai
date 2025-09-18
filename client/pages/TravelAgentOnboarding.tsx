@@ -312,7 +312,7 @@ export default function TravelAgentOnboarding() {
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           ) : (
-            <Button onClick={() => navigate("/vendor-selection")}>Finish</Button>
+            <Button onClick={() => navigate("/onboarding")}>Finish</Button>
           )}
         </div>
       </div>
