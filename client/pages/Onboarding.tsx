@@ -312,9 +312,14 @@ export default function Onboarding() {
       return;
     }
 
-    // For travel vendors, continue the onboarding and ask for vendor category
+    // Traveler: continue onboarding flow within /onboarding
+    if (roleId === "traveler") {
+      setCurrentStep("themes");
+      return;
+    }
+
+    // For travel vendors, open vendor categories page
     if (roleId === "travel-vendor") {
-      // open vendor categories page
       navigate("/vendors");
       return;
     }
