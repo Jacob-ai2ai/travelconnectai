@@ -126,25 +126,10 @@ export default function PropertyOwnerOnboarding() {
 
   // Guard: ensure user is authenticated; if not, redirect to sign-in page with next param
   useEffect(() => {
-    const checkAuth = async () => {
-      // Guest allowed
-      const isGuest = localStorage.getItem("isGuest") === "true";
-      if (isGuest) return;
-
-      // Local flag fallback
-      const signedIn = localStorage.getItem("isSignedIn") === "true";
-      if (signedIn) return;
-
-      // If Supabase is configured, check session
-      if (hasSupabase) {
-        const { data } = await supabase.auth.getSession();
-        if (data?.session) return;
-      }
-
+    const signedIn = localStorage.getItem("isSignedIn") === "true";
+    if (!signedIn) {
       navigate(`/?auth=signin&next=/property-onboarding`);
-    };
-
-    checkAuth();
+    }
   }, [navigate]);
 
   const amenitiesList = [
