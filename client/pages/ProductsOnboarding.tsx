@@ -80,6 +80,7 @@ export default function ProductsOnboarding() {
                   >
                     <option value="">Select role</option>
                     <option value="merchant">Merchant (B2C)</option>
+                    <option value="reseller">Reseller (Used / Second-hand seller)</option>
                   </select>
                 </div>
 
