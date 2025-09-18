@@ -286,6 +286,23 @@ export default function Onboarding() {
     setProfile({ ...profile, vendorType: vendorId });
     if (vendorId === "stays") {
       navigate("/property-onboarding");
+      return;
+    }
+    if (vendorId === "airlines") {
+      navigate("/flights-onboarding");
+      return;
+    }
+    if (vendorId === "events") {
+      navigate("/events-onboarding");
+      return;
+    }
+    if (vendorId === "experiences") {
+      navigate("/experiences-onboarding");
+      return;
+    }
+    if (vendorId === "products") {
+      navigate("/products-onboarding");
+      return;
     }
   };
 
