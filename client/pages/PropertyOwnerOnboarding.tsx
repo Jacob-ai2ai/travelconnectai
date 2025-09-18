@@ -44,7 +44,7 @@ import {
   Eye
 } from "lucide-react";
 
-type OnboardingStep = "role" | "property-type" | "details" | "amenities" | "media" | "pricing" | "verification" | "success";
+type OnboardingStep = "property-details" | "amenities" | "media" | "pricing" | "verification" | "success";
 
 interface PropertyOwnerProfile {
   // Role
@@ -85,7 +85,7 @@ interface PropertyOwnerProfile {
 
 export default function PropertyOwnerOnboarding() {
   const navigate = useNavigate();
-  const [currentStep, setCurrentStep] = useState<OnboardingStep>("role");
+  const [currentStep, setCurrentStep] = useState<OnboardingStep>("property-details");
   const [profile, setProfile] = useState<PropertyOwnerProfile>({
     role: "",
     email: "",
@@ -110,7 +110,7 @@ export default function PropertyOwnerOnboarding() {
     bankAccount: "",
   });
 
-  const steps: OnboardingStep[] = ["role", "property-type", "details", "amenities", "media", "pricing", "verification", "success"];
+  const steps: OnboardingStep[] = ["property-details", "amenities", "media", "pricing", "verification", "success"];
   const currentStepIndex = steps.indexOf(currentStep);
   const progress = ((currentStepIndex + 1) / steps.length) * 100;
 
@@ -224,12 +224,15 @@ export default function PropertyOwnerOnboarding() {
 
   const canProceed = () => {
     switch (currentStep) {
-      case "role":
-        return profile.role !== "";
-      case "property-type":
-        return profile.propertyType !== "";
-      case "details":
-        return profile.propertyName && profile.location && profile.starRating && profile.numberOfRooms;
+      case "property-details":
+        return (
+          profile.role !== "" &&
+          profile.propertyType !== "" &&
+          profile.propertyName &&
+          profile.location &&
+          profile.starRating &&
+          profile.numberOfRooms
+        );
       case "amenities":
         return true; // Optional step
       case "media":
@@ -290,74 +293,133 @@ export default function PropertyOwnerOnboarding() {
           </div>
         )}
 
-        {/* Step 1: Role Selection */}
-        {currentStep === "role" && (
+        {/* Combined Step: Property Details (role + property type + details) */}
+        {currentStep === "property-details" && (
           <div className="space-y-6">
             <div className="text-center">
-              <h1 className="text-3xl font-bold mb-2 text-gray-900">Choose your role for Stays</h1>
-              <p className="text-muted-foreground">Are you a property owner or a property manager? This helps us tailor the onboarding.</p>
+              <h1 className="text-3xl font-bold mb-2 text-gray-900">Get started: Role & Property Details</h1>
+              <p className="text-muted-foreground">Choose your role and provide basic property details to begin listing.</p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
-              {[
-                { id: 'owner', title: 'Property Owner', desc: 'I own the property and manage listings & payouts' },
-                { id: 'manager', title: 'Property Manager', desc: 'I manage properties on behalf of owners' },
-              ].map((r) => (
-                <Card key={r.id} className={`cursor-pointer transition-all hover:shadow-lg ${profile.role === r.id ? 'ring-2 ring-teal-500 bg-teal-50/80' : 'hover:bg-teal-50/50'}`} onClick={() => { setProfile({ ...profile, role: r.id }); handleNext(); }}>
-                  <CardContent className="p-6 text-center">
-                    <div className={`w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4 ${profile.role === r.id ? 'bg-teal-100' : 'bg-gray-100'}`}>
-                      <Briefcase className={`h-8 w-8 ${profile.role === r.id ? 'text-teal-600' : 'text-gray-600'}`} />
+            <Card className="shadow-lg border-0 bg-white/80 backdrop-blur">
+              <CardContent className="p-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="md:col-span-2 space-y-2">
+                    <Label>Role *</Label>
+                    <div className="flex items-center space-x-4">
+                      <label className="inline-flex items-center">
+                        <input type="radio" name="role" value="owner" checked={profile.role === 'owner'} onChange={() => setProfile({ ...profile, role: 'owner' })} />
+                        <span className="ml-2">Property Owner</span>
+                      </label>
+                      <label className="inline-flex items-center">
+                        <input type="radio" name="role" value="manager" checked={profile.role === 'manager'} onChange={() => setProfile({ ...profile, role: 'manager' })} />
+                        <span className="ml-2">Property Manager</span>
+                      </label>
                     </div>
-                    <h3 className="text-lg font-semibold mb-2">{r.title}</h3>
-                    <p className="text-muted-foreground text-sm">{r.desc}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        )}
+                  </div>
 
-        {/* Step 2: Property Type Selection */}
-        {currentStep === "property-type" && (
-          <div className="space-y-6">
-            <div className="text-center">
-              <h1 className="text-3xl font-bold mb-2 text-gray-900">Welcome! Let's set up your property on Travel Connect</h1>
-              <p className="text-muted-foreground">What type of property are you listing?</p>
-            </div>
+                  <div className="md:col-span-2 space-y-2">
+                    <Label htmlFor="property-name">Property Name *</Label>
+                    <Input
+                      id="property-name"
+                      placeholder="Enter your property name"
+                      value={profile.propertyName}
+                      onChange={(e) => setProfile({ ...profile, propertyName: e.target.value })}
+                      className="border-teal-200 focus:border-teal-500"
+                    />
+                  </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {propertyTypes.map((type) => {
-                const Icon = type.icon;
-                const isSelected = profile.propertyType === type.id;
+                  <div className="md:col-span-2 space-y-2">
+                    <Label htmlFor="location">Location *</Label>
+                    <div className="relative">
+                      <Input
+                        id="location"
+                        placeholder="Enter property address"
+                        value={profile.location}
+                        onChange={(e) => setProfile({ ...profile, location: e.target.value })}
+                        className="border-teal-200 focus:border-teal-500 pl-10"
+                      />
+                      <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-teal-500" />
+                    </div>
+                  </div>
 
-                return (
-                  <Card
-                    key={type.id}
-                    className={`cursor-pointer transition-all hover:shadow-lg border-0 bg-white/80 backdrop-blur ${
-                      isSelected ? "ring-2 ring-teal-500 bg-teal-50/80" : "hover:bg-teal-50/50"
-                    }`}
-                    onClick={() => handlePropertyTypeSelect(type.id)}
-                  >
-                    <CardContent className="p-6 text-center">
-                      <div className={`w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4 ${
-                        isSelected ? "bg-teal-100" : "bg-gray-100"
-                      }`}>
-                        <Icon className={`h-8 w-8 ${isSelected ? "text-teal-600" : "text-gray-600"}`} />
-                      </div>
-                      <h3 className="text-lg font-semibold mb-2">{type.title}</h3>
-                      <p className="text-muted-foreground text-sm">{type.description}</p>
-                      {isSelected && (
-                        <div className="mt-4">
-                          <CheckCircle className="h-6 w-6 text-teal-600 mx-auto" />
+                  <div className="space-y-2">
+                    <Label htmlFor="property-type-edit">Property Type *</Label>
+                    <select
+                      id="property-type-edit"
+                      value={profile.propertyType}
+                      onChange={(e) => setProfile({ ...profile, propertyType: e.target.value })}
+                      className="w-full h-10 px-3 py-2 text-sm border border-teal-200 rounded-md focus:border-teal-500 focus:outline-none"
+                    >
+                      <option value="">Select property type</option>
+                      {propertyTypes.map((type) => (
+                        <option key={type.id} value={type.id}>
+                          {type.title}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="star-rating">Star Rating *</Label>
+                    <select
+                      id="star-rating"
+                      value={profile.starRating}
+                      onChange={(e) => setProfile({ ...profile, starRating: e.target.value })}
+                      className="w-full h-10 px-3 py-2 text-sm border border-teal-200 rounded-md focus:border-teal-500 focus:outline-none"
+                    >
+                      <option value="">Select rating</option>
+                      {[1, 2, 3, 4, 5].map((rating) => (
+                        <option key={rating} value={rating}>
+                          {rating} Star{rating > 1 ? 's' : ''}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="md:col-span-2 space-y-2">
+                    <Label htmlFor="rooms">Number of Rooms/Units *</Label>
+                    <Input
+                      id="rooms"
+                      type="number"
+                      placeholder="Enter number of rooms"
+                      value={profile.numberOfRooms}
+                      onChange={(e) => setProfile({ ...profile, numberOfRooms: e.target.value })}
+                      className="border-teal-200 focus:border-teal-500"
+                      min="1"
+                    />
+                  </div>
+
+                  {/* Conditional fields based on role */}
+                  <div className="md:col-span-2 space-y-2">
+                    {profile.role === 'owner' && (
+                      <div>
+                        <Label>Do you have property managers or co-hosts?</Label>
+                        <div className="flex space-x-2 mt-2">
+                          <Button variant="outline" onClick={() => setProfile({ ...profile, /* open manager input UI */ })}>Add Managers</Button>
+                          <Button variant="outline" onClick={() => setProfile({ ...profile, /* open cohost input UI */ })}>Add Co-hosts</Button>
                         </div>
-                      )}
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
+                        <p className="text-sm text-muted-foreground mt-2">You can add managers and co-hosts after signup.</p>
+                      </div>
+                    )}
+
+                    {profile.role === 'manager' && (
+                      <div>
+                        <Label>Add Co-hosts</Label>
+                        <div className="mt-2">
+                          <Button variant="outline" onClick={() => setProfile({ ...profile, /* open cohost input UI */ })}>Add Co-hosts</Button>
+                        </div>
+                        <p className="text-sm text-muted-foreground mt-2">Managers can add co-hosts only.</p>
+                      </div>
+                    )}
+                  </div>
+
+                </div>
+              </CardContent>
+            </Card>
           </div>
         )}
+
 
         {/* Step 0: Account Setup */}
         {false && (
