@@ -29,7 +29,7 @@ export default function ProductsOnboarding() {
   const canProceed = () => {
     switch (step) {
       case "details":
-        return productName && sku;
+        return productName && sku && productRoles.length > 0;
       case "pricing":
         return price !== "";
       default:
