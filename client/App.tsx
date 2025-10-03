@@ -44,6 +44,7 @@ export default function App() {
             <Route path="/trip-details/:planId" element={<TripDetails />} />
             <Route path="/route-map/:planId" element={<RouteMap />} />
             <Route path="/property/:propertyId" element={<PropertyPage />} />
+            <Route path="/itinerary" element={<TripDetails />} />
             <Route path="/stays" element={<Stays />} />
             <Route path="/flights" element={<Flights />} />
             <Route path="/xperiences" element={<Xperiences />} />
