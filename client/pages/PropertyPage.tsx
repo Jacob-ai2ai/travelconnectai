@@ -218,7 +218,7 @@ export default function PropertyPage() {
       const transcript = last && last[0] && last[0].transcript ? last[0].transcript.trim() : '';
       if (transcript) {
         setNovaMessages((prev) => [...prev, { from: 'user', text: transcript }]);
-        handleTranscript(transcript);
+        handleTranscript(transcript, 'voice');
       }
     };
     r.onerror = (err: any) => console.warn('Speech recognition error', err);
@@ -237,6 +237,14 @@ export default function PropertyPage() {
     w.speechSynthesis.speak(utter);
   };
 
+  const respond = (msg: string, source: 'voice' | 'text') => {
+    if (source === 'voice') {
+      speak(msg);
+    } else {
+      setNovaMessages((prev) => [...prev, { from: 'nova', text: msg }]);
+    }
+  };
+
   const startListening = () => {
     const r = recognitionRef.current;
     if (!r) return alert('Speech recognition not supported in this browser');
@@ -244,18 +252,18 @@ export default function PropertyPage() {
   };
   const stopListening = () => { const r = recognitionRef.current; if (r) try { r.stop(); } catch (e) {} setIsListening(false); };
 
-  const handleTranscript = (text: string) => {
+  const handleTranscript = (text: string, source: 'voice' | 'text' = 'voice') => {
     const t = text.toLowerCase();
     console.log('Transcript:', t);
     // wake word
     if (t.includes('hey nova') || t.includes('ok nova')) {
       setIsAwake(true);
-      speak('Yes, how can I help?');
+      respond('Yes, how can I help?', source);
       return;
     }
     if (!isAwake) return;
 
-    // helper: respond via speak() which also pushes to messages
+    // helper: respond via respond() which chooses between speaking or text-only
     // process simple commands: remove <thing>, add <property name>, increase/decrease <item>
     if (t.includes('remove')) {
       // try match billedItems by title
@@ -263,8 +271,8 @@ export default function PropertyPage() {
       const found = billedItems.find((it) => it.title.toLowerCase().includes(name));
       if (found) {
         removeBilledItem(found.id);
-        speak(`${found.title} removed from your itinerary`);
-      } else speak('I could not find that item to remove');
+        respond(`${found.title} removed from your itinerary`, source);
+      } else respond('I could not find that item to remove', source);
       setIsAwake(false);
       return;
     }
@@ -275,14 +283,14 @@ export default function PropertyPage() {
       const prop = SAMPLE_PROPERTIES.find((p) => p.name.toLowerCase().includes(name));
       if (prop) {
         addBilledStay(prop.id);
-        speak(`${prop.name} added to your itinerary`);
+        respond(`${prop.name} added to your itinerary`, source);
       } else {
         // try experiences in current property
         const exp = property.experiences.find((e) => e.toLowerCase().includes(name));
         if (exp) {
           addBillItem({ id: `exp-${Date.now()}`, type: 'experience', title: exp, price: 45, qty: 1 });
-          speak(`${exp} added to your itinerary`);
-        } else speak('Could not find the item to add');
+          respond(`${exp} added to your itinerary`, source);
+        } else respond('Could not find the item to add', source);
       }
       setIsAwake(false);
       return;
@@ -294,13 +302,13 @@ export default function PropertyPage() {
       const found = billedItems.find((it) => it.title.toLowerCase().includes(name));
       if (found) {
         changeBilledQty(found.id, inc ? 1 : -1);
-        speak(`${found.title} quantity updated`);
-      } else speak('Item not found');
+        respond(`${found.title} quantity updated`, source);
+      } else respond('Item not found', source);
       setIsAwake(false);
       return;
     }
 
-    speak('I did not understand that command');
+    respond('I did not understand that command', source);
     setIsAwake(false);
   };
 
@@ -958,7 +966,7 @@ export default function PropertyPage() {
 
         <textarea id="nova-prompt" className="w-full border rounded p-2 text-sm" rows={3} placeholder="Type a request, e.g. 'Remove the spa'" />
         <div className="mt-2 flex justify-between">
-          <button className="text-xs text-muted-foreground" onClick={() => { const t = (document.getElementById('nova-prompt') as HTMLTextAreaElement).value; if (t.trim()) { setNovaMessages(prev => [...prev, { from: 'user', text: t }]); handleTranscript(t); (document.getElementById('nova-prompt') as HTMLTextAreaElement).value = ''; } }}>Send</button>
+          <button className="text-xs text-muted-foreground" onClick={() => { const t = (document.getElementById('nova-prompt') as HTMLTextAreaElement).value; if (t.trim()) { setNovaMessages(prev => [...prev, { from: 'user', text: t }]); handleTranscript(t, 'text'); (document.getElementById('nova-prompt') as HTMLTextAreaElement).value = ''; } }}>Send</button>
           <div className="text-xs text-muted-foreground">Voice & AI assistant</div>
         </div>
       </div>
