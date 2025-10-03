@@ -809,7 +809,7 @@ export default function PropertyPage() {
               </Card>
             )}
 
-            <Card className="p-6 w-full max-w-sm">
+            <Card id="booking-panel" className="p-6 w-full max-w-sm">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center space-x-3">
                   <div className="w-16 h-12 overflow-hidden rounded-md">
