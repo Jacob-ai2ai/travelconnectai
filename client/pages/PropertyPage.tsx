@@ -326,14 +326,16 @@ export default function PropertyPage() {
           </nav>
 
           {fromItinerary && (
-            <div className="mb-4 p-3 bg-yellow-50 border-l-4 border-yellow-300 rounded">
-              <div className="flex items-center justify-between">
-                <div className="text-sm text-slate-800">Viewing as part of an AI-generated itinerary — edits here will affect the itinerary.</div>
-                <div className="flex items-center space-x-2">
-                  <Button size="sm" variant="outline" onClick={() => navigate('/itinerary')}>View itinerary</Button>
-                  {replaceProperty && <Button size="sm" onClick={() => handleChooseThis(replaceProperty.id)}>Replace stay</Button>}
-                </div>
+            <div className="mb-4 p-2 bg-yellow-50 border-l-4 border-yellow-300 rounded flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <button aria-label="Back" className="p-2 rounded border bg-white" onClick={() => navigate(-1)}>
+                  <ArrowLeft className="h-4 w-4" />
+                </button>
+                <button aria-label="Forward" className="p-2 rounded border bg-white" onClick={() => navigate('/itinerary')}>
+                  <ArrowRight className="h-4 w-4" />
+                </button>
               </div>
+              <div className="text-sm text-slate-800">Viewing as part of an AI-generated itinerary</div>
             </div>
           )}
           <div className="flex items-center justify-between">
