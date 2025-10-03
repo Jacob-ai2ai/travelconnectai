@@ -166,6 +166,13 @@ export default function PropertyPage() {
     if (propId === property.id) setInItinerary(true);
   };
 
+  const addBillItem = (item: BilledItem) => {
+    setBilledItems((prev) => {
+      if (prev.some((it) => it.id === item.id)) return prev;
+      return [...prev, item];
+    });
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
