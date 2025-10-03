@@ -354,10 +354,7 @@ export default function PropertyPage() {
                 </Button>
               )}
 
-              <Button variant="link" size="sm" onClick={() => {
-                const el = document.getElementById('more-stays');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }}>More properties</Button>
+              <Button variant="link" size="sm" onClick={() => addToItinerary(property.id)}>Add to itinerary</Button>
 
               <div className="flex items-center space-x-2">
                 <Button variant="ghost">
