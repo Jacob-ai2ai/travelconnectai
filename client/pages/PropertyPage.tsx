@@ -449,7 +449,7 @@ export default function PropertyPage() {
                           <CardContent>
                             <h4 className="font-semibold">Experiences & Activities</h4>
                             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-3">
-                              {property.experiences.map((e) => (
+                              {property.experiences.map((e, idx) => (
                                 <Card key={e} className="overflow-hidden">
                                   <div className="h-40 overflow-hidden">
                                     <img src="/placeholder.svg" alt={e} className="w-full h-full object-cover" />
