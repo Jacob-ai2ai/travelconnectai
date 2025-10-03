@@ -343,9 +343,9 @@ export default function PropertyPage() {
                                     </div>
                                     <div className="text-sm text-muted-foreground mt-2">Bookable activities nearby</div>
                                     <div className="mt-3 flex space-x-2">
-                                      <Button size="sm">View</Button>
-                                      <Button variant="outline" size="sm">Book</Button>
-                                    </div>
+                                  <Button size="sm">View</Button>
+                                  <Button variant="outline" size="sm" onClick={() => addBillItem({ id: `exp-${idx}`, type: 'experience', title: e, price: 45, qty: 1 })}>Book</Button>
+                                </div>
                                   </CardContent>
                                 </Card>
                               ))}
