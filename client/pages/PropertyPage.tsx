@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Heart, Share2, Play, Video, MapPin } from "lucide-react";
+import { Calendar, Heart, Share2, Play, Video, MapPin, Star } from "lucide-react";
 
 interface Property {
   id: string;
@@ -14,6 +14,10 @@ interface Property {
   amenities: string[];
   services: string[];
   videos: { id: string; title: string; url: string; isLive: boolean; viewers?: number }[];
+  rating: number;
+  reviewsCount: number;
+  host: { name: string; avatar?: string };
+  location: { address: string; lat?: number; lng?: number };
 }
 
 const SAMPLE_PROPERTIES: Property[] = [
@@ -30,12 +34,16 @@ const SAMPLE_PROPERTIES: Property[] = [
     ],
     description:
       "Proudly presenting a brand-new spacious villa apartment with exclusive access to the building swimming pool and gym. This apartment is perfect for solo travellers, couples on a holiday and even business travellers.",
-    amenities: ["4 Bedrooms", "3 Bathrooms", "Indoor Parking", "WiFi", "Pool"],
-    services: ["Airport Transfer", "Daily Housekeeping", "In-villa Spa"],
+    amenities: ["4 Bedrooms", "3 Bathrooms", "Indoor Parking", "WiFi", "Pool", "AC", "Kitchen"],
+    services: ["Airport Transfer", "Daily Housekeeping", "In-villa Spa", "Local Guide"],
     videos: [
       { id: "v1", title: "Walkthrough", url: "/placeholder.svg", isLive: false },
       { id: "v2", title: "Hosted Live Tour", url: "/placeholder.svg", isLive: true, viewers: 23 },
     ],
+    rating: 4.9,
+    reviewsCount: 124,
+    host: { name: "Azalea Hosts", avatar: "/placeholder.svg" },
+    location: { address: "Palm Jumeirah, Dubai Marina" },
   },
 ];
 
@@ -47,96 +55,223 @@ export default function PropertyPage() {
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
+        {/* Header */}
+        <div className="mb-6">
+          <nav className="text-sm text-muted-foreground mb-3">
+            <Link to="/">Home</Link> / <Link to="/trip-details/budget-bali">Classic Bali Experience</Link> / <span className="font-medium">{property.name}</span>
+          </nav>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold">{property.name}</h1>
+              <div className="flex items-center space-x-3 mt-2">
+                <div className="flex items-center text-sm text-muted-foreground">
+                  <Star className="h-4 w-4 mr-1 text-yellow-500" /> {property.rating} • {property.reviewsCount} reviews
+                </div>
+                <Badge variant="secondary">Self check in</Badge>
+                <Badge variant="secondary">Superhost</Badge>
+                <div className="text-sm text-muted-foreground">{property.location.address}</div>
+              </div>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Button variant="ghost">
+                <Heart className="h-4 w-4" />
+              </Button>
+              <Button variant="ghost">
+                <Share2 className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        </div>
+
         <div className="grid md:grid-cols-3 gap-6">
-          {/* Left: Gallery and description */}
-          <div className="md:col-span-2">
-            <Card className="overflow-hidden mb-6">
+          {/* Left: Gallery and details */}
+          <div className="md:col-span-2 space-y-6">
+            <Card className="overflow-hidden">
               <div className="grid grid-cols-3 gap-2">
                 <div className="col-span-2 row-span-2">
                   <img
                     src={property.images[0]}
                     alt={property.name}
-                    className="w-full h-96 object-cover rounded-lg"
+                    className="w-full h-[420px] object-cover rounded-lg"
                   />
                 </div>
                 {property.images.slice(1, 5).map((src, idx) => (
-                  <div key={idx} className="h-44 overflow-hidden rounded-lg">
-                    <img src={src} alt="thumb" className="w-full h-full object-cover" />
+                  <div key={idx} className="h-32 overflow-hidden rounded-lg">
+                    <img src={src} alt={`thumb-${idx}`} className="w-full h-full object-cover" />
                   </div>
                 ))}
               </div>
               <div className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-2xl font-bold">{property.name}</h2>
-                  <div className="flex items-center space-x-2">
-                    <Button variant="ghost">
-                      <Heart className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost">
-                      <Share2 className="h-4 w-4" />
-                    </Button>
+                <div className="flex items-start justify-between mb-4">
+                  <div>
+                    <h2 className="text-2xl font-bold">About this place</h2>
+                    <p className="text-muted-foreground mt-2">{property.description}</p>
                   </div>
                 </div>
-                <p className="text-muted-foreground mb-4">{property.description}</p>
 
-                <h4 className="font-semibold mb-2">Amenities</h4>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {property.amenities.map((a) => (
-                    <Badge key={a} variant="secondary" className="text-xs">
-                      {a}
-                    </Badge>
-                  ))}
-                </div>
-
-                <h4 className="font-semibold mb-2">Services & Experiences Nearby</h4>
-                <div className="grid md:grid-cols-2 gap-4 mb-6">
-                  {property.services.map((s) => (
-                    <Card key={s}>
-                      <CardContent>
-                        <div className="flex items-start justify-between">
-                          <div>
-                            <div className="font-semibold">{s}</div>
-                            <div className="text-sm text-muted-foreground">Available on request</div>
-                          </div>
-                          <div className="text-right">
-                            <div className="text-sm text-muted-foreground">From</div>
-                            <div className="font-bold">$25</div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-
-                <h4 className="font-semibold mb-2">Pre-recorded Videos & Live Streams</h4>
-                <div className="grid md:grid-cols-3 gap-4">
-                  {property.videos.map((v) => (
-                    <Card key={v.id} className="overflow-hidden">
-                      <div className="relative">
-                        <img src={v.url} alt={v.title} className="w-full h-40 object-cover" />
-                        <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                          <Button size="sm" className="bg-white/90 text-black">
-                            <Play className="h-4 w-4 mr-2" />
-                            {v.isLive ? `LIVE • ${v.viewers}` : "Watch"}
-                          </Button>
-                        </div>
+                {/* Amenities */}
+                <div className="mt-6">
+                  <h4 className="font-semibold mb-3">Amenities</h4>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    {property.amenities.map((a) => (
+                      <div key={a} className="flex items-center space-x-3 p-3 border rounded">
+                        <MapPin className="h-4 w-4 text-muted-foreground" />
+                        <div className="text-sm">{a}</div>
                       </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Services & Experiences */}
+                <div className="mt-6">
+                  <h4 className="font-semibold mb-3">Services & Experiences Nearby</h4>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {property.services.map((s) => (
+                      <Card key={s}>
+                        <CardContent>
+                          <div className="flex items-start justify-between">
+                            <div>
+                              <div className="font-semibold">{s}</div>
+                              <div className="text-sm text-muted-foreground">Available on request</div>
+                            </div>
+                            <div className="text-right">
+                              <div className="text-sm text-muted-foreground">From</div>
+                              <div className="font-bold">$25</div>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Videos */}
+                <div className="mt-6">
+                  <h4 className="font-semibold mb-3">Pre-recorded Videos & Live Streams</h4>
+                  <div className="grid md:grid-cols-3 gap-4">
+                    {property.videos.map((v) => (
+                      <Card key={v.id} className="overflow-hidden">
+                        <div className="relative">
+                          <img src={v.url} alt={v.title} className="w-full h-40 object-cover" />
+                          <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                            <Button size="sm" className="bg-white/90 text-black">
+                              <Play className="h-4 w-4 mr-2" />
+                              {v.isLive ? `LIVE • ${v.viewers}` : "Watch"}
+                            </Button>
+                          </div>
+                        </div>
+                        <CardContent>
+                          <div className="font-medium">{v.title}</div>
+                          <div className="text-xs text-muted-foreground">{v.isLive ? "Live stream" : "Pre-recorded"}</div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Nearby Attractions & Map */}
+                <div className="mt-6">
+                  <h4 className="font-semibold mb-3">Nearby Attractions</h4>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground">
+                        <li>Kuta Beach — 2 km</li>
+                        <li>Waterbom Bali — 3 km</li>
+                        <li>Ubud Market — 25 km</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <Card>
+                        <div className="h-48 bg-slate-100 flex items-center justify-center text-sm text-muted-foreground">Map placeholder</div>
+                      </Card>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Host & Reviews */}
+                <div className="mt-6 grid md:grid-cols-3 gap-4 items-start">
+                  <div className="md:col-span-2">
+                    <h4 className="font-semibold mb-3">Hosted by {property.host.name}</h4>
+                    <p className="text-sm text-muted-foreground">Responsive host • Joined 2019 • Speaks English</p>
+
+                    <div className="mt-4">
+                      <h5 className="font-semibold">Guest Reviews</h5>
+                      <div className="mt-2 text-sm text-muted-foreground">{property.reviewsCount} reviews • Overall rating {property.rating}</div>
+                      <div className="mt-3 space-y-3">
+                        <Card>
+                          <CardContent>
+                            <div className="font-semibold">Amazing stay</div>
+                            <div className="text-sm text-muted-foreground">The villa was spotless and the host was extremely helpful. Highly recommended!</div>
+                          </CardContent>
+                        </Card>
+                        <Card>
+                          <CardContent>
+                            <div className="font-semibold">Fantastic location</div>
+                            <div className="text-sm text-muted-foreground">Minutes from the beach and lots of great restaurants nearby.</div>
+                          </CardContent>
+                        </Card>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <Card>
                       <CardContent>
-                        <div className="font-medium">{v.title}</div>
-                        <div className="text-xs text-muted-foreground">{v.isLive ? "Live stream" : "Pre-recorded"}</div>
+                        <div className="text-sm text-muted-foreground">Hosted by</div>
+                        <div className="flex items-center space-x-3 mt-2">
+                          <img src={property.host.avatar} alt="host" className="h-12 w-12 rounded-full object-cover" />
+                          <div>
+                            <div className="font-medium">{property.host.name}</div>
+                            <div className="text-xs text-muted-foreground">Superhost</div>
+                          </div>
+                        </div>
+                        <div className="mt-4">
+                          <Button variant="outline" className="w-full">Contact Host</Button>
+                        </div>
                       </CardContent>
                     </Card>
-                  ))}
+                  </div>
+                </div>
+
+                {/* Similar properties */}
+                <div className="mt-6">
+                  <h4 className="font-semibold mb-3">Properties available in the same area</h4>
+                  <div className="grid md:grid-cols-3 gap-4">
+                    {SAMPLE_PROPERTIES.map((p) => (
+                      <Card key={p.id}>
+                        <div className="h-36 bg-slate-100 overflow-hidden">
+                          <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover" />
+                        </div>
+                        <CardContent>
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <div className="font-semibold">{p.name}</div>
+                              <div className="text-sm text-muted-foreground">{p.location.address}</div>
+                            </div>
+                            <div className="text-right">
+                              <div className="font-bold">${p.pricePerNight}</div>
+                              <div className="text-xs text-muted-foreground">per night</div>
+                            </div>
+                          </div>
+                          <div className="mt-3">
+                            <Link to={`/property/${p.id}`}>
+                              <Button size="sm" className="w-full">View</Button>
+                            </Link>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
                 </div>
               </div>
             </Card>
 
-            {/* Nearby properties / suggestions could go here */}
+            {/* Placeholder end left column */}
           </div>
 
           {/* Right: Booking panel */}
           <aside className="sticky top-24">
-            <Card className="p-6">
+            <Card className="p-6 w-full max-w-sm">
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <h3 className="text-xl font-bold">{property.name}</h3>
