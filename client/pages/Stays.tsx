@@ -150,7 +150,7 @@ export default function Stays() {
       category: "coastal",
       icon: "🏖️",
       description: "Luxurious Mediterranean-style by the sea",
-      emoji: "🌊",
+      emoji: "����",
     },
 
     // Urban & Luxury Getaways
@@ -1207,9 +1207,9 @@ export default function Stays() {
                     </div>
                   </div>
 
-                  <Button className="w-full" size="sm">
-                    View Details
-                  </Button>
+                  <Link to={`/property/${property.id}`}>
+                    <Button className="w-full" size="sm">View Details</Button>
+                  </Link>
                 </CardContent>
               </Card>
             ))}
