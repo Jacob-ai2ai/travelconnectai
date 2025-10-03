@@ -551,10 +551,12 @@ export default function TripDetails() {
                             <Video className="h-4 w-4 mr-2" />
                             Request Live Tour
                           </Button>
-                          <Button variant="outline" className="flex-1">
-                            <Eye className="h-4 w-4 mr-2" />
-                            View Details
-                          </Button>
+                          <Link to={`/property/${accommodation.id}`} className="flex-1">
+                            <Button variant="outline" className="w-full">
+                              <Eye className="h-4 w-4 mr-2" />
+                              View Details
+                            </Button>
+                          </Link>
                         </div>
                       </div>
                     </div>
