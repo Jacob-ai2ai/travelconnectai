@@ -415,8 +415,8 @@ export default function PropertyPage() {
                               <div className="mt-3">
                                 <div className="flex items-center justify-between"><div className="text-sm">Bedrooms</div><div className="font-semibold">4</div></div>
                                 <div className="flex items-center justify-between mt-2"><div className="text-sm">Bathrooms</div><div className="font-semibold">3</div></div>
-                                <div className="flex items-center justify-between mt-2"><div className="text-sm">Area</div><div className="font-semibold">1,024 ft</div></div>
-                                <div className="flex items-center justify-between mt-2"><div className="text-sm">Parking</div><div className="font-semibold">Indoor</div></div>
+                                <div className="flex items-center justify-between mt-2"><div className="text-sm">Maximum occupancy</div><div className="font-semibold">{(() => { const b = property.amenities.find(a => /bedroom/i.test(a)); const m = b ? b.match(/(\d+)/) : null; return m ? String(parseInt(m[1],10) * 2) : '4'; })()}</div></div>
+                                <div className="flex items-center justify-between mt-2"><div className="text-sm">Check in</div><div className="font-semibold">3:00 PM</div></div>
                               </div>
                             </CardContent>
                           </Card>
