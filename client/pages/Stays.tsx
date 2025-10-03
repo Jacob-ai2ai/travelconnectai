@@ -200,7 +200,7 @@ export default function Stays() {
       id: "bungalow",
       name: "Bungalows",
       category: "exotic",
-      icon: "🛖",
+      icon: "��",
       description: "Single-story home, tropical or resort-style",
       emoji: "🏝️",
     },
@@ -1044,10 +1044,12 @@ export default function Stays() {
                   </div>
 
                   <div className="space-y-2">
-                    <Button variant="outline" className="w-full" size="sm">
-                      <Eye className="h-4 w-4 mr-2" />
-                      View Details
-                    </Button>
+                    <Link to={`/property/${property.id}`}>
+                      <Button variant="outline" className="w-full" size="sm">
+                        <Eye className="h-4 w-4 mr-2" />
+                        View Details
+                      </Button>
+                    </Link>
                     <Button className="w-full" size="sm">
                       Book Now
                     </Button>
