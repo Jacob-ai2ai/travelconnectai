@@ -128,6 +128,38 @@ export default function PropertyPage() {
     navigate(-1);
   };
 
+  // Billed itinerary: show full bill (stays, experiences, services, fees)
+  type BilledItem = { id: string; type: "stay" | "experience" | "service" | "fee"; refId?: string; title: string; price: number; qty: number };
+  const [billedItems, setBilledItems] = React.useState<BilledItem[]>(() => [
+    { id: `stay-${property.id}`, type: "stay", refId: property.id, title: property.name, price: property.pricePerNight, qty: 2 },
+    ...(property.experiences[0]
+      ? [{ id: `exp-1`, type: "experience", title: property.experiences[0], price: 45, qty: 2 }]
+      : []),
+    ...(property.services[0]
+      ? [{ id: `svc-1`, type: "service", title: property.services[0], price: 30, qty: 1 }]
+      : []),
+    { id: `fee-cleaning`, type: "fee", title: "Cleaning Fee", price: 50, qty: 1 },
+  ]);
+
+  const changeBilledQty = (id: string, delta: number) => {
+    setBilledItems((prev) => prev.map((it) => (it.id === id ? { ...it, qty: Math.max(1, it.qty + delta) } : it)));
+  };
+
+  const removeBilledItem = (id: string) => {
+    setBilledItems((prev) => prev.filter((it) => it.id !== id));
+    if (id === `stay-${property.id}`) setInItinerary(false);
+  };
+
+  const addBilledStay = (propId: string) => {
+    const p = SAMPLE_PROPERTIES.find((x) => x.id === propId);
+    if (!p) return;
+    setBilledItems((prev) => {
+      if (prev.some((it) => it.refId === p.id && it.type === "stay")) return prev;
+      return [...prev, { id: `stay-${p.id}`, type: "stay", refId: p.id, title: p.name, price: p.pricePerNight, qty: 1 }];
+    });
+    if (propId === property.id) setInItinerary(true);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
