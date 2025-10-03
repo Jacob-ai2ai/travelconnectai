@@ -201,6 +201,8 @@ export default function PropertyPage() {
   const [isListening, setIsListening] = React.useState(false);
   const [isAwake, setIsAwake] = React.useState(false);
 
+  const [novaMessages, setNovaMessages] = React.useState<{ from: 'user' | 'nova'; text: string }[]>([]);
+
   React.useEffect(() => {
     const w: any = window as any;
     const SpeechRecognition = w.SpeechRecognition || w.webkitSpeechRecognition;
@@ -209,10 +211,17 @@ export default function PropertyPage() {
     r.continuous = true;
     r.interimResults = false;
     r.lang = 'en-US';
+    r.onstart = () => setIsListening(true);
     r.onresult = (ev: any) => {
-      const text = Array.from(ev.results).map((r: any) => r[0].transcript).join(' ');
-      handleTranscript(text);
+      // take the most recent result
+      const last = ev.results[ev.results.length - 1];
+      const transcript = last && last[0] && last[0].transcript ? last[0].transcript.trim() : '';
+      if (transcript) {
+        setNovaMessages((prev) => [...prev, { from: 'user', text: transcript }]);
+        handleTranscript(transcript);
+      }
     };
+    r.onerror = (err: any) => console.warn('Speech recognition error', err);
     r.onend = () => {
       setIsListening(false);
     };
@@ -220,6 +229,7 @@ export default function PropertyPage() {
   }, []);
 
   const speak = (msg: string) => {
+    setNovaMessages((prev) => [...prev, { from: 'nova', text: msg }] );
     const w: any = window as any;
     if (!w.speechSynthesis) return;
     const utter = new SpeechSynthesisUtterance(msg);
@@ -245,6 +255,7 @@ export default function PropertyPage() {
     }
     if (!isAwake) return;
 
+    // helper: respond via speak() which also pushes to messages
     // process simple commands: remove <thing>, add <property name>, increase/decrease <item>
     if (t.includes('remove')) {
       // try match billedItems by title
@@ -279,7 +290,6 @@ export default function PropertyPage() {
 
     if (t.includes('increase') || t.includes('decrease') || t.includes('more') || t.includes('less')) {
       const inc = t.includes('increase') || t.includes('more');
-      const dec = t.includes('decrease') || t.includes('less');
       const name = t.replace('increase', '').replace('decrease','').replace('more','').replace('less','').trim();
       const found = billedItems.find((it) => it.title.toLowerCase().includes(name));
       if (found) {
