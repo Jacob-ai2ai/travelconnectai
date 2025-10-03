@@ -692,12 +692,12 @@ export default function PropertyPage() {
                 <h4 className="font-semibold mb-3">Your Itinerary</h4>
 
                 {/* Itinerary items (cart-like) */}
-                {itineraryItems.length === 0 ? (
+                {billedItems.length === 0 ? (
                   <div className="text-xs text-muted-foreground mb-4">No stays in your itinerary. Add properties below.</div>
                 ) : (
                   <div className="space-y-3 mb-4">
-                    {itineraryItems.map((it) => {
-                      const p = SAMPLE_PROPERTIES.find((x) => x.id === it.id)!;
+                    {billedItems.map((it) => {
+                      const p = it.refId ? SAMPLE_PROPERTIES.find((x) => x.id === it.refId)! : undefined;
                       return (
                         <div key={it.id} className="flex items-center justify-between border rounded p-3">
                           <div className="flex items-center space-x-3">
@@ -712,11 +712,11 @@ export default function PropertyPage() {
 
                           <div className="flex items-center space-x-2">
                             <div className="flex items-center border rounded">
-                              <button className="px-3 py-1 text-sm" onClick={() => changeNights(it.id, -1)}>-</button>
-                              <div className="px-4 py-1 text-sm">{it.nights}</div>
-                              <button className="px-3 py-1 text-sm" onClick={() => changeNights(it.id, 1)}>+</button>
+                              <button className="px-3 py-1 text-sm" onClick={() => changeBilledQty(it.id, -1)}>-</button>
+                              <div className="px-4 py-1 text-sm">{it.qty}</div>
+                              <button className="px-3 py-1 text-sm" onClick={() => changeBilledQty(it.id, 1)}>+</button>
                             </div>
-                            <Button size="xs" variant="ghost" onClick={() => removeFromItinerary(it.id)}>Remove</Button>
+                            <Button size="xs" variant="ghost" onClick={() => removeBilledItem(it.id)}>Remove</Button>
                           </div>
                         </div>
                       );
@@ -743,8 +743,8 @@ export default function PropertyPage() {
                             </div>
                           </div>
                           <div className="flex items-center space-x-2">
-                            <Button size="xs" variant="ghost" onClick={() => removeFromItinerary(p.id)}>Remove</Button>
-                            <Button size="xs" onClick={() => addToItinerary(p.id)}>Add</Button>
+                            <Button size="xs" variant="ghost" onClick={() => removeBilledItem(`stay-${p.id}`)}>Remove</Button>
+                            <Button size="xs" onClick={() => addBilledStay(p.id)}>Add</Button>
                           </div>
                         </div>
                       ))
