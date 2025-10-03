@@ -258,7 +258,7 @@ export default function PropertyPage() {
     // wake word
     if (t.includes('hey nova') || t.includes('ok nova')) {
       setIsAwake(true);
-      respond('Yes, how can I help?', source);
+      respond('Hey traveler, how can I help you?', source);
       return;
     }
     if (!isAwake) return;
