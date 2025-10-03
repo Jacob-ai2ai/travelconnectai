@@ -551,7 +551,7 @@ export default function TripDetails() {
                             <Video className="h-4 w-4 mr-2" />
                             Request Live Tour
                           </Button>
-                          <Link to={`/property/${accommodation.id}`} className="flex-1">
+                          <Link to={`/property/${accommodation.id}`} className="flex-1" state={{ fromItinerary: true, replacePropertyId: accommodations[0].id, planId }}>
                             <Button variant="outline" className="w-full">
                               <Eye className="h-4 w-4 mr-2" />
                               View Details
