@@ -871,7 +871,7 @@ export default function PropertyPage() {
               <div className="mt-3 text-xs text-muted-foreground">Only 6 hours left to book. The host will stop accepting bookings for your dates soon.</div>
             </Card>
 
-              <Card className="mt-4 p-4 w-full max-w-sm">
+              <Card className={`mt-4 p-4 w-full max-w-sm ${fromItinerary ? 'ring-2 ring-yellow-200 bg-yellow-50' : ''}`}>
                 <div>
                   <h4 className="font-semibold mb-3">Your Itinerary</h4>
 
