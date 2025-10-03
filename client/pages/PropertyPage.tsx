@@ -153,16 +153,16 @@ export default function PropertyPage() {
 
   // Billed itinerary: show full bill (stays, experiences, services, fees)
   type BilledItem = { id: string; type: "stay" | "experience" | "service" | "fee"; refId?: string; title: string; price: number; qty: number };
-  const [billedItems, setBilledItems] = React.useState<BilledItem[]>(() => [
-    { id: `stay-${property.id}`, type: "stay", refId: property.id, title: property.name, price: property.pricePerNight, qty: 1 },
-    ...(property.experiences[0]
-      ? [{ id: `exp-1`, type: "experience", title: property.experiences[0], price: 45, qty: 2 }]
-      : []),
-    ...(property.services[0]
-      ? [{ id: `svc-1`, type: "service", title: property.services[0], price: 30, qty: 1 }]
-      : []),
-    { id: `fee-cleaning`, type: "fee", title: "Cleaning Fee", price: 50, qty: 1 },
-  ]);
+  const [billedItems, setBilledItems] = React.useState<BilledItem[]>(() => {
+    const base: BilledItem[] = [];
+    if (fromItinerary) {
+      base.push({ id: `stay-${property.id}`, type: "stay", refId: property.id, title: property.name, price: property.pricePerNight, qty: 1 });
+    }
+    if (property.experiences[0]) base.push({ id: `exp-1`, type: "experience", title: property.experiences[0], price: 45, qty: 2 });
+    if (property.services[0]) base.push({ id: `svc-1`, type: "service", title: property.services[0], price: 30, qty: 1 });
+    base.push({ id: `fee-cleaning`, type: "fee", title: "Cleaning Fee", price: 50, qty: 1 });
+    return base;
+  });
 
   const changeBilledQty = (id: string, delta: number) => {
     setBilledItems((prev) =>
