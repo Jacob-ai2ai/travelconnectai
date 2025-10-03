@@ -92,9 +92,13 @@ export default function PropertyPage() {
     if (id === property.id) setInItinerary(false);
   };
 
-  const handleDragStart = (e: React.DragEvent, id: string) => {
-    e.dataTransfer.setData("text/plain", id);
-    e.dataTransfer.effectAllowed = "move";
+  const handleDragStart = (e: React.DragEvent, payload: { type: string; id: string; title?: string; price?: number; refId?: string }) => {
+    try {
+      e.dataTransfer.setData("text/plain", JSON.stringify(payload));
+      e.dataTransfer.effectAllowed = "move";
+    } catch (err) {
+      console.warn('drag start error', err);
+    }
   };
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -103,9 +107,28 @@ export default function PropertyPage() {
 
   const handleDropToItinerary = (e: React.DragEvent) => {
     e.preventDefault();
-    const id = e.dataTransfer.getData("text/plain");
-    const prop = SAMPLE_PROPERTIES.find((p) => p.id === id);
-    if (prop) addBilledStay(prop.id);
+    const raw = e.dataTransfer.getData("text/plain");
+    if (!raw) return;
+    let payload: any;
+    try {
+      payload = JSON.parse(raw);
+    } catch (err) {
+      payload = { type: 'stay', id: raw };
+    }
+
+    if (!payload || !payload.type) return;
+
+    if (payload.type === 'stay') {
+      // payload.id is property id
+      addBilledStay(payload.id);
+      return;
+    }
+
+    // for experience/service/fee -> add as billed item
+    const itemId = payload.id || `${payload.type}-${Date.now()}`;
+    const title = payload.title || 'Item';
+    const price = typeof payload.price === 'number' ? payload.price : 0;
+    addBillItem({ id: itemId, type: payload.type as any, refId: payload.refId, title, price, qty: 1 });
   };
 
   const handleRemoveCandidate = (id: string) => {
@@ -423,14 +446,14 @@ export default function PropertyPage() {
                           <CardContent>
                             <h4 className="font-semibold">Services (in-property)</h4>
                             <div className="grid md:grid-cols-2 gap-3 mt-3">
-                              {property.services.map((s) => {
+                              {property.services.map((s, si) => {
                                 const key = s.toLowerCase();
                                 let Icon = Video;
                                 if (key.includes("airport") || key.includes("transfer")) Icon = Car;
                                 else if (key.includes("house") || key.includes("housekeeping")) Icon = Coffee;
                                 else if (key.includes("spa")) Icon = Dumbbell;
                                 return (
-                                  <div key={s} className="flex items-center space-x-3 p-3 border rounded">
+                                  <div key={s} draggable onDragStart={(e) => handleDragStart(e, { type: 'service', id: `svc-${si}-${property.id}`, title: s, price: 30, refId: property.id })} className="flex items-center space-x-3 p-3 border rounded">
                                     <Icon className="h-5 w-5 text-muted-foreground" />
                                     <div>
                                       <div className="font-semibold">{s}</div>
@@ -450,7 +473,7 @@ export default function PropertyPage() {
                             <h4 className="font-semibold">Experiences & Activities</h4>
                             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-3">
                               {property.experiences.map((e, idx) => (
-                                <Card key={e} className="overflow-hidden">
+                                <Card key={e} draggable onDragStart={(ev) => handleDragStart(ev, { type: 'experience', id: `exp-${idx}-${property.id}`, title: e, price: 45, refId: property.id })} className="overflow-hidden">
                                   <div className="h-40 overflow-hidden">
                                     <img src="/placeholder.svg" alt={e} className="w-full h-full object-cover" />
                                   </div>
@@ -691,7 +714,7 @@ export default function PropertyPage() {
                   <h4 className="font-semibold mb-3">Properties available in the same area</h4>
                   <div className="grid md:grid-cols-3 gap-4">
                     {SAMPLE_PROPERTIES.map((p) => (
-                      <Card key={p.id} draggable onDragStart={(e) => handleDragStart(e, p.id)} className="cursor-grab">
+                      <Card key={p.id} draggable onDragStart={(e) => handleDragStart(e, { type: 'stay', id: p.id, title: p.name, price: p.pricePerNight, refId: p.id })} className="cursor-grab">
                         <div className="h-36 bg-slate-100 overflow-hidden">
                           <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover" />
                         </div>
