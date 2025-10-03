@@ -168,7 +168,101 @@ export default function PropertyPage() {
                                 <p className="text-sm text-muted-foreground mt-2">{property.description}</p>
                               </div>
 
-                              {/* small summary or highlights could go here */}
+                              {/* Amenities included under Overview */}
+                              <div className="mb-6">
+                                <h4 className="font-semibold">Amenities</h4>
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3">
+                                  {property.amenities.map((a) => (
+                                    <div key={a} className="flex items-center space-x-3 p-3 border rounded">
+                                      <MapPin className="h-4 w-4 text-muted-foreground" />
+                                      <div className="text-sm">{a}</div>
+                                    </div>
+                                  ))}
+                                </div>
+                                <div className="mt-3 text-sm text-muted-foreground">Pets allowed: Yes (additional cleaning fee may apply)</div>
+                              </div>
+
+                              {/* Services inside property with icons */}
+                              <div className="mb-6">
+                                <h4 className="font-semibold">Services (in-property)</h4>
+                                <div className="grid md:grid-cols-2 gap-3 mt-3">
+                                  {property.services.map((s) => (
+                                    <div key={s} className="flex items-center space-x-3 p-3 border rounded">
+                                      <Video className="h-5 w-5 text-muted-foreground" />
+                                      <div>
+                                        <div className="font-semibold">{s}</div>
+                                        <div className="text-sm text-muted-foreground">Available on request</div>
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {/* Experiences with cards */}
+                              <div className="mb-6">
+                                <h4 className="font-semibold">Experiences & Activities</h4>
+                                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-3">
+                                  {property.experiences.map((e) => (
+                                    <Card key={e} className="overflow-hidden">
+                                      <div className="h-40 overflow-hidden">
+                                        <img src="/placeholder.svg" alt={e} className="w-full h-full object-cover" />
+                                      </div>
+                                      <CardContent>
+                                        <div className="flex items-center justify-between">
+                                          <div className="font-semibold">{e}</div>
+                                          <div className="text-lg font-bold">${45}</div>
+                                        </div>
+                                        <div className="text-sm text-muted-foreground mt-2">Bookable activities nearby</div>
+                                        <div className="mt-3 flex space-x-2">
+                                          <Button size="sm">View</Button>
+                                          <Button variant="outline" size="sm">Book</Button>
+                                        </div>
+                                      </CardContent>
+                                    </Card>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {/* Video library */}
+                              <div className="mb-6">
+                                <h4 className="font-semibold">Video Library</h4>
+                                <div className="grid md:grid-cols-3 gap-4 mt-3">
+                                  {property.videos.map((v) => (
+                                    <Card key={v.id} className="overflow-hidden">
+                                      <div className="h-40 overflow-hidden">
+                                        <img src={v.url} alt={v.title} className="w-full h-full object-cover" />
+                                      </div>
+                                      <CardContent>
+                                        <div className="font-medium">{v.title}</div>
+                                        <div className="text-xs text-muted-foreground">{v.isLive ? "Live stream" : "Pre-recorded"}</div>
+                                        <div className="mt-3">
+                                          <Button size="sm" className="w-full">{v.isLive ? `Watch Live (${v.viewers})` : "Watch"}</Button>
+                                        </div>
+                                      </CardContent>
+                                    </Card>
+                                  ))}
+                                </div>
+                              </div>
+
+                              {/* Reviews */}
+                              <div className="mb-6">
+                                <h4 className="font-semibold">Guest Reviews</h4>
+                                <div className="space-y-3 mt-3">
+                                  <Card>
+                                    <CardContent>
+                                      <div className="font-semibold">Amazing stay</div>
+                                      <div className="text-sm text-muted-foreground">The villa was spotless and the host was extremely helpful. Highly recommended!</div>
+                                    </CardContent>
+                                  </Card>
+                                  <Card>
+                                    <CardContent>
+                                      <div className="font-semibold">Fantastic location</div>
+                                      <div className="text-sm text-muted-foreground">Minutes from the beach and lots of great restaurants nearby.</div>
+                                    </CardContent>
+                                  </Card>
+                                </div>
+                              </div>
+
                             </CardContent>
                           </Card>
                         </div>
