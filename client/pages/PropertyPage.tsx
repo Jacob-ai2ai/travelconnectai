@@ -200,6 +200,7 @@ export default function PropertyPage() {
   const recognitionRef = React.useRef<any>(null);
   const [isListening, setIsListening] = React.useState(false);
   const [isAwake, setIsAwake] = React.useState(false);
+  const [novaMinimized, setNovaMinimized] = React.useState(false);
 
   const [novaMessages, setNovaMessages] = React.useState<{ from: 'user' | 'nova'; text: string }[]>([]);
 
