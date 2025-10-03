@@ -63,6 +63,35 @@ export default function PropertyPage() {
   const replacePropertyId: string | undefined = state.replacePropertyId;
   const replaceProperty = SAMPLE_PROPERTIES.find((p) => p.id === replacePropertyId);
 
+  // Drag-and-drop itinerary candidates state and handlers
+  const [itineraryCandidates, setItineraryCandidates] = React.useState<Property[]>([]);
+
+  const handleDragStart = (e: React.DragEvent, id: string) => {
+    e.dataTransfer.setData("text/plain", id);
+    e.dataTransfer.effectAllowed = "move";
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+  };
+
+  const handleDropToItinerary = (e: React.DragEvent) => {
+    e.preventDefault();
+    const id = e.dataTransfer.getData("text/plain");
+    const prop = SAMPLE_PROPERTIES.find((p) => p.id === id);
+    if (prop && !itineraryCandidates.some((p) => p.id === prop.id)) {
+      setItineraryCandidates((prev) => [...prev, prop]);
+    }
+  };
+
+  const handleRemoveCandidate = (id: string) => {
+    setItineraryCandidates((prev) => prev.filter((p) => p.id !== id));
+  };
+
+  const handleChooseCandidate = (id: string) => {
+    alert(`Chosen ${id} (simulated)`);
+  };
+
   const handleRemoveThis = () => {
     // placeholder behavior: in real app call API to update itinerary
     alert("Removed property from itinerary (simulated)");
