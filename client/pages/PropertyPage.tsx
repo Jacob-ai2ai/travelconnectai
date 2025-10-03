@@ -324,6 +324,18 @@ export default function PropertyPage() {
           <nav className="text-sm text-muted-foreground mb-3">
             <Link to="/">Home</Link> / {fromItinerary ? <Link to="/trip-details/budget-bali">Classic Bali Experience</Link> : <Link to="/stays">Stays</Link>} / <span className="font-medium">{property.name}</span>
           </nav>
+
+          {fromItinerary && (
+            <div className="mb-4 p-3 bg-yellow-50 border-l-4 border-yellow-300 rounded">
+              <div className="flex items-center justify-between">
+                <div className="text-sm text-slate-800">Viewing as part of an AI-generated itinerary — edits here will affect the itinerary.</div>
+                <div className="flex items-center space-x-2">
+                  <Button size="sm" variant="outline" onClick={() => navigate('/itinerary')}>View itinerary</Button>
+                  {replaceProperty && <Button size="sm" onClick={() => handleChooseThis(replaceProperty.id)}>Replace stay</Button>}
+                </div>
+              </div>
+            </div>
+          )}
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold">{property.name}</h1>
