@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import AIPlanner from "./pages/AIPlanner";
 import TripDetails from "./pages/TripDetails";
 import RouteMap from "./pages/RouteMap";
+import PropertyPage from "./pages/PropertyPage";
 import Stays from "./pages/Stays";
 import Flights from "./pages/Flights";
 import Xperiences from "./pages/Xperiences";
@@ -42,6 +43,7 @@ export default function App() {
             <Route path="/ai-planner" element={<AIPlanner />} />
             <Route path="/trip-details/:planId" element={<TripDetails />} />
             <Route path="/route-map/:planId" element={<RouteMap />} />
+            <Route path="/property/:propertyId" element={<PropertyPage />} />
             <Route path="/stays" element={<Stays />} />
             <Route path="/flights" element={<Flights />} />
             <Route path="/xperiences" element={<Xperiences />} />
