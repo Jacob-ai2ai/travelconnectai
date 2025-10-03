@@ -937,41 +937,50 @@ export default function PropertyPage() {
       </div>
 
       {/* Floating Nova assistant */}
-      <div className="fixed bottom-6 right-6 w-80 bg-white border rounded p-3 shadow-lg z-50">
-        <div className="flex items-center justify-between mb-2">
-          <div className="font-semibold">Nova</div>
-          <div className="flex items-center space-x-2">
-            <div className={`h-2 w-2 rounded-full ${isAwake ? 'bg-green-500' : 'bg-gray-300'}`} />
-            <button
-              aria-label="Toggle mic"
-              className={`px-2 py-1 text-sm rounded ${isListening ? 'bg-red-100' : 'bg-gray-100'}`}
-              onClick={() => {
-                if (isListening) stopListening(); else startListening();
-              }}
-            >
-              {isListening ? 'Listening...' : 'Mic'}
-            </button>
+      {!novaMinimized ? (
+        <div className="fixed bottom-6 right-6 w-80 bg-white border rounded p-3 shadow-lg z-50">
+          <div className="flex items-center justify-between mb-2">
+            <div className="font-semibold">Nova</div>
+            <div className="flex items-center space-x-2">
+              <div className={`h-2 w-2 rounded-full ${isAwake ? 'bg-green-500' : 'bg-gray-300'}`} />
+              <button
+                aria-label="Toggle mic"
+                className={`px-2 py-1 text-sm rounded ${isListening ? 'bg-red-100' : 'bg-gray-100'}`}
+                onClick={() => {
+                  if (isListening) stopListening(); else startListening();
+                }}
+              >
+                {isListening ? 'Listening...' : 'Mic'}
+              </button>
+              <button aria-label="Minimize Nova" className="px-2 py-1 text-sm rounded bg-gray-100" onClick={() => setNovaMinimized(true)}>—</button>
+            </div>
+          </div>
+
+          <div className="h-28 overflow-auto mb-2 space-y-2">
+            {novaMessages.length === 0 ? (
+              <div className="text-xs text-muted-foreground">Nova will display responses here.</div>
+            ) : (
+              novaMessages.map((m, i) => (
+                <div key={i} className={`text-sm ${m.from === 'nova' ? 'text-slate-800' : 'text-sky-600'}`}>
+                  <strong>{m.from === 'nova' ? 'Nova:' : 'You:'}</strong> {m.text}
+                </div>
+              ))
+            )}
+          </div>
+
+          <textarea id="nova-prompt" className="w-full border rounded p-2 text-sm" rows={3} placeholder="Type a request, e.g. 'Remove the spa'" />
+          <div className="mt-2 flex justify-between">
+            <button className="text-xs text-muted-foreground" onClick={() => { const t = (document.getElementById('nova-prompt') as HTMLTextAreaElement).value; if (t.trim()) { setNovaMessages(prev => [...prev, { from: 'user', text: t }]); handleTranscript(t, 'text'); (document.getElementById('nova-prompt') as HTMLTextAreaElement).value = ''; } }}>Send</button>
+            <div className="text-xs text-muted-foreground">Voice & AI assistant</div>
           </div>
         </div>
-
-        <div className="h-28 overflow-auto mb-2 space-y-2">
-          {novaMessages.length === 0 ? (
-            <div className="text-xs text-muted-foreground">Nova will display responses here.</div>
-          ) : (
-            novaMessages.map((m, i) => (
-              <div key={i} className={`text-sm ${m.from === 'nova' ? 'text-slate-800' : 'text-sky-600'}`}>
-                <strong>{m.from === 'nova' ? 'Nova:' : 'You:'}</strong> {m.text}
-              </div>
-            ))
-          )}
+      ) : (
+        <div className="fixed right-6 bottom-20 z-50">
+          <button className="w-12 h-12 rounded-full bg-blue-600 text-white shadow-lg flex items-center justify-center" onClick={() => setNovaMinimized(false)} aria-label="Open Nova">
+            N
+          </button>
         </div>
-
-        <textarea id="nova-prompt" className="w-full border rounded p-2 text-sm" rows={3} placeholder="Type a request, e.g. 'Remove the spa'" />
-        <div className="mt-2 flex justify-between">
-          <button className="text-xs text-muted-foreground" onClick={() => { const t = (document.getElementById('nova-prompt') as HTMLTextAreaElement).value; if (t.trim()) { setNovaMessages(prev => [...prev, { from: 'user', text: t }]); handleTranscript(t, 'text'); (document.getElementById('nova-prompt') as HTMLTextAreaElement).value = ''; } }}>Send</button>
-          <div className="text-xs text-muted-foreground">Voice & AI assistant</div>
-        </div>
-      </div>
+      )}
 
     </div>
   );
