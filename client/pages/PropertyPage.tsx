@@ -63,9 +63,34 @@ export default function PropertyPage() {
   const replacePropertyId: string | undefined = state.replacePropertyId;
   const replaceProperty = SAMPLE_PROPERTIES.find((p) => p.id === replacePropertyId);
 
-  // Drag-and-drop itinerary candidates state and handlers
+  // Itinerary state and handlers (cart-like)
   const [itineraryCandidates, setItineraryCandidates] = React.useState<Property[]>([]);
   const [inItinerary, setInItinerary] = React.useState<boolean>(false);
+
+  // cart items: each item has id and nights (quantity)
+  const [itineraryItems, setItineraryItems] = React.useState<{ id: string; nights: number }[]>([]);
+
+  const addToItinerary = (id: string) => {
+    setItineraryItems((prev) => {
+      const exists = prev.find((i) => i.id === id);
+      if (exists) return prev;
+      return [...prev, { id, nights: 1 }];
+    });
+    if (id === property.id) setInItinerary(true);
+  };
+
+  const changeNights = (id: string, delta: number) => {
+    setItineraryItems((prev) =>
+      prev
+        .map((i) => (i.id === id ? { ...i, nights: Math.max(1, i.nights + delta) } : i))
+        .filter(Boolean)
+    );
+  };
+
+  const removeFromItinerary = (id: string) => {
+    setItineraryItems((prev) => prev.filter((i) => i.id !== id));
+    if (id === property.id) setInItinerary(false);
+  };
 
   const handleDragStart = (e: React.DragEvent, id: string) => {
     e.dataTransfer.setData("text/plain", id);
@@ -80,9 +105,7 @@ export default function PropertyPage() {
     e.preventDefault();
     const id = e.dataTransfer.getData("text/plain");
     const prop = SAMPLE_PROPERTIES.find((p) => p.id === id);
-    if (prop && !itineraryCandidates.some((p) => p.id === prop.id)) {
-      setItineraryCandidates((prev) => [...prev, prop]);
-    }
+    if (prop) addToItinerary(prop.id);
   };
 
   const handleRemoveCandidate = (id: string) => {
@@ -632,38 +655,51 @@ export default function PropertyPage() {
             </Card>
 
             {/* Current property itinerary card + Recently viewed */}
-            <Card className="mt-4 p-4 w-full max-w-sm">
+                      <Card className="mt-4 p-4 w-full max-w-sm">
               <div>
-                <h4 className="font-semibold mb-3">Itinerary</h4>
+                <h4 className="font-semibold mb-3">Your Itinerary</h4>
 
-                {/* Current property card */}
-                <div className="flex items-center justify-between border rounded p-3 mb-3">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-20 h-16 overflow-hidden rounded-md">
-                      <img src={property.images[0]} alt={property.name} className="w-full h-full object-cover" />
-                    </div>
-                    <div>
-                      <div className="font-semibold">{property.name}</div>
-                      <div className="text-xs text-muted-foreground">{property.location.address}</div>
-                      <div className="text-sm font-bold mt-1">${property.pricePerNight} / night</div>
-                    </div>
-                  </div>
-                  <div className="flex flex-col space-y-2">
-                    {!inItinerary ? (
-                      <Button size="sm" onClick={() => { setInItinerary(true); alert('Added to itinerary (simulated)'); }}>Add to itinerary</Button>
-                    ) : (
-                      <Button size="sm" variant="destructive" onClick={() => { setInItinerary(false); alert('Removed from itinerary (simulated)'); }}>Remove from itinerary</Button>
-                    )}
-                  </div>
-                </div>
+                {/* Itinerary items (cart-like) */}
+                {itineraryItems.length === 0 ? (
+                  <div className="text-xs text-muted-foreground mb-4">No stays in your itinerary. Add properties below.</div>
+                ) : (
+                  <div className="space-y-3 mb-4">
+                    {itineraryItems.map((it) => {
+                      const p = SAMPLE_PROPERTIES.find((x) => x.id === it.id)!;
+                      return (
+                        <div key={it.id} className="flex items-center justify-between border rounded p-3">
+                          <div className="flex items-center space-x-3">
+                            <div className="w-16 h-12 overflow-hidden rounded-md">
+                              <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover" />
+                            </div>
+                            <div>
+                              <div className="font-semibold">{p.name}</div>
+                              <div className="text-xs text-muted-foreground">${p.pricePerNight} / night</div>
+                            </div>
+                          </div>
 
+                          <div className="flex items-center space-x-2">
+                            <div className="flex items-center border rounded">
+                              <button className="px-3 py-1 text-sm" onClick={() => changeNights(it.id, -1)}>-</button>
+                              <div className="px-4 py-1 text-sm">{it.nights}</div>
+                              <button className="px-3 py-1 text-sm" onClick={() => changeNights(it.id, 1)}>+</button>
+                            </div>
+                            <Button size="xs" variant="ghost" onClick={() => removeFromItinerary(it.id)}>Remove</Button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {/* Recently viewed / suggestions */}
                 <div>
                   <div className="text-sm font-medium mb-2">Recently viewed</div>
                   <div className="space-y-2">
-                    {SAMPLE_PROPERTIES.filter(p => p.id !== property.id).length === 0 ? (
+                    {SAMPLE_PROPERTIES.filter((p) => p.id !== property.id).length === 0 ? (
                       <div className="text-xs text-muted-foreground">No recently viewed properties.</div>
                     ) : (
-                      SAMPLE_PROPERTIES.filter(p => p.id !== property.id).map((p) => (
+                      SAMPLE_PROPERTIES.filter((p) => p.id !== property.id).map((p) => (
                         <div key={p.id} className="flex items-center justify-between border rounded p-2">
                           <div className="flex items-center space-x-2">
                             <div className="w-12 h-12 overflow-hidden rounded-md">
@@ -671,12 +707,12 @@ export default function PropertyPage() {
                             </div>
                             <div className="text-sm">
                               <div className="font-semibold">{p.name}</div>
-                              <div className="text-xs text-muted-foreground">{p.location.address}</div>
+                              <div className="text-xs text-muted-foreground">${p.pricePerNight} / night</div>
                             </div>
                           </div>
                           <div className="flex items-center space-x-2">
-                            <Button size="xs" variant="ghost" onClick={() => handleRemoveCandidate(p.id)}>Remove</Button>
-                            <Button size="xs" onClick={() => handleChooseCandidate(p.id)}>Choose</Button>
+                            <Button size="xs" variant="ghost" onClick={() => removeFromItinerary(p.id)}>Remove</Button>
+                            <Button size="xs" onClick={() => addToItinerary(p.id)}>Add</Button>
                           </div>
                         </div>
                       ))
@@ -684,46 +720,6 @@ export default function PropertyPage() {
                   </div>
                 </div>
 
-              </div>
-            </Card>
-
-            {/* Drag & drop area for adding properties to itinerary */}
-            <Card className="mt-4 p-4 w-full max-w-sm">
-              <div>
-                <h4 className="font-semibold mb-3">Add properties to itinerary</h4>
-                <div
-                  onDrop={handleDropToItinerary}
-                  onDragOver={handleDragOver}
-                  className="h-40 border-2 border-dashed rounded flex items-center justify-center text-sm text-muted-foreground"
-                >
-                  Drag property cards here to add to itinerary
-                </div>
-
-                <div className="mt-3">
-                  {itineraryCandidates.length === 0 ? (
-                    <div className="text-xs text-muted-foreground">No properties added yet. Drag items from the list on the left.</div>
-                  ) : (
-                    <div className="space-y-2">
-                      {itineraryCandidates.map((c) => (
-                        <div key={c.id} className="flex items-center justify-between border rounded p-2">
-                          <div className="flex items-center space-x-2">
-                            <div className="w-14 h-12 overflow-hidden rounded-md">
-                              <img src={c.images[0]} alt={c.name} className="w-full h-full object-cover" />
-                            </div>
-                            <div>
-                              <div className="font-semibold text-sm">{c.name}</div>
-                              <div className="text-xs text-muted-foreground">${c.pricePerNight} / night</div>
-                            </div>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <Button size="xs" variant="ghost" onClick={() => handleRemoveCandidate(c.id)}>Remove</Button>
-                            <Button size="xs" onClick={() => handleChooseCandidate(c.id)}>Choose</Button>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
               </div>
             </Card>
           </aside>
