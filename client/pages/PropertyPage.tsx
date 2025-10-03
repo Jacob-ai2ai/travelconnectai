@@ -55,6 +55,26 @@ export default function PropertyPage() {
   const property =
     SAMPLE_PROPERTIES.find((p) => p.id === propertyId) || SAMPLE_PROPERTIES[0];
 
+  const location = useLocation();
+  const navigate = useNavigate();
+  // check if opened from itinerary replacement flow
+  const state: any = (location && (location.state as any)) || {};
+  const fromItinerary: boolean = !!state.fromItinerary;
+  const replacePropertyId: string | undefined = state.replacePropertyId;
+  const replaceProperty = SAMPLE_PROPERTIES.find((p) => p.id === replacePropertyId);
+
+  const handleRemoveThis = () => {
+    // placeholder behavior: in real app call API to update itinerary
+    alert("Removed property from itinerary (simulated)");
+    navigate(-1);
+  };
+
+  const handleChooseThis = (chosenId: string) => {
+    // placeholder: simulate replacing itinerary item and navigate back
+    alert(`Replaced itinerary property with ${chosenId} (simulated)`);
+    navigate(-1);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
@@ -351,12 +371,42 @@ export default function PropertyPage() {
 
           {/* Right: Booking panel */}
           <aside className="sticky top-24">
-            {/* If opened from itinerary replacement flow, show preview card */}
-            {(() => {
-              try {
-                // runtime guard to access window during SSR-safe render
-              } catch (e) {}
-            })()}
+            {/* Itinerary replace preview when opened from plan */}
+            {fromItinerary && replaceProperty && (
+              <Card className="mb-4 p-4 w-full max-w-sm">
+                <div className="flex items-start space-x-3">
+                  <div className="w-20 h-16 overflow-hidden rounded-md">
+                    <img src={replaceProperty.images[0]} alt={replaceProperty.name} className="w-full h-full object-cover" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="font-semibold">Replace: {replaceProperty.name}</div>
+                    <div className="text-sm text-muted-foreground">${replaceProperty.pricePerNight} / night</div>
+                    <div className="mt-3 flex space-x-2">
+                      <Button variant="outline" size="sm" onClick={handleRemoveThis}>Remove this</Button>
+                      <Button size="sm" onClick={() => handleChooseThis(replaceProperty.id)}>Choose this</Button>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-3">
+                  <div className="text-xs text-muted-foreground">Recently viewed</div>
+                  <div className="grid grid-cols-2 gap-2 mt-2">
+                    {SAMPLE_PROPERTIES.map((p) => (
+                      <div key={p.id} className="flex items-center space-x-2">
+                        <div className="w-12 h-12 overflow-hidden rounded-md">
+                          <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover" />
+                        </div>
+                        <div className="flex-1 text-sm">
+                          <div>{p.name}</div>
+                          <div className="text-xs text-muted-foreground">${p.pricePerNight}</div>
+                        </div>
+                        <Button size="xs" variant="ghost" onClick={() => handleChooseThis(p.id)}>Choose</Button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </Card>
+            )}
+
             <Card className="p-6 w-full max-w-sm">
               <div className="flex items-start justify-between mb-4">
                 <div>
