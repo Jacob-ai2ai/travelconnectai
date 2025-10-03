@@ -131,7 +131,7 @@ export default function PropertyPage() {
   // Billed itinerary: show full bill (stays, experiences, services, fees)
   type BilledItem = { id: string; type: "stay" | "experience" | "service" | "fee"; refId?: string; title: string; price: number; qty: number };
   const [billedItems, setBilledItems] = React.useState<BilledItem[]>(() => [
-    { id: `stay-${property.id}`, type: "stay", refId: property.id, title: property.name, price: property.pricePerNight, qty: 2 },
+    { id: `stay-${property.id}`, type: "stay", refId: property.id, title: property.name, price: property.pricePerNight, qty: 1 },
     ...(property.experiences[0]
       ? [{ id: `exp-1`, type: "experience", title: property.experiences[0], price: 45, qty: 2 }]
       : []),
@@ -142,7 +142,13 @@ export default function PropertyPage() {
   ]);
 
   const changeBilledQty = (id: string, delta: number) => {
-    setBilledItems((prev) => prev.map((it) => (it.id === id ? { ...it, qty: Math.max(1, it.qty + delta) } : it)));
+    setBilledItems((prev) =>
+      prev.map((it) => {
+        if (it.id !== id) return it;
+        if (it.type === "stay") return it; // stays fixed at 1
+        return { ...it, qty: Math.max(1, it.qty + delta) };
+      })
+    );
   };
 
   const removeBilledItem = (id: string) => {
