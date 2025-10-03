@@ -186,15 +186,22 @@ export default function PropertyPage() {
                               <div className="mb-6">
                                 <h4 className="font-semibold">Services (in-property)</h4>
                                 <div className="grid md:grid-cols-2 gap-3 mt-3">
-                                  {property.services.map((s) => (
-                                    <div key={s} className="flex items-center space-x-3 p-3 border rounded">
-                                      <Video className="h-5 w-5 text-muted-foreground" />
-                                      <div>
-                                        <div className="font-semibold">{s}</div>
-                                        <div className="text-sm text-muted-foreground">Available on request</div>
+                                  {property.services.map((s) => {
+                                    const key = s.toLowerCase();
+                                    let Icon = Video;
+                                    if (key.includes("airport") || key.includes("transfer")) Icon = Car;
+                                    else if (key.includes("house") || key.includes("housekeeping")) Icon = Coffee;
+                                    else if (key.includes("spa")) Icon = Dumbbell;
+                                    return (
+                                      <div key={s} className="flex items-center space-x-3 p-3 border rounded">
+                                        <Icon className="h-5 w-5 text-muted-foreground" />
+                                        <div>
+                                          <div className="font-semibold">{s}</div>
+                                          <div className="text-sm text-muted-foreground">Available on request</div>
+                                        </div>
                                       </div>
-                                    </div>
-                                  ))}
+                                    );
+                                  })}
                                 </div>
                               </div>
 
