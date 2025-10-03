@@ -110,24 +110,88 @@ export default function PropertyPage() {
                     <h2 className="text-2xl font-bold">About this place</h2>
                     <p className="text-muted-foreground mt-2">{property.description}</p>
                   </div>
-                  <div className="ml-4">
-                    <Button variant="outline">
-                      <Video className="h-4 w-4 mr-2" />
-                      Request Live Walkthrough
-                    </Button>
-                  </div>
                 </div>
 
-                {/* Tabs: Amenities / Services / Experiences / Videos / Nearby */}
+                {/* Tabs: Overview / Amenities / Services / Experiences / Videos / Reviews / Nearby */}
                 <div className="mt-6">
-                  <Tabs defaultValue="amenities">
+                  <Tabs defaultValue="overview">
                     <TabsList>
+                      <TabsTrigger value="overview">Overview</TabsTrigger>
                       <TabsTrigger value="amenities">Amenities</TabsTrigger>
                       <TabsTrigger value="services">Services</TabsTrigger>
                       <TabsTrigger value="experiences">Experiences</TabsTrigger>
                       <TabsTrigger value="videos">Videos</TabsTrigger>
+                      <TabsTrigger value="reviews">Reviews</TabsTrigger>
                       <TabsTrigger value="nearby">Nearby</TabsTrigger>
                     </TabsList>
+
+                    <TabsContent value="overview">
+                      <div className="mt-4 grid md:grid-cols-3 gap-6">
+                        <div className="md:col-span-2">
+                          <Card>
+                            <CardContent>
+                              <div className="mb-4">
+                                <h4 className="font-semibold">Location & Map</h4>
+                                <div className="h-48 bg-slate-100 flex items-center justify-center mt-2">Map placeholder</div>
+                              </div>
+
+                              <div className="mb-4">
+                                <h4 className="font-semibold">Property Description</h4>
+                                <p className="text-sm text-muted-foreground mt-2">{property.description}</p>
+                              </div>
+
+                              <div className="mb-4">
+                                <h4 className="font-semibold">Nearby Attractions</h4>
+                                <ul className="list-disc pl-5 mt-2 text-sm text-muted-foreground">
+                                  <li>Kuta Beach — 2 km</li>
+                                  <li>Waterbom Bali — 3 km</li>
+                                  <li>Ubud Market — 25 km</li>
+                                </ul>
+                              </div>
+
+                              <div className="mb-4">
+                                <h4 className="font-semibold">Hosted by</h4>
+                                <Card>
+                                  <CardContent>
+                                    <div className="flex items-center justify-between">
+                                      <div className="flex items-center space-x-3">
+                                        <img src={property.host.avatar} alt="host" className="h-12 w-12 rounded-full object-cover" />
+                                        <div>
+                                          <div className="font-medium">{property.host.name}</div>
+                                          <div className="text-xs text-muted-foreground">Superhost</div>
+                                        </div>
+                                      </div>
+                                      <div className="text-right">
+                                        <div className="text-sm text-muted-foreground">{property.reviewsCount} reviews</div>
+                                        <div className="text-sm text-muted-foreground">Overall {property.rating}</div>
+                                      </div>
+                                    </div>
+                                    <div className="mt-4 flex space-x-2">
+                                      <Button variant="outline" className="flex-1">Contact Host</Button>
+                                      <Button className="flex-1 bg-white/90 text-black">Request Live Walkthrough</Button>
+                                    </div>
+                                  </CardContent>
+                                </Card>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        </div>
+
+                        <div>
+                          <Card>
+                            <CardContent>
+                              <div className="text-sm text-muted-foreground">Quick Info</div>
+                              <div className="mt-3">
+                                <div className="flex items-center justify-between"><div className="text-sm">Bedrooms</div><div className="font-semibold">4</div></div>
+                                <div className="flex items-center justify-between mt-2"><div className="text-sm">Bathrooms</div><div className="font-semibold">3</div></div>
+                                <div className="flex items-center justify-between mt-2"><div className="text-sm">Area</div><div className="font-semibold">1,024 ft</div></div>
+                                <div className="flex items-center justify-between mt-2"><div className="text-sm">Parking</div><div className="font-semibold">Indoor</div></div>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        </div>
+                      </div>
+                    </TabsContent>
 
                     <TabsContent value="amenities">
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
@@ -137,6 +201,7 @@ export default function PropertyPage() {
                             <div className="text-sm">{a}</div>
                           </div>
                         ))}
+                        <div className="col-span-2 mt-3 text-sm text-muted-foreground">Pets allowed: Yes (additional cleaning fee may apply)</div>
                       </div>
                     </TabsContent>
 
@@ -204,6 +269,24 @@ export default function PropertyPage() {
                       </div>
                     </TabsContent>
 
+                    <TabsContent value="reviews">
+                      <div className="mt-4 space-y-4">
+                        <div className="text-sm text-muted-foreground">{property.reviewsCount} reviews • Overall rating {property.rating}</div>
+                        <Card>
+                          <CardContent>
+                            <div className="font-semibold">Amazing stay</div>
+                            <div className="text-sm text-muted-foreground">The villa was spotless and the host was extremely helpful. Highly recommended!</div>
+                          </CardContent>
+                        </Card>
+                        <Card>
+                          <CardContent>
+                            <div className="font-semibold">Fantastic location</div>
+                            <div className="text-sm text-muted-foreground">Minutes from the beach and lots of great restaurants nearby.</div>
+                          </CardContent>
+                        </Card>
+                      </div>
+                    </TabsContent>
+
                     <TabsContent value="nearby">
                       <div className="grid md:grid-cols-2 gap-4 mt-4">
                         <div>
@@ -223,50 +306,6 @@ export default function PropertyPage() {
                   </Tabs>
                 </div>
 
-                {/* Host & Reviews */}
-                <div className="mt-6 grid md:grid-cols-3 gap-4 items-start">
-                  <div className="md:col-span-2">
-                    <h4 className="font-semibold mb-3">Hosted by {property.host.name}</h4>
-                    <p className="text-sm text-muted-foreground">Responsive host • Joined 2019 • Speaks English</p>
-
-                    <div className="mt-4">
-                      <h5 className="font-semibold">Guest Reviews</h5>
-                      <div className="mt-2 text-sm text-muted-foreground">{property.reviewsCount} reviews • Overall rating {property.rating}</div>
-                      <div className="mt-3 space-y-3">
-                        <Card>
-                          <CardContent>
-                            <div className="font-semibold">Amazing stay</div>
-                            <div className="text-sm text-muted-foreground">The villa was spotless and the host was extremely helpful. Highly recommended!</div>
-                          </CardContent>
-                        </Card>
-                        <Card>
-                          <CardContent>
-                            <div className="font-semibold">Fantastic location</div>
-                            <div className="text-sm text-muted-foreground">Minutes from the beach and lots of great restaurants nearby.</div>
-                          </CardContent>
-                        </Card>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <Card>
-                      <CardContent>
-                        <div className="text-sm text-muted-foreground">Hosted by</div>
-                        <div className="flex items-center space-x-3 mt-2">
-                          <img src={property.host.avatar} alt="host" className="h-12 w-12 rounded-full object-cover" />
-                          <div>
-                            <div className="font-medium">{property.host.name}</div>
-                            <div className="text-xs text-muted-foreground">Superhost</div>
-                          </div>
-                        </div>
-                        <div className="mt-4">
-                          <Button variant="outline" className="w-full">Contact Host</Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </div>
 
                 {/* Similar properties */}
                 <div className="mt-6">
