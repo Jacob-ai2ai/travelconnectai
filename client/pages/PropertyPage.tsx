@@ -501,7 +501,7 @@ export default function PropertyPage() {
                             <h4 className="font-semibold">Video Library</h4>
                             <div className="grid md:grid-cols-3 gap-4 mt-3">
                               {property.videos.map((v) => (
-                                <Card key={v.id} className="overflow-hidden">
+                                <Card key={v.id} draggable onDragStart={(e) => handleDragStart(e, { type: 'service', id: `vid-${v.id}-${property.id}`, title: v.title, price: 0, refId: property.id })} className="overflow-hidden">
                                   <div className="h-40 overflow-hidden">
                                     <img src={v.url} alt={v.title} className="w-full h-full object-cover" />
                                   </div>
@@ -668,7 +668,7 @@ export default function PropertyPage() {
                         <h4 className="font-semibold mb-3">Video Library</h4>
                         <div className="grid md:grid-cols-3 gap-4">
                           {property.videos.map((v) => (
-                            <Card key={v.id} className="overflow-hidden">
+                            <Card key={v.id} draggable onDragStart={(e) => handleDragStart(e, { type: 'service', id: `vid-${v.id}-${property.id}`, title: v.title, price: 0, refId: property.id })} className="overflow-hidden">
                               <div className="h-40 overflow-hidden">
                                 <img src={v.url} alt={v.title} className="w-full h-full object-cover" />
                               </div>
