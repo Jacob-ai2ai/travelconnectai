@@ -863,7 +863,6 @@ export default function PropertyPage() {
               <div className="mt-3 text-xs text-muted-foreground">Only 6 hours left to book. The host will stop accepting bookings for your dates soon.</div>
             </Card>
 
-            {fromItinerary && (
               <Card className="mt-4 p-4 w-full max-w-sm">
                 <div>
                   <h4 className="font-semibold mb-3">Your Itinerary</h4>
@@ -933,7 +932,8 @@ export default function PropertyPage() {
 
                 </div>
               </Card>
-            )}
+
+            {/* Floating AI assistant (Nova) will appear separately */}
 
             {/* Floating AI assistant (Nova) will appear separately */}
           </aside>
