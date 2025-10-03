@@ -943,9 +943,22 @@ export default function PropertyPage() {
             </button>
           </div>
         </div>
-        <textarea id="nova-prompt" className="w-full border rounded p-2 text-sm" rows={3} placeholder="Say 'Hey Nova' or type a request, e.g. 'Remove the spa'" />
+
+        <div className="h-28 overflow-auto mb-2 space-y-2">
+          {novaMessages.length === 0 ? (
+            <div className="text-xs text-muted-foreground">Nova will display responses here.</div>
+          ) : (
+            novaMessages.map((m, i) => (
+              <div key={i} className={`text-sm ${m.from === 'nova' ? 'text-slate-800' : 'text-sky-600'}`}>
+                <strong>{m.from === 'nova' ? 'Nova:' : 'You:'}</strong> {m.text}
+              </div>
+            ))
+          )}
+        </div>
+
+        <textarea id="nova-prompt" className="w-full border rounded p-2 text-sm" rows={3} placeholder="Type a request, e.g. 'Remove the spa'" />
         <div className="mt-2 flex justify-between">
-          <button className="text-xs text-muted-foreground" onClick={() => { const t = (document.getElementById('nova-prompt') as HTMLTextAreaElement).value; handleTranscript(t); (document.getElementById('nova-prompt') as HTMLTextAreaElement).value = ''; }}>Send</button>
+          <button className="text-xs text-muted-foreground" onClick={() => { const t = (document.getElementById('nova-prompt') as HTMLTextAreaElement).value; if (t.trim()) { setNovaMessages(prev => [...prev, { from: 'user', text: t }]); handleTranscript(t); (document.getElementById('nova-prompt') as HTMLTextAreaElement).value = ''; } }}>Send</button>
           <div className="text-xs text-muted-foreground">Voice & AI assistant</div>
         </div>
       </div>
