@@ -105,7 +105,7 @@ export default function PropertyPage() {
     e.preventDefault();
     const id = e.dataTransfer.getData("text/plain");
     const prop = SAMPLE_PROPERTIES.find((p) => p.id === id);
-    if (prop) addToItinerary(prop.id);
+    if (prop) addBilledStay(prop.id);
   };
 
   const handleRemoveCandidate = (id: string) => {
