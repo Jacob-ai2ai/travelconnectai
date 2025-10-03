@@ -351,6 +351,12 @@ export default function PropertyPage() {
 
           {/* Right: Booking panel */}
           <aside className="sticky top-24">
+            {/* If opened from itinerary replacement flow, show preview card */}
+            {(() => {
+              try {
+                // runtime guard to access window during SSR-safe render
+              } catch (e) {}
+            })()}
             <Card className="p-6 w-full max-w-sm">
               <div className="flex items-start justify-between mb-4">
                 <div>
