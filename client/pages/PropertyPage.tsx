@@ -138,6 +138,7 @@ export default function PropertyPage() {
                     </TabsList>
 
                     <TabsContent value="overview">
+                      {/* Top row: description + quick info */}
                       <div className="mt-4 grid md:grid-cols-3 gap-6">
                         <div className="md:col-span-2">
                           <Card>
@@ -147,43 +148,7 @@ export default function PropertyPage() {
                                 <p className="text-sm text-muted-foreground mt-2">{property.description}</p>
                               </div>
 
-                              <div className="mb-4">
-                                <h4 className="font-semibold">Location & Map</h4>
-                                <div className="h-48 bg-slate-100 flex items-center justify-center mt-2">Map placeholder</div>
-                              </div>
-
-                              <div className="mb-4">
-                                <h4 className="font-semibold">Nearby Attractions</h4>
-                                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-3">
-                                  <Card>
-                                    <div className="h-28 overflow-hidden">
-                                      <img src="/placeholder.svg" alt="Kuta Beach" className="w-full h-full object-cover" />
-                                    </div>
-                                    <CardContent>
-                                      <div className="font-medium">Kuta Beach</div>
-                                      <div className="text-xs text-muted-foreground">2 km</div>
-                                    </CardContent>
-                                  </Card>
-                                  <Card>
-                                    <div className="h-28 overflow-hidden">
-                                      <img src="/placeholder.svg" alt="Waterbom Bali" className="w-full h-full object-cover" />
-                                    </div>
-                                    <CardContent>
-                                      <div className="font-medium">Waterbom Bali</div>
-                                      <div className="text-xs text-muted-foreground">3 km</div>
-                                    </CardContent>
-                                  </Card>
-                                  <Card>
-                                    <div className="h-28 overflow-hidden">
-                                      <img src="/placeholder.svg" alt="Ubud Market" className="w-full h-full object-cover" />
-                                    </div>
-                                    <CardContent>
-                                      <div className="font-medium">Ubud Market</div>
-                                      <div className="text-xs text-muted-foreground">25 km</div>
-                                    </CardContent>
-                                  </Card>
-                                </div>
-                              </div>
+                              {/* small summary or highlights could go here */}
                             </CardContent>
                           </Card>
                         </div>
@@ -198,6 +163,52 @@ export default function PropertyPage() {
                                 <div className="flex items-center justify-between mt-2"><div className="text-sm">Area</div><div className="font-semibold">1,024 ft</div></div>
                                 <div className="flex items-center justify-between mt-2"><div className="text-sm">Parking</div><div className="font-semibold">Indoor</div></div>
                               </div>
+                            </CardContent>
+                          </Card>
+                        </div>
+                      </div>
+
+                      {/* Full width Map under the quick info */}
+                      <div className="mt-6">
+                        <Card>
+                          <CardContent>
+                            <h4 className="font-semibold mb-3">Location & Map</h4>
+                            <div className="h-64 bg-slate-100 flex items-center justify-center">Map placeholder (full width under Quick Info)</div>
+                          </CardContent>
+                        </Card>
+                      </div>
+
+                      {/* Nearby attractions full width */}
+                      <div className="mt-6">
+                        <h4 className="font-semibold mb-3">Nearby Attractions</h4>
+                        <div className="grid md:grid-cols-3 gap-4">
+                          <Card>
+                            <div className="h-36 overflow-hidden">
+                              <img src="/placeholder.svg" alt="Kuta Beach" className="w-full h-full object-cover" />
+                            </div>
+                            <CardContent>
+                              <div className="font-medium">Kuta Beach</div>
+                              <div className="text-xs text-muted-foreground">2 km</div>
+                            </CardContent>
+                          </Card>
+
+                          <Card>
+                            <div className="h-36 overflow-hidden">
+                              <img src="/placeholder.svg" alt="Waterbom Bali" className="w-full h-full object-cover" />
+                            </div>
+                            <CardContent>
+                              <div className="font-medium">Waterbom Bali</div>
+                              <div className="text-xs text-muted-foreground">3 km</div>
+                            </CardContent>
+                          </Card>
+
+                          <Card>
+                            <div className="h-36 overflow-hidden">
+                              <img src="/placeholder.svg" alt="Ubud Market" className="w-full h-full object-cover" />
+                            </div>
+                            <CardContent>
+                              <div className="font-medium">Ubud Market</div>
+                              <div className="text-xs text-muted-foreground">25 km</div>
                             </CardContent>
                           </Card>
                         </div>
