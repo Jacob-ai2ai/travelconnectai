@@ -107,12 +107,25 @@ export default function PropertyPage() {
               <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <h2 className="text-2xl font-bold">About this place</h2>
-                    <p className="text-muted-foreground mt-2">{property.description}</p>
+                    <h2 className="text-2xl font-bold">{property.name}</h2>
+                    <div className="text-sm text-muted-foreground">{property.location.address}</div>
+                    <div className="mt-3 flex items-center space-x-4">
+                      <div className="flex items-center space-x-3">
+                        <img src={property.host.avatar} alt="host" className="h-10 w-10 rounded-full object-cover" />
+                        <div>
+                          <div className="font-medium">Hosted by {property.host.name}</div>
+                          <div className="text-xs text-muted-foreground">Superhost • {property.reviewsCount} reviews</div>
+                        </div>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Button variant="outline" size="sm">Contact Host</Button>
+                        <Button size="sm">Request Live Walkthrough</Button>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                {/* Tabs: Overview / Amenities / Services / Experiences / Videos / Reviews / Nearby */}
+                {/* Tabs: Overview / Amenities / Services / Experiences / Videos / Reviews */}
                 <div className="mt-6">
                   <Tabs defaultValue="overview">
                     <TabsList>
