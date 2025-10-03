@@ -506,7 +506,7 @@ export default function PropertyPage() {
                   <h4 className="font-semibold mb-3">Properties available in the same area</h4>
                   <div className="grid md:grid-cols-3 gap-4">
                     {SAMPLE_PROPERTIES.map((p) => (
-                      <Card key={p.id}>
+                      <Card key={p.id} draggable onDragStart={(e) => handleDragStart(e, p.id)} className="cursor-grab">
                         <div className="h-36 bg-slate-100 overflow-hidden">
                           <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover" />
                         </div>
@@ -626,6 +626,46 @@ export default function PropertyPage() {
               <Button className="w-full bg-black text-white">Reserve</Button>
 
               <div className="mt-3 text-xs text-muted-foreground">Only 6 hours left to book. The host will stop accepting bookings for your dates soon.</div>
+            </Card>
+
+            {/* Drag & drop area for adding properties to itinerary */}
+            <Card className="mt-4 p-4 w-full max-w-sm">
+              <div>
+                <h4 className="font-semibold mb-3">Add properties to itinerary</h4>
+                <div
+                  onDrop={handleDropToItinerary}
+                  onDragOver={handleDragOver}
+                  className="h-40 border-2 border-dashed rounded flex items-center justify-center text-sm text-muted-foreground"
+                >
+                  Drag property cards here to add to itinerary
+                </div>
+
+                <div className="mt-3">
+                  {itineraryCandidates.length === 0 ? (
+                    <div className="text-xs text-muted-foreground">No properties added yet. Drag items from the list on the left.</div>
+                  ) : (
+                    <div className="space-y-2">
+                      {itineraryCandidates.map((c) => (
+                        <div key={c.id} className="flex items-center justify-between border rounded p-2">
+                          <div className="flex items-center space-x-2">
+                            <div className="w-14 h-12 overflow-hidden rounded-md">
+                              <img src={c.images[0]} alt={c.name} className="w-full h-full object-cover" />
+                            </div>
+                            <div>
+                              <div className="font-semibold text-sm">{c.name}</div>
+                              <div className="text-xs text-muted-foreground">${c.pricePerNight} / night</div>
+                            </div>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Button size="xs" variant="ghost" onClick={() => handleRemoveCandidate(c.id)}>Remove</Button>
+                            <Button size="xs" onClick={() => handleChooseCandidate(c.id)}>Choose</Button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
             </Card>
           </aside>
         </div>
