@@ -173,6 +173,104 @@ export default function PropertyPage() {
     });
   };
 
+  // Voice assistant: Nova using Web Speech API (basic)
+  const recognitionRef = React.useRef<any>(null);
+  const [isListening, setIsListening] = React.useState(false);
+  const [isAwake, setIsAwake] = React.useState(false);
+
+  React.useEffect(() => {
+    const w: any = window as any;
+    const SpeechRecognition = w.SpeechRecognition || w.webkitSpeechRecognition;
+    if (!SpeechRecognition) return;
+    const r = new SpeechRecognition();
+    r.continuous = true;
+    r.interimResults = false;
+    r.lang = 'en-US';
+    r.onresult = (ev: any) => {
+      const text = Array.from(ev.results).map((r: any) => r[0].transcript).join(' ');
+      handleTranscript(text);
+    };
+    r.onend = () => {
+      setIsListening(false);
+    };
+    recognitionRef.current = r;
+  }, []);
+
+  const speak = (msg: string) => {
+    const w: any = window as any;
+    if (!w.speechSynthesis) return;
+    const utter = new SpeechSynthesisUtterance(msg);
+    w.speechSynthesis.cancel();
+    w.speechSynthesis.speak(utter);
+  };
+
+  const startListening = () => {
+    const r = recognitionRef.current;
+    if (!r) return alert('Speech recognition not supported in this browser');
+    try { r.start(); setIsListening(true); } catch (e) { console.warn(e); }
+  };
+  const stopListening = () => { const r = recognitionRef.current; if (r) try { r.stop(); } catch (e) {} setIsListening(false); };
+
+  const handleTranscript = (text: string) => {
+    const t = text.toLowerCase();
+    console.log('Transcript:', t);
+    // wake word
+    if (t.includes('hey nova') || t.includes('ok nova')) {
+      setIsAwake(true);
+      speak('Yes, how can I help?');
+      return;
+    }
+    if (!isAwake) return;
+
+    // process simple commands: remove <thing>, add <property name>, increase/decrease <item>
+    if (t.includes('remove')) {
+      // try match billedItems by title
+      const name = t.replace('remove', '').trim();
+      const found = billedItems.find((it) => it.title.toLowerCase().includes(name));
+      if (found) {
+        removeBilledItem(found.id);
+        speak(`${found.title} removed from your itinerary`);
+      } else speak('I could not find that item to remove');
+      setIsAwake(false);
+      return;
+    }
+
+    if (t.includes('add')) {
+      const name = t.replace('add', '').trim();
+      // try find property by name
+      const prop = SAMPLE_PROPERTIES.find((p) => p.name.toLowerCase().includes(name));
+      if (prop) {
+        addBilledStay(prop.id);
+        speak(`${prop.name} added to your itinerary`);
+      } else {
+        // try experiences in current property
+        const exp = property.experiences.find((e) => e.toLowerCase().includes(name));
+        if (exp) {
+          addBillItem({ id: `exp-${Date.now()}`, type: 'experience', title: exp, price: 45, qty: 1 });
+          speak(`${exp} added to your itinerary`);
+        } else speak('Could not find the item to add');
+      }
+      setIsAwake(false);
+      return;
+    }
+
+    if (t.includes('increase') || t.includes('decrease') || t.includes('more') || t.includes('less')) {
+      const inc = t.includes('increase') || t.includes('more');
+      const dec = t.includes('decrease') || t.includes('less');
+      const name = t.replace('increase', '').replace('decrease','').replace('more','').replace('less','').trim();
+      const found = billedItems.find((it) => it.title.toLowerCase().includes(name));
+      if (found) {
+        changeBilledQty(found.id, inc ? 1 : -1);
+        speak(`${found.title} quantity updated`);
+      } else speak('Item not found');
+      setIsAwake(false);
+      return;
+    }
+
+    speak('I did not understand that command');
+    setIsAwake(false);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
@@ -193,7 +291,7 @@ export default function PropertyPage() {
                 <div className="text-sm text-muted-foreground">{property.location.address}</div>
               </div>
             </div>
-            <div className="flex flex-col items-end space-y-2">
+            <div className="flex items-center space-x-3">
               {/* Added / Not added toggle */}
               {(() => {
                 const isAdded = billedItems.some((it) => it.type === "stay" && it.refId === property.id);
@@ -207,6 +305,11 @@ export default function PropertyPage() {
                 );
               })()}
 
+              <Button variant="link" size="sm" onClick={() => {
+                const el = document.getElementById('more-stays');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}>More properties</Button>
+
               <div className="flex items-center space-x-2">
                 <Button variant="ghost">
                   <Heart className="h-4 w-4" />
@@ -215,11 +318,6 @@ export default function PropertyPage() {
                   <Share2 className="h-4 w-4" />
                 </Button>
               </div>
-
-              <Button variant="link" size="sm" onClick={() => {
-                const el = document.getElementById('more-stays');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }}>More stays</Button>
             </div>
           </div>
         </div>
@@ -785,45 +883,12 @@ export default function PropertyPage() {
                   <Button className="w-full">Checkout</Button>
                 </div>
 
-                {/* AI prompt box */}
-                <div className="mt-3 mb-3">
-                  <label className="text-sm font-medium">Ask the AI to modify this itinerary</label>
-                  <textarea id="ai-prompt" className="w-full border rounded p-2 mt-2" rows={3} placeholder="e.g. Remove the spa, add a 2-night stay at Bali Villa"></textarea>
-                  <div className="mt-2 flex justify-end">
-                    <Button size="sm" onClick={() => { const val = (document.getElementById('ai-prompt') as HTMLTextAreaElement).value; alert(`AI request submitted: ${val}`); }}>Apply</Button>
-                  </div>
-                </div>
-
-                {/* Recently viewed / suggestions */}
-                <div>
-                  <div className="text-sm font-medium mb-2">Recently viewed</div>
-                  <div className="space-y-2">
-                    {SAMPLE_PROPERTIES.filter((p) => p.id !== property.id).length === 0 ? (
-                      <div className="text-xs text-muted-foreground">No recently viewed properties.</div>
-                    ) : (
-                      SAMPLE_PROPERTIES.filter((p) => p.id !== property.id).map((p) => (
-                        <div key={p.id} className="flex items-center justify-between border rounded p-2">
-                          <div className="flex items-center space-x-2">
-                            <div className="w-12 h-12 overflow-hidden rounded-md">
-                              <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover" />
-                            </div>
-                            <div className="text-sm">
-                              <div className="font-semibold">{p.name}</div>
-                              <div className="text-xs text-muted-foreground">${p.pricePerNight} / night</div>
-                            </div>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <Button size="xs" variant="ghost" onClick={() => removeBilledItem(`stay-${p.id}`)}>Remove</Button>
-                            <Button size="xs" onClick={() => addBilledStay(p.id)}>Add</Button>
-                          </div>
-                        </div>
-                      ))
-                    )}
-                  </div>
-                </div>
+                {/* total and checkout is above */}
 
               </div>
             </Card>
+
+            {/* Floating AI assistant (Nova) will appear separately */}
           </aside>
         </div>
       </div>
