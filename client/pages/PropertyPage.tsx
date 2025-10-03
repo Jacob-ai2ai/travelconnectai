@@ -143,47 +143,46 @@ export default function PropertyPage() {
                           <Card>
                             <CardContent>
                               <div className="mb-4">
-                                <h4 className="font-semibold">Location & Map</h4>
-                                <div className="h-48 bg-slate-100 flex items-center justify-center mt-2">Map placeholder</div>
-                              </div>
-
-                              <div className="mb-4">
                                 <h4 className="font-semibold">Property Description</h4>
                                 <p className="text-sm text-muted-foreground mt-2">{property.description}</p>
                               </div>
 
                               <div className="mb-4">
-                                <h4 className="font-semibold">Nearby Attractions</h4>
-                                <ul className="list-disc pl-5 mt-2 text-sm text-muted-foreground">
-                                  <li>Kuta Beach — 2 km</li>
-                                  <li>Waterbom Bali — 3 km</li>
-                                  <li>Ubud Market — 25 km</li>
-                                </ul>
+                                <h4 className="font-semibold">Location & Map</h4>
+                                <div className="h-48 bg-slate-100 flex items-center justify-center mt-2">Map placeholder</div>
                               </div>
 
                               <div className="mb-4">
-                                <h4 className="font-semibold">Hosted by</h4>
-                                <Card>
-                                  <CardContent>
-                                    <div className="flex items-center justify-between">
-                                      <div className="flex items-center space-x-3">
-                                        <img src={property.host.avatar} alt="host" className="h-12 w-12 rounded-full object-cover" />
-                                        <div>
-                                          <div className="font-medium">{property.host.name}</div>
-                                          <div className="text-xs text-muted-foreground">Superhost</div>
-                                        </div>
-                                      </div>
-                                      <div className="text-right">
-                                        <div className="text-sm text-muted-foreground">{property.reviewsCount} reviews</div>
-                                        <div className="text-sm text-muted-foreground">Overall {property.rating}</div>
-                                      </div>
+                                <h4 className="font-semibold">Nearby Attractions</h4>
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-3">
+                                  <Card>
+                                    <div className="h-28 overflow-hidden">
+                                      <img src="/placeholder.svg" alt="Kuta Beach" className="w-full h-full object-cover" />
                                     </div>
-                                    <div className="mt-4 flex space-x-2">
-                                      <Button variant="outline" className="flex-1">Contact Host</Button>
-                                      <Button className="flex-1 bg-white/90 text-black">Request Live Walkthrough</Button>
+                                    <CardContent>
+                                      <div className="font-medium">Kuta Beach</div>
+                                      <div className="text-xs text-muted-foreground">2 km</div>
+                                    </CardContent>
+                                  </Card>
+                                  <Card>
+                                    <div className="h-28 overflow-hidden">
+                                      <img src="/placeholder.svg" alt="Waterbom Bali" className="w-full h-full object-cover" />
                                     </div>
-                                  </CardContent>
-                                </Card>
+                                    <CardContent>
+                                      <div className="font-medium">Waterbom Bali</div>
+                                      <div className="text-xs text-muted-foreground">3 km</div>
+                                    </CardContent>
+                                  </Card>
+                                  <Card>
+                                    <div className="h-28 overflow-hidden">
+                                      <img src="/placeholder.svg" alt="Ubud Market" className="w-full h-full object-cover" />
+                                    </div>
+                                    <CardContent>
+                                      <div className="font-medium">Ubud Market</div>
+                                      <div className="text-xs text-muted-foreground">25 km</div>
+                                    </CardContent>
+                                  </Card>
+                                </div>
                               </div>
                             </CardContent>
                           </Card>
