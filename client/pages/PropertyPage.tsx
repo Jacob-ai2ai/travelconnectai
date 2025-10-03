@@ -193,13 +193,33 @@ export default function PropertyPage() {
                 <div className="text-sm text-muted-foreground">{property.location.address}</div>
               </div>
             </div>
-            <div className="flex items-center space-x-2">
-              <Button variant="ghost">
-                <Heart className="h-4 w-4" />
-              </Button>
-              <Button variant="ghost">
-                <Share2 className="h-4 w-4" />
-              </Button>
+            <div className="flex flex-col items-end space-y-2">
+              {/* Added / Not added toggle */}
+              {(() => {
+                const isAdded = billedItems.some((it) => it.type === "stay" && it.refId === property.id);
+                return (
+                  <Button size="sm" onClick={() => {
+                    if (isAdded) removeBilledItem(`stay-${property.id}`);
+                    else addBilledStay(property.id);
+                  }}>
+                    {isAdded ? "Added" : "Add to itinerary"}
+                  </Button>
+                );
+              })()}
+
+              <div className="flex items-center space-x-2">
+                <Button variant="ghost">
+                  <Heart className="h-4 w-4" />
+                </Button>
+                <Button variant="ghost">
+                  <Share2 className="h-4 w-4" />
+                </Button>
+              </div>
+
+              <Button variant="link" size="sm" onClick={() => {
+                const el = document.getElementById('more-stays');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}>More stays</Button>
             </div>
           </div>
         </div>
@@ -569,7 +589,7 @@ export default function PropertyPage() {
 
 
                 {/* Similar properties */}
-                <div className="mt-6">
+                <div id="more-stays" className="mt-6">
                   <h4 className="font-semibold mb-3">Properties available in the same area</h4>
                   <div className="grid md:grid-cols-3 gap-4">
                     {SAMPLE_PROPERTIES.map((p) => (
