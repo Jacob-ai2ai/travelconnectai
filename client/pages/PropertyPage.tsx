@@ -319,7 +319,7 @@ export default function PropertyPage() {
         {/* Header */}
         <div className="mb-6">
           <nav className="text-sm text-muted-foreground mb-3">
-            <Link to="/">Home</Link> / <Link to="/trip-details/budget-bali">Classic Bali Experience</Link> / <span className="font-medium">{property.name}</span>
+            <Link to="/">Home</Link> / {fromItinerary ? <Link to="/trip-details/budget-bali">Classic Bali Experience</Link> : <Link to="/stays">Stays</Link>} / <span className="font-medium">{property.name}</span>
           </nav>
           <div className="flex items-center justify-between">
             <div>
