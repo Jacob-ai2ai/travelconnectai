@@ -697,16 +697,20 @@ export default function PropertyPage() {
                 ) : (
                   <div className="space-y-3 mb-4">
                     {billedItems.map((it) => {
-                      const p = it.refId ? SAMPLE_PROPERTIES.find((x) => x.id === it.refId)! : undefined;
+                      const p = it.refId ? SAMPLE_PROPERTIES.find((x) => x.id === it.refId) : undefined;
+                      const imageSrc = p?.images?.[0] ?? "/placeholder.svg";
+                      const title = it.title ?? p?.name ?? "Item";
+                      const subtitle = it.type === "stay" ? (p ? `$${p.pricePerNight} / night` : `$${it.price}`) : `$${it.price}`;
+
                       return (
                         <div key={it.id} className="flex items-center justify-between border rounded p-3">
                           <div className="flex items-center space-x-3">
                             <div className="w-16 h-12 overflow-hidden rounded-md">
-                              <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover" />
+                              <img src={imageSrc} alt={title} className="w-full h-full object-cover" />
                             </div>
                             <div>
-                              <div className="font-semibold">{p.name}</div>
-                              <div className="text-xs text-muted-foreground">${p.pricePerNight} / night</div>
+                              <div className="font-semibold">{title}</div>
+                              <div className="text-xs text-muted-foreground">{subtitle}</div>
                             </div>
                           </div>
 
