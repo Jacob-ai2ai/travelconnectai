@@ -892,6 +892,31 @@ export default function PropertyPage() {
           </aside>
         </div>
       </div>
+
+      {/* Floating Nova assistant */}
+      <div className="fixed bottom-6 right-6 w-80 bg-white border rounded p-3 shadow-lg z-50">
+        <div className="flex items-center justify-between mb-2">
+          <div className="font-semibold">Nova</div>
+          <div className="flex items-center space-x-2">
+            <div className={`h-2 w-2 rounded-full ${isAwake ? 'bg-green-500' : 'bg-gray-300'}`} />
+            <button
+              aria-label="Toggle mic"
+              className={`px-2 py-1 text-sm rounded ${isListening ? 'bg-red-100' : 'bg-gray-100'}`}
+              onClick={() => {
+                if (isListening) stopListening(); else startListening();
+              }}
+            >
+              {isListening ? 'Listening...' : 'Mic'}
+            </button>
+          </div>
+        </div>
+        <textarea id="nova-prompt" className="w-full border rounded p-2 text-sm" rows={3} placeholder="Say 'Hey Nova' or type a request, e.g. 'Remove the spa'" />
+        <div className="mt-2 flex justify-between">
+          <button className="text-xs text-muted-foreground" onClick={() => { const t = (document.getElementById('nova-prompt') as HTMLTextAreaElement).value; handleTranscript(t); (document.getElementById('nova-prompt') as HTMLTextAreaElement).value = ''; }}>Send</button>
+          <div className="text-xs text-muted-foreground">Voice & AI assistant</div>
+        </div>
+      </div>
+
     </div>
   );
 }
