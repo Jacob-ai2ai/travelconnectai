@@ -715,11 +715,15 @@ export default function PropertyPage() {
                           </div>
 
                           <div className="flex items-center space-x-2">
-                            <div className="flex items-center border rounded">
-                              <button className="px-3 py-1 text-sm" onClick={() => changeBilledQty(it.id, -1)}>-</button>
-                              <div className="px-4 py-1 text-sm">{it.qty}</div>
-                              <button className="px-3 py-1 text-sm" onClick={() => changeBilledQty(it.id, 1)}>+</button>
-                            </div>
+                            {it.type === "stay" ? (
+                              <div className="px-4 py-1 text-sm">Qty: 1</div>
+                            ) : (
+                              <div className="flex items-center border rounded">
+                                <button className="px-3 py-1 text-sm" onClick={() => changeBilledQty(it.id, -1)}>-</button>
+                                <div className="px-4 py-1 text-sm">{it.qty}</div>
+                                <button className="px-3 py-1 text-sm" onClick={() => changeBilledQty(it.id, 1)}>+</button>
+                              </div>
+                            )}
                             <Button size="xs" variant="ghost" onClick={() => removeBilledItem(it.id)}>Remove</Button>
                           </div>
                         </div>
@@ -727,6 +731,35 @@ export default function PropertyPage() {
                     })}
                   </div>
                 )}
+
+                {/* small drop zone to add properties by drag & drop */}
+                <div className="mt-2 mb-3">
+                  <div
+                    onDrop={handleDropToItinerary}
+                    onDragOver={handleDragOver}
+                    className="h-12 border-2 border-dashed rounded flex items-center justify-center text-sm text-muted-foreground"
+                  >
+                    Drag properties here to add to itinerary
+                  </div>
+                </div>
+
+                {/* total and checkout */}
+                <div className="border-t pt-3 mt-3 mb-3">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="text-sm text-muted-foreground">Total</div>
+                    <div className="text-lg font-bold">${billedItems.reduce((s, it) => s + it.price * it.qty, 0).toFixed(2)}</div>
+                  </div>
+                  <Button className="w-full">Checkout</Button>
+                </div>
+
+                {/* AI prompt box */}
+                <div className="mt-3 mb-3">
+                  <label className="text-sm font-medium">Ask the AI to modify this itinerary</label>
+                  <textarea id="ai-prompt" className="w-full border rounded p-2 mt-2" rows={3} placeholder="e.g. Remove the spa, add a 2-night stay at Bali Villa"></textarea>
+                  <div className="mt-2 flex justify-end">
+                    <Button size="sm" onClick={() => { const val = (document.getElementById('ai-prompt') as HTMLTextAreaElement).value; alert(`AI request submitted: ${val}`); }}>Apply</Button>
+                  </div>
+                </div>
 
                 {/* Recently viewed / suggestions */}
                 <div>
