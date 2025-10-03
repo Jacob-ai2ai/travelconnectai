@@ -122,7 +122,6 @@ export default function PropertyPage() {
                       <TabsTrigger value="experiences">Experiences</TabsTrigger>
                       <TabsTrigger value="videos">Videos</TabsTrigger>
                       <TabsTrigger value="reviews">Reviews</TabsTrigger>
-                      <TabsTrigger value="nearby">Nearby</TabsTrigger>
                     </TabsList>
 
                     <TabsContent value="overview">
@@ -287,22 +286,6 @@ export default function PropertyPage() {
                       </div>
                     </TabsContent>
 
-                    <TabsContent value="nearby">
-                      <div className="grid md:grid-cols-2 gap-4 mt-4">
-                        <div>
-                          <ul className="list-disc pl-5 space-y-2 text-sm text-muted-foreground">
-                            <li>Kuta Beach — 2 km</li>
-                            <li>Waterbom Bali — 3 km</li>
-                            <li>Ubud Market — 25 km</li>
-                          </ul>
-                        </div>
-                        <div>
-                          <Card>
-                            <div className="h-48 bg-slate-100 flex items-center justify-center text-sm text-muted-foreground">Map placeholder</div>
-                          </Card>
-                        </div>
-                      </div>
-                    </TabsContent>
                   </Tabs>
                 </div>
 
