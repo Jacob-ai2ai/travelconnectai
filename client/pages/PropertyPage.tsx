@@ -338,7 +338,7 @@ export default function PropertyPage() {
             </div>
             <div className="flex items-center space-x-3">
               {/* Added / Not added toggle */}
-              {fromItinerary ? (() => {
+              {(() => {
                 const isAdded = billedItems.some((it) => it.type === "stay" && it.refId === property.id);
                 return (
                   <Button size="sm" onClick={() => {
@@ -348,11 +348,7 @@ export default function PropertyPage() {
                     {isAdded ? "Added" : "Add to itinerary"}
                   </Button>
                 );
-              })() : (
-                <Button size="sm" onClick={() => { const el = document.getElementById('booking-panel'); if (el) el.scrollIntoView({ behavior: 'smooth' }); else alert('Reserve'); }}>
-                  Reserve
-                </Button>
-              )}
+              })()}
 
               <Button variant="link" size="sm" onClick={() => { const el = document.getElementById('more-stays'); if (el) el.scrollIntoView({ behavior: 'smooth' }); }}>More properties</Button>
 
