@@ -647,7 +647,7 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
                     </div>
                     {selectedPoint.duration && (
                       <div>
-                        <span className="text-muted-foreground">Duration:</span>
+                        <span className="text-muted-foreground">Timing:</span>
                         <div className="font-medium">
                           {selectedPoint.duration}
                         </div>
@@ -840,9 +840,28 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
                             key={point.id}
                             className="flex items-start space-x-4 p-4 border rounded-lg hover:shadow-md transition-shadow"
                           >
-                            <div className="w-24 text-xs text-muted-foreground flex-shrink-0">
-                              <div className="font-semibold">{point.time}</div>
-                              <div>Day {point.day}</div>
+                            <div className="w-28 text-xs text-muted-foreground flex-shrink-0">
+                              <label className="block text-xxs text-muted-foreground">Day</label>
+                              <select
+                                value={(scheduleEdits[point.id]?.day ?? point.day)}
+                                onChange={(e) => {
+                                  const day = parseInt(e.target.value, 10);
+                                  setScheduleEdits((prev) => ({ ...prev, [point.id]: { ...(prev[point.id] ?? { day: point.day, time: point.time }), day } }));
+                                }}
+                                className="text-sm border rounded px-2 py-1 w-full mb-2"
+                              >
+                                {[1, 2, 3, 4, 5, 6, 7].map((d) => (
+                                  <option key={d} value={d}>Day {d}</option>
+                                ))}
+                              </select>
+
+                              <label className="block text-xxs text-muted-foreground">Time</label>
+                              <input
+                                type="text"
+                                value={(scheduleEdits[point.id]?.time ?? point.time)}
+                                onChange={(e) => setScheduleEdits((prev) => ({ ...prev, [point.id]: { ...(prev[point.id] ?? { day: point.day, time: point.time }), time: e.target.value } }))}
+                                className="text-sm border rounded px-2 py-1 w-full"
+                              />
                             </div>
 
                             <div className="flex-shrink-0">
@@ -904,29 +923,6 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
                                     </div>
                                   ) : null;
                                 })()}
-
-                                {/* Editable day and time controls */}
-                                <div className="flex items-center space-x-2">
-                                  <select
-                                    value={(scheduleEdits[point.id]?.day ?? point.day)}
-                                    onChange={(e) => {
-                                      const day = parseInt(e.target.value, 10);
-                                      setScheduleEdits((prev) => ({ ...prev, [point.id]: { ...(prev[point.id] ?? { day: point.day, time: point.time }), day } }));
-                                    }}
-                                    className="text-sm border rounded px-2 py-1"
-                                  >
-                                    {[1, 2, 3, 4, 5, 6, 7].map((d) => (
-                                      <option key={d} value={d}>Day {d}</option>
-                                    ))}
-                                  </select>
-
-                                  <input
-                                    type="text"
-                                    value={(scheduleEdits[point.id]?.time ?? point.time)}
-                                    onChange={(e) => setScheduleEdits((prev) => ({ ...prev, [point.id]: { ...(prev[point.id] ?? { day: point.day, time: point.time }), time: e.target.value } }))}
-                                    className="text-sm border rounded px-2 py-1 w-28"
-                                  />
-                                </div>
 
                                 {/* Replace action highlighted in red; Remove button intentionally removed */}
                                 <Link to={`/replace-options/${point.id}`}>
