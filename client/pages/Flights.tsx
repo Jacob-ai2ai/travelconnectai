@@ -54,6 +54,8 @@ interface Flight {
   reviews: number;
 }
 
+import { useState, useEffect } from "react";
+
 export default function Flights() {
   const [currentLocation, setCurrentLocation] = useState<string>(
     "Detecting location...",
@@ -64,25 +66,8 @@ export default function Flights() {
   const [isLoadingLocation, setIsLoadingLocation] = useState(true);
   const [locationError, setLocationError] = useState<string | null>(null);
 
-  const [peopleCounts, setPeopleCounts] = useState<Record<string, number>>({});
-  const [selectedFlights, setSelectedFlights] = useState<string[]>([]);
-
-  useEffect(() => {
-    if (flights.length > 0) {
-      setPeopleCounts(Object.fromEntries(flights.map((f) => [f.id, 1])));
-    }
-  }, [flights]);
-
-  const changePeople = (id: string, delta: number) => {
-    setPeopleCounts((prev) => {
-      const cur = prev[id] ?? 1;
-      const next = Math.max(1, cur + delta);
-      return { ...prev, [id]: next };
-    });
-  };
-
-  const addToItinerary = (id: string) => setSelectedFlights((s) => Array.from(new Set([...s, id])));
-  const removeFromItinerary = (id: string) => setSelectedFlights((s) => s.filter((i) => i !== id));
+  const addToItinerary = (id: string) => {};
+  const removeFromItinerary = (id: string) => {};
 
   const flightTypes: FlightType[] = [
     {
