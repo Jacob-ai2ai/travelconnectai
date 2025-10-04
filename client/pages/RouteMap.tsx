@@ -840,27 +840,25 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
                             key={point.id}
                             className="flex items-start space-x-4 p-4 border rounded-lg hover:shadow-md transition-shadow"
                           >
-                            <div className="w-28 text-xs text-muted-foreground flex-shrink-0">
-                              <label className="block text-xxs text-muted-foreground">Day</label>
+                            <div className="w-20 text-xs text-muted-foreground flex-shrink-0">
                               <select
                                 value={(scheduleEdits[point.id]?.day ?? point.day)}
                                 onChange={(e) => {
                                   const day = parseInt(e.target.value, 10);
                                   setScheduleEdits((prev) => ({ ...prev, [point.id]: { ...(prev[point.id] ?? { day: point.day, time: point.time }), day } }));
                                 }}
-                                className="text-sm border rounded px-2 py-1 w-full mb-2"
+                                className="text-xs border rounded px-1 py-1 w-full mb-1"
                               >
                                 {[1, 2, 3, 4, 5, 6, 7].map((d) => (
-                                  <option key={d} value={d}>Day {d}</option>
+                                  <option key={d} value={d}>{d}</option>
                                 ))}
                               </select>
 
-                              <label className="block text-xxs text-muted-foreground">Time</label>
                               <input
                                 type="text"
                                 value={(scheduleEdits[point.id]?.time ?? point.time)}
                                 onChange={(e) => setScheduleEdits((prev) => ({ ...prev, [point.id]: { ...(prev[point.id] ?? { day: point.day, time: point.time }), time: e.target.value } }))}
-                                className="text-sm border rounded px-2 py-1 w-full"
+                                className="text-xs border rounded px-1 py-1 w-full"
                               />
                             </div>
 
