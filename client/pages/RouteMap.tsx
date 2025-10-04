@@ -82,7 +82,7 @@ interface Product {
   inStock: number;
 }
 
-export default function RouteMap() {
+export default function RouteMap({ showHeader = true }: { showHeader?: boolean }) {
   const { planId } = useParams();
   const [selectedPoint, setSelectedPoint] = useState<RoutePoint | null>(null);
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
