@@ -95,7 +95,7 @@ interface Product {
 
 export default function TripDetails() {
   const { planId } = useParams();
-  const [selectedTab, setSelectedTab] = useState("accommodations");
+  const [selectedTab, setSelectedTab] = useState("full");
   const [selectedAccommodation, setSelectedAccommodation] = useState<
     string | null
   >(null);
