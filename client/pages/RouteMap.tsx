@@ -371,7 +371,7 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted">
-      {/* Header */}
+      {showHeader && (
       <header className="border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-4">
@@ -406,9 +406,10 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
           </div>
         </div>
       </header>
+      )}
 
       <div className="container mx-auto px-4 py-8">
-        {/* Trip Overview */}
+        {showHeader && (
         <div className="mb-8">
           <div className="flex items-center space-x-2 mb-4">
             <Badge className="bg-travel-blue/10 text-travel-blue border-travel-blue/20">
@@ -425,6 +426,7 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
             recommended stops, and exclusive offers along the way.
           </p>
         </div>
+        )}
 
         <div className="grid lg:grid-cols-3 gap-6">
           {/* Map Area */}
@@ -820,6 +822,7 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
         </div>
 
         {/* Navigation Controls */}
+        {showHeader && (
         <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-40">
           <Card className="px-6 py-4">
             <div className="flex items-center space-x-4">
@@ -841,6 +844,7 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
             </div>
           </Card>
         </div>
+        )}
       </div>
     </div>
   );
