@@ -434,52 +434,7 @@ export default function TripDetails() {
 
           {/* Full Itinerary Tab */}
           <TabsContent value="full" className="mt-6">
-            <div className="space-y-6">
-              {/* Hero map */}
-              <Card className="overflow-hidden">
-                <div className="md:grid md:grid-cols-3 gap-6 items-stretch">
-                  <div className="md:col-span-2 bg-slate-100 h-64 flex items-center justify-center">
-                    {/* Map placeholder - link to Route Map for full view */}
-                    <Link to={`/route-map/${planId}`} className="w-full h-full block">
-                      <div className="w-full h-full flex items-center justify-center text-muted-foreground">Map preview - click to open full route map</div>
-                    </Link>
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-bold mb-2">Itinerary Summary</h3>
-                    <div className="text-sm text-muted-foreground">7 Days · 6 Nights · 2 Persons</div>
-                    <div className="mt-4">
-                      <Button variant="outline" size="sm" className="mr-2">View on map</Button>
-                      <Button size="sm">Export</Button>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-
-              {/* Day by day items */}
-              {[1,2,3,4,5,6,7].map((day)=> (
-                <div key={day} className="space-y-3">
-                  <h4 className="font-semibold">Day {day}</h4>
-                  <div className="grid gap-3">
-                    {/* sample itinerary items per day */}
-                    {[1,2].map((i)=> (
-                      <Card key={i} className="flex items-center justify-between p-3">
-                        <div className="flex items-start space-x-3">
-                          <div className="w-16 h-12 bg-muted rounded-md flex items-center justify-center text-sm">Img</div>
-                          <div>
-                            <div className="font-semibold">Activity {i} - Sample</div>
-                            <div className="text-sm text-muted-foreground">{day}/10/2025 · {8+i}:00 AM · 2 persons</div>
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <button className="px-2 py-1 border rounded" aria-label="decrease" onClick={() => changeKeptQty(`day-${day}-item-${i}`, -1)}>-</button>
-                          <button className="px-2 py-1 border rounded" aria-label="increase" onClick={() => changeKeptQty(`day-${day}-item-${i}`, 1)}>+</button>
-                        </div>
-                      </Card>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
+            <RouteMap />
           </TabsContent>
 
           {/* Accommodations Tab */}
