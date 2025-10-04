@@ -607,27 +607,10 @@ export default function Flights() {
                       </span>
                     </div>
                     <div className="text-right">
-                      <div className="flex flex-col items-end space-y-2">
-                        <div className="flex items-center space-x-3">
-                          <div className="flex items-center space-x-2 mr-2">
-                            <button className="px-2 py-1 border rounded" aria-label="decrease" onClick={() => changePeople(flight.id, -1)}>-</button>
-                            <div className="px-3 py-1 text-sm">{peopleCounts[flight.id] ?? 1}</div>
-                            <button className="px-2 py-1 border rounded" aria-label="increase" onClick={() => changePeople(flight.id, 1)}>+</button>
-                          </div>
-
-                          <div className="text-2xl font-bold">${flight.price}</div>
-                        </div>
-
-                        <span className="text-xs text-muted-foreground">per person</span>
-
-                        <div>
-                          <Link to={`/replace-options/${flight.id}`}>
-                            <Button size="sm" variant="ghost" className="p-1 h-8 w-8">
-                              <Repeat className="h-4 w-4 text-travel-blue" />
-                            </Button>
-                          </Link>
-                        </div>
-                      </div>
+                      <div className="text-2xl font-bold">${flight.price}</div>
+                      <span className="text-xs text-muted-foreground">
+                        per person
+                      </span>
                     </div>
                   </div>
 
