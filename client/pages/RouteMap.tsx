@@ -914,20 +914,20 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
                                 </Button>
                               </Link>
 
-                              {/* Price and compact people controls inline */}
-                              <div className="flex items-center space-x-2">
-                                <div className="text-xs font-semibold">{point.price ? `$${((peopleCounts[point.id] ?? 1) * (point.price ?? 0)).toFixed(2)}` : ""}</div>
-
+                              {/* Compact people controls before price (larger size) */}
+                              <div className="flex items-center space-x-3">
                                 {(() => {
                                   const applicable = Boolean(point.price) || ["experience", "restaurant", "attraction", "stay"].includes(point.type);
                                   return applicable ? (
-                                    <div className="flex items-center space-x-1">
-                                      <button className="px-1 py-0.5 border rounded text-xs" aria-label="decrease" onClick={() => changePeople(point.id, -1)}>-</button>
-                                      <div className="px-2 py-0.5 text-xs">{peopleCounts[point.id] ?? 1}</div>
-                                      <button className="px-1 py-0.5 border rounded text-xs" aria-label="increase" onClick={() => changePeople(point.id, 1)}>+</button>
+                                    <div className="flex items-center space-x-2">
+                                      <button className="px-2 py-1 border rounded text-sm" aria-label="decrease" onClick={() => changePeople(point.id, -1)}>-</button>
+                                      <div className="px-3 py-1 text-sm">{peopleCounts[point.id] ?? 1}</div>
+                                      <button className="px-2 py-1 border rounded text-sm" aria-label="increase" onClick={() => changePeople(point.id, 1)}>+</button>
                                     </div>
                                   ) : null;
                                 })()}
+
+                                <div className="text-sm font-semibold">{point.price ? `$${((peopleCounts[point.id] ?? 1) * (point.price ?? 0)).toFixed(2)}` : ""}</div>
                               </div>
                             </div>
                           </div>
