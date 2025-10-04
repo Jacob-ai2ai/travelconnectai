@@ -350,7 +350,7 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
   ];
 
   const getDayPoints = (day: number) => {
-    return routePoints.filter((point) => point.day === day);
+    return routePoints.filter((point) => point.day === day && !excluded[point.id]);
   };
 
   const getFilteredPoints = () => {
