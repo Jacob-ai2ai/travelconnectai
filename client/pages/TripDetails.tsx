@@ -36,6 +36,7 @@ import {
   Zap,
   Radio,
   Route,
+  Plane,
 } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 
