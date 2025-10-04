@@ -409,14 +409,53 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
   };
 
   const MapView = ({ zoomLevel = 1 }: { zoomLevel?: number }) => {
+    const [pan, setPan] = useState({ x: 0, y: 0 });
+    const dragging = useRef(false);
+    const start = useRef({ x: 0, y: 0 });
+
+    useEffect(() => {
+      const onMove = (e: MouseEvent) => {
+        if (!dragging.current) return;
+        const x = e.clientX - start.current.x;
+        const y = e.clientY - start.current.y;
+        setPan((prev) => ({ x: prev.x + x, y: prev.y + y }));
+        // update starting point
+        start.current = { x: e.clientX, y: e.clientY };
+      };
+
+      const onUp = () => {
+        dragging.current = false;
+        document.body.style.cursor = "default";
+      };
+
+      window.addEventListener("mousemove", onMove);
+      window.addEventListener("mouseup", onUp);
+      return () => {
+        window.removeEventListener("mousemove", onMove);
+        window.removeEventListener("mouseup", onUp);
+      };
+    }, []);
+
     return (
       <div className="relative h-full bg-gradient-to-br from-blue-50 via-green-50 to-yellow-50 overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <div className="w-full h-full bg-gradient-to-br from-blue-200 via-green-200 to-yellow-200"></div>
         </div>
 
-        <div className="absolute inset-0 w-full h-full flex items-center justify-center">
-          <div style={{ transform: `scale(${zoomLevel})`, transformOrigin: "50% 50%", width: "100%", height: "100%" }} className="w-full h-full relative">
+        <div
+          className={`absolute inset-0 w-full h-full flex items-center justify-center ${dragging.current ? "cursor-grabbing" : "cursor-grab"}`}
+          onMouseDown={(e) => {
+            // start panning
+            dragging.current = true;
+            start.current = { x: e.clientX, y: e.clientY };
+            document.body.style.cursor = "grabbing";
+            e.preventDefault();
+          }}
+        >
+          <div
+            style={{ transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoomLevel})`, transformOrigin: "50% 50%", width: "100%", height: "100%" }}
+            className="w-full h-full relative"
+          >
             <svg className="absolute inset-0 w-full h-full">
               <path
                 d="M 50 500 Q 150 400 200 350 Q 300 300 400 280 Q 500 260 600 250 Q 700 240 750 200"
