@@ -39,6 +39,7 @@ import {
   Plane,
 } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
+import RouteMap from "./RouteMap";
 
 interface Accommodation {
   id: string;
