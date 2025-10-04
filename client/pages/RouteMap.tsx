@@ -546,105 +546,25 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
                       <option value="rest_stop">Rest Stops</option>
                       <option value="attraction">Attractions</option>
                     </select>
+
+                    {/* Map controls: zoom and maximize */}
+                    <div className="flex items-center space-x-1 ml-2">
+                      <button onClick={zoomOut} className="p-2 rounded bg-white shadow text-sm" aria-label="zoom out">
+                        <ZoomOut className="h-4 w-4" />
+                      </button>
+                      <div className="px-2 text-sm">{Math.round(zoom * 100)}%</div>
+                      <button onClick={zoomIn} className="p-2 rounded bg-white shadow text-sm" aria-label="zoom in">
+                        <ZoomIn className="h-4 w-4" />
+                      </button>
+                      <button onClick={() => setExpandedMap(true)} className="p-2 rounded bg-white shadow text-sm ml-2" aria-label="maximize map">
+                        <Maximize2 className="h-4 w-4" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </CardHeader>
               <CardContent className="p-0 h-full">
-                {/* Simulated Map View */}
-                <div className="relative h-full bg-gradient-to-br from-blue-50 via-green-50 to-yellow-50 overflow-hidden">
-                  {/* Map Background */}
-                  <div className="absolute inset-0 opacity-20">
-                    <div className="w-full h-full bg-gradient-to-br from-blue-200 via-green-200 to-yellow-200"></div>
-                  </div>
-
-                  {/* Route Line */}
-                  <svg className="absolute inset-0 w-full h-full">
-                    <path
-                      d="M 50 500 Q 150 400 200 350 Q 300 300 400 280 Q 500 260 600 250 Q 700 240 750 200"
-                      stroke="#2563eb"
-                      strokeWidth="3"
-                      fill="none"
-                      strokeDasharray="5,5"
-                      className="animate-pulse"
-                    />
-                  </svg>
-
-                  {/* Map Points */}
-                  {getFilteredPoints().map((point, index) => (
-                    <div
-                      key={point.id}
-                      className={`absolute cursor-pointer transform -translate-x-1/2 -translate-y-1/2 ${
-                        selectedPoint?.id === point.id ? "z-20" : "z-10"
-                      }`}
-                      style={{
-                        left: `${((index * 12 + 20) % 80) + 10}%`,
-                        top: `${((index * 8 + 30) % 60) + 20}%`,
-                      }}
-                      onClick={() => setSelectedPoint(point)}
-                    >
-                      <div
-                        className={`relative group ${
-                          selectedPoint?.id === point.id
-                            ? "scale-125"
-                            : "hover:scale-110"
-                        } transition-transform`}
-                      >
-                        <div
-                          className={`w-10 h-10 rounded-full flex items-center justify-center shadow-lg border-2 ${
-                            point.isIncluded
-                              ? "bg-travel-blue text-white border-travel-blue"
-                              : "bg-white text-travel-blue border-travel-blue"
-                          }`}
-                        >
-                          {getTypeIcon(point.type)}
-                        </div>
-
-                        {point.offers && showOffers && (
-                          <div className="absolute -top-2 -right-2">
-                            <div className="w-5 h-5 bg-red-500 rounded-full flex items-center justify-center">
-                              <span className="text-white text-xs font-bold">
-                                %
-                              </span>
-                            </div>
-                          </div>
-                        )}
-
-                        {point.isRecommended && (
-                          <div className="absolute -bottom-1 -right-1">
-                            <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                          </div>
-                        )}
-
-                        {/* Tooltip */}
-                        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <div className="bg-black text-white text-xs rounded px-2 py-1 whitespace-nowrap">
-                            {point.name}
-                            <div className="text-xs text-gray-300">
-                              Day {point.day} • {point.time}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-
-                  {/* Legend */}
-                  <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur rounded-lg p-3 space-y-2">
-                    <div className="text-sm font-semibold">Legend</div>
-                    <div className="flex items-center space-x-2 text-xs">
-                      <div className="w-3 h-3 bg-travel-blue rounded-full"></div>
-                      <span>Included</span>
-                    </div>
-                    <div className="flex items-center space-x-2 text-xs">
-                      <div className="w-3 h-3 bg-white border-2 border-travel-blue rounded-full"></div>
-                      <span>Recommended</span>
-                    </div>
-                    <div className="flex items-center space-x-2 text-xs">
-                      <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                      <span>Highly Rated</span>
-                    </div>
-                  </div>
-                </div>
+                <MapView zoomLevel={zoom} />
               </CardContent>
             </Card>
           </div>
