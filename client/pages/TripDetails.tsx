@@ -516,16 +516,28 @@ export default function TripDetails() {
                     </div>
 
                     <div className="text-right flex items-center space-x-3">
-                      <div className="text-lg font-bold">${f.price}</div>
                       {itinerary.flights.includes(f.id) ? (
-                        <div className="flex items-center space-x-2">
-                          <Button size="sm" variant="outline" onClick={() => removeFromItinerary('flights', f.id)}>Remove</Button>
-                          <Link to={`/replace-options/${f.id}`}>
-                            <Button size="sm" variant="ghost">Replace</Button>
-                          </Link>
-                        </div>
+                        <>
+                          <div className="flex items-center space-x-2">
+                            <button className="px-2 py-1 border rounded" aria-label="decrease" onClick={() => changePeople(f.id, -1)}>-</button>
+                            <div className="px-3 py-1 text-sm">{peopleCounts[f.id] ?? 1}</div>
+                            <button className="px-2 py-1 border rounded" aria-label="increase" onClick={() => changePeople(f.id, 1)}>+</button>
+                          </div>
+
+                          <div className="text-lg font-bold">${f.price}</div>
+
+                          <div className="flex items-center space-x-2">
+                            <Button size="sm" variant="outline" onClick={() => removeFromItinerary('flights', f.id)}>Remove</Button>
+                            <Link to={`/replace-options/${f.id}`}>
+                              <Button size="sm" variant="ghost">Replace</Button>
+                            </Link>
+                          </div>
+                        </>
                       ) : (
-                        <Button size="sm" onClick={() => addToItinerary('flights', f.id)}>Add to itinerary</Button>
+                        <>
+                          <div className="text-lg font-bold">${f.price}</div>
+                          <Button size="sm" onClick={() => addToItinerary('flights', f.id)}>Add to itinerary</Button>
+                        </>
                       )}
                     </div>
                   </Card>
