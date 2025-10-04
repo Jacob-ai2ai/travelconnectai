@@ -101,6 +101,17 @@ export default function TripDetails() {
     string | null
   >(null);
 
+  // Track kept quantities for itinerary items (keyed by item id)
+  const [keptItems, setKeptItems] = useState<Record<string, number>>({});
+
+  const changeKeptQty = (id: string, delta: number) => {
+    setKeptItems((prev) => {
+      const cur = prev[id] ?? 1;
+      const next = Math.max(0, cur + delta);
+      return { ...prev, [id]: next };
+    });
+  };
+
   // Sample data
   const accommodations: Accommodation[] = [
     {
@@ -460,8 +471,8 @@ export default function TripDetails() {
                           </div>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <button className="px-2 py-1 border rounded" aria-label="decrease">-</button>
-                          <button className="px-2 py-1 border rounded" aria-label="increase">+</button>
+                          <button className="px-2 py-1 border rounded" aria-label="decrease" onClick={() => changeKeptQty(`day-${day}-item-${i}`, -1)}>-</button>
+                          <button className="px-2 py-1 border rounded" aria-label="increase" onClick={() => changeKeptQty(`day-${day}-item-${i}`, 1)}>+</button>
                         </div>
                       </Card>
                     ))}
