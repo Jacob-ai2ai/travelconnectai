@@ -504,41 +504,72 @@ export default function TripDetails() {
 
               <div className="grid gap-4">
                 {flights.map((f) => (
-                  <Card key={f.id} className="p-4 flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center text-sm font-medium">
-                        {f.airline}
+                  <Card key={f.id} className="p-4">
+                    <div className="grid grid-cols-12 gap-4 items-center">
+                      {/* Left times column */}
+                      <div className="col-span-3 text-center">
+                        <div className="text-xl font-bold">{f.departureTime}</div>
+                        <div className="text-sm text-muted-foreground">{f.from}</div>
                       </div>
-                      <div>
-                        <div className="font-semibold">{f.flightNumber} • {f.class}</div>
-                        <div className="text-sm text-muted-foreground">{f.from} → {f.to} • {f.duration}</div>
+
+                      {/* Middle details */}
+                      <div className="col-span-6">
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <div className="font-semibold text-lg">{f.airline} • {f.flightNumber}</div>
+                            <div className="text-sm text-muted-foreground">{f.aircraft} • {f.class} • {f.stops === 0 ? 'Direct' : `${f.stops} stop(s)`}</div>
+                          </div>
+                          <div className="text-right">
+                            <Badge className="bg-red-500 text-white">{f.discount ? `${f.discount}% OFF` : ''}</Badge>
+                            <div className="flex items-center justify-end mt-2">
+                              <Star className="h-4 w-4 fill-yellow-400 text-yellow-400 mr-1" />
+                              <span className="text-sm">{f.rating}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="mt-3 flex items-center space-x-4 text-sm text-muted-foreground">
+                          <div className="flex items-center space-x-2">
+                            <Clock className="h-4 w-4" />
+                            <span>{f.duration}</span>
+                          </div>
+                          <div className="px-2 py-1 border rounded text-xs">{f.class}</div>
+                          <div className="text-xs">{f.amenities?.length ?? 0} amenities</div>
+                        </div>
+
+                        <div className="mt-4 flex items-center space-x-3">
+                          <Link to={`/flight/${f.id}`}>
+                            <Button variant="outline" className="w-36">View Details</Button>
+                          </Link>
+                          <Button className="bg-travel-blue text-white w-36">Book Now</Button>
+                        </div>
                       </div>
-                    </div>
 
-                    <div className="text-right flex items-center space-x-3">
-                      {itinerary.flights.includes(f.id) ? (
-                        <>
-                          <div className="flex items-center space-x-2">
-                            <button className="px-2 py-1 border rounded" aria-label="decrease" onClick={() => changePeople(f.id, -1)}>-</button>
-                            <div className="px-3 py-1 text-sm">{peopleCounts[f.id] ?? 1}</div>
-                            <button className="px-2 py-1 border rounded" aria-label="increase" onClick={() => changePeople(f.id, 1)}>+</button>
-                          </div>
+                      {/* Right price & controls */}
+                      <div className="col-span-3 flex flex-col items-end justify-center space-y-2">
+                        <div className="flex items-center space-x-2">
+                          {itinerary.flights.includes(f.id) && (
+                            <>
+                              <div className="flex items-center space-x-2 mr-2">
+                                <button className="px-3 py-1 border rounded text-sm" aria-label="decrease" onClick={() => changePeople(f.id, -1)}>-</button>
+                                <div className="px-3 py-1 text-sm">{peopleCounts[f.id] ?? 1}</div>
+                                <button className="px-3 py-1 border rounded text-sm" aria-label="increase" onClick={() => changePeople(f.id, 1)}>+</button>
+                              </div>
+                            </>
+                          )}
 
-                          <div className="text-lg font-bold">${f.price}</div>
+                          <div className="text-2xl font-bold">${f.price}</div>
+                        </div>
+                        <div className="text-xs text-muted-foreground">per person</div>
 
-                          <div className="flex items-center space-x-2">
-                            <Button size="sm" variant="outline" onClick={() => removeFromItinerary('flights', f.id)}>Remove</Button>
-                            <Link to={`/replace-options/${f.id}`}>
-                              <Button size="sm" variant="ghost">Replace</Button>
-                            </Link>
-                          </div>
-                        </>
-                      ) : (
-                        <>
-                          <div className="text-lg font-bold">${f.price}</div>
-                          <Button size="sm" onClick={() => addToItinerary('flights', f.id)}>Add to itinerary</Button>
-                        </>
-                      )}
+                        <div>
+                          <Link to={`/replace-options/${f.id}`}>
+                            <Button size="sm" variant="ghost" className="p-1 h-8 w-8">
+                              <Zap className="h-4 w-4" />
+                            </Button>
+                          </Link>
+                        </div>
+                      </div>
                     </div>
                   </Card>
                 ))}
