@@ -98,10 +98,13 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
 
   // track people per itinerary item and excluded items
   const [peopleCounts, setPeopleCounts] = useState<Record<string, number>>({});
+  const [scheduleEdits, setScheduleEdits] = useState<Record<string, { day: number; time: string }>>({});
 
   useEffect(() => {
     setPeopleCounts(Object.fromEntries(routePoints.map((p) => [p.id, 1])));
+    setScheduleEdits(Object.fromEntries(routePoints.map((p) => [p.id, { day: p.day, time: p.time }])));
   }, []);
+
   const [excluded, setExcluded] = useState<Record<string, boolean>>({});
 
   const zoomIn = () => setZoom((z) => Math.min(3, parseFloat((z + 0.2).toFixed(2))));
@@ -351,13 +354,16 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
     },
   ];
 
+  // merge any schedule edits into base route points so UI reflects user changes
+  const combinedPoints = routePoints.map((p) => ({ ...p, ...(scheduleEdits[p.id] ?? {}) }));
+
   const getDayPoints = (day: number) => {
-    return routePoints.filter((point) => point.day === day && !excluded[point.id]);
+    return combinedPoints.filter((point) => point.day === day && !excluded[point.id]);
   };
 
   const getFilteredPoints = () => {
-    if (filterType === "all") return routePoints.filter((p) => !excluded[p.id]);
-    return routePoints.filter((point) => point.type === filterType && !excluded[point.id]);
+    if (filterType === "all") return combinedPoints.filter((p) => !excluded[p.id]);
+    return combinedPoints.filter((point) => point.type === filterType && !excluded[point.id]);
   };
 
   const getTypeIcon = (type: string) => {
@@ -884,14 +890,48 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
                             </div>
 
                             <div className="flex-shrink-0 text-right space-y-2 flex flex-col items-end">
-                              <div className="text-sm font-semibold">${((peopleCounts[point.id] ?? 1) * (point.price ?? 0)).toFixed(2)}</div>
-                              <div className="flex items-center space-x-2">
-                                <button className="px-2 py-1 border rounded" aria-label="decrease" onClick={() => changePeople(point.id, -1)}>-</button>
-                                <button className="px-2 py-1 border rounded" aria-label="increase" onClick={() => changePeople(point.id, 1)}>+</button>
+                              <div className="text-sm font-semibold">{point.price ? `$${((peopleCounts[point.id] ?? 1) * (point.price ?? 0)).toFixed(2)}` : ""}</div>
+
+                              <div className="flex items-center space-x-3">
+                                {/* People controls - shown only when applicable */}
+                                {(() => {
+                                  const applicable = Boolean(point.price) || ["experience", "restaurant", "attraction", "stay"].includes(point.type);
+                                  return applicable ? (
+                                    <div className="flex items-center space-x-2">
+                                      <button className="px-2 py-1 border rounded" aria-label="decrease" onClick={() => changePeople(point.id, -1)}>-</button>
+                                      <div className="px-3 py-1 text-sm">{peopleCounts[point.id] ?? 1}</div>
+                                      <button className="px-2 py-1 border rounded" aria-label="increase" onClick={() => changePeople(point.id, 1)}>+</button>
+                                    </div>
+                                  ) : null;
+                                })()}
+
+                                {/* Editable day and time controls */}
+                                <div className="flex items-center space-x-2">
+                                  <select
+                                    value={(scheduleEdits[point.id]?.day ?? point.day)}
+                                    onChange={(e) => {
+                                      const day = parseInt(e.target.value, 10);
+                                      setScheduleEdits((prev) => ({ ...prev, [point.id]: { ...(prev[point.id] ?? { day: point.day, time: point.time }), day } }));
+                                    }}
+                                    className="text-sm border rounded px-2 py-1"
+                                  >
+                                    {[1, 2, 3, 4, 5, 6, 7].map((d) => (
+                                      <option key={d} value={d}>Day {d}</option>
+                                    ))}
+                                  </select>
+
+                                  <input
+                                    type="text"
+                                    value={(scheduleEdits[point.id]?.time ?? point.time)}
+                                    onChange={(e) => setScheduleEdits((prev) => ({ ...prev, [point.id]: { ...(prev[point.id] ?? { day: point.day, time: point.time }), time: e.target.value } }))}
+                                    className="text-sm border rounded px-2 py-1 w-28"
+                                  />
+                                </div>
+
+                                {/* Replace action highlighted in red; Remove button intentionally removed */}
                                 <Link to={`/replace-options/${point.id}`}>
-                                  <Button size="sm" variant="ghost">Replace</Button>
+                                  <Button size="sm" variant="destructive">Replace</Button>
                                 </Link>
-                                <Button size="sm" variant="destructive" onClick={() => removeItem(point.id)}>Remove</Button>
                               </div>
                             </div>
                           </div>
