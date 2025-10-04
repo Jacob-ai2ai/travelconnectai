@@ -37,6 +37,7 @@ import {
   Radio,
   Route,
   Plane,
+  X,
 } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import RouteMap from "./RouteMap";
@@ -101,6 +102,7 @@ export default function TripDetails() {
   const [selectedAccommodation, setSelectedAccommodation] = useState<
     string | null
   >(null);
+  const [expandedMap, setExpandedMap] = useState(false);
 
   // Track kept quantities for itinerary items (keyed by item id)
   const [keptItems, setKeptItems] = useState<Record<string, number>>({});
@@ -435,7 +437,26 @@ export default function TripDetails() {
 
           {/* Full Itinerary Tab */}
           <TabsContent value="full" className="mt-6">
+            <div className="flex justify-between items-center mb-3">
+              <div />
+              <div className="flex items-center space-x-2">
+                <Button size="sm" variant="outline" onClick={() => setExpandedMap(true)}>Expand map</Button>
+                <Button size="sm" onClick={() => window.print()}>Export</Button>
+              </div>
+            </div>
+
             <RouteMap showHeader={false} />
+
+            {expandedMap && (
+              <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-6">
+                <div className="bg-white w-full h-full rounded shadow-lg overflow-hidden relative">
+                  <button className="absolute top-4 right-4 p-2 bg-white rounded-full shadow" onClick={() => setExpandedMap(false)} aria-label="Close">
+                    <X className="h-4 w-4" />
+                  </button>
+                  <RouteMap showHeader={true} />
+                </div>
+              </div>
+            )}
           </TabsContent>
 
           {/* Accommodations Tab */}
