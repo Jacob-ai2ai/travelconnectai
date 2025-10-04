@@ -909,7 +909,7 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
                             <div className="flex-shrink-0 text-right space-y-1 flex flex-col items-end">
                               {/* Replace icon on top */}
                               <Link to={`/replace-options/${point.id}`} className="mb-0">
-                                <Button size="sm" variant="destructive" className="p-1 h-7 w-7 flex items-center justify-center">
+                                <Button size="sm" variant="ghost" className="p-1 h-7 w-7 flex items-center justify-center text-travel-blue">
                                   <Repeat className="h-4 w-4" />
                                 </Button>
                               </Link>
