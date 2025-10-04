@@ -906,27 +906,28 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
                               </div>
                             </div>
 
-                            <div className="flex-shrink-0 text-right space-y-2 flex flex-col items-end">
-                              <div className="text-sm font-semibold">{point.price ? `$${((peopleCounts[point.id] ?? 1) * (point.price ?? 0)).toFixed(2)}` : ""}</div>
+                            <div className="flex-shrink-0 text-right space-y-1 flex flex-col items-end">
+                              {/* Replace icon on top */}
+                              <Link to={`/replace-options/${point.id}`} className="mb-0">
+                                <Button size="sm" variant="destructive" className="p-1 h-7 w-7 flex items-center justify-center">
+                                  <Zap className="h-4 w-4" />
+                                </Button>
+                              </Link>
 
-                              <div className="flex items-center space-x-3">
-                                {/* People controls - shown only when applicable */}
-                                {(() => {
-                                  const applicable = Boolean(point.price) || ["experience", "restaurant", "attraction", "stay"].includes(point.type);
-                                  return applicable ? (
-                                    <div className="flex items-center space-x-2">
-                                      <button className="px-2 py-1 border rounded" aria-label="decrease" onClick={() => changePeople(point.id, -1)}>-</button>
-                                      <div className="px-3 py-1 text-sm">{peopleCounts[point.id] ?? 1}</div>
-                                      <button className="px-2 py-1 border rounded" aria-label="increase" onClick={() => changePeople(point.id, 1)}>+</button>
-                                    </div>
-                                  ) : null;
-                                })()}
+                              {/* Price below the icon (compact) */}
+                              <div className="text-xs font-semibold">{point.price ? `$${((peopleCounts[point.id] ?? 1) * (point.price ?? 0)).toFixed(2)}` : ""}</div>
 
-                                {/* Replace action highlighted in red; Remove button intentionally removed */}
-                                <Link to={`/replace-options/${point.id}`}>
-                                  <Button size="sm" variant="destructive">Replace</Button>
-                                </Link>
-                              </div>
+                              {/* Compact people controls */}
+                              {(() => {
+                                const applicable = Boolean(point.price) || ["experience", "restaurant", "attraction", "stay"].includes(point.type);
+                                return applicable ? (
+                                  <div className="flex items-center space-x-2 mt-1">
+                                    <button className="px-1 py-0.5 border rounded text-xs" aria-label="decrease" onClick={() => changePeople(point.id, -1)}>-</button>
+                                    <div className="px-2 py-0.5 text-xs">{peopleCounts[point.id] ?? 1}</div>
+                                    <button className="px-1 py-0.5 border rounded text-xs" aria-label="increase" onClick={() => changePeople(point.id, 1)}>+</button>
+                                  </div>
+                                ) : null;
+                              })()}
                             </div>
                           </div>
                         ))
