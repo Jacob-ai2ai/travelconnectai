@@ -54,7 +54,6 @@ interface Flight {
   reviews: number;
 }
 
-
 export default function Flights() {
   const [currentLocation, setCurrentLocation] = useState<string>(
     "Detecting location...",

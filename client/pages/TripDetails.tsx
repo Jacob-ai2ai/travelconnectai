@@ -37,7 +37,7 @@ import {
   Radio,
   Route,
   Plane,
-  } from "lucide-react";
+} from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import RouteMap from "./RouteMap";
 
@@ -119,7 +119,12 @@ export default function TripDetails() {
     stays: string[];
     experiences: string[];
     products: string[];
-  }>({ flights: [], stays: ["villa-1"], experiences: ["exp-1"], products: ["prod-1"] });
+  }>({
+    flights: [],
+    stays: ["villa-1"],
+    experiences: ["exp-1"],
+    products: ["prod-1"],
+  });
 
   const [peopleCounts, setPeopleCounts] = useState<Record<string, number>>({});
 
@@ -137,15 +142,33 @@ export default function TripDetails() {
   };
 
   const addToItinerary = (category: keyof typeof itinerary, id: string) => {
-    setItinerary((prev) => ({ ...prev, [category]: Array.from(new Set([...(prev[category] as string[]), id])) }));
+    setItinerary((prev) => ({
+      ...prev,
+      [category]: Array.from(new Set([...(prev[category] as string[]), id])),
+    }));
   };
 
-  const removeFromItinerary = (category: keyof typeof itinerary, id: string) => {
-    setItinerary((prev) => ({ ...prev, [category]: (prev[category] as string[]).filter((i) => i !== id) }));
+  const removeFromItinerary = (
+    category: keyof typeof itinerary,
+    id: string,
+  ) => {
+    setItinerary((prev) => ({
+      ...prev,
+      [category]: (prev[category] as string[]).filter((i) => i !== id),
+    }));
   };
 
-  const replaceInItinerary = (category: keyof typeof itinerary, oldId: string, newId: string) => {
-    setItinerary((prev) => ({ ...prev, [category]: (prev[category] as string[]).map((i) => (i === oldId ? newId : i)) }));
+  const replaceInItinerary = (
+    category: keyof typeof itinerary,
+    oldId: string,
+    newId: string,
+  ) => {
+    setItinerary((prev) => ({
+      ...prev,
+      [category]: (prev[category] as string[]).map((i) =>
+        i === oldId ? newId : i,
+      ),
+    }));
   };
 
   // Sample data
@@ -455,14 +478,14 @@ export default function TripDetails() {
               <Calendar className="h-4 w-4" />
               <span>Full Itinerary</span>
             </TabsTrigger>
-            <TabsTrigger value="flights" className="flex items-center space-x-2">
+            <TabsTrigger
+              value="flights"
+              className="flex items-center space-x-2"
+            >
               <Plane className="h-4 w-4" />
               <span>Flights</span>
             </TabsTrigger>
-            <TabsTrigger
-              value="stays"
-              className="flex items-center space-x-2"
-            >
+            <TabsTrigger value="stays" className="flex items-center space-x-2">
               <Building2 className="h-4 w-4" />
               <span>Stays</span>
             </TabsTrigger>
@@ -473,10 +496,7 @@ export default function TripDetails() {
               <Mountain className="h-4 w-4" />
               <span>Experiences</span>
             </TabsTrigger>
-            <TabsTrigger
-              value="events"
-              className="flex items-center space-x-2"
-            >
+            <TabsTrigger value="events" className="flex items-center space-x-2">
               <Ticket className="h-4 w-4" />
               <span>Events</span>
             </TabsTrigger>
@@ -499,7 +519,9 @@ export default function TripDetails() {
             <div className="space-y-6">
               <div className="flex items-center justify-between">
                 <h2 className="text-2xl font-bold">Your Flights</h2>
-                <Badge variant="secondary">{itinerary.flights.length} Selected</Badge>
+                <Badge variant="secondary">
+                  {itinerary.flights.length} Selected
+                </Badge>
               </div>
 
               <div className="grid gap-4">
@@ -508,19 +530,30 @@ export default function TripDetails() {
                     <div className="grid grid-cols-12 gap-4 items-center">
                       {/* Left times column */}
                       <div className="col-span-3 text-center">
-                        <div className="text-xl font-bold">{f.departureTime}</div>
-                        <div className="text-sm text-muted-foreground">{f.from}</div>
+                        <div className="text-xl font-bold">
+                          {f.departureTime}
+                        </div>
+                        <div className="text-sm text-muted-foreground">
+                          {f.from}
+                        </div>
                       </div>
 
                       {/* Middle details */}
                       <div className="col-span-6">
                         <div className="flex items-start justify-between">
                           <div>
-                            <div className="font-semibold text-lg">{f.airline} • {f.flightNumber}</div>
-                            <div className="text-sm text-muted-foreground">{f.aircraft} • {f.class} • {f.stops === 0 ? 'Direct' : `${f.stops} stop(s)`}</div>
+                            <div className="font-semibold text-lg">
+                              {f.airline} • {f.flightNumber}
+                            </div>
+                            <div className="text-sm text-muted-foreground">
+                              {f.aircraft} • {f.class} •{" "}
+                              {f.stops === 0 ? "Direct" : `${f.stops} stop(s)`}
+                            </div>
                           </div>
                           <div className="text-right">
-                            <Badge className="bg-red-500 text-white">{f.discount ? `${f.discount}% OFF` : ''}</Badge>
+                            <Badge className="bg-red-500 text-white">
+                              {f.discount ? `${f.discount}% OFF` : ""}
+                            </Badge>
                             <div className="flex items-center justify-end mt-2">
                               <Star className="h-4 w-4 fill-yellow-400 text-yellow-400 mr-1" />
                               <span className="text-sm">{f.rating}</span>
@@ -533,15 +566,23 @@ export default function TripDetails() {
                             <Clock className="h-4 w-4" />
                             <span>{f.duration}</span>
                           </div>
-                          <div className="px-2 py-1 border rounded text-xs">{f.class}</div>
-                          <div className="text-xs">{f.amenities?.length ?? 0} amenities</div>
+                          <div className="px-2 py-1 border rounded text-xs">
+                            {f.class}
+                          </div>
+                          <div className="text-xs">
+                            {f.amenities?.length ?? 0} amenities
+                          </div>
                         </div>
 
                         <div className="mt-4 flex items-center space-x-3">
                           <Link to={`/flight/${f.id}`}>
-                            <Button variant="outline" className="w-36">View Details</Button>
+                            <Button variant="outline" className="w-36">
+                              View Details
+                            </Button>
                           </Link>
-                          <Button className="bg-travel-blue text-white w-36">Book Now</Button>
+                          <Button className="bg-travel-blue text-white w-36">
+                            Book Now
+                          </Button>
                         </div>
                       </div>
 
@@ -551,20 +592,40 @@ export default function TripDetails() {
                           {itinerary.flights.includes(f.id) && (
                             <>
                               <div className="flex items-center space-x-2 mr-2">
-                                <button className="px-3 py-1 border rounded text-sm" aria-label="decrease" onClick={() => changePeople(f.id, -1)}>-</button>
-                                <div className="px-3 py-1 text-sm">{peopleCounts[f.id] ?? 1}</div>
-                                <button className="px-3 py-1 border rounded text-sm" aria-label="increase" onClick={() => changePeople(f.id, 1)}>+</button>
+                                <button
+                                  className="px-3 py-1 border rounded text-sm"
+                                  aria-label="decrease"
+                                  onClick={() => changePeople(f.id, -1)}
+                                >
+                                  -
+                                </button>
+                                <div className="px-3 py-1 text-sm">
+                                  {peopleCounts[f.id] ?? 1}
+                                </div>
+                                <button
+                                  className="px-3 py-1 border rounded text-sm"
+                                  aria-label="increase"
+                                  onClick={() => changePeople(f.id, 1)}
+                                >
+                                  +
+                                </button>
                               </div>
                             </>
                           )}
 
                           <div className="text-2xl font-bold">${f.price}</div>
                         </div>
-                        <div className="text-xs text-muted-foreground">per person</div>
+                        <div className="text-xs text-muted-foreground">
+                          per person
+                        </div>
 
                         <div>
                           <Link to={`/replace-options/${f.id}`}>
-                            <Button size="sm" variant="ghost" className="p-1 h-8 w-8">
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              className="p-1 h-8 w-8"
+                            >
                               <Zap className="h-4 w-4" />
                             </Button>
                           </Link>
@@ -576,8 +637,13 @@ export default function TripDetails() {
               </div>
 
               <div className="mt-4">
-                <h3 className="text-lg font-semibold mb-2">Other flight options</h3>
-                <div className="text-sm text-muted-foreground">Explore alternative routes and classes that you can add to your trip.</div>
+                <h3 className="text-lg font-semibold mb-2">
+                  Other flight options
+                </h3>
+                <div className="text-sm text-muted-foreground">
+                  Explore alternative routes and classes that you can add to
+                  your trip.
+                </div>
               </div>
             </div>
           </TabsContent>
@@ -716,13 +782,34 @@ export default function TripDetails() {
                         <div className="flex space-x-3 items-start">
                           <div className="flex flex-col space-y-2">
                             {itinerary.stays.includes(accommodation.id) ? (
-                              <Button size="sm" variant="outline" onClick={() => removeFromItinerary('stays', accommodation.id)}>Remove</Button>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() =>
+                                  removeFromItinerary("stays", accommodation.id)
+                                }
+                              >
+                                Remove
+                              </Button>
                             ) : (
-                              <Button size="sm" onClick={() => addToItinerary('stays', accommodation.id)}>Add</Button>
+                              <Button
+                                size="sm"
+                                onClick={() =>
+                                  addToItinerary("stays", accommodation.id)
+                                }
+                              >
+                                Add
+                              </Button>
                             )}
 
                             <Link to={`/replace-options/${accommodation.id}`}>
-                              <Button size="sm" variant="ghost" className="p-1 h-8 w-24">Replace</Button>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                className="p-1 h-8 w-24"
+                              >
+                                Replace
+                              </Button>
                             </Link>
                           </div>
 
@@ -733,7 +820,15 @@ export default function TripDetails() {
                             <Video className="h-4 w-4 mr-2" />
                             Request Live Tour
                           </Button>
-                          <Link to={`/property/${accommodation.id}`} className="flex-1" state={{ fromItinerary: true, replacePropertyId: accommodations[0].id, planId }}>
+                          <Link
+                            to={`/property/${accommodation.id}`}
+                            className="flex-1"
+                            state={{
+                              fromItinerary: true,
+                              replacePropertyId: accommodations[0].id,
+                              planId,
+                            }}
+                          >
                             <Button variant="outline" className="w-full">
                               <Eye className="h-4 w-4 mr-2" />
                               View Details
@@ -812,15 +907,39 @@ export default function TripDetails() {
 
                         <div className="flex items-center space-x-3">
                           {itinerary.experiences.includes(experience.id) ? (
-                            <Button size="sm" variant="outline" onClick={() => removeFromItinerary('experiences', experience.id)}>Remove</Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() =>
+                                removeFromItinerary(
+                                  "experiences",
+                                  experience.id,
+                                )
+                              }
+                            >
+                              Remove
+                            </Button>
                           ) : (
-                            <Button size="sm" onClick={() => addToItinerary('experiences', experience.id)}>Add</Button>
+                            <Button
+                              size="sm"
+                              onClick={() =>
+                                addToItinerary("experiences", experience.id)
+                              }
+                            >
+                              Add
+                            </Button>
                           )}
 
-                          <div className="text-lg font-bold">${experience.price}</div>
+                          <div className="text-lg font-bold">
+                            ${experience.price}
+                          </div>
 
                           <Link to={`/replace-options/${experience.id}`}>
-                            <Button size="sm" variant="ghost" className="p-1 h-8 w-8">
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              className="p-1 h-8 w-8"
+                            >
                               <Zap className="h-4 w-4" />
                             </Button>
                           </Link>
@@ -997,9 +1116,24 @@ export default function TripDetails() {
 
                       <div className="flex items-center space-x-3 mb-3">
                         {itinerary.products.includes(product.id) ? (
-                          <Button size="sm" variant="outline" onClick={() => removeFromItinerary('products', product.id)}>Remove</Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() =>
+                              removeFromItinerary("products", product.id)
+                            }
+                          >
+                            Remove
+                          </Button>
                         ) : (
-                          <Button size="sm" onClick={() => addToItinerary('products', product.id)}>Add</Button>
+                          <Button
+                            size="sm"
+                            onClick={() =>
+                              addToItinerary("products", product.id)
+                            }
+                          >
+                            Add
+                          </Button>
                         )}
 
                         <div className="text-lg font-bold">
@@ -1012,7 +1146,11 @@ export default function TripDetails() {
                         )}
 
                         <Link to={`/replace-options/${product.id}`}>
-                          <Button size="sm" variant="ghost" className="p-1 h-8 w-8">
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="p-1 h-8 w-8"
+                          >
                             <Zap className="h-4 w-4" />
                           </Button>
                         </Link>

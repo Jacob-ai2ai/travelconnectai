@@ -22,26 +22,35 @@ export default function ReplaceOptions() {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            <p className="text-sm text-muted-foreground">Select an alternative to replace the current item in your itinerary.</p>
+            <p className="text-sm text-muted-foreground">
+              Select an alternative to replace the current item in your
+              itinerary.
+            </p>
 
             <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-4">
               {options.map((opt) => (
                 <div key={opt.id} className="border rounded-lg p-4">
                   <div className="font-medium">{opt.name}</div>
-                  <div className="text-sm text-muted-foreground mt-2">Price, timing and other details would appear here.</div>
+                  <div className="text-sm text-muted-foreground mt-2">
+                    Price, timing and other details would appear here.
+                  </div>
                   <div className="mt-4 flex items-center space-x-2">
-                    <Button size="sm" onClick={() => navigate(-1)}>Cancel</Button>
-                    <Button size="sm" onClick={() => {
-                      // In a real app we'd call a replace API / update state then navigate back
-                      navigate(-1);
-                    }}>
+                    <Button size="sm" onClick={() => navigate(-1)}>
+                      Cancel
+                    </Button>
+                    <Button
+                      size="sm"
+                      onClick={() => {
+                        // In a real app we'd call a replace API / update state then navigate back
+                        navigate(-1);
+                      }}
+                    >
                       Replace
                     </Button>
                   </div>
                 </div>
               ))}
             </div>
-
           </div>
         </CardContent>
       </Card>
