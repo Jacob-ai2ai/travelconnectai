@@ -30,7 +30,7 @@ import {
   Share2,
   Filter,
   Layers,
-  Zap,
+  Repeat,
   Gift,
   Target,
   Timer,
@@ -666,7 +666,7 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
                   {selectedPoint.offers && (
                     <div className="bg-red-50 border border-red-200 rounded-lg p-3">
                       <div className="flex items-center space-x-2 mb-1">
-                        <Zap className="h-4 w-4 text-red-600" />
+                        <Repeat className="h-4 w-4 text-red-600" />
                         <span className="font-semibold text-red-700">
                           Special Offer!
                         </span>
@@ -910,7 +910,7 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
                               {/* Replace icon on top */}
                               <Link to={`/replace-options/${point.id}`} className="mb-0">
                                 <Button size="sm" variant="destructive" className="p-1 h-7 w-7 flex items-center justify-center">
-                                  <Zap className="h-4 w-4" />
+                                  <Repeat className="h-4 w-4" />
                                 </Button>
                               </Link>
 
