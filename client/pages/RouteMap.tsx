@@ -834,6 +834,11 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
                             key={point.id}
                             className="flex items-start space-x-4 p-4 border rounded-lg hover:shadow-md transition-shadow"
                           >
+                            <div className="w-24 text-xs text-muted-foreground flex-shrink-0">
+                              <div className="font-semibold">{point.time}</div>
+                              <div>Day {point.day}</div>
+                            </div>
+
                             <div className="flex-shrink-0">
                               <div
                                 className={`w-8 h-8 rounded-full flex items-center justify-center ${
@@ -849,9 +854,6 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
                               <div className="flex items-center justify-between mb-1">
                                 <h4 className="font-semibold">{point.name}</h4>
                                 <div className="flex items-center space-x-2">
-                                  <span className="text-sm text-muted-foreground">
-                                    {point.time}
-                                  </span>
                                   {point.offers && (
                                     <Badge className="bg-red-100 text-red-700">
                                       {point.offers.discount}% OFF
@@ -864,12 +866,6 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
                               </p>
 
                               <div className="flex items-center space-x-4 text-sm">
-                                {point.duration && (
-                                  <div className="flex items-center space-x-1">
-                                    <Clock className="h-4 w-4" />
-                                    <span>{point.duration}</span>
-                                  </div>
-                                )}
                                 {point.rating && (
                                   <div className="flex items-center space-x-1">
                                     <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
@@ -877,15 +873,6 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
                                   </div>
                                 )}
 
-                                {/* People editable */}
-                                <div className="flex items-center space-x-2">
-                                  <div className="text-xs text-muted-foreground">People</div>
-                                  <div className="flex items-center border rounded">
-                                    <button className="px-2 py-1 text-sm" onClick={() => changePeople(point.id, -1)}>-</button>
-                                    <div className="px-3 py-1 text-sm">{peopleCounts[point.id] ?? 1}</div>
-                                    <button className="px-2 py-1 text-sm" onClick={() => changePeople(point.id, 1)}>+</button>
-                                  </div>
-                                </div>
 
                                 {point.price && (
                                   <div className="flex items-center space-x-1">
