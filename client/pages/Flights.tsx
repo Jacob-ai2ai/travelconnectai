@@ -54,7 +54,6 @@ interface Flight {
   reviews: number;
 }
 
-import { useState, useEffect } from "react";
 
 export default function Flights() {
   const [currentLocation, setCurrentLocation] = useState<string>(
