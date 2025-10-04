@@ -751,8 +751,21 @@ export default function TripDetails() {
                           <Clock className="h-4 w-4" />
                           <span>{experience.duration}</span>
                         </div>
-                        <div className="text-lg font-bold">
-                          ${experience.price}
+
+                        <div className="flex items-center space-x-3">
+                          {itinerary.experiences.includes(experience.id) ? (
+                            <Button size="sm" variant="outline" onClick={() => removeFromItinerary('experiences', experience.id)}>Remove</Button>
+                          ) : (
+                            <Button size="sm" onClick={() => addToItinerary('experiences', experience.id)}>Add</Button>
+                          )}
+
+                          <div className="text-lg font-bold">${experience.price}</div>
+
+                          <Link to={`/replace-options/${experience.id}`}>
+                            <Button size="sm" variant="ghost" className="p-1 h-8 w-8">
+                              <Zap className="h-4 w-4" />
+                            </Button>
+                          </Link>
                         </div>
                       </div>
 
