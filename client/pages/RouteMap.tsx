@@ -96,8 +96,29 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
   const [zoom, setZoom] = useState(1);
   const [expandedMap, setExpandedMap] = useState(false);
 
+  // track people per itinerary item and excluded items
+  const [peopleCounts, setPeopleCounts] = useState<Record<string, number>>(() =>
+    Object.fromEntries(routePoints.map((p) => [p.id, 1]))
+  );
+  const [excluded, setExcluded] = useState<Record<string, boolean>>({});
+
   const zoomIn = () => setZoom((z) => Math.min(3, parseFloat((z + 0.2).toFixed(2))));
   const zoomOut = () => setZoom((z) => Math.max(0.5, parseFloat((z - 0.2).toFixed(2))));
+
+  const changePeople = (id: string, delta: number) => {
+    setPeopleCounts((prev) => {
+      const cur = prev[id] ?? 1;
+      const next = Math.max(0, cur + delta);
+      // if user decrements to 0 treat as excluded
+      if (next === 0) {
+        setExcluded((e) => ({ ...e, [id]: true }));
+      }
+      return { ...prev, [id]: next };
+    });
+  };
+
+  const removeItem = (id: string) => setExcluded((e) => ({ ...e, [id]: true }));
+
 
   // Sample route data for Bali trip
   const routePoints: RoutePoint[] = [
@@ -839,17 +860,12 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
                               <p className="text-sm text-muted-foreground mb-2">
                                 {point.description}
                               </p>
+
                               <div className="flex items-center space-x-4 text-sm">
                                 {point.duration && (
                                   <div className="flex items-center space-x-1">
                                     <Clock className="h-4 w-4" />
                                     <span>{point.duration}</span>
-                                  </div>
-                                )}
-                                {point.price && (
-                                  <div className="flex items-center space-x-1">
-                                    <DollarSign className="h-4 w-4" />
-                                    <span>${point.price}</span>
                                   </div>
                                 )}
                                 {point.rating && (
@@ -858,16 +874,36 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
                                     <span>{point.rating}</span>
                                   </div>
                                 )}
+
+                                {/* People editable */}
+                                <div className="flex items-center space-x-2">
+                                  <div className="text-xs text-muted-foreground">People</div>
+                                  <div className="flex items-center border rounded">
+                                    <button className="px-2 py-1 text-sm" onClick={() => changePeople(point.id, -1)}>-</button>
+                                    <div className="px-3 py-1 text-sm">{peopleCounts[point.id] ?? 1}</div>
+                                    <button className="px-2 py-1 text-sm" onClick={() => changePeople(point.id, 1)}>+</button>
+                                  </div>
+                                </div>
+
+                                {point.price && (
+                                  <div className="flex items-center space-x-1">
+                                    <DollarSign className="h-4 w-4" />
+                                    <span>${((peopleCounts[point.id] ?? 1) * point.price).toFixed(2)}</span>
+                                  </div>
+                                )}
                               </div>
                             </div>
-                            <div className="flex-shrink-0">
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                onClick={() => setSelectedPoint(point)}
-                              >
-                                <Eye className="h-4 w-4" />
-                              </Button>
+
+                            <div className="flex-shrink-0 text-right space-y-2 flex flex-col items-end">
+                              <div className="text-sm font-semibold">${((peopleCounts[point.id] ?? 1) * (point.price ?? 0)).toFixed(2)}</div>
+                              <div className="flex items-center space-x-2">
+                                <button className="px-2 py-1 border rounded" aria-label="decrease" onClick={() => changePeople(point.id, -1)}>-</button>
+                                <button className="px-2 py-1 border rounded" aria-label="increase" onClick={() => changePeople(point.id, 1)}>+</button>
+                                <Link to={`/replace-options/${point.id}`}>
+                                  <Button size="sm" variant="ghost">Replace</Button>
+                                </Link>
+                                <Button size="sm" variant="destructive" onClick={() => removeItem(point.id)}>Remove</Button>
+                              </div>
                             </div>
                           </div>
                         ))
