@@ -1,4 +1,5 @@
 import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -97,9 +98,11 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
   const [expandedMap, setExpandedMap] = useState(false);
 
   // track people per itinerary item and excluded items
-  const [peopleCounts, setPeopleCounts] = useState<Record<string, number>>(() =>
-    Object.fromEntries(routePoints.map((p) => [p.id, 1]))
-  );
+  const [peopleCounts, setPeopleCounts] = useState<Record<string, number>>({});
+
+  useEffect(() => {
+    setPeopleCounts(Object.fromEntries(routePoints.map((p) => [p.id, 1])));
+  }, []);
   const [excluded, setExcluded] = useState<Record<string, boolean>>({});
 
   const zoomIn = () => setZoom((z) => Math.min(3, parseFloat((z + 0.2).toFixed(2))));
