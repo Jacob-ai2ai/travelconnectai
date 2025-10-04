@@ -290,6 +290,33 @@ export default function TripDetails() {
     },
   ];
 
+  const flights = [
+    {
+      id: "flight-1",
+      airline: "Air Bali",
+      flightNumber: "AB123",
+      from: "NYC",
+      to: "DPS",
+      depart: "2025-05-10 08:00",
+      arrive: "2025-05-10 22:00",
+      duration: "14h",
+      price: 899,
+      class: "Economy",
+    },
+    {
+      id: "flight-2",
+      airline: "Sky Indonesia",
+      flightNumber: "SI456",
+      from: "DPS",
+      to: "SUB",
+      depart: "2025-05-15 09:00",
+      arrive: "2025-05-15 10:30",
+      duration: "1h 30m",
+      price: 120,
+      class: "Economy",
+    },
+  ];
+
   const products: Product[] = [
     {
       id: "prod-1",
@@ -485,7 +512,7 @@ export default function TripDetails() {
                             <div className="absolute top-4 right-4">
                               <Badge className="bg-red-500 hover:bg-red-600">
                                 <Radio className="h-3 w-3 mr-1" />
-                                LIVE ��� {accommodation.liveStreamViewers}
+                                LIVE • {accommodation.liveStreamViewers}
                               </Badge>
                             </div>
                           )}
