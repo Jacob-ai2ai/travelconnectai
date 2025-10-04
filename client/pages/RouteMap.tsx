@@ -35,8 +35,13 @@ import {
   Target,
   Timer,
   Users,
+  ZoomIn,
+  ZoomOut,
+  Maximize2,
+  X,
 } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
+import { useState } from "react";
 
 interface RoutePoint {
   id: string;
@@ -88,6 +93,12 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
   const [showOffers, setShowOffers] = useState(true);
   const [filterType, setFilterType] = useState<string>("all");
+
+  const [zoom, setZoom] = useState(1);
+  const [expandedMap, setExpandedMap] = useState(false);
+
+  const zoomIn = () => setZoom((z) => Math.min(3, parseFloat((z + 0.2).toFixed(2))));
+  const zoomOut = () => setZoom((z) => Math.max(0.5, parseFloat((z - 0.2).toFixed(2))));
 
   // Sample route data for Bali trip
   const routePoints: RoutePoint[] = [
@@ -367,6 +378,90 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
       default:
         return "bg-muted";
     }
+  };
+
+  const MapView = ({ zoomLevel = 1 }: { zoomLevel?: number }) => {
+    return (
+      <div className="relative h-full bg-gradient-to-br from-blue-50 via-green-50 to-yellow-50 overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <div className="w-full h-full bg-gradient-to-br from-blue-200 via-green-200 to-yellow-200"></div>
+        </div>
+
+        <div className="absolute inset-0 w-full h-full flex items-center justify-center">
+          <div style={{ transform: `scale(${zoomLevel})`, transformOrigin: "50% 50%", width: "100%", height: "100%" }} className="w-full h-full relative">
+            <svg className="absolute inset-0 w-full h-full">
+              <path
+                d="M 50 500 Q 150 400 200 350 Q 300 300 400 280 Q 500 260 600 250 Q 700 240 750 200"
+                stroke="#2563eb"
+                strokeWidth="3"
+                fill="none"
+                strokeDasharray="5,5"
+                className="animate-pulse"
+              />
+            </svg>
+
+            {getFilteredPoints().map((point, index) => (
+              <div
+                key={point.id}
+                className={`absolute cursor-pointer transform -translate-x-1/2 -translate-y-1/2 ${
+                  selectedPoint?.id === point.id ? "z-20" : "z-10"
+                }`}
+                style={{
+                  left: `${((index * 12 + 20) % 80) + 10}%`,
+                  top: `${((index * 8 + 30) % 60) + 20}%`,
+                }}
+                onClick={() => setSelectedPoint(point)}
+              >
+                <div className={`relative group ${selectedPoint?.id === point.id ? "scale-125" : "hover:scale-110"} transition-transform`}>
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center shadow-lg border-2 ${
+                    point.isIncluded ? "bg-travel-blue text-white border-travel-blue" : "bg-white text-travel-blue border-travel-blue"
+                  }`}>
+                    {getTypeIcon(point.type)}
+                  </div>
+
+                  {point.offers && showOffers && (
+                    <div className="absolute -top-2 -right-2">
+                      <div className="w-5 h-5 bg-red-500 rounded-full flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">%</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {point.isRecommended && (
+                    <div className="absolute -bottom-1 -right-1">
+                      <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                    </div>
+                  )}
+
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="bg-black text-white text-xs rounded px-2 py-1 whitespace-nowrap">
+                      {point.name}
+                      <div className="text-xs text-gray-300">Day {point.day} • {point.time}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur rounded-lg p-3 space-y-2">
+              <div className="text-sm font-semibold">Legend</div>
+              <div className="flex items-center space-x-2 text-xs">
+                <div className="w-3 h-3 bg-travel-blue rounded-full"></div>
+                <span>Included</span>
+              </div>
+              <div className="flex items-center space-x-2 text-xs">
+                <div className="w-3 h-3 bg-white border-2 border-travel-blue rounded-full"></div>
+                <span>Recommended</span>
+              </div>
+              <div className="flex items-center space-x-2 text-xs">
+                <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                <span>Highly Rated</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   return (
