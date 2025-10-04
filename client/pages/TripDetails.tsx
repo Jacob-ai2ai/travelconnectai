@@ -435,7 +435,7 @@ export default function TripDetails() {
 
           {/* Full Itinerary Tab */}
           <TabsContent value="full" className="mt-6">
-            <RouteMap />
+            <RouteMap showHeader={false} />
           </TabsContent>
 
           {/* Accommodations Tab */}
