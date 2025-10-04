@@ -70,6 +70,7 @@ export default function App() {
               path="/products-onboarding"
               element={<ProductsOnboarding />}
             />
+            <Route path="/replace-options/:id" element={<ReplaceOptions />} />
             <Route
               path="/travel-agent-onboarding"
               element={<TravelAgentOnboarding />}
