@@ -121,6 +121,21 @@ export default function TripDetails() {
     products: string[];
   }>({ flights: [], stays: ["villa-1"], experiences: ["exp-1"], products: ["prod-1"] });
 
+  const [peopleCounts, setPeopleCounts] = useState<Record<string, number>>({});
+
+  useEffect(() => {
+    // initialize people count for flights in this page
+    setPeopleCounts(Object.fromEntries(flights.map((f: any) => [f.id, 1])));
+  }, []);
+
+  const changePeople = (id: string, delta: number) => {
+    setPeopleCounts((prev) => {
+      const cur = prev[id] ?? 1;
+      const next = Math.max(1, cur + delta);
+      return { ...prev, [id]: next };
+    });
+  };
+
   const addToItinerary = (category: keyof typeof itinerary, id: string) => {
     setItinerary((prev) => ({ ...prev, [category]: Array.from(new Set([...(prev[category] as string[]), id])) }));
   };
