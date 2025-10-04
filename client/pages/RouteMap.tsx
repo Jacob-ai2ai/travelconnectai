@@ -86,7 +86,11 @@ interface Product {
   inStock: number;
 }
 
-export default function RouteMap({ showHeader = true }: { showHeader?: boolean }) {
+export default function RouteMap({
+  showHeader = true,
+}: {
+  showHeader?: boolean;
+}) {
   const { planId } = useParams();
   const [selectedPoint, setSelectedPoint] = useState<RoutePoint | null>(null);
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
@@ -98,17 +102,25 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
 
   // track people per itinerary item and excluded items
   const [peopleCounts, setPeopleCounts] = useState<Record<string, number>>({});
-  const [scheduleEdits, setScheduleEdits] = useState<Record<string, { day: number; time: string }>>({});
+  const [scheduleEdits, setScheduleEdits] = useState<
+    Record<string, { day: number; time: string }>
+  >({});
 
   useEffect(() => {
     setPeopleCounts(Object.fromEntries(routePoints.map((p) => [p.id, 1])));
-    setScheduleEdits(Object.fromEntries(routePoints.map((p) => [p.id, { day: p.day, time: p.time }])));
+    setScheduleEdits(
+      Object.fromEntries(
+        routePoints.map((p) => [p.id, { day: p.day, time: p.time }]),
+      ),
+    );
   }, []);
 
   const [excluded, setExcluded] = useState<Record<string, boolean>>({});
 
-  const zoomIn = () => setZoom((z) => Math.min(3, parseFloat((z + 0.2).toFixed(2))));
-  const zoomOut = () => setZoom((z) => Math.max(0.5, parseFloat((z - 0.2).toFixed(2))));
+  const zoomIn = () =>
+    setZoom((z) => Math.min(3, parseFloat((z + 0.2).toFixed(2))));
+  const zoomOut = () =>
+    setZoom((z) => Math.max(0.5, parseFloat((z - 0.2).toFixed(2))));
 
   const changePeople = (id: string, delta: number) => {
     setPeopleCounts((prev) => {
@@ -123,7 +135,6 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
   };
 
   const removeItem = (id: string) => setExcluded((e) => ({ ...e, [id]: true }));
-
 
   // Sample route data for Bali trip
   const routePoints: RoutePoint[] = [
@@ -355,15 +366,23 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
   ];
 
   // merge any schedule edits into base route points so UI reflects user changes
-  const combinedPoints = routePoints.map((p) => ({ ...p, ...(scheduleEdits[p.id] ?? {}) }));
+  const combinedPoints = routePoints.map((p) => ({
+    ...p,
+    ...(scheduleEdits[p.id] ?? {}),
+  }));
 
   const getDayPoints = (day: number) => {
-    return combinedPoints.filter((point) => point.day === day && !excluded[point.id]);
+    return combinedPoints.filter(
+      (point) => point.day === day && !excluded[point.id],
+    );
   };
 
   const getFilteredPoints = () => {
-    if (filterType === "all") return combinedPoints.filter((p) => !excluded[p.id]);
-    return combinedPoints.filter((point) => point.type === filterType && !excluded[point.id]);
+    if (filterType === "all")
+      return combinedPoints.filter((p) => !excluded[p.id]);
+    return combinedPoints.filter(
+      (point) => point.type === filterType && !excluded[point.id],
+    );
   };
 
   const getTypeIcon = (type: string) => {
@@ -453,7 +472,12 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
           }}
         >
           <div
-            style={{ transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoomLevel})`, transformOrigin: "50% 50%", width: "100%", height: "100%" }}
+            style={{
+              transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoomLevel})`,
+              transformOrigin: "50% 50%",
+              width: "100%",
+              height: "100%",
+            }}
             className="w-full h-full relative"
           >
             <svg className="absolute inset-0 w-full h-full">
@@ -479,10 +503,16 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
                 }}
                 onClick={() => setSelectedPoint(point)}
               >
-                <div className={`relative group ${selectedPoint?.id === point.id ? "scale-125" : "hover:scale-110"} transition-transform`}>
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center shadow-lg border-2 ${
-                    point.isIncluded ? "bg-travel-blue text-white border-travel-blue" : "bg-white text-travel-blue border-travel-blue"
-                  }`}>
+                <div
+                  className={`relative group ${selectedPoint?.id === point.id ? "scale-125" : "hover:scale-110"} transition-transform`}
+                >
+                  <div
+                    className={`w-10 h-10 rounded-full flex items-center justify-center shadow-lg border-2 ${
+                      point.isIncluded
+                        ? "bg-travel-blue text-white border-travel-blue"
+                        : "bg-white text-travel-blue border-travel-blue"
+                    }`}
+                  >
                     {getTypeIcon(point.type)}
                   </div>
 
@@ -503,7 +533,9 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
                   <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity">
                     <div className="bg-black text-white text-xs rounded px-2 py-1 whitespace-nowrap">
                       {point.name}
-                      <div className="text-xs text-gray-300">Day {point.day} • {point.time}</div>
+                      <div className="text-xs text-gray-300">
+                        Day {point.day} • {point.time}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -534,60 +566,60 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted">
       {showHeader && (
-      <header className="border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <Link
-              to={`/trip-details/${planId}`}
-              className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <ArrowLeft className="h-5 w-5" />
-              <span>Back to Trip Details</span>
-            </Link>
-            <div className="h-6 w-px bg-border"></div>
+        <header className="border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50">
+          <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <Link
+                to={`/trip-details/${planId}`}
+                className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <ArrowLeft className="h-5 w-5" />
+                <span>Back to Trip Details</span>
+              </Link>
+              <div className="h-6 w-px bg-border"></div>
+              <div className="flex items-center space-x-2">
+                <Route className="h-6 w-6 text-travel-blue" />
+                <span className="text-xl font-bold bg-gradient-to-r from-travel-blue to-travel-purple bg-clip-text text-transparent">
+                  Route Map & Navigation
+                </span>
+              </div>
+            </div>
             <div className="flex items-center space-x-2">
-              <Route className="h-6 w-6 text-travel-blue" />
-              <span className="text-xl font-bold bg-gradient-to-r from-travel-blue to-travel-purple bg-clip-text text-transparent">
-                Route Map & Navigation
-              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowOffers(!showOffers)}
+              >
+                <Gift className="h-4 w-4 mr-2" />
+                {showOffers ? "Hide" : "Show"} Offers
+              </Button>
+              <Button variant="outline" size="sm">
+                <Share2 className="h-4 w-4 mr-2" />
+                Share Route
+              </Button>
             </div>
           </div>
-          <div className="flex items-center space-x-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setShowOffers(!showOffers)}
-            >
-              <Gift className="h-4 w-4 mr-2" />
-              {showOffers ? "Hide" : "Show"} Offers
-            </Button>
-            <Button variant="outline" size="sm">
-              <Share2 className="h-4 w-4 mr-2" />
-              Share Route
-            </Button>
-          </div>
-        </div>
-      </header>
+        </header>
       )}
 
       <div className="container mx-auto px-4 py-8">
         {showHeader && (
-        <div className="mb-8">
-          <div className="flex items-center space-x-2 mb-4">
-            <Badge className="bg-travel-blue/10 text-travel-blue border-travel-blue/20">
-              📍 7-Day Bali Adventure Route
-            </Badge>
-            <Badge variant="secondary">25 Stops Planned</Badge>
-            <Badge variant="secondary">3 Rest Areas</Badge>
+          <div className="mb-8">
+            <div className="flex items-center space-x-2 mb-4">
+              <Badge className="bg-travel-blue/10 text-travel-blue border-travel-blue/20">
+                📍 7-Day Bali Adventure Route
+              </Badge>
+              <Badge variant="secondary">25 Stops Planned</Badge>
+              <Badge variant="secondary">3 Rest Areas</Badge>
+            </div>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">
+              Your Complete Journey Map
+            </h1>
+            <p className="text-lg text-muted-foreground mb-6">
+              Navigate your entire Bali adventure with included activities,
+              recommended stops, and exclusive offers along the way.
+            </p>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">
-            Your Complete Journey Map
-          </h1>
-          <p className="text-lg text-muted-foreground mb-6">
-            Navigate your entire Bali adventure with included activities,
-            recommended stops, and exclusive offers along the way.
-          </p>
-        </div>
         )}
 
         <div className="grid lg:grid-cols-3 gap-6">
@@ -616,14 +648,28 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
 
                     {/* Map controls: zoom and maximize */}
                     <div className="flex items-center space-x-1 ml-2">
-                      <button onClick={zoomOut} className="p-2 rounded bg-white shadow text-sm" aria-label="zoom out">
+                      <button
+                        onClick={zoomOut}
+                        className="p-2 rounded bg-white shadow text-sm"
+                        aria-label="zoom out"
+                      >
                         <ZoomOut className="h-4 w-4" />
                       </button>
-                      <div className="px-2 text-sm">{Math.round(zoom * 100)}%</div>
-                      <button onClick={zoomIn} className="p-2 rounded bg-white shadow text-sm" aria-label="zoom in">
+                      <div className="px-2 text-sm">
+                        {Math.round(zoom * 100)}%
+                      </div>
+                      <button
+                        onClick={zoomIn}
+                        className="p-2 rounded bg-white shadow text-sm"
+                        aria-label="zoom in"
+                      >
                         <ZoomIn className="h-4 w-4" />
                       </button>
-                      <button onClick={() => setExpandedMap(true)} className="p-2 rounded bg-white shadow text-sm ml-2" aria-label="maximize map">
+                      <button
+                        onClick={() => setExpandedMap(true)}
+                        className="p-2 rounded bg-white shadow text-sm ml-2"
+                        aria-label="maximize map"
+                      >
                         <Maximize2 className="h-4 w-4" />
                       </button>
                     </div>
@@ -800,7 +846,11 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
         {expandedMap && (
           <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-6">
             <div className="bg-white w-full h-full rounded shadow-lg overflow-auto relative">
-              <button className="absolute top-4 right-4 p-2 bg-white rounded-full shadow" onClick={() => setExpandedMap(false)} aria-label="Close">
+              <button
+                className="absolute top-4 right-4 p-2 bg-white rounded-full shadow"
+                onClick={() => setExpandedMap(false)}
+                aria-label="Close"
+              >
                 <X className="h-4 w-4" />
               </button>
               <div className="p-6 h-full">
@@ -825,14 +875,28 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
                       </select>
 
                       <div className="flex items-center space-x-1 ml-2">
-                        <button onClick={zoomOut} className="p-2 rounded bg-white shadow text-sm" aria-label="zoom out">
+                        <button
+                          onClick={zoomOut}
+                          className="p-2 rounded bg-white shadow text-sm"
+                          aria-label="zoom out"
+                        >
                           <ZoomOut className="h-4 w-4" />
                         </button>
-                        <div className="px-2 text-sm">{Math.round(zoom * 100)}%</div>
-                        <button onClick={zoomIn} className="p-2 rounded bg-white shadow text-sm" aria-label="zoom in">
+                        <div className="px-2 text-sm">
+                          {Math.round(zoom * 100)}%
+                        </div>
+                        <button
+                          onClick={zoomIn}
+                          className="p-2 rounded bg-white shadow text-sm"
+                          aria-label="zoom in"
+                        >
                           <ZoomIn className="h-4 w-4" />
                         </button>
-                        <button onClick={() => setExpandedMap(false)} className="p-2 rounded bg-white shadow text-sm ml-2" aria-label="minimize">
+                        <button
+                          onClick={() => setExpandedMap(false)}
+                          className="p-2 rounded bg-white shadow text-sm ml-2"
+                          aria-label="minimize"
+                        >
                           <Maximize2 className="h-4 w-4 transform rotate-180" />
                         </button>
                       </div>
@@ -881,22 +945,48 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
                           >
                             <div className="w-20 text-xs text-muted-foreground flex-shrink-0">
                               <select
-                                value={(scheduleEdits[point.id]?.day ?? point.day)}
+                                value={
+                                  scheduleEdits[point.id]?.day ?? point.day
+                                }
                                 onChange={(e) => {
                                   const day = parseInt(e.target.value, 10);
-                                  setScheduleEdits((prev) => ({ ...prev, [point.id]: { ...(prev[point.id] ?? { day: point.day, time: point.time }), day } }));
+                                  setScheduleEdits((prev) => ({
+                                    ...prev,
+                                    [point.id]: {
+                                      ...(prev[point.id] ?? {
+                                        day: point.day,
+                                        time: point.time,
+                                      }),
+                                      day,
+                                    },
+                                  }));
                                 }}
                                 className="text-xs border rounded px-1 py-1 w-full mb-1"
                               >
                                 {[1, 2, 3, 4, 5, 6, 7].map((d) => (
-                                  <option key={d} value={d}>{d}</option>
+                                  <option key={d} value={d}>
+                                    {d}
+                                  </option>
                                 ))}
                               </select>
 
                               <input
                                 type="text"
-                                value={(scheduleEdits[point.id]?.time ?? point.time)}
-                                onChange={(e) => setScheduleEdits((prev) => ({ ...prev, [point.id]: { ...(prev[point.id] ?? { day: point.day, time: point.time }), time: e.target.value } }))}
+                                value={
+                                  scheduleEdits[point.id]?.time ?? point.time
+                                }
+                                onChange={(e) =>
+                                  setScheduleEdits((prev) => ({
+                                    ...prev,
+                                    [point.id]: {
+                                      ...(prev[point.id] ?? {
+                                        day: point.day,
+                                        time: point.time,
+                                      }),
+                                      time: e.target.value,
+                                    },
+                                  }))
+                                }
                                 className="text-xs border rounded px-1 py-1 w-full"
                               />
                             </div>
@@ -935,11 +1025,16 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
                                   </div>
                                 )}
 
-
                                 {point.price && (
                                   <div className="flex items-center space-x-1">
                                     <DollarSign className="h-4 w-4" />
-                                    <span>${((peopleCounts[point.id] ?? 1) * point.price).toFixed(2)}</span>
+                                    <span>
+                                      $
+                                      {(
+                                        (peopleCounts[point.id] ?? 1) *
+                                        point.price
+                                      ).toFixed(2)}
+                                    </span>
                                   </div>
                                 )}
                               </div>
@@ -947,8 +1042,15 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
 
                             <div className="flex-shrink-0 text-right space-y-1 flex flex-col items-end">
                               {/* Replace icon on top */}
-                              <Link to={`/replace-options/${point.id}`} className="mb-0">
-                                <Button size="sm" variant="ghost" className="p-1 h-7 w-7 flex items-center justify-center text-travel-blue">
+                              <Link
+                                to={`/replace-options/${point.id}`}
+                                className="mb-0"
+                              >
+                                <Button
+                                  size="sm"
+                                  variant="ghost"
+                                  className="p-1 h-7 w-7 flex items-center justify-center text-travel-blue"
+                                >
                                   <Repeat className="h-4 w-4" />
                                 </Button>
                               </Link>
@@ -956,17 +1058,46 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
                               {/* Compact people controls before price (larger size) */}
                               <div className="flex items-center space-x-3">
                                 {(() => {
-                                  const applicable = Boolean(point.price) || ["experience", "restaurant", "attraction", "stay"].includes(point.type);
+                                  const applicable =
+                                    Boolean(point.price) ||
+                                    [
+                                      "experience",
+                                      "restaurant",
+                                      "attraction",
+                                      "stay",
+                                    ].includes(point.type);
                                   return applicable ? (
                                     <div className="flex items-center space-x-2">
-                                      <button className="px-2 py-1 border rounded text-sm" aria-label="decrease" onClick={() => changePeople(point.id, -1)}>-</button>
-                                      <div className="px-3 py-1 text-sm">{peopleCounts[point.id] ?? 1}</div>
-                                      <button className="px-2 py-1 border rounded text-sm" aria-label="increase" onClick={() => changePeople(point.id, 1)}>+</button>
+                                      <button
+                                        className="px-2 py-1 border rounded text-sm"
+                                        aria-label="decrease"
+                                        onClick={() =>
+                                          changePeople(point.id, -1)
+                                        }
+                                      >
+                                        -
+                                      </button>
+                                      <div className="px-3 py-1 text-sm">
+                                        {peopleCounts[point.id] ?? 1}
+                                      </div>
+                                      <button
+                                        className="px-2 py-1 border rounded text-sm"
+                                        aria-label="increase"
+                                        onClick={() =>
+                                          changePeople(point.id, 1)
+                                        }
+                                      >
+                                        +
+                                      </button>
                                     </div>
                                   ) : null;
                                 })()}
 
-                                <div className="text-sm font-semibold">{point.price ? `$${((peopleCounts[point.id] ?? 1) * (point.price ?? 0)).toFixed(2)}` : ""}</div>
+                                <div className="text-sm font-semibold">
+                                  {point.price
+                                    ? `$${((peopleCounts[point.id] ?? 1) * (point.price ?? 0)).toFixed(2)}`
+                                    : ""}
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -987,27 +1118,27 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
 
         {/* Navigation Controls */}
         {showHeader && (
-        <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-40">
-          <Card className="px-6 py-4">
-            <div className="flex items-center space-x-4">
-              <Button
-                size="lg"
-                className="bg-travel-blue hover:bg-travel-blue/90"
-              >
-                <Navigation className="h-5 w-5 mr-2" />
-                Start Navigation
-              </Button>
-              <Button variant="outline" size="lg">
-                <Phone className="h-5 w-5 mr-2" />
-                Emergency Contact
-              </Button>
-              <Button variant="outline" size="lg">
-                <Wifi className="h-5 w-5 mr-2" />
-                Offline Maps
-              </Button>
-            </div>
-          </Card>
-        </div>
+          <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-40">
+            <Card className="px-6 py-4">
+              <div className="flex items-center space-x-4">
+                <Button
+                  size="lg"
+                  className="bg-travel-blue hover:bg-travel-blue/90"
+                >
+                  <Navigation className="h-5 w-5 mr-2" />
+                  Start Navigation
+                </Button>
+                <Button variant="outline" size="lg">
+                  <Phone className="h-5 w-5 mr-2" />
+                  Emergency Contact
+                </Button>
+                <Button variant="outline" size="lg">
+                  <Wifi className="h-5 w-5 mr-2" />
+                  Offline Maps
+                </Button>
+              </div>
+            </Card>
+          </div>
         )}
       </div>
     </div>
