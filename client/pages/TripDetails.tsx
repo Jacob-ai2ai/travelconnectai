@@ -479,6 +479,51 @@ export default function TripDetails() {
             <RouteMap showHeader={false} />
           </TabsContent>
 
+          {/* Flights Tab */}
+          <TabsContent value="flights" className="mt-6">
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold">Your Flights</h2>
+                <Badge variant="secondary">{itinerary.flights.length} Selected</Badge>
+              </div>
+
+              <div className="grid gap-4">
+                {flights.map((f) => (
+                  <Card key={f.id} className="p-4 flex items-center justify-between">
+                    <div className="flex items-center space-x-4">
+                      <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center text-sm font-medium">
+                        {f.airline}
+                      </div>
+                      <div>
+                        <div className="font-semibold">{f.flightNumber} • {f.class}</div>
+                        <div className="text-sm text-muted-foreground">{f.from} → {f.to} • {f.duration}</div>
+                      </div>
+                    </div>
+
+                    <div className="text-right flex items-center space-x-3">
+                      <div className="text-lg font-bold">${f.price}</div>
+                      {itinerary.flights.includes(f.id) ? (
+                        <div className="flex items-center space-x-2">
+                          <Button size="sm" variant="outline" onClick={() => removeFromItinerary('flights', f.id)}>Remove</Button>
+                          <Link to={`/replace-options/${f.id}`}>
+                            <Button size="sm" variant="ghost">Replace</Button>
+                          </Link>
+                        </div>
+                      ) : (
+                        <Button size="sm" onClick={() => addToItinerary('flights', f.id)}>Add to itinerary</Button>
+                      )}
+                    </div>
+                  </Card>
+                ))}
+              </div>
+
+              <div className="mt-4">
+                <h3 className="text-lg font-semibold mb-2">Other flight options</h3>
+                <div className="text-sm text-muted-foreground">Explore alternative routes and classes that you can add to your trip.</div>
+              </div>
+            </div>
+          </TabsContent>
+
           {/* Accommodations Tab */}
           <TabsContent value="stays" className="mt-6">
             <div className="space-y-6">
