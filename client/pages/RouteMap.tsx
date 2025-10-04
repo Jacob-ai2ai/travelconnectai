@@ -730,6 +730,56 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
           </div>
         </div>
 
+        {expandedMap && (
+          <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-6">
+            <div className="bg-white w-full h-full rounded shadow-lg overflow-auto relative">
+              <button className="absolute top-4 right-4 p-2 bg-white rounded-full shadow" onClick={() => setExpandedMap(false)} aria-label="Close">
+                <X className="h-4 w-4" />
+              </button>
+              <div className="p-6 h-full">
+                <Card className="h-full">
+                  <CardHeader className="pb-3">
+                    <CardTitle className="flex items-center space-x-2">
+                      <Navigation className="h-5 w-5" />
+                      <span>Interactive Route Map</span>
+                    </CardTitle>
+                    <div className="flex items-center space-x-2">
+                      <select
+                        value={filterType}
+                        onChange={(e) => setFilterType(e.target.value)}
+                        className="text-sm border rounded px-2 py-1"
+                      >
+                        <option value="all">All Stops</option>
+                        <option value="stay">Accommodations</option>
+                        <option value="experience">Experiences</option>
+                        <option value="restaurant">Restaurants</option>
+                        <option value="rest_stop">Rest Stops</option>
+                        <option value="attraction">Attractions</option>
+                      </select>
+
+                      <div className="flex items-center space-x-1 ml-2">
+                        <button onClick={zoomOut} className="p-2 rounded bg-white shadow text-sm" aria-label="zoom out">
+                          <ZoomOut className="h-4 w-4" />
+                        </button>
+                        <div className="px-2 text-sm">{Math.round(zoom * 100)}%</div>
+                        <button onClick={zoomIn} className="p-2 rounded bg-white shadow text-sm" aria-label="zoom in">
+                          <ZoomIn className="h-4 w-4" />
+                        </button>
+                        <button onClick={() => setExpandedMap(false)} className="p-2 rounded bg-white shadow text-sm ml-2" aria-label="minimize">
+                          <Maximize2 className="h-4 w-4 transform rotate-180" />
+                        </button>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-0 h-full">
+                    <MapView zoomLevel={zoom} />
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Day-by-Day Timeline */}
         <div className="mt-12">
           <Card>
