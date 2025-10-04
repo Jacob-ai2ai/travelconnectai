@@ -21,7 +21,6 @@ import {
   ArrowRight,
   Calendar,
   Filter,
-  Repeat,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
