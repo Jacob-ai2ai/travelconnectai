@@ -357,8 +357,8 @@ export default function RouteMap({ showHeader = true }: { showHeader?: boolean }
   };
 
   const getFilteredPoints = () => {
-    if (filterType === "all") return routePoints;
-    return routePoints.filter((point) => point.type === filterType);
+    if (filterType === "all") return routePoints.filter((p) => !excluded[p.id]);
+    return routePoints.filter((point) => point.type === filterType && !excluded[point.id]);
   };
 
   const getTypeIcon = (type: string) => {
