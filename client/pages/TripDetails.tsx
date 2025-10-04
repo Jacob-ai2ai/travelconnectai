@@ -113,6 +113,26 @@ export default function TripDetails() {
     });
   };
 
+  // Track items currently in the itinerary (by category)
+  const [itinerary, setItinerary] = useState<{
+    flights: string[];
+    stays: string[];
+    experiences: string[];
+    products: string[];
+  }>({ flights: [], stays: ["villa-1"], experiences: ["exp-1"], products: ["prod-1"] });
+
+  const addToItinerary = (category: keyof typeof itinerary, id: string) => {
+    setItinerary((prev) => ({ ...prev, [category]: Array.from(new Set([...(prev[category] as string[]), id])) }));
+  };
+
+  const removeFromItinerary = (category: keyof typeof itinerary, id: string) => {
+    setItinerary((prev) => ({ ...prev, [category]: (prev[category] as string[]).filter((i) => i !== id) }));
+  };
+
+  const replaceInItinerary = (category: keyof typeof itinerary, oldId: string, newId: string) => {
+    setItinerary((prev) => ({ ...prev, [category]: (prev[category] as string[]).map((i) => (i === oldId ? newId : i)) }));
+  };
+
   // Sample data
   const accommodations: Accommodation[] = [
     {
@@ -465,7 +485,7 @@ export default function TripDetails() {
                             <div className="absolute top-4 right-4">
                               <Badge className="bg-red-500 hover:bg-red-600">
                                 <Radio className="h-3 w-3 mr-1" />
-                                LIVE • {accommodation.liveStreamViewers}
+                                LIVE ��� {accommodation.liveStreamViewers}
                               </Badge>
                             </div>
                           )}
