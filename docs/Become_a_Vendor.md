@@ -13,6 +13,7 @@ Scope: From click on “Become a Travel Vendor” to completion of category-spec
 ## 1. Overview
 
 Entry points:
+
 - Header CTA (client/components/ServiceHeader.tsx)
   - signed-in users: navigate("/vendors")
   - not signed-in: navigate("/?auth=signin&next=/vendors")
@@ -54,6 +55,7 @@ Post-sign-up redirect: `/onboarding` (for travelers) or `/vendors` (for vendors)
 A. Entry & gating
 
 1. User clicks “Become a Travel Vendor”:
+
    - If signedIn:
      - Action: `navigate("/vendors")`
      - Component: ServiceHeader.tsx (signedIn branch)
@@ -62,6 +64,7 @@ A. Entry & gating
      - Modal: AuthModal opens; after sign-up success -> `navigate(nextPath || "/onboarding")`
 
 2. If user came via sign-up and selected role "travel-vendor" during Onboarding.tsx:
+
    - `handleRoleSelect("travel-vendor")` => `navigate("/vendors")`
 
 3. `/vendors` shows list of categories, each with "Start" or card linking to the specific route.
@@ -69,6 +72,7 @@ A. Entry & gating
 B. Category selection
 
 1. VendorCategories.tsx: categories array with `{ id, title, description, icon, to }` where `to` maps to:
+
    - `airlines` -> `/flights-onboarding`
    - `stays` -> `/property-onboarding`
    - `experiences` -> `/experiences-onboarding`
@@ -81,6 +85,7 @@ B. Category selection
 C. Category-specific onboarding (example: PropertyOwnerOnboarding.tsx)
 
 1. Multi-step flow (typical steps):
+
    - Role (pre-filled from profile)
    - Property Details (name, location, type, rooms, star rating)
    - Amenities (checkboxes)
@@ -98,6 +103,7 @@ C. Category-specific onboarding (example: PropertyOwnerOnboarding.tsx)
 D. Post-onboarding
 
 1. On success:
+
    - Display confirmation and recommended next steps.
    - Option to manage listing (link to vendor dashboard).
    - If admin approval required, show status "Pending review".
