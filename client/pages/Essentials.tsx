@@ -24,6 +24,7 @@ import {
   Shield,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import ItinerarySummary from "@/components/ItinerarySummary";
 
 interface ProductType {
   id: string;
@@ -367,17 +368,22 @@ export default function Essentials() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted">
       <ServiceHeader
-        currentLocation={isLoadingLocation ? "Detecting..." : currentLocation}
-        walletBalance={walletBalance}
-        isSignedIn={isSignedIn}
-        searchQuery={currentLocation}
-        onSearchChange={(value) => {
-          setCurrentLocation(value);
-          handleLocationSearch(value);
-        }}
-      />
+      currentLocation={isLoadingLocation ? "Detecting..." : currentLocation}
+      walletBalance={walletBalance}
+      isSignedIn={isSignedIn}
+      searchQuery={currentLocation}
+      onSearchChange={(value) => {
+        setCurrentLocation(value);
+        handleLocationSearch(value);
+      }}
+    />
 
-      <div className="container mx-auto px-4 py-8">
+    {/* Floating itinerary panel for desktop */}
+    <div className="hidden md:block fixed right-6 top-32 w-80 z-40">
+      <ItinerarySummary />
+    </div>
+
+    <div className="container mx-auto px-4 py-8">
         {/* Product Type Categories */}
         <section className="mb-12">
           <div className="flex overflow-x-auto space-x-6 pb-4">
