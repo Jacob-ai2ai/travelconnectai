@@ -158,10 +158,19 @@ export default function FlightDetails() {
 
                 <div className="mt-4 flex items-center space-x-3">
                   <Button variant="outline" onClick={() => navigate(-1)}>Back</Button>
+
                   {isIncluded ? (
                     <>
-                      <Button variant="destructive" onClick={() => removeFromItinerary(flight.id as string)}>Remove from itinerary</Button>
-                      <Button onClick={() => saveDetails()}>Save changes</Button>
+                      {/* If no unsaved changes, show Added disabled. If changed, offer Add to itinerary to save updated details */}
+                      {!hasUnsavedChanges ? (
+                        <Button disabled className="bg-green-100 text-green-800">Added</Button>
+                      ) : (
+                        <Button onClick={() => { saveDetails(); }}>
+                          Add to itinerary
+                        </Button>
+                      )}
+
+                      <Button variant="outline" onClick={() => removeFromItinerary(flight.id as string)}>Remove</Button>
                     </>
                   ) : (
                     <Button onClick={() => addToItinerary(flight.id as string)}>Add to itinerary</Button>
