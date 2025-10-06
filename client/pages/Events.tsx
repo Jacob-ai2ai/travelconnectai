@@ -25,6 +25,7 @@ import {
   PartyPopper,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import ItinerarySummary from "@/components/ItinerarySummary";
 
 interface EventType {
   id: string;
