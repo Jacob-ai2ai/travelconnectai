@@ -762,7 +762,7 @@ export default function TripDetails() {
                                   key={index}
                                   className="text-sm text-muted-foreground"
                                 >
-                                  • {attraction}
+                                  �� {attraction}
                                 </div>
                               ),
                             )}
@@ -771,38 +771,13 @@ export default function TripDetails() {
 
                         {/* Action Buttons */}
                         <div className="flex space-x-3 items-start">
-                          <div className="flex flex-col space-y-2">
-                            {itinerary.stays.includes(accommodation.id) ? (
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                onClick={() =>
-                                  removeFromItinerary("stays", accommodation.id)
-                                }
-                              >
-                                Remove
-                              </Button>
-                            ) : (
-                              <Button
-                                size="sm"
-                                onClick={() =>
-                                  addToItinerary("stays", accommodation.id)
-                                }
-                              >
-                                Add
-                              </Button>
-                            )}
-
-                            <Link to={`/replace-options/${accommodation.id}`}>
-                              <Button
-                                size="sm"
-                                variant="ghost"
-                                className="p-1 h-8 w-24"
-                              >
-                                Replace
-                              </Button>
-                            </Link>
-                          </div>
+                          <div>
+                          {itinerary.stays.includes(accommodation.id) ? (
+                            <div className="text-sm text-muted-foreground">Included</div>
+                          ) : (
+                            <Button size="sm" onClick={() => addToItinerary("stays", accommodation.id)}>Add</Button>
+                          )}
+                        </div>
 
                           <Button
                             onClick={() => requestLiveStream(accommodation.id)}
