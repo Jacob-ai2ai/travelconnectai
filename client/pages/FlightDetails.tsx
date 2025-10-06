@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Clock, Star, Zap } from "lucide-react";
+import ItinerarySummary from "@/components/ItinerarySummary";
 
 export default function FlightDetails() {
   const { flightId } = useParams();
