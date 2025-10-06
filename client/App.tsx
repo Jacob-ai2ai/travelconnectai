@@ -25,6 +25,7 @@ import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
 import FlightsOnboarding from "./pages/FlightsOnboarding";
 import ReplaceOptions from "./pages/ReplaceOptions";
+import FlightDetails from "./pages/FlightDetails";
 import ExperiencesOnboarding from "./pages/ExperiencesOnboarding";
 import EventsOnboarding from "./pages/EventsOnboarding";
 import ProductsOnboarding from "./pages/ProductsOnboarding";
