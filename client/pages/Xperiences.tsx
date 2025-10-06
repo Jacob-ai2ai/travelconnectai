@@ -23,6 +23,7 @@ import {
   Zap,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import ItinerarySummary from "@/components/ItinerarySummary";
 
 interface XperienceType {
   id: string;
