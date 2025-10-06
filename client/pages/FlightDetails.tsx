@@ -194,36 +194,37 @@ export default function FlightDetails() {
             {/* Other options for this route */}
             <div>
               <h3 className="text-lg font-semibold mb-3">Other options on this route</h3>
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="flex flex-col space-y-4">
                 {alternatives.map((opt) => (
-                  <Card key={opt.id} className="p-4 flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center text-sm font-medium">{opt.airline}</div>
-                      <div>
-                        <div className="font-semibold">{opt.flightNumber} • {opt.airline}</div>
-                        <div className="text-sm text-muted-foreground">{opt.departureTime} • {opt.arrivalTime} • {opt.price}</div>
+                  <Card key={opt.id} className="p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-4">
+                        <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center text-sm font-medium">{opt.airline}</div>
+                        <div>
+                          <div className="font-semibold">{opt.flightNumber} • {opt.airline}</div>
+                          <div className="text-sm text-muted-foreground">{opt.departureTime} • {opt.arrivalTime} • ${opt.price}</div>
+                        </div>
+                      </div>
+
+                      <div className="text-right">
+                        <div className="flex items-center space-x-2 justify-end">
+                          <div className="text-lg font-bold">${opt.price}</div>
+                          {opt.originalPrice && <div className="text-sm text-muted-foreground line-through">${opt.originalPrice}</div>}
+                        </div>
+
+                        <div className="mt-2 flex items-center space-x-2 justify-end">
+                          {itineraryFlights.includes(opt.id) ? (
+                            <Button size="sm" variant="outline" onClick={() => removeFromItinerary(opt.id)}>Remove</Button>
+                          ) : (
+                            <Button size="sm" onClick={() => addToItinerary(opt.id)}>Add</Button>
+                          )}
+
+                          <Link to={`/flight/${opt.id}`}>
+                            <Button size="sm" variant="ghost">View</Button>
+                          </Link>
+                        </div>
                       </div>
                     </div>
-
-                    <div className="text-right">
-                      <div className="flex items-center space-x-2">
-                        <div className="text-lg font-bold">${opt.price}</div>
-                        {opt.originalPrice && <div className="text-sm text-muted-foreground line-through">${opt.originalPrice}</div>}
-                      </div>
-
-                      <div className="mt-2 flex items-center space-x-2">
-                        {itineraryFlights.includes(opt.id) ? (
-                          <Button size="sm" variant="outline" onClick={() => removeFromItinerary(opt.id)}>Remove</Button>
-                        ) : (
-                          <Button size="sm" onClick={() => addToItinerary(opt.id)}>Add</Button>
-                        )}
-
-                        <Link to={`/flight/${opt.id}`}>
-                          <Button size="sm" variant="ghost">View</Button>
-                        </Link>
-                      </div>
-                    </div>
-
                   </Card>
                 ))}
               </div>
