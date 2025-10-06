@@ -636,15 +636,6 @@ export default function TripDetails() {
                 ))}
               </div>
 
-              <div className="mt-4">
-                <h3 className="text-lg font-semibold mb-2">
-                  Other flight options
-                </h3>
-                <div className="text-sm text-muted-foreground">
-                  Explore alternative routes and classes that you can add to
-                  your trip.
-                </div>
-              </div>
             </div>
           </TabsContent>
 
