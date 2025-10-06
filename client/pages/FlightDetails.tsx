@@ -37,6 +37,7 @@ export default function FlightDetails() {
   const [people, setPeople] = useState(1);
   const [travelClass, setTravelClass] = useState(flight.class);
   const [travelDate, setTravelDate] = useState(flight.departure.split("T")[0]);
+  const [savedSnapshot, setSavedSnapshot] = useState<{ people: number; class: string; date: string } | null>(null);
 
   useEffect(() => {
     try {
@@ -50,6 +51,9 @@ export default function FlightDetails() {
         setPeople(details[flight.id].people ?? 1);
         setTravelClass(details[flight.id].class ?? flight.class);
         setTravelDate(details[flight.id].date ?? travelDate);
+        setSavedSnapshot({ people: details[flight.id].people ?? 1, class: details[flight.id].class ?? flight.class, date: details[flight.id].date ?? travelDate });
+      } else {
+        setSavedSnapshot(null);
       }
     } catch (e) {
       setItineraryFlights([]);
@@ -66,6 +70,7 @@ export default function FlightDetails() {
     const details = raw ? JSON.parse(raw) : {};
     details[flight.id] = { people, class: travelClass, date: travelDate };
     localStorage.setItem("itineraryDetails", JSON.stringify(details));
+    setSavedSnapshot({ people, class: travelClass, date: travelDate });
   };
 
   const addToItinerary = (id: string) => {
@@ -76,9 +81,15 @@ export default function FlightDetails() {
   const removeFromItinerary = (id: string) => {
     const next = itineraryFlights.filter((i) => i !== id);
     saveItineraryFlights(next);
+    // clear saved snapshot when removed
+    if (id === flight.id) setSavedSnapshot(null);
   };
 
   const isIncluded = itineraryFlights.includes(flight.id as string);
+  const hasUnsavedChanges = (() => {
+    if (!savedSnapshot) return false;
+    return savedSnapshot.people !== people || savedSnapshot.class !== travelClass || savedSnapshot.date !== travelDate;
+  })();
 
   return (
     <div className="min-h-screen p-6">
