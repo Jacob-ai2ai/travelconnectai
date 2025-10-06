@@ -72,6 +72,7 @@ export default function App() {
               element={<ProductsOnboarding />}
             />
             <Route path="/replace-options/:id" element={<ReplaceOptions />} />
+            <Route path="/flight/:flightId" element={<FlightDetails />} />
             <Route
               path="/travel-agent-onboarding"
               element={<TravelAgentOnboarding />}
