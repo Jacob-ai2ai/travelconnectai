@@ -660,13 +660,31 @@ export default function TripDetails() {
                             <div className="relative">
                               <div className="aspect-video relative bg-muted">
                                 <img src={accommodation.images[0]} alt={accommodation.name} className="w-full h-full object-cover" />
+
+                                <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                                  <Button size="lg" className="bg-white/90 text-black hover:bg-white">
+                                    <Play className="h-5 w-5 mr-2" />
+                                    Watch Walkthrough
+                                  </Button>
+                                </div>
+
+                                {accommodation.isLiveStreamAvailable && (
+                                  <div className="absolute top-4 right-4">
+                                    <Badge className="bg-red-500 hover:bg-red-600">
+                                      <Radio className="h-3 w-3 mr-1" />
+                                      LIVE • {accommodation.liveStreamViewers}
+                                    </Badge>
+                                  </div>
+                                )}
                               </div>
+
                               <div className="flex space-x-2 p-4">
                                 {accommodation.images.slice(1, 4).map((image, index) => (
                                   <div key={index} className="w-16 h-16 rounded-lg overflow-hidden">
                                     <img src={image} alt="" className="w-full h-full object-cover" />
                                   </div>
                                 ))}
+                                <div className="w-16 h-16 rounded-lg bg-muted flex items-center justify-center text-xs font-medium">+12 more</div>
                               </div>
                             </div>
 
