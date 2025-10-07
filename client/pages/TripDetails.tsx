@@ -141,14 +141,21 @@ export default function TripDetails() {
       const cur = prev[id] ?? 1;
       let next = cur + delta;
 
-      // If this id belongs to an experience, allow zero (removes from itinerary)
+      // If this id belongs to an experience or event, allow zero (removes from itinerary)
       const isExperience = experiences.some((e) => e.id === id);
-      if (isExperience) {
+      const isEvent = events.some((ev) => ev.id === id);
+      if (isExperience || isEvent) {
         next = Math.max(0, next);
         // schedule itinerary update outside of state setter using timeout to avoid nested state updates
         setTimeout(() => {
-          if (next > 0 && !itinerary.experiences.includes(id)) addToItinerary("experiences", id);
-          if (next === 0 && itinerary.experiences.includes(id)) removeFromItinerary("experiences", id);
+          if (next > 0) {
+            if (isExperience && !itinerary.experiences.includes(id)) addToItinerary("experiences", id);
+            if (isEvent && !itinerary.events.includes(id)) addToItinerary("events", id);
+          }
+          if (next === 0) {
+            if (isExperience && itinerary.experiences.includes(id)) removeFromItinerary("experiences", id);
+            if (isEvent && itinerary.events.includes(id)) removeFromItinerary("events", id);
+          }
         }, 0);
       } else {
         // For non-experience items (e.g., flights) keep minimum 1
