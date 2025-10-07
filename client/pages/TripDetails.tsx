@@ -1246,6 +1246,25 @@ export default function TripDetails() {
                             </Badge>
                           </div>
                         )}
+
+                        {/* Play / Live button bottom-right */}
+                        <div className="absolute bottom-2 right-2">
+                          <button
+                            aria-label={product.isLiveSale ? "Join Live Sale" : "Request Live"}
+                            onClick={() => {
+                              if (product.isLiveSale) {
+                                // open live stream in new window (placeholder behavior)
+                                window.open(`/live/${product.id}`, "_blank");
+                              } else {
+                                // request live action placeholder
+                                alert('Requested live demo for ' + product.name);
+                              }
+                            }}
+                            className="p-2 h-8 w-8 rounded-full bg-white/90 shadow flex items-center justify-center"
+                          >
+                            <Play className="h-4 w-4 text-black" />
+                          </button>
+                        </div>
                         {product.originalPrice && (
                           <div className="absolute top-2 right-2">
                             <Badge className="bg-travel-orange text-xs">
