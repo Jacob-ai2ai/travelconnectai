@@ -1291,10 +1291,10 @@ export default function TripDetails() {
                         {product.category}
                       </Badge>
 
-                      <h3 className="font-bold mb-2 text-sm">{product.name}</h3>
-                      <p className="text-xs text-muted-foreground mb-3">
-                        {product.description}
-                      </p>
+                      <Link to={`/product/${product.id}`} className="block">
+                        <h3 className="font-bold mb-2 text-sm text-foreground hover:underline">{product.name}</h3>
+                        <p className="text-xs text-muted-foreground mb-3 hover:underline">{product.description}</p>
+                      </Link>
 
                       <div className="flex items-center space-x-2 mb-2">
                         <div className="flex items-center space-x-1">
@@ -1414,10 +1414,10 @@ export default function TripDetails() {
                         {product.category}
                       </Badge>
 
-                      <h3 className="font-bold mb-2 text-sm">{product.name}</h3>
-                      <p className="text-xs text-muted-foreground mb-3">
-                        {product.description}
-                      </p>
+                      <Link to={`/product/${product.id}`} className="block">
+                        <h3 className="font-bold mb-2 text-sm text-foreground hover:underline">{product.name}</h3>
+                        <p className="text-xs text-muted-foreground mb-3 hover:underline">{product.description}</p>
+                      </Link>
 
                       <div className="flex items-center space-x-2 mb-2">
                         <div className="flex items-center space-x-1">
