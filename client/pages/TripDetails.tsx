@@ -911,7 +911,7 @@ export default function TripDetails() {
                               </div>
 
                               <div className="flex items-center space-x-3">
-                                <div className="flex items-center border rounded overflow-hidden text-xs">
+                                <div className="flex items-center border rounded overflow-hidden text-xs ml-2">
                                   <button className="px-1 py-0.5" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
                                   <div className="px-2 py-0.5">{peopleCounts[experience.id] ?? 1}</div>
                                   <button className="px-1 py-0.5" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
