@@ -1020,7 +1020,7 @@ export default function TripDetails() {
                               ) : (
                                 <>
                                   <div>
-                                    <Button size="sm" onClick={() => { setPeopleCounts(prev => ({ ...prev, [experience.id]: 1 })); addToItinerary("experiences", experience.id); }}>Add</Button>
+                                    <Button size="sm" className="px-2 py-0.5 text-xs" onClick={() => { setPeopleCounts(prev => ({ ...prev, [experience.id]: 1 })); addToItinerary("experiences", experience.id); }}>Add</Button>
                                   </div>
 
                                   <div className="text-right">
