@@ -910,13 +910,15 @@ export default function TripDetails() {
                                 </div>
                               </div>
 
-                              <div className="flex items-center w-full justify-between">
-                                <div className="text-lg font-bold">{`$${experience.price * (peopleCounts[experience.id] ?? 1)}`}</div>
-
-                                <div className="flex items-center border rounded overflow-hidden text-xs space-x-1">
+                              <div className="flex items-center space-x-4">
+                                <div className="flex items-center border rounded overflow-hidden text-xs">
                                   <button className="px-1 py-0.5" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
                                   <div className="px-2 py-0.5">{peopleCounts[experience.id] ?? 1}</div>
                                   <button className="px-1 py-0.5" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
+                                </div>
+
+                                <div className="text-right">
+                                  <div className="text-lg font-bold">{`$${experience.price * (peopleCounts[experience.id] ?? 1)}`}</div>
                                 </div>
                               </div>
                             </div>
