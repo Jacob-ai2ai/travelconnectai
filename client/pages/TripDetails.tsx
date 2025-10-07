@@ -641,170 +641,151 @@ export default function TripDetails() {
 
           {/* Accommodations Tab */}
           <TabsContent value="stays" className="mt-6">
-            <div className="space-y-6">
-              <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold">Your Accommodations</h2>
-                <Badge variant="secondary">2 Properties Selected</Badge>
+            <div className="space-y-8">
+              {/* Your Accommodations - only show stays included in itinerary */}
+              <div>
+                <div className="flex items-center justify-between">
+                  <h2 className="text-2xl font-bold">Your Accommodations</h2>
+                  <Badge variant="secondary">{itinerary.stays.length} Properties Selected</Badge>
+                </div>
+
+                <div className="mt-4">
+                  {accommodations.filter((a) => itinerary.stays.includes(a.id)).length === 0 ? (
+                    <div className="text-sm text-muted-foreground">No accommodations included in your itinerary.</div>
+                  ) : (
+                    <div className="grid gap-6">
+                      {accommodations.filter((a) => itinerary.stays.includes(a.id)).map((accommodation) => (
+                        <Card key={accommodation.id} className="overflow-hidden">
+                          <div className="grid md:grid-cols-2 gap-0">
+                            <div className="relative">
+                              <div className="aspect-video relative bg-muted">
+                                <img src={accommodation.images[0]} alt={accommodation.name} className="w-full h-full object-cover" />
+                              </div>
+                              <div className="flex space-x-2 p-4">
+                                {accommodation.images.slice(1, 4).map((image, index) => (
+                                  <div key={index} className="w-16 h-16 rounded-lg overflow-hidden">
+                                    <img src={image} alt="" className="w-full h-full object-cover" />
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div className="p-6">
+                              <div className="flex items-start justify-between mb-4">
+                                <div>
+                                  <h3 className="text-xl font-bold mb-1">{accommodation.name}</h3>
+                                  <div className="flex items-center space-x-2">
+                                    <Badge variant="outline">{accommodation.type}</Badge>
+                                    <div className="flex items-center space-x-1">
+                                      <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                                      <span className="text-sm font-medium">{accommodation.rating}</span>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div className="text-right">
+                                  <div className="text-2xl font-bold">${accommodation.price}</div>
+                                  <div className="text-sm text-muted-foreground">per night</div>
+                                </div>
+                              </div>
+
+                              <p className="text-muted-foreground mb-4">{accommodation.description}</p>
+
+                              <div className="flex space-x-3 items-start">
+                                <div>
+                                  <div className="text-sm text-muted-foreground">Included</div>
+                                </div>
+
+                                <Button onClick={() => requestLiveStream(accommodation.id)} className="flex-1 bg-travel-blue hover:bg-travel-blue/90">
+                                  <Video className="h-4 w-4 mr-2" />
+                                  Request Live Tour
+                                </Button>
+                                <Link to={`/property/${accommodation.id}`} className="flex-1" state={{ fromItinerary: true, replacePropertyId: accommodations[0].id, planId }}>
+                                  <Button variant="outline" className="w-full">
+                                    <Eye className="h-4 w-4 mr-2" />
+                                    View Details
+                                  </Button>
+                                </Link>
+                              </div>
+                            </div>
+                          </div>
+                        </Card>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
 
-              <div className="grid gap-6">
-                {accommodations.map((accommodation) => (
-                  <Card key={accommodation.id} className="overflow-hidden">
-                    <div className="grid md:grid-cols-2 gap-0">
-                      {/* Images and Video Section */}
-                      <div className="relative">
-                        <div className="aspect-video relative bg-muted">
-                          <img
-                            src={accommodation.images[0]}
-                            alt={accommodation.name}
-                            className="w-full h-full object-cover"
-                          />
-                          <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                            <Button
-                              size="lg"
-                              className="bg-white/90 text-black hover:bg-white"
-                            >
-                              <Play className="h-5 w-5 mr-2" />
-                              Watch Walkthrough
-                            </Button>
-                          </div>
-                          {accommodation.isLiveStreamAvailable && (
-                            <div className="absolute top-4 right-4">
-                              <Badge className="bg-red-500 hover:bg-red-600">
-                                <Radio className="h-3 w-3 mr-1" />
-                                LIVE • {accommodation.liveStreamViewers}
-                              </Badge>
-                            </div>
-                          )}
-                        </div>
+              {/* All Properties - other options for the user */}
+              <div>
+                <div className="flex items-center justify-between">
+                  <h2 className="text-2xl font-bold">All Properties</h2>
+                  <Badge variant="secondary">{accommodations.length} Properties</Badge>
+                </div>
 
-                        {/* Thumbnail Gallery */}
-                        <div className="flex space-x-2 p-4">
-                          {accommodation.images
-                            .slice(1, 4)
-                            .map((image, index) => (
-                              <div
-                                key={index}
-                                className="w-16 h-16 rounded-lg overflow-hidden"
-                              >
-                                <img
-                                  src={image}
-                                  alt=""
-                                  className="w-full h-full object-cover"
-                                />
+                <div className="mt-4 grid gap-6">
+                  {accommodations.filter((a) => !itinerary.stays.includes(a.id)).map((accommodation) => (
+                    <Card key={accommodation.id} className="overflow-hidden">
+                      <div className="grid md:grid-cols-2 gap-0">
+                        <div className="relative">
+                          <div className="aspect-video relative bg-muted">
+                            <img src={accommodation.images[0]} alt={accommodation.name} className="w-full h-full object-cover" />
+                          </div>
+                          <div className="flex space-x-2 p-4">
+                            {accommodation.images.slice(1, 4).map((image, index) => (
+                              <div key={index} className="w-16 h-16 rounded-lg overflow-hidden">
+                                <img src={image} alt="" className="w-full h-full object-cover" />
                               </div>
                             ))}
-                          <div className="w-16 h-16 rounded-lg bg-muted flex items-center justify-center text-xs font-medium">
-                            +12 more
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Details Section */}
-                      <div className="p-6">
-                        <div className="flex items-start justify-between mb-4">
-                          <div>
-                            <h3 className="text-xl font-bold mb-1">
-                              {accommodation.name}
-                            </h3>
-                            <div className="flex items-center space-x-2">
-                              <Badge variant="outline">
-                                {accommodation.type}
-                              </Badge>
-                              <div className="flex items-center space-x-1">
-                                <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                                <span className="text-sm font-medium">
-                                  {accommodation.rating}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="text-right">
-                            <div className="text-2xl font-bold">
-                              ${accommodation.price}
-                            </div>
-                            <div className="text-sm text-muted-foreground">
-                              per night
-                            </div>
                           </div>
                         </div>
 
-                        <p className="text-muted-foreground mb-4">
-                          {accommodation.description}
-                        </p>
-
-                        {/* Amenities */}
-                        <div className="mb-4">
-                          <h4 className="font-semibold mb-2">Amenities</h4>
-                          <div className="flex flex-wrap gap-2">
-                            {accommodation.amenities.map((amenity, index) => (
-                              <Badge
-                                key={index}
-                                variant="secondary"
-                                className="text-xs"
-                              >
-                                {amenity}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Nearby Attractions */}
-                        <div className="mb-6">
-                          <h4 className="font-semibold mb-2 flex items-center">
-                            <MapPin className="h-4 w-4 mr-1" />
-                            Nearby Attractions
-                          </h4>
-                          <div className="space-y-1">
-                            {accommodation.nearbyAttractions.map(
-                              (attraction, index) => (
-                                <div
-                                  key={index}
-                                  className="text-sm text-muted-foreground"
-                                >
-                                  �� {attraction}
+                        <div className="p-6">
+                          <div className="flex items-start justify-between mb-4">
+                            <div>
+                              <h3 className="text-xl font-bold mb-1">{accommodation.name}</h3>
+                              <div className="flex items-center space-x-2">
+                                <Badge variant="outline">{accommodation.type}</Badge>
+                                <div className="flex items-center space-x-1">
+                                  <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                                  <span className="text-sm font-medium">{accommodation.rating}</span>
                                 </div>
-                              ),
-                            )}
+                              </div>
+                            </div>
+
+                            <div className="text-right">
+                              <div className="text-2xl font-bold">${accommodation.price}</div>
+                              <div className="text-sm text-muted-foreground">per night</div>
+                            </div>
+                          </div>
+
+                          <p className="text-muted-foreground mb-4">{accommodation.description}</p>
+
+                          <div className="flex space-x-3 items-start">
+                            <div>
+                              {itinerary.stays.includes(accommodation.id) ? (
+                                <div className="text-sm text-muted-foreground">Included</div>
+                              ) : (
+                                <Button size="sm" onClick={() => addToItinerary("stays", accommodation.id)}>Add</Button>
+                              )}
+                            </div>
+
+                            <Button onClick={() => requestLiveStream(accommodation.id)} className="flex-1 bg-travel-blue hover:bg-travel-blue/90">
+                              <Video className="h-4 w-4 mr-2" />
+                              Request Live Tour
+                            </Button>
+                            <Link to={`/property/${accommodation.id}`} className="flex-1" state={{ fromItinerary: true, replacePropertyId: accommodations[0].id, planId }}>
+                              <Button variant="outline" className="w-full">
+                                <Eye className="h-4 w-4 mr-2" />
+                                View Details
+                              </Button>
+                            </Link>
                           </div>
                         </div>
-
-                        {/* Action Buttons */}
-                        <div className="flex space-x-3 items-start">
-                          <div>
-                          {itinerary.stays.includes(accommodation.id) ? (
-                            <div className="text-sm text-muted-foreground">Included</div>
-                          ) : (
-                            <Button size="sm" onClick={() => addToItinerary("stays", accommodation.id)}>Add</Button>
-                          )}
-                        </div>
-
-                          <Button
-                            onClick={() => requestLiveStream(accommodation.id)}
-                            className="flex-1 bg-travel-blue hover:bg-travel-blue/90"
-                          >
-                            <Video className="h-4 w-4 mr-2" />
-                            Request Live Tour
-                          </Button>
-                          <Link
-                            to={`/property/${accommodation.id}`}
-                            className="flex-1"
-                            state={{
-                              fromItinerary: true,
-                              replacePropertyId: accommodations[0].id,
-                              planId,
-                            }}
-                          >
-                            <Button variant="outline" className="w-full">
-                              <Eye className="h-4 w-4 mr-2" />
-                              View Details
-                            </Button>
-                          </Link>
-                        </div>
                       </div>
-                    </div>
-                  </Card>
-                ))}
+                    </Card>
+                  ))}
+                </div>
               </div>
             </div>
           </TabsContent>
