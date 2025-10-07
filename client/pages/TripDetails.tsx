@@ -1001,14 +1001,14 @@ export default function TripDetails() {
                             {experience.highlights.slice(0, 2).join(' • ')}
                           </div>
 
-                          <div className="grid grid-cols-4 items-center gap-6 mb-3">
+                          <div className="grid grid-cols-4 items-center gap-4 mb-3">
                             <div className="flex items-center text-sm text-muted-foreground">
-                              <Calendar className="h-4 w-4 mr-2 text-muted-foreground" />
+                              <Calendar className="h-4 w-4 mr-2 stroke-current text-muted-foreground" />
                               <span className="whitespace-nowrap">{new Date(experience.startDate ?? experience.date ?? Date.now()).toLocaleDateString()}</span>
                             </div>
 
                             <div className="flex items-center text-sm text-muted-foreground">
-                              <Clock className="h-4 w-4 mr-2 text-muted-foreground" />
+                              <Clock className="h-4 w-4 mr-2 stroke-current text-muted-foreground" />
                               <span className="whitespace-nowrap">{new Date(experience.startDate ?? experience.date ?? Date.now()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
                             </div>
 
