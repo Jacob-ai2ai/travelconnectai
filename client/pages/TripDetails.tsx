@@ -1094,36 +1094,36 @@ export default function TripDetails() {
                       </div>
 
                       <h3 className="text-lg font-semibold mb-1">{ev.name}</h3>
-                      <div className="text-sm text-muted-foreground mb-3">{ev.venue}</div>
+                      <div className="text-sm text-muted-foreground mb-2">{ev.venue}</div>
 
-                      <div className="flex items-center w-full justify-between mb-3">
-                        <div className="flex items-center text-sm text-muted-foreground space-x-4">
-                          <div className="flex items-center space-x-1">
-                            <Calendar className="h-4 w-4" />
-                            <span className="whitespace-nowrap">{new Date(ev.date).toLocaleDateString()}</span>
-                          </div>
-                          <div className="flex items-center space-x-1">
-                            <Clock className="h-4 w-4" />
-                            <span className="whitespace-nowrap">{new Date(ev.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
-                          </div>
-
-                          <div>
-                            {itinerary.events.includes(ev.id) ? (
-                              <div className="flex items-center border rounded overflow-hidden text-xs ml-1 space-x-1">
-                                <button className="px-1 py-0.5" aria-label="decrease" onClick={() => changePeople(ev.id, -1)}>-</button>
-                                <div className="px-2 py-0.5">{peopleCounts[ev.id] ?? 1}</div>
-                                <button className="px-1 py-0.5" aria-label="increase" onClick={() => changePeople(ev.id, 1)}>+</button>
-                              </div>
-                            ) : (
-                              <Button size="sm" className="px-2 py-0.5 text-xs" onClick={() => { setPeopleCounts(prev => ({ ...prev, [ev.id]: 1 })); addToItinerary("events", ev.id); }}>Add</Button>
-                            )}
-                          </div>
+                      <div className="flex items-center text-sm text-muted-foreground space-x-4 mb-3">
+                        <div className="flex items-center space-x-1">
+                          <Calendar className="h-4 w-4" />
+                          <span className="whitespace-nowrap">{new Date(ev.date).toLocaleDateString()}</span>
                         </div>
-
-                        <div className="text-lg font-bold text-right">${ev.price}</div>
+                        <div className="flex items-center space-x-1">
+                          <Clock className="h-4 w-4" />
+                          <span className="whitespace-nowrap">{new Date(ev.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
+                        </div>
                       </div>
 
                       <p className="text-sm text-muted-foreground mb-3">{ev.description}</p>
+
+                      <div className="flex items-center justify-between mb-3">
+                        <div>
+                          {itinerary.events.includes(ev.id) ? (
+                            <div className="flex items-center border rounded overflow-hidden text-xs ml-1 space-x-1">
+                              <button className="px-1 py-0.5" aria-label="decrease" onClick={() => changePeople(ev.id, -1)}>-</button>
+                              <div className="px-2 py-0.5">{peopleCounts[ev.id] ?? 1}</div>
+                              <button className="px-1 py-0.5" aria-label="increase" onClick={() => changePeople(ev.id, 1)}>+</button>
+                            </div>
+                          ) : (
+                            <Button size="sm" className="px-2 py-0.5 text-xs" onClick={() => { setPeopleCounts(prev => ({ ...prev, [ev.id]: 1 })); addToItinerary("events", ev.id); }}>Add</Button>
+                          )}
+                        </div>
+
+                        <div className="text-lg font-bold">${ev.price}</div>
+                      </div>
 
                       <div className="flex items-center space-x-3">
                         <Button className="flex-1" onClick={() => { addBillItem({ id: `evt-${ev.id}`, type: 'service', refId: undefined, title: ev.name, price: ev.price, qty: 1 }); alert('Ticket added to your bill'); }}>
