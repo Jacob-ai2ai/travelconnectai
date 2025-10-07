@@ -966,22 +966,19 @@ export default function TripDetails() {
                         </div>
 
                         <CardContent className="p-4">
-                          <div className="flex items-center justify-between mb-2">
-                            <div className="flex items-start">
-                              <Badge variant="outline">{experience.category}</Badge>
-                            </div>
-
-                            <div className="flex items-center">
-                              <div className="flex items-center border rounded overflow-hidden">
-                                <button className="px-2 py-1 text-sm" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
-                                <div className="px-3 py-1 text-sm">{peopleCounts[experience.id] ?? 1}</div>
-                                <button className="px-2 py-1 text-sm" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
-                              </div>
-                            </div>
-
-                            <div className="flex items-center">
+                          <div className="flex items-center justify-between mb-1">
+                            <Badge variant="outline">{experience.category}</Badge>
+                            <div className="flex items-center space-x-1">
                               <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                              <span className="text-sm ml-1">{experience.rating}</span>
+                              <span className="text-sm">{experience.rating}</span>
+                            </div>
+                          </div>
+
+                          <div className="flex justify-end mb-1">
+                            <div className="flex items-center border rounded overflow-hidden text-xs">
+                              <button className="px-1 py-0.5" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
+                              <div className="px-2 py-0.5">{peopleCounts[experience.id] ?? 1}</div>
+                              <button className="px-1 py-0.5" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
                             </div>
                           </div>
 
