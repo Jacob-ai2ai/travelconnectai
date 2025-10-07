@@ -1337,12 +1337,12 @@ export default function TripDetails() {
 
                       <div className="space-y-2">
                         {itinerary.products.includes(product.id) ? (
-                          <Button className="w-full" size="sm" variant="destructive" onClick={() => removeFromItinerary("products", product.id)}>
+                          <Button className="w-full" size="sm" variant="destructive" onClick={() => { removeFromItinerary("products", product.id); setProductCounts(prev=> ({ ...prev, [product.id]: 0 })); }}>
                             <ShoppingCart className="h-4 w-4 mr-2" />
                             Remove from Cart
                           </Button>
                         ) : (
-                          <Button className="w-full" size="sm" onClick={() => addToItinerary("products", product.id)}>
+                          <Button className="w-full" size="sm" onClick={() => { addToItinerary("products", product.id); setProductCounts(prev=> ({ ...prev, [product.id]: Math.max(1, prev[product.id] ?? 1) })); }}>
                             <ShoppingCart className="h-4 w-4 mr-2" />
                             Add to Cart
                           </Button>
@@ -1462,12 +1462,12 @@ export default function TripDetails() {
 
                       <div className="space-y-2">
                         {itinerary.products.includes(product.id) ? (
-                          <Button className="w-full" size="sm" variant="destructive" onClick={() => removeFromItinerary("products", product.id)}>
+                          <Button className="w-full" size="sm" variant="destructive" onClick={() => { removeFromItinerary("products", product.id); setProductCounts(prev=> ({ ...prev, [product.id]: 0 })); }}>
                             <ShoppingCart className="h-4 w-4 mr-2" />
                             Remove from Cart
                           </Button>
                         ) : (
-                          <Button className="w-full" size="sm" onClick={() => addToItinerary("products", product.id)}>
+                          <Button className="w-full" size="sm" onClick={() => { addToItinerary("products", product.id); setProductCounts(prev=> ({ ...prev, [product.id]: Math.max(1, prev[product.id] ?? 1) })); }}>
                             <ShoppingCart className="h-4 w-4 mr-2" />
                             Add to Cart
                           </Button>
