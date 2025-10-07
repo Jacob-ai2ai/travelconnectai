@@ -1001,15 +1001,15 @@ export default function TripDetails() {
                             {experience.highlights.slice(0, 2).join(' • ')}
                           </div>
 
-                          <div className="grid grid-cols-4 items-center gap-2 mb-3">
+                          <div className="grid grid-cols-4 items-center gap-6 mb-3">
                             <div className="flex items-center text-sm text-muted-foreground">
-                              <Calendar className="h-4 w-4 mr-1" />
-                              <span className="whitespace-nowrap">{new Date(experience.startDate).toLocaleDateString()}</span>
+                              <Calendar className="h-4 w-4 mr-2 text-muted-foreground" />
+                              <span className="whitespace-nowrap">{new Date(experience.startDate ?? experience.date ?? Date.now()).toLocaleDateString()}</span>
                             </div>
 
                             <div className="flex items-center text-sm text-muted-foreground">
-                              <Clock className="h-4 w-4 mr-1" />
-                              <span className="whitespace-nowrap">{new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
+                              <Clock className="h-4 w-4 mr-2 text-muted-foreground" />
+                              <span className="whitespace-nowrap">{new Date(experience.startDate ?? experience.date ?? Date.now()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
                             </div>
 
                             <div className="flex items-center justify-center">
@@ -1024,7 +1024,7 @@ export default function TripDetails() {
                               )}
                             </div>
 
-                            <div className="text-right font-bold">{`$${experience.price * (peopleCounts[experience.id] ?? 1)}`}</div>
+                            <div className="text-right font-bold">{`$${experience.price ?? 0}`}</div>
                           </div>
 
 
