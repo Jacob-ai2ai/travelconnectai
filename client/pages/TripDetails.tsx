@@ -883,6 +883,12 @@ export default function TripDetails() {
                             ${experience.price}
                           </div>
 
+                          <Link to={`/experience/${experience.id}`}>
+                            <Button size="sm" variant="ghost" className="p-1 h-8 w-8">
+                              <Eye className="h-4 w-4" />
+                            </Button>
+                          </Link>
+
                           <Link to={`/replace-options/${experience.id}`}>
                             <Button
                               size="sm"
