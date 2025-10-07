@@ -912,11 +912,6 @@ export default function TripDetails() {
 
                                 <div className="text-lg font-bold">${experience.price}</div>
 
-                                {experience.isLiveDemo && (
-                                  <Button size="sm" className="bg-red-600 text-white ml-2" onClick={() => alert('Joining live demo for ' + experience.name)}>
-                                    Join Live
-                                  </Button>
-                                )}
                               </div>
 
                               <div className="mt-2 flex items-center space-x-2">
@@ -1022,11 +1017,6 @@ export default function TripDetails() {
 
                               <div className="text-lg font-bold">${experience.price}</div>
 
-                              {experience.isLiveDemo && (
-                                <Button size="sm" className="bg-red-600 text-white ml-2" onClick={() => alert('Joining live demo for ' + experience.name)}>
-                                  Join Live
-                                </Button>
-                              )}
 
                             </div>
 
