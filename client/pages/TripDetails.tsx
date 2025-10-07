@@ -927,6 +927,44 @@ export default function TripDetails() {
             </div>
           </TabsContent>
 
+          {/* Events Tab */}
+          <TabsContent value="events" className="mt-6">
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl font-bold">Events</h2>
+                <Badge variant="secondary">{events.length} Events</Badge>
+              </div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {events.map((ev) => (
+                  <Card key={ev.id} className="overflow-hidden">
+                    <div className="h-40 overflow-hidden">
+                      <img src={ev.image} alt={ev.name} className="w-full h-full object-cover" />
+                    </div>
+                    <CardContent>
+                      <div className="flex items-center justify-between mb-2">
+                        <div>
+                          <div className="font-semibold">{ev.name}</div>
+                          <div className="text-xs text-muted-foreground">{new Date(ev.date).toLocaleString()} • {ev.venue}</div>
+                        </div>
+                        <div className="text-lg font-bold">${ev.price}</div>
+                      </div>
+                      <p className="text-sm text-muted-foreground mb-3">{ev.description}</p>
+                      <div className="flex items-center space-x-3">
+                        <Button className="w-36" onClick={() => { addBillItem({ id: `evt-${ev.id}`, type: 'service', refId: undefined, title: ev.name, price: ev.price, qty: 1 }); alert('Ticket added to your bill'); }}>
+                          Buy Ticket
+                        </Button>
+                        <Link to={`/event/${ev.id}`}>
+                          <Button variant="outline" size="sm">View Details</Button>
+                        </Link>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </TabsContent>
+
           {/* Services Tab */}
           <TabsContent value="services" className="mt-6">
             <div className="space-y-6">
@@ -1099,6 +1137,12 @@ export default function TripDetails() {
                             ${product.originalPrice}
                           </div>
                         )}
+
+                        <Link to={`/product/${product.id}`}>
+                          <Button size="sm" variant="ghost" className="p-1 h-8 w-8">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                        </Link>
 
                         <Link to={`/replace-options/${product.id}`}>
                           <Button
