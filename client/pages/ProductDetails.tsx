@@ -21,8 +21,8 @@ const SAMPLE_PRODUCTS = [
     reviews: 892,
     features: ['40L capacity', 'Waterproof', 'Laptop sleeve', 'Ergonomic straps'],
     inventory: [
-      { sku: 'BK-40L-BLK', variant: 'Black', stock: 6 },
-      { sku: 'BK-40L-NVY', variant: 'Navy', stock: 4 },
+      { sku: 'BK-40L-BLK', variant: 'Black', stock: 6, sizes: ['S','M','L'] },
+      { sku: 'BK-40L-NVY', variant: 'Navy', stock: 4, sizes: ['M','L'] },
     ],
   },
   {
@@ -82,9 +82,24 @@ export default function ProductDetails() {
   const [quantity, setQuantity] = useState<number>(1);
   const [itineraryProducts, setItineraryProducts] = useState<string[]>(() => readItineraryProducts());
   const [selectedVariant, setSelectedVariant] = useState(product.inventory[0]);
+  const [selectedSize, setSelectedSize] = useState<string | undefined>(product.inventory[0]?.sizes?.[0]);
+  const [variantQuantities, setVariantQuantities] = useState<Record<string, number>>(() => {
+    try {
+      const raw = localStorage.getItem(`variantQuantities_${product.id}`);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) {
+      return {};
+    }
+  });
   const [deliveryTo, setDeliveryTo] = useState<'hotel' | 'address'>('hotel');
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [paymentMethod, setPaymentMethod] = useState<'cod' | 'online'>('online');
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(`variantQuantities_${product.id}`, JSON.stringify(variantQuantities));
+    } catch (e) {}
+  }, [variantQuantities]);
 
   useEffect(() => {
     writeItineraryProducts(itineraryProducts);
@@ -186,11 +201,8 @@ export default function ProductDetails() {
                     </div>
 
                     <div className="flex items-center gap-4 mb-4">
-                      <div className="flex items-center border rounded overflow-hidden text-sm">
-                        <button aria-label="decrease" onClick={() => handleChangeQty(-1)} className="px-3 py-1">-</button>
-                        <div className="px-3 py-1">{quantity}</div>
-                        <button aria-label="increase" onClick={() => handleChangeQty(1)} className="px-3 py-1">+</button>
-                      </div>
+                      <div className="flex items-center gap-4 mb-4">
+                      <div className="text-sm text-muted-foreground">Manage quantities in the Inventory section below</div>
 
                       <div className="flex-1">
                         {!inItinerary ? (
@@ -200,7 +212,17 @@ export default function ProductDetails() {
                               Join Live Sale
                             </Button>
                           ) : (
-                            <Button className="w-full" onClick={handleAddToItinerary}>
+                            <Button className="w-full" onClick={() => {
+                              // ensure at least one variant quantity selected
+                              const total = Object.values(variantQuantities).reduce((s,n)=>s+n,0);
+                              if (total === 0) {
+                                // default to selected variant with qty 1
+                                const key = `${selectedVariant.sku}:${selectedSize || ''}`;
+                                setVariantQuantities(prev=> ({ ...prev, [key]: 1 }));
+                                toastFn({ title: 'Added to itinerary', description: `${product.name} (${selectedVariant.variant}${selectedSize?` / ${selectedSize}`:''}) added.` });
+                              }
+                              handleAddToItinerary();
+                            }}>
                               <ShoppingCart className="h-4 w-4 mr-2" />
                               Add to itinerary
                             </Button>
@@ -224,6 +246,7 @@ export default function ProductDetails() {
                         )}
                       </div>
                     </div>
+                    </div>
 
                     <div className="mb-6">
                       <div className="text-sm font-semibold mb-2">Features</div>
@@ -241,7 +264,7 @@ export default function ProductDetails() {
                           <button
                             type="button"
                             key={i.sku}
-                            onClick={() => setSelectedVariant(i)}
+                            onClick={() => { setSelectedVariant(i); setSelectedSize(i.sizes?.[0]); }}
                             className={`border rounded p-3 text-left w-full ${selectedVariant?.sku === i.sku ? 'ring-2 ring-travel-blue' : ''}`}
                           >
                             <div className="flex items-center justify-between">
@@ -253,6 +276,59 @@ export default function ProductDetails() {
                             </div>
                           </button>
                         ))}
+                      </div>
+
+                      {/* Size selector and per-variant quantity controls */}
+                      <div className="mt-4 p-3 border rounded">
+                        <div className="text-sm mb-2">Selected: <strong>{selectedVariant.variant}</strong> {selectedSize ? <span>/ {selectedSize}</span> : null}</div>
+
+                        {selectedVariant.sizes && (
+                          <div className="mb-3">
+                            <div className="text-sm font-medium mb-1">Size</div>
+                            <div className="flex gap-2">
+                              {selectedVariant.sizes.map((s) => (
+                                <button key={s} onClick={() => setSelectedSize(s)} className={`px-3 py-1 border rounded ${selectedSize === s ? 'bg-travel-blue text-white' : ''}`}>{s}</button>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        <div className="mb-3">
+                          <div className="text-sm font-medium mb-1">Quantity for this variant</div>
+                          <div className="flex items-center">
+                            <button className="px-3 py-1 border rounded" onClick={() => {
+                              const key = `${selectedVariant.sku}:${selectedSize || ''}`;
+                              setVariantQuantities(prev => ({ ...prev, [key]: Math.max(0, (prev[key]||0) - 1) }));
+                            }}>-</button>
+                            <div className="px-3 py-1">{variantQuantities[`${selectedVariant.sku}:${selectedSize || ''}`] ?? 0}</div>
+                            <button className="px-3 py-1 border rounded" onClick={() => {
+                              const key = `${selectedVariant.sku}:${selectedSize || ''}`;
+                              setVariantQuantities(prev => ({ ...prev, [key]: Math.min(selectedVariant.stock, (prev[key]||0) + 1) }));
+                            }}>+</button>
+                          </div>
+                        </div>
+
+                        {/* List selected variant quantities */}
+                        <div className="mt-2">
+                          <div className="text-sm font-medium mb-1">Selected items</div>
+                          <div className="space-y-2">
+                            {Object.entries(variantQuantities).filter(([_,q])=>q>0).length === 0 && <div className="text-sm text-muted-foreground">No variant quantities selected</div>}
+                            {Object.entries(variantQuantities).filter(([_,q])=>q>0).map(([key,q]) => {
+                              const [sku, size] = key.split(':');
+                              const iv = product.inventory.find(it=>it.sku===sku);
+                              if (!iv) return null;
+                              return (
+                                <div key={key} className="flex items-center justify-between border rounded p-2">
+                                  <div className="text-sm">{iv.variant} {size?`/ ${size}`:''}</div>
+                                  <div className="flex items-center gap-2">
+                                    <div className="text-sm">{q}</div>
+                                    <button className="text-sm text-red-600" onClick={()=> setVariantQuantities(prev=>{ const n = { ...prev }; delete n[key]; return n; })}>Remove</button>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
                       </div>
 
                       <div className="mt-4">
