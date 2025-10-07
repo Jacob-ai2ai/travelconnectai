@@ -499,14 +499,16 @@ export default function TripDetails() {
 
             <div className="flex space-x-3 items-start">
               <div>
-                {included ? (
-                  <div className="flex items-center space-x-2">
-                    <div className="text-sm text-muted-foreground">Included</div>
-                    <Button size="sm" variant="ghost" onClick={() => removeFromItinerary("stays", accommodation.id)}>Remove</Button>
-                  </div>
-                ) : (
-                  <Button size="sm" onClick={() => addToItinerary("stays", accommodation.id)}>Add</Button>
-                )}
+                <Button
+                  size="sm"
+                  className={included ? "bg-green-100 text-green-800" : ""}
+                  onClick={() => {
+                    if (included) removeFromItinerary("stays", accommodation.id);
+                    else addToItinerary("stays", accommodation.id);
+                  }}
+                >
+                  {included ? "Added" : "Add"}
+                </Button>
               </div>
 
               <Button onClick={() => requestLiveStream(accommodation.id)} className="flex-1 bg-travel-blue hover:bg-travel-blue/90">
