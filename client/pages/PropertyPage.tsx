@@ -517,13 +517,69 @@ export default function PropertyPage() {
                                     </div>
                                     <div className="text-sm text-muted-foreground mt-2">Bookable activities nearby</div>
                                     <div className="mt-3 flex space-x-2">
-                                  <Button size="sm">View</Button>
-                                  <Button variant="outline" size="sm" onClick={() => addBillItem({ id: `exp-${Date.now()}`, type: 'experience', title: e, price: 45, qty: 1 })}>Book</Button>
-                                </div>
+                                      <Button size="sm">View</Button>
+                                      <Button variant="outline" size="sm" onClick={() => addBillItem({ id: `exp-${Date.now()}`, type: 'experience', title: e, price: 45, qty: 1 })}>Book</Button>
+                                    </div>
                                   </CardContent>
                                 </Card>
                               ))}
                             </div>
+                          </CardContent>
+                        </Card>
+                      </div>
+
+                      {/* Products suggested by host for experiences */}
+                      <div className="mt-6">
+                        <Card>
+                          <CardContent>
+                            <h4 className="font-semibold">Products for Experiences</h4>
+                            <div className="text-sm text-muted-foreground mt-2">Items arranged by the host to help you participate in experiences or activities. Booking these connects you with the host to arrange pickup or usage.</div>
+
+                            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-4">
+                              {(() => {
+                                // simple suggestion logic: map experiences to possible products
+                                const suggestions = [] as { id: string; name: string; price: number; image?: string; description?: string }[];
+                                property.experiences.forEach((exp, i) => {
+                                  if (/sunset|cruise|boat/i.test(exp)) {
+                                    suggestions.push({ id: `p-${i}-lifejacket`, name: 'Life Jacket Rental', price: 15, image: '/placeholder.svg', description: 'Safety life jacket provided by host for water activities.' });
+                                    suggestions.push({ id: `p-${i}-waterproof-case`, name: 'Waterproof Phone Case', price: 9, image: '/placeholder.svg', description: 'Protect your phone during water activities.' });
+                                  }
+                                  if (/cooking|class/i.test(exp)) {
+                                    suggestions.push({ id: `p-${i}-apron`, name: 'Cooking Apron', price: 12, image: '/placeholder.svg', description: 'Apron and local recipe booklet.' });
+                                    suggestions.push({ id: `p-${i}-ingredients`, name: 'Ingredient Pack', price: 20, image: '/placeholder.svg', description: 'All local ingredients for the class.' });
+                                  }
+                                  if (/hiking|mountain|trek/i.test(exp)) {
+                                    suggestions.push({ id: `p-${i}-hiking-stick`, name: 'Hiking Stick', price: 8, image: '/placeholder.svg', description: 'Lightweight hiking stick for trails.' });
+                                    suggestions.push({ id: `p-${i}-snack-pack`, name: 'Energy Snack Pack', price: 6, image: '/placeholder.svg', description: 'Snacks and water for the hike.' });
+                                  }
+                                });
+
+                                // dedupe by id
+                                const unique = suggestions.reduce((acc: any[], s) => {
+                                  if (!acc.find((x) => x.id === s.id)) acc.push(s);
+                                  return acc;
+                                }, [] as any[]);
+
+                                return unique.map((p) => (
+                                  <Card key={p.id} className="overflow-hidden">
+                                    <div className="h-28 overflow-hidden">
+                                      <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
+                                    </div>
+                                    <CardContent>
+                                      <div className="flex items-center justify-between">
+                                        <div className="font-medium">{p.name}</div>
+                                        <div className="text-sm font-bold">${p.price}</div>
+                                      </div>
+                                      <div className="text-xs text-muted-foreground mt-2">{p.description}</div>
+                                      <div className="mt-3 flex space-x-2">
+                                        <Button size="sm" onClick={() => { addBillItem({ id: `prod-${p.id}`, type: 'service', refId: property.id, title: p.name, price: p.price, qty: 1 }); alert('Seller/Host will be notified and you can coordinate with them for pickup/usage.'); }}>Book with Host</Button>
+                                      </div>
+                                    </CardContent>
+                                  </Card>
+                                ));
+                              })()}
+                            </div>
+
                           </CardContent>
                         </Card>
                       </div>
