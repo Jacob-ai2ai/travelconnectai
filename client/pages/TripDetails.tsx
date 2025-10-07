@@ -1082,13 +1082,22 @@ export default function TripDetails() {
                     </div>
 
                     <CardContent>
-                      <div className="mb-3">
-                        <div className="font-semibold">{ev.name}</div>
-                        <div className="text-sm text-muted-foreground mt-1">{ev.venue}</div>
+                      <div className="flex items-center justify-between mb-1">
+                        <div className="flex items-center space-x-2">
+                          <Badge variant="outline" className="text-xs">{ev.category ?? 'Event'}</Badge>
+                        </div>
+
+                        <div className="flex items-center space-x-1">
+                          <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                          <span className="text-sm">{ev.rating ?? ''}</span>
+                        </div>
                       </div>
 
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="text-sm text-muted-foreground flex items-center space-x-3">
+                      <h3 className="text-lg font-semibold mb-1">{ev.name}</h3>
+                      <div className="text-sm text-muted-foreground mb-3">{ev.venue}</div>
+
+                      <div className="flex items-center w-full justify-between mb-3">
+                        <div className="flex items-center text-sm text-muted-foreground space-x-4">
                           <div className="flex items-center space-x-1">
                             <Calendar className="h-4 w-4" />
                             <span className="whitespace-nowrap">{new Date(ev.date).toLocaleDateString()}</span>
@@ -1097,34 +1106,31 @@ export default function TripDetails() {
                             <Clock className="h-4 w-4" />
                             <span className="whitespace-nowrap">{new Date(ev.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
                           </div>
+
+                          <div>
+                            {itinerary.events.includes(ev.id) ? (
+                              <div className="flex items-center border rounded overflow-hidden text-xs ml-1 space-x-1">
+                                <button className="px-1 py-0.5" aria-label="decrease" onClick={() => changePeople(ev.id, -1)}>-</button>
+                                <div className="px-2 py-0.5">{peopleCounts[ev.id] ?? 1}</div>
+                                <button className="px-1 py-0.5" aria-label="increase" onClick={() => changePeople(ev.id, 1)}>+</button>
+                              </div>
+                            ) : (
+                              <Button size="sm" className="px-2 py-0.5 text-xs" onClick={() => { setPeopleCounts(prev => ({ ...prev, [ev.id]: 1 })); addToItinerary("events", ev.id); }}>Add</Button>
+                            )}
+                          </div>
                         </div>
 
-                        <div>
-                          {itinerary.events.includes(ev.id) ? (
-                            <div className="flex items-center border rounded overflow-hidden text-xs ml-2 space-x-1">
-                              <button className="px-1 py-0.5" aria-label="decrease" onClick={() => changePeople(ev.id, -1)}>-</button>
-                              <div className="px-2 py-0.5">{peopleCounts[ev.id] ?? 1}</div>
-                              <button className="px-1 py-0.5" aria-label="increase" onClick={() => changePeople(ev.id, 1)}>+</button>
-                            </div>
-                          ) : (
-                            <Button size="sm" className="px-2 py-0.5 text-xs" onClick={() => { setPeopleCounts(prev => ({ ...prev, [ev.id]: 1 })); addToItinerary("events", ev.id); }}>Add</Button>
-                          )}
-                        </div>
+                        <div className="text-lg font-bold text-right">${ev.price}</div>
                       </div>
 
                       <p className="text-sm text-muted-foreground mb-3">{ev.description}</p>
 
-                      <div className="text-lg font-bold mb-3">${ev.price}</div>
-
                       <div className="flex items-center space-x-3">
-                        <Button className="w-full" onClick={() => { addBillItem({ id: `evt-${ev.id}`, type: 'service', refId: undefined, title: ev.name, price: ev.price, qty: 1 }); alert('Ticket added to your bill'); }}>
+                        <Button className="flex-1" onClick={() => { addBillItem({ id: `evt-${ev.id}`, type: 'service', refId: undefined, title: ev.name, price: ev.price, qty: 1 }); alert('Ticket added to your bill'); }}>
                           Buy Ticket
                         </Button>
-                      </div>
-
-                      <div className="mt-3">
                         <Link to={`/event/${ev.id}`}>
-                          <Button variant="outline" className="w-full py-3">View Details</Button>
+                          <Button variant="outline" className="flex-1">View Details</Button>
                         </Link>
                       </div>
                     </CardContent>
