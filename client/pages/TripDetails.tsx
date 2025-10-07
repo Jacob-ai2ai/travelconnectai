@@ -136,7 +136,22 @@ export default function TripDetails() {
   const changePeople = (id: string, delta: number) => {
     setPeopleCounts((prev) => {
       const cur = prev[id] ?? 1;
-      const next = Math.max(1, cur + delta);
+      let next = cur + delta;
+
+      // If this id belongs to an experience, allow zero (removes from itinerary)
+      const isExperience = experiences.some((e) => e.id === id);
+      if (isExperience) {
+        next = Math.max(0, next);
+        // schedule itinerary update outside of state setter using timeout to avoid nested state updates
+        setTimeout(() => {
+          if (next > 0 && !itinerary.experiences.includes(id)) addToItinerary("experiences", id);
+          if (next === 0 && itinerary.experiences.includes(id)) removeFromItinerary("experiences", id);
+        }, 0);
+      } else {
+        // For non-experience items (e.g., flights) keep minimum 1
+        next = Math.max(1, next);
+      }
+
       return { ...prev, [id]: next };
     });
   };
