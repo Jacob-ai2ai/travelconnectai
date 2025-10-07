@@ -1009,7 +1009,7 @@ export default function TripDetails() {
 
                           <div className="grid grid-cols-4 items-center gap-4 mb-3">
                             <div className="flex items-center text-sm text-muted-foreground">
-                              <Calendar className="h-4 w-4 mr-2 stroke-2 stroke-current text-muted-foreground" aria-hidden />
+                              <Calendar className="h-4 w-4 mr-2 stroke-2 stroke-current fill-current text-muted-foreground opacity-90" aria-hidden />
                               <span className="whitespace-nowrap">{new Date(experience.startDate ?? experience.date ?? Date.now()).toLocaleDateString()}</span>
                             </div>
 
