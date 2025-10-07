@@ -524,11 +524,37 @@ export default function ProductDetails() {
                     })
                   )}
 
+                  {/* Variant-selected items */}
+                  {Object.entries(variantQuantities).filter(([_,q])=>q>0).map(([key,q])=>{
+                    const [sku,size] = key.split(':');
+                    const inv = product.inventory.find(it=>it.sku===sku);
+                    if(!inv) return null;
+                    return (
+                      <div key={key} className="flex items-center justify-between p-2 bg-white rounded">
+                        <div className="flex items-center gap-3">
+                          <div className="w-12 h-12 bg-gray-100 rounded overflow-hidden flex-shrink-0">
+                            <img src={product.images[0]} alt={product.name} className="w-full h-full object-cover" />
+                          </div>
+                          <div>
+                            <div className="text-sm font-medium">{product.name} — {inv.variant}{size?` / ${size}`:''}</div>
+                            <div className="text-xs text-muted-foreground">SKU: {sku} · Qty: {q}</div>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                          <button className="px-2 py-1 border rounded" onClick={() => setVariantQuantities(prev=>{ const n={...prev}; delete n[key]; return n; })}>Remove</button>
+                        </div>
+                      </div>
+                    );
+                  })}
+
                   <div className="mt-2 p-3 border-dashed border-2 border-yellow-100 text-center text-sm text-muted-foreground rounded">Drag products here to add to itinerary</div>
 
                   <div className="flex items-center justify-between mt-3">
                     <div className="text-sm">Total</div>
-                    <div className="text-lg font-bold">${itineraryProducts.reduce((sum, id) => { const it = SAMPLE_PRODUCTS.find(p=>p.id===id); return sum + (it?.price||0); }, 0)}</div>
+                    <div className="text-lg font-bold">${(itineraryProducts.reduce((sum, id) => { const it = SAMPLE_PRODUCTS.find(p=>p.id===id); return sum + (it?.price||0); }, 0) + Object.entries(variantQuantities).reduce((sum,[key,q])=>{
+                      const sku = key.split(':')[0]; const inv = product.inventory.find(it=>it.sku===sku); return sum + (inv? product.price * q:0);
+                    },0)).toFixed(2)}</div>
                   </div>
                 </div>
               </CardContent>
