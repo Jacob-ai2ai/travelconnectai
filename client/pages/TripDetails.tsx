@@ -1282,27 +1282,6 @@ export default function TripDetails() {
                       </div>
 
                       <div className="flex items-center space-x-3 mb-3">
-                        {itinerary.products.includes(product.id) ? (
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() =>
-                              removeFromItinerary("products", product.id)
-                            }
-                          >
-                            Remove
-                          </Button>
-                        ) : (
-                          <Button
-                            size="sm"
-                            onClick={() =>
-                              addToItinerary("products", product.id)
-                            }
-                          >
-                            Add
-                          </Button>
-                        )}
-
                         <div className="text-lg font-bold">
                           ${product.price}
                         </div>
@@ -1330,20 +1309,15 @@ export default function TripDetails() {
                       </div>
 
                       <div className="space-y-2">
-                        <Button className="w-full" size="sm">
-                          <ShoppingCart className="h-4 w-4 mr-2" />
-                          {product.isLiveSale
-                            ? "Join Live Sale"
-                            : "Add to Cart"}
-                        </Button>
-                        {product.isLiveSale && (
-                          <Button
-                            variant="outline"
-                            className="w-full"
-                            size="sm"
-                          >
-                            <Video className="h-4 w-4 mr-2" />
-                            Watch Live Demo
+                        {itinerary.products.includes(product.id) ? (
+                          <Button className="w-full" size="sm" variant="destructive" onClick={() => removeFromItinerary("products", product.id)}>
+                            <ShoppingCart className="h-4 w-4 mr-2" />
+                            Remove from Cart
+                          </Button>
+                        ) : (
+                          <Button className="w-full" size="sm" onClick={() => addToItinerary("products", product.id)}>
+                            <ShoppingCart className="h-4 w-4 mr-2" />
+                            Add to Cart
                           </Button>
                         )}
                       </div>
