@@ -1122,21 +1122,7 @@ export default function TripDetails() {
 
                       <p className="text-sm text-muted-foreground mb-3">{ev.description}</p>
 
-                      <div className="flex items-center justify-between mb-3">
-                        <div>
-                          {itinerary.events.includes(ev.id) ? (
-                            <div className="flex items-center border rounded overflow-hidden text-xs ml-1 space-x-1">
-                              <button className="px-1 py-0.5" aria-label="decrease" onClick={() => changePeople(ev.id, -1)}>-</button>
-                              <div className="px-2 py-0.5">{peopleCounts[ev.id] ?? 1}</div>
-                              <button className="px-1 py-0.5" aria-label="increase" onClick={() => changePeople(ev.id, 1)}>+</button>
-                            </div>
-                          ) : (
-                            <Button size="sm" className="px-2 py-0.5 text-xs" onClick={() => { setPeopleCounts(prev => ({ ...prev, [ev.id]: 1 })); addToItinerary("events", ev.id); }}>Add</Button>
-                          )}
-                        </div>
-
-                        <div className="text-lg font-bold">${ev.price}</div>
-                      </div>
+                      <div className="text-lg font-bold mb-3">${ev.price}</div>
 
                       <div className="flex items-center space-x-3">
                         <Button className="flex-1" onClick={() => { addBillItem({ id: `evt-${ev.id}`, type: 'service', refId: undefined, title: ev.name, price: ev.price, qty: 1 }); alert('Ticket added to your bill'); }}>
