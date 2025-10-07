@@ -417,6 +417,116 @@ export default function TripDetails() {
     );
   };
 
+  const renderAccommodationCard = (accommodation: Accommodation) => {
+    const included = itinerary.stays.includes(accommodation.id);
+    const discount = accommodation.originalPrice ? Math.round(((accommodation.originalPrice - accommodation.price) / accommodation.originalPrice) * 100) : 0;
+
+    return (
+      <Card key={accommodation.id} className="overflow-hidden">
+        <div className="grid md:grid-cols-2 gap-0">
+          <div className="relative">
+            <div className="aspect-video relative bg-muted">
+              <img src={accommodation.images[0]} alt={accommodation.name} className="w-full h-full object-cover" />
+
+              <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                <Button size="lg" className="bg-white/90 text-black hover:bg-white">
+                  <Play className="h-5 w-5 mr-2" />
+                  Watch Walkthrough
+                </Button>
+              </div>
+
+              {accommodation.isLiveStreamAvailable && (
+                <div className="absolute top-4 right-4">
+                  <Badge className="bg-red-500 hover:bg-red-600">
+                    <Radio className="h-3 w-3 mr-1" />
+                    LIVE • {accommodation.liveStreamViewers}
+                  </Badge>
+                </div>
+              )}
+            </div>
+
+            <div className="flex space-x-2 p-4">
+              {accommodation.images.slice(1, 4).map((image, index) => (
+                <div key={index} className="w-16 h-16 rounded-lg overflow-hidden">
+                  <img src={image} alt="" className="w-full h-full object-cover" />
+                </div>
+              ))}
+              <div className="w-16 h-16 rounded-lg bg-muted flex items-center justify-center text-xs font-medium">+12 more</div>
+            </div>
+          </div>
+
+          <div className="p-6">
+            <div className="flex items-start justify-between mb-4">
+              <div>
+                <h3 className="text-xl font-bold mb-1">{accommodation.name}</h3>
+                <div className="flex items-center space-x-2">
+                  <Badge variant="outline">{accommodation.type}</Badge>
+                  <div className="flex items-center space-x-1">
+                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                    <span className="text-sm font-medium">{accommodation.rating}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="text-right">
+                <div className="text-2xl font-bold">
+                  ${accommodation.price}{accommodation.originalPrice ? (<span className="text-sm text-muted-foreground line-through ml-2">${accommodation.originalPrice}</span>) : null}
+                </div>
+                <div className="text-sm text-muted-foreground">per night</div>
+                {accommodation.originalPrice && <div className="text-sm text-red-600 font-semibold">{discount}% OFF</div>}
+              </div>
+            </div>
+
+            <p className="text-muted-foreground mb-4">{accommodation.description}</p>
+
+            <div className="mb-4">
+              <h4 className="font-semibold mb-2">Amenities</h4>
+              <div className="flex flex-wrap gap-2">
+                {accommodation.amenities.map((amenity, index) => (
+                  <Badge key={index} variant="secondary" className="text-xs">{amenity}</Badge>
+                ))}
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <h4 className="font-semibold mb-2 flex items-center"><MapPin className="h-4 w-4 mr-1" />Nearby Attractions</h4>
+              <div className="space-y-1">
+                {accommodation.nearbyAttractions.map((attraction, index) => (
+                  <div key={index} className="text-sm text-muted-foreground">• {attraction}</div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex space-x-3 items-start">
+              <div>
+                {included ? (
+                  <div className="flex items-center space-x-2">
+                    <div className="text-sm text-muted-foreground">Included</div>
+                    <Button size="sm" variant="ghost" onClick={() => removeFromItinerary("stays", accommodation.id)}>Remove</Button>
+                  </div>
+                ) : (
+                  <Button size="sm" onClick={() => addToItinerary("stays", accommodation.id)}>Add</Button>
+                )}
+              </div>
+
+              <Button onClick={() => requestLiveStream(accommodation.id)} className="flex-1 bg-travel-blue hover:bg-travel-blue/90">
+                <Video className="h-4 w-4 mr-2" />
+                Request Live Tour
+              </Button>
+
+              <Link to={`/property/${accommodation.id}`} className="flex-1" state={{ fromItinerary: true, replacePropertyId: accommodations[0].id, planId }}>
+                <Button variant="outline" className="w-full">
+                  <Eye className="h-4 w-4 mr-2" />
+                  View Details
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </Card>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted">
       {/* Header */}
