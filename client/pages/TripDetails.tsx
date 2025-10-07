@@ -885,14 +885,15 @@ export default function TripDetails() {
                               </div>
                             </div>
 
-                            <div className="flex items-start justify-between mb-3">
-                              <div className="min-w-0">
-                                <h3 className="font-bold mb-1">{experience.name}</h3>
-                                <div className="text-sm text-muted-foreground mb-2">{experience.address}</div>
-                                <p className="text-sm text-muted-foreground mb-3">{experience.description}</p>
-                              </div>
+                            <div className="mb-3">
+                              <h3 className="font-bold mb-1">{experience.name}</h3>
+                              <div className="text-sm text-muted-foreground mb-2">{experience.address}</div>
+                              <p className="text-sm text-muted-foreground mb-3">{experience.description}</p>
+                            </div>
 
-                              <div className="text-sm text-muted-foreground text-right ml-4">
+                            <div className="flex items-center justify-between mb-3">
+                              <div className="text-lg font-bold">${experience.price}</div>
+                              <div className="text-sm text-muted-foreground text-right">
                                 <div className="flex items-center justify-end space-x-2">
                                   <Clock className="h-4 w-4" />
                                   <span>{new Date(experience.startDate).toLocaleDateString()}</span>
@@ -901,20 +902,10 @@ export default function TripDetails() {
                               </div>
                             </div>
 
-                            <div className="flex items-center justify-between mb-3">
-                              <div className="flex items-center border rounded overflow-hidden">
-                                <button className="px-3 py-1 text-sm" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
-                                <div className="px-3 py-1 text-sm">{peopleCounts[experience.id] ?? 1}</div>
-                                <button className="px-3 py-1 text-sm" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
-                              </div>
-
-                              <div className="text-lg font-bold">${experience.price}</div>
-                            </div>
-
                             <div className="space-y-2 mb-4">
                               {experience.highlights.slice(0, 2).map((highlight, index) => (
                                 <div key={index} className="text-xs text-muted-foreground flex items-center">
-                                  <div className="w-1.5 h-1.5 bg-travel-green rounded-full mr-2"></div>
+                                  
                                   {highlight}
                                 </div>
                               ))}
@@ -922,13 +913,20 @@ export default function TripDetails() {
 
                             <Button className="w-full" size="sm">{experience.isLiveDemo ? "Join Live Demo" : "Book Experience"}</Button>
 
+                            <div className="mt-3 flex items-center justify-between">
+                              <div className="flex items-center border rounded overflow-hidden">
+                                <button className="px-3 py-1 text-sm" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
+                                <div className="px-3 py-1 text-sm">{peopleCounts[experience.id] ?? 1}</div>
+                                <button className="px-3 py-1 text-sm" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
+                              </div>
+
+                              <div className="text-sm text-muted-foreground">Participants</div>
+                            </div>
+
                             <div className="mt-3">
                               <Link to={`/experience/${experience.id}`}>
                                 <Button variant="outline" className="w-full py-3">View Details</Button>
                               </Link>
-                              <div className="mt-2 flex justify-end">
-
-                              </div>
                             </div>
 
                           </CardContent>
@@ -979,45 +977,47 @@ export default function TripDetails() {
                             </div>
                           </div>
 
-                          <div className="flex items-start justify-between mb-3">
-                            <div className="min-w-0">
-                              <h3 className="font-bold mb-1">{experience.name}</h3>
-                              <div className="text-sm text-muted-foreground mb-2">{experience.address}</div>
-                              <p className="text-sm text-muted-foreground mb-3">{experience.description}</p>
+                          <h3 className="font-bold mb-2">{experience.name}</h3>
+                          <div className="text-sm text-muted-foreground mb-2">{experience.address}</div>
+                          <p className="text-sm text-muted-foreground mb-3">{experience.description}</p>
+
+                          <div className="flex items-center justify-between mb-3">
+                            <div>
+                              <Button size="sm" onClick={() => addToItinerary("experiences", experience.id)}>Add</Button>
                             </div>
 
-                            <div className="text-sm text-muted-foreground text-right ml-4">
+                            <div className="text-lg font-bold">${experience.price}</div>
+
+                            <div className="text-sm text-muted-foreground text-right">
                               <div className="flex items-center justify-end space-x-2">
                                 <Clock className="h-4 w-4" />
                                 <span>{new Date(experience.startDate).toLocaleDateString()}</span>
                               </div>
                               <div className="mt-1">{new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
                             </div>
-                          </div>
-
-                          <div className="flex items-center justify-between mb-3">
-                            <div className="flex items-center border rounded overflow-hidden">
-                              <button className="px-3 py-1 text-sm" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
-                              <div className="px-3 py-1 text-sm">{peopleCounts[experience.id] ?? 1}</div>
-                              <button className="px-3 py-1 text-sm" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
-                            </div>
-
-                            <Button size="sm" onClick={() => addToItinerary("experiences", experience.id)}>Add</Button>
-
-                            <div className="text-lg font-bold">${experience.price}</div>
 
                           </div>
 
                           <div className="space-y-2 mb-4">
                             {experience.highlights.slice(0, 2).map((highlight, index) => (
                               <div key={index} className="text-xs text-muted-foreground flex items-center">
-                                <div className="w-1.5 h-1.5 bg-travel-green rounded-full mr-2"></div>
+                                
                                 {highlight}
                               </div>
                             ))}
                           </div>
 
                           <Button className="w-full" size="sm">{experience.isLiveDemo ? "Join Live Demo" : "Book Experience"}</Button>
+
+                          <div className="mt-3 flex items-center justify-between">
+                            <div className="flex items-center border rounded overflow-hidden">
+                              <button className="px-3 py-1 text-sm" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
+                              <div className="px-3 py-1 text-sm">{peopleCounts[experience.id] ?? 1}</div>
+                              <button className="px-3 py-1 text-sm" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
+                            </div>
+
+                            <div className="text-sm text-muted-foreground">Participants</div>
+                          </div>
 
                           <div className="mt-3">
                             <Link to={`/experience/${experience.id}`}>
