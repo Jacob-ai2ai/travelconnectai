@@ -1006,16 +1006,31 @@ export default function TripDetails() {
                               </div>
 
                             <div className="flex items-center space-x-4">
-                              <div className="text-right">
-                                <div className="text-lg font-bold">{`$${experience.price * (peopleCounts[experience.id] ?? 1)}`}</div>
-                                <div className="text-xs text-muted-foreground">{`($${experience.price}/pp)`}</div>
-                              </div>
+                              {itinerary.experiences.includes(experience.id) ? (
+                                <>
+                                  <div className="flex items-center border rounded overflow-hidden">
+                                    <button className="px-2 py-1 text-sm" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
+                                    <div className="px-3 py-1 text-sm">{peopleCounts[experience.id] ?? 1}</div>
+                                    <button className="px-2 py-1 text-sm" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
+                                  </div>
 
-                              <div className="flex items-center border rounded overflow-hidden">
-                                <button className="px-2 py-1 text-sm" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
-                                <div className="px-3 py-1 text-sm">{peopleCounts[experience.id] ?? 1}</div>
-                                <button className="px-2 py-1 text-sm" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
-                              </div>
+                                  <div className="text-right">
+                                    <div className="text-lg font-bold">{`$${experience.price * (peopleCounts[experience.id] ?? 1)}`}</div>
+                                    <div className="text-xs text-muted-foreground">{`($${experience.price}/pp)`}</div>
+                                  </div>
+                                </>
+                              ) : (
+                                <>
+                                  <div>
+                                    <Button size="sm" onClick={() => { setPeopleCounts(prev => ({ ...prev, [experience.id]: 1 })); addToItinerary("experiences", experience.id); }}>Add</Button>
+                                  </div>
+
+                                  <div className="text-right">
+                                    <div className="text-lg font-bold">{`$${experience.price * (peopleCounts[experience.id] ?? 1)}`}</div>
+                                    <div className="text-xs text-muted-foreground">{`($${experience.price}/pp)`}</div>
+                                  </div>
+                                </>
+                              )}
                             </div>
                           </div>
 
