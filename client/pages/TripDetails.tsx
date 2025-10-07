@@ -914,7 +914,7 @@ export default function TripDetails() {
                                   <span>{new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
                                 </div>
                               </div>
-                              <div className="text-lg font-bold">${experience.price}</div>
+                              <div className="text-lg font-bold">{`$${experience.price * (peopleCounts[experience.id] ?? 1)}`}</div>
                             </div>
 
                             <Button className="w-full" size="sm">{experience.isLiveDemo ? "Join Live Demo" : "Book Experience"}</Button>
@@ -1002,7 +1002,7 @@ export default function TripDetails() {
                                   <span>{new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
                                 </div>
                               </div>
-                            <div className="text-lg font-bold">${experience.price}</div>
+                            <div className="text-lg font-bold">{`$${experience.price * (peopleCounts[experience.id] ?? 1)}`}</div>
                           </div>
 
                           <div className="flex items-center justify-start mb-3">
