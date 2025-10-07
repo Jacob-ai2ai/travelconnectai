@@ -800,7 +800,10 @@ export default function TripDetails() {
                           <div className="flex space-x-3 items-start">
                             <div>
                               {itinerary.stays.includes(accommodation.id) ? (
-                                <div className="text-sm text-muted-foreground">Included</div>
+                                <div className="flex items-center space-x-2">
+                                  <div className="text-sm text-muted-foreground">Included</div>
+                                  <Button size="sm" variant="ghost" onClick={() => removeFromItinerary("stays", accommodation.id)}>Remove</Button>
+                                </div>
                               ) : (
                                 <Button size="sm" onClick={() => addToItinerary("stays", accommodation.id)}>Add</Button>
                               )}
