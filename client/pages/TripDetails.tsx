@@ -308,15 +308,21 @@ export default function TripDetails() {
   ];
 
   // Ensure there is a people count entry for each experience (default 0 if not included, 1 if included)
+  // Run once on mount to initialize counts for experiences without causing re-render loops.
   useEffect(() => {
     setPeopleCounts((prev) => {
-      const next = { ...prev };
+      const next: Record<string, number> = { ...prev };
+      let changed = false;
       experiences.forEach((e) => {
-        if (next[e.id] == null) next[e.id] = itinerary.experiences.includes(e.id) ? 1 : 0;
+        if (next[e.id] == null) {
+          next[e.id] = itinerary.experiences.includes(e.id) ? 1 : 0;
+          changed = true;
+        }
       });
-      return next;
+      return changed ? next : prev;
     });
-  }, [experiences, itinerary.experiences]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const services: Service[] = [
     {
