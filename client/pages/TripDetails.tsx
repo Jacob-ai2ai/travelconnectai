@@ -885,42 +885,30 @@ export default function TripDetails() {
                               </div>
                             </div>
 
-                            <h3 className="font-bold mb-2">{experience.name}</h3>
-                            <div className="text-sm text-muted-foreground mb-2">{experience.address}</div>
-                            <p className="text-sm text-muted-foreground mb-3">{experience.description}</p>
+                            <div className="flex items-start justify-between mb-3">
+                              <div className="min-w-0">
+                                <h3 className="font-bold mb-1">{experience.name}</h3>
+                                <div className="text-sm text-muted-foreground mb-2">{experience.address}</div>
+                                <p className="text-sm text-muted-foreground mb-3">{experience.description}</p>
+                              </div>
 
-                            <div className="flex items-center justify-between mb-3">
-                              <div className="flex flex-col text-sm text-muted-foreground">
-                                <div className="flex items-center space-x-2">
+                              <div className="text-sm text-muted-foreground text-right ml-4">
+                                <div className="flex items-center justify-end space-x-2">
                                   <Clock className="h-4 w-4" />
                                   <span>{new Date(experience.startDate).toLocaleDateString()}</span>
                                 </div>
-                                <div className="ml-6 text-sm text-muted-foreground">{new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                                <div className="mt-1">{new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                              </div>
+                            </div>
+
+                            <div className="flex items-center justify-between mb-3">
+                              <div className="flex items-center border rounded overflow-hidden">
+                                <button className="px-3 py-1 text-sm" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
+                                <div className="px-3 py-1 text-sm">{peopleCounts[experience.id] ?? 1}</div>
+                                <button className="px-3 py-1 text-sm" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
                               </div>
 
-                              <div className="flex items-center space-x-3">
-                                <div className="flex items-center border rounded overflow-hidden">
-                                  <button
-                                    className="px-3 py-1 text-sm"
-                                    aria-label="decrease"
-                                    onClick={() => changePeople(experience.id, -1)}
-                                  >
-                                    -
-                                  </button>
-                                  <div className="px-3 py-1 text-sm">{peopleCounts[experience.id] ?? 1}</div>
-                                  <button
-                                    className="px-3 py-1 text-sm"
-                                    aria-label="increase"
-                                    onClick={() => changePeople(experience.id, 1)}
-                                  >
-                                    +
-                                  </button>
-                                </div>
-
-                                <div className="text-lg font-bold">${experience.price}</div>
-
-                              </div>
-
+                              <div className="text-lg font-bold">${experience.price}</div>
                             </div>
 
                             <div className="space-y-2 mb-4">
