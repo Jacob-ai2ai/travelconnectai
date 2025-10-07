@@ -983,7 +983,7 @@ export default function TripDetails() {
                           <div className="text-sm text-muted-foreground mb-2">{experience.address}</div>
                           <p className="text-sm text-muted-foreground mb-3">{experience.description}</p>
 
-                          <div className="mb-4">
+                          <div className="mb-4 text-xs text-muted-foreground">
                             {experience.highlights.slice(0, 2).join(' • ')}
                           </div>
 
