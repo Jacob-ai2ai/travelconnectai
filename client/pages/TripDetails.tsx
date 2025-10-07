@@ -709,9 +709,27 @@ export default function TripDetails() {
 
                               <p className="text-muted-foreground mb-4">{accommodation.description}</p>
 
+                              <div className="mb-4">
+                                <h4 className="font-semibold mb-2">Amenities</h4>
+                                <div className="flex flex-wrap gap-2">
+                                  {accommodation.amenities.map((amenity, index) => (
+                                    <Badge key={index} variant="secondary" className="text-xs">{amenity}</Badge>
+                                  ))}
+                                </div>
+                              </div>
+
+                              <div className="mb-6">
+                                <h4 className="font-semibold mb-2 flex items-center"><MapPin className="h-4 w-4 mr-1" />Nearby Attractions</h4>
+                                <div className="space-y-1">
+                                  {accommodation.nearbyAttractions.map((attraction, index) => (
+                                    <div key={index} className="text-sm text-muted-foreground">• {attraction}</div>
+                                  ))}
+                                </div>
+                              </div>
+
                               <div className="flex space-x-3 items-start">
                                 <div>
-                                  <div className="text-sm text-muted-foreground">Included</div>
+                                  <Button size="sm" variant="ghost" onClick={() => removeFromItinerary("stays", accommodation.id)}>Remove</Button>
                                 </div>
 
                                 <Button onClick={() => requestLiveStream(accommodation.id)} className="flex-1 bg-travel-blue hover:bg-travel-blue/90">
