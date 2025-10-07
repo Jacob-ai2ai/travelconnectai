@@ -1060,18 +1060,40 @@ export default function TripDetails() {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {events.map((ev) => (
                   <Card key={ev.id} className="overflow-hidden">
-                    <div className="h-40 overflow-hidden">
-                      <img src={ev.image} alt={ev.name} className="w-full h-full object-cover" />
+                    <div className="relative">
+                      <div className="aspect-video relative">
+                        <img src={ev.image} alt={ev.name} className="w-full h-full object-cover" />
+                        <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                          <Button size="sm" className="bg-white/90 text-black hover:bg-white">
+                            <Play className="h-4 w-4 mr-2" />
+                            Watch Preview
+                          </Button>
+                        </div>
+                      </div>
                     </div>
+
                     <CardContent>
                       <div className="flex items-center justify-between mb-2">
-                        <div>
+                        <div className="flex-1">
                           <div className="font-semibold">{ev.name}</div>
-                          <div className="text-xs text-muted-foreground">{new Date(ev.date).toLocaleString()} • {ev.venue}</div>
+                          <div className="text-xs text-muted-foreground flex items-center space-x-2">
+                            <div className="flex items-center space-x-1">
+                              <Calendar className="h-4 w-4" />
+                              <span>{new Date(ev.date).toLocaleDateString()}</span>
+                            </div>
+                            <div className="flex items-center space-x-1">
+                              <Clock className="h-4 w-4" />
+                              <span className="whitespace-nowrap">{new Date(ev.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
+                            </div>
+                            <div className="text-xs text-muted-foreground">• {ev.venue}</div>
+                          </div>
                         </div>
-                        <div className="text-lg font-bold">${ev.price}</div>
+
+                        <div className="text-lg font-bold ml-4">${ev.price}</div>
                       </div>
+
                       <p className="text-sm text-muted-foreground mb-3">{ev.description}</p>
+
                       <div className="flex items-center space-x-3">
                         <Button className="w-36" onClick={() => { addBillItem({ id: `evt-${ev.id}`, type: 'service', refId: undefined, title: ev.name, price: ev.price, qty: 1 }); alert('Ticket added to your bill'); }}>
                           Buy Ticket
