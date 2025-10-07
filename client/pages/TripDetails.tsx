@@ -1316,21 +1316,23 @@ export default function TripDetails() {
                           </div>
                         )}
 
-                        <Link to={`/product/${product.id}`}>
-                          <Button size="sm" variant="ghost" className="p-1 h-8 w-8">
-                            <Eye className="h-4 w-4" />
-                          </Button>
-                        </Link>
-
-                        <Link to={`/replace-options/${product.id}`}>
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            className="p-1 h-8 w-8"
+                        <div className="flex items-center border rounded overflow-hidden text-sm ml-auto">
+                          <button
+                            aria-label="decrease quantity"
+                            onClick={() => changeProductQty(product.id, -1)}
+                            className="px-3 py-1"
                           >
-                            <Zap className="h-4 w-4" />
-                          </Button>
-                        </Link>
+                            -
+                          </button>
+                          <div className="px-3 py-1">{productCounts[product.id] ?? 0}</div>
+                          <button
+                            aria-label="increase quantity"
+                            onClick={() => changeProductQty(product.id, 1)}
+                            className="px-3 py-1"
+                          >
+                            +
+                          </button>
+                        </div>
                       </div>
 
                       <div className="space-y-2">
@@ -1439,21 +1441,23 @@ export default function TripDetails() {
                           </div>
                         )}
 
-                        <Link to={`/product/${product.id}`}>
-                          <Button size="sm" variant="ghost" className="p-1 h-8 w-8">
-                            <Eye className="h-4 w-4" />
-                          </Button>
-                        </Link>
-
-                        <Link to={`/replace-options/${product.id}`}>
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            className="p-1 h-8 w-8"
+                        <div className="flex items-center border rounded overflow-hidden text-sm ml-auto">
+                          <button
+                            aria-label="decrease quantity"
+                            onClick={() => changeProductQty(product.id, -1)}
+                            className="px-3 py-1"
                           >
-                            <Zap className="h-4 w-4" />
-                          </Button>
-                        </Link>
+                            -
+                          </button>
+                          <div className="px-3 py-1">{productCounts[product.id] ?? 0}</div>
+                          <button
+                            aria-label="increase quantity"
+                            onClick={() => changeProductQty(product.id, 1)}
+                            className="px-3 py-1"
+                          >
+                            +
+                          </button>
+                        </div>
                       </div>
 
                       <div className="space-y-2">
