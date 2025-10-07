@@ -910,16 +910,13 @@ export default function TripDetails() {
                                 </div>
                               </div>
 
-                              <div className="flex items-center space-x-4">
-                                <div className="flex items-center border rounded overflow-hidden text-xs">
+                              <div className="flex items-center w-full justify-between">
+                                <div className="text-lg font-bold">{`$${experience.price * (peopleCounts[experience.id] ?? 1)}`}</div>
+
+                                <div className="flex items-center border rounded overflow-hidden text-xs space-x-1">
                                   <button className="px-1 py-0.5" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
                                   <div className="px-2 py-0.5">{peopleCounts[experience.id] ?? 1}</div>
                                   <button className="px-1 py-0.5" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
-                                </div>
-
-                                <div className="text-right">
-                                  <div className="text-lg font-bold">{`$${experience.price * (peopleCounts[experience.id] ?? 1)}`}</div>
-                                  
                                 </div>
                               </div>
                             </div>
@@ -1005,14 +1002,12 @@ export default function TripDetails() {
                                 </div>
                               </div>
 
-                            <div className="flex items-center space-x-4 w-full">
+                            <div className="flex items-center w-full justify-between">
                               {itinerary.experiences.includes(experience.id) ? (
                                 <>
-                                  <div className="text-right flex-1">
-                                    <div className="text-lg font-bold">{`$${experience.price * (peopleCounts[experience.id] ?? 1)}`}</div>
-                                  </div>
+                                  <div className="text-lg font-bold">{`$${experience.price * (peopleCounts[experience.id] ?? 1)}`}</div>
 
-                                  <div className="flex items-center border rounded overflow-hidden text-xs">
+                                  <div className="flex items-center border rounded overflow-hidden text-xs space-x-1">
                                     <button className="px-1 py-0.5" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
                                     <div className="px-2 py-0.5">{peopleCounts[experience.id] ?? 1}</div>
                                     <button className="px-1 py-0.5" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
@@ -1020,9 +1015,7 @@ export default function TripDetails() {
                                 </>
                               ) : (
                                 <>
-                                  <div className="text-right flex-1">
-                                    <div className="text-lg font-bold">{`$${experience.price * (peopleCounts[experience.id] ?? 1)}`}</div>
-                                  </div>
+                                  <div className="text-lg font-bold">{`$${experience.price * (peopleCounts[experience.id] ?? 1)}`}</div>
 
                                   <div>
                                     <Button size="sm" onClick={() => { setPeopleCounts(prev => ({ ...prev, [experience.id]: 1 })); addToItinerary("experiences", experience.id); }}>Add</Button>
