@@ -1001,43 +1001,30 @@ export default function TripDetails() {
                             {experience.highlights.slice(0, 2).join(' • ')}
                           </div>
 
-                          <div className="flex items-center justify-between mb-3">
-                            <div className="text-sm text-muted-foreground flex items-center space-x-2">
-                                <div className="flex items-center space-x-1">
-                                  <Calendar className="h-4 w-4" />
-                                  <span>{new Date(experience.startDate).toLocaleDateString()}</span>
-                                </div>
-                                <div className="flex items-center space-x-1">
-                                  <Clock className="h-4 w-4" />
-                                  <span className="whitespace-nowrap">{new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
-                                </div>
-                              </div>
+                          <div className="grid grid-cols-4 items-center gap-4 mb-3">
+                            <div className="flex items-center text-sm text-muted-foreground">
+                              <Calendar className="h-4 w-4 mr-2" />
+                              <span className="whitespace-nowrap">{new Date(experience.startDate).toLocaleDateString()}</span>
+                            </div>
 
-                            <div className="flex items-center w-full justify-between">
+                            <div className="flex items-center text-sm text-muted-foreground">
+                              <Clock className="h-4 w-4 mr-2" />
+                              <span className="whitespace-nowrap">{new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
+                            </div>
+
+                            <div className="flex items-center justify-center">
                               {itinerary.experiences.includes(experience.id) ? (
-                                <>
-                                  <div className="flex items-center border rounded overflow-hidden text-xs ml-2 space-x-1">
-                                    <button className="px-1 py-0.5" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
-                                    <div className="px-2 py-0.5">{peopleCounts[experience.id] ?? 1}</div>
-                                    <button className="px-1 py-0.5" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
-                                  </div>
-
-                                  <div className="text-right">
-                                    <div className="text-lg font-bold">{`$${experience.price * (peopleCounts[experience.id] ?? 1)}`}</div>
-                                  </div>
-                                </>
+                                <div className="flex items-center border rounded overflow-hidden text-xs space-x-1">
+                                  <button className="px-1 py-0.5" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
+                                  <div className="px-2 py-0.5">{peopleCounts[experience.id] ?? 1}</div>
+                                  <button className="px-1 py-0.5" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
+                                </div>
                               ) : (
-                                <>
-                                  <div>
-                                    <Button size="sm" className="px-2 py-0.5 text-xs" onClick={() => { setPeopleCounts(prev => ({ ...prev, [experience.id]: 1 })); addToItinerary("experiences", experience.id); }}>Add</Button>
-                                  </div>
-
-                                  <div className="text-right">
-                                    <div className="text-lg font-bold">{`$${experience.price * (peopleCounts[experience.id] ?? 1)}`}</div>
-                                  </div>
-                                </>
+                                <Button size="sm" className="px-2 py-0.5 text-xs" onClick={() => { setPeopleCounts(prev => ({ ...prev, [experience.id]: 1 })); addToItinerary("experiences", experience.id); }}>Add</Button>
                               )}
                             </div>
+
+                            <div className="text-right font-bold">{`$${experience.price * (peopleCounts[experience.id] ?? 1)}`}</div>
                           </div>
 
 
