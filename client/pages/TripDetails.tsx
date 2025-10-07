@@ -967,25 +967,42 @@ export default function TripDetails() {
                           <div className="flex items-center justify-between mb-3">
                             <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                               <Clock className="h-4 w-4" />
-                              <span>{experience.duration}</span>
+                              <span>{experience.duration.replace(/\s*hours?/, '').trim() + (/\bhours?\b/.test(experience.duration) ? 'h' : '')}</span>
                             </div>
 
                             <div className="flex items-center space-x-3">
+                              <div className="flex items-center border rounded overflow-hidden">
+                                <button
+                                  className="px-3 py-1 text-sm"
+                                  aria-label="decrease"
+                                  onClick={() => changePeople(experience.id, -1)}
+                                >
+                                  -
+                                </button>
+                                <div className="px-3 py-1 text-sm">{peopleCounts[experience.id] ?? 1}</div>
+                                <button
+                                  className="px-3 py-1 text-sm"
+                                  aria-label="increase"
+                                  onClick={() => changePeople(experience.id, 1)}
+                                >
+                                  +
+                                </button>
+                              </div>
+
                               <Button size="sm" onClick={() => addToItinerary("experiences", experience.id)}>Add</Button>
 
                               <div className="text-lg font-bold">${experience.price}</div>
 
-                              <Link to={`/experience/${experience.id}`}>
-                                <Button size="sm" variant="ghost" className="p-1 h-8 w-8">
-                                  <Eye className="h-4 w-4" />
-                                </Button>
+                              <Link to={`/experience/${experience.id}`} className="ml-2">
+                                <Button variant="outline" size="sm">View Details</Button>
                               </Link>
 
-                              <Link to={`/replace-options/${experience.id}`}>
-                                <Button size="sm" variant="ghost" className="p-1 h-8 w-8">
-                                  <Zap className="h-4 w-4" />
+                              {experience.isLiveDemo && (
+                                <Button size="sm" className="bg-red-600 text-white ml-2" onClick={() => alert('Joining live demo for ' + experience.name)}>
+                                  Join Live
                                 </Button>
-                              </Link>
+                              )}
+
                             </div>
                           </div>
 
