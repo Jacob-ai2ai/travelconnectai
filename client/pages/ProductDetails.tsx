@@ -231,21 +231,6 @@ export default function ProductDetails() {
                     </div>
 
                     <div className="mb-6">
-                      <div className="text-sm font-semibold mb-2">Similar products</div>
-                      <div className="flex gap-3">
-                        {SAMPLE_PRODUCTS.filter((p) => p.id !== product.id).slice(0, 3).map((p) => (
-                          <Card key={p.id} className="w-40">
-                            <CardContent>
-                              <img src={p.images[0]} alt={p.name} className="w-full h-20 object-cover mb-2" />
-                              <Link to={`/product/${p.id}`} className="text-sm font-medium hover:underline">{p.name}</Link>
-                              <div className="text-sm text-muted-foreground">${p.price}</div>
-                            </CardContent>
-                          </Card>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
                       <div className="text-sm font-semibold mb-2">Inventory</div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         {product.inventory.map((i) => (
@@ -303,6 +288,21 @@ export default function ProductDetails() {
               </CardContent>
             </Card>
           </aside>
+        </div>
+
+        <div className="mt-8">
+          <div className="text-sm font-semibold mb-2">Similar products</div>
+          <div className="flex gap-3">
+            {SAMPLE_PRODUCTS.filter((p) => p.id !== product.id).map((p) => (
+              <Card key={p.id} className="w-40">
+                <CardContent>
+                  <img src={p.images[0]} alt={p.name} className="w-full h-20 object-cover mb-2" />
+                  <Link to={`/product/${p.id}`} className="text-sm font-medium hover:underline">{p.name}</Link>
+                  <div className="text-sm text-muted-foreground">${p.price}</div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
     </div>
