@@ -912,15 +912,6 @@ export default function TripDetails() {
 
                             <Button className="w-full" size="sm">{experience.isLiveDemo ? "Join Live Demo" : "Book Experience"}</Button>
 
-                            <div className="mt-3 flex items-center justify-between">
-                              <div className="flex items-center border rounded overflow-hidden">
-                                <button className="px-3 py-1 text-sm" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
-                                <div className="px-3 py-1 text-sm">{peopleCounts[experience.id] ?? 1}</div>
-                                <button className="px-3 py-1 text-sm" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
-                              </div>
-
-                              <div className="text-sm text-muted-foreground">Participants</div>
-                            </div>
 
                             <div className="mt-3">
                               <Link to={`/experience/${experience.id}`}>
