@@ -313,6 +313,41 @@ export default function ProductDetails() {
           </main>
 
           <aside className="md:col-span-1">
+            {/* Special offers moved above purchase */}
+            <Card className="mb-4">
+              <CardContent>
+                <div className="text-sm font-semibold mb-3">Special offers & promotions</div>
+
+                <div className="space-y-3">
+                  <div className="p-3 border rounded flex items-center justify-between">
+                    <div>
+                      <div className="font-medium">Early Bird — 15% off</div>
+                      <div className="text-sm text-muted-foreground">Save 15% when you order at least 30 days in advance.</div>
+                    </div>
+                    <Button variant="outline">Apply</Button>
+                  </div>
+
+                  <div className="p-3 border rounded flex items-center justify-between">
+                    <div>
+                      <div className="font-medium">Bulk Order Discount — 10% off</div>
+                      <div className="text-sm text-muted-foreground">Order 5+ units to unlock this discount.</div>
+                    </div>
+                    <div className="text-sm text-muted-foreground">Auto-applied</div>
+                  </div>
+
+                  <div className="p-3 border rounded flex items-center justify-between">
+                    <div>
+                      <div className="font-medium">Bundle: Stay & Gear</div>
+                      <div className="text-sm text-muted-foreground">Includes complimentary packing cover.</div>
+                    </div>
+                    <Button variant="ghost">View</Button>
+                  </div>
+                </div>
+
+                <div className="text-sm text-muted-foreground mt-3">Have a coupon? Enter it at checkout.</div>
+              </CardContent>
+            </Card>
+
             <Card>
               <CardHeader>
                 <div className="text-sm font-semibold">Purchase</div>
