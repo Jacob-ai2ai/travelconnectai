@@ -962,7 +962,6 @@ export default function TripDetails() {
 
                         <CardContent className="p-4">
                           <div className="flex items-center justify-between mb-2">
-                            <div className="text-lg font-bold">${experience.price}</div>
                             <div className="flex items-center space-x-4">
                               <Badge variant="outline">{experience.category}</Badge>
 
@@ -976,9 +975,12 @@ export default function TripDetails() {
                                 <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                                 <span className="text-sm">{experience.rating}</span>
                               </div>
-
-                              <div className="text-sm text-muted-foreground">{new Date(experience.startDate).toLocaleDateString()} • {new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</div>
                             </div>
+                          </div>
+
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="text-lg font-bold">${experience.price}</div>
+                            <div className="text-sm text-muted-foreground">{new Date(experience.startDate).toLocaleDateString()} • {new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</div>
                           </div>
 
                           <h3 className="font-bold mb-2">{experience.name}</h3>
