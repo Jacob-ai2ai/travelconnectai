@@ -1357,22 +1357,15 @@ export default function TripDetails() {
                       </div>
 
                       <div className="space-y-2">
-                        {itinerary.products.includes(product.id) ? (
-                          (product.isLiveSale ? (
-                            <Button className="w-full" size="sm" variant="primary" onClick={() => window.open(`/live/${product.id}`, "_blank") }>
-                              <Play className="h-4 w-4 mr-2" />
-                              Join Live Sale
-                            </Button>
-                          ) : (
-                            <Button className="w-full" size="sm" onClick={() => { alert('Requested live demo for ' + product.name); }}>
-                              <Play className="h-4 w-4 mr-2" />
-                              Request Live Sale
-                            </Button>
-                          ))
+                        {product.isLiveSale ? (
+                          <Button className="w-full" size="sm" variant="primary" onClick={() => window.open(`/live/${product.id}`, "_blank") }>
+                            <Play className="h-4 w-4 mr-2" />
+                            Join Live Sale
+                          </Button>
                         ) : (
-                          <Button className="w-full" size="sm" onClick={() => { addToItinerary("products", product.id); setProductCounts(prev=> ({ ...prev, [product.id]: Math.max(1, prev[product.id] ?? 1) })); }}>
-                            <ShoppingCart className="h-4 w-4 mr-2" />
-                            Add to Cart
+                          <Button className="w-full" size="sm" onClick={() => { alert('Requested live demo for ' + product.name); }}>
+                            <Play className="h-4 w-4 mr-2" />
+                            Request Live Sale
                           </Button>
                         )}
                       </div>
@@ -1489,22 +1482,15 @@ export default function TripDetails() {
                       </div>
 
                       <div className="space-y-2">
-                        {itinerary.products.includes(product.id) ? (
-                          (product.isLiveSale ? (
-                            <Button className="w-full" size="sm" variant="primary" onClick={() => window.open(`/live/${product.id}`, "_blank") }>
-                              <Play className="h-4 w-4 mr-2" />
-                              Join Live Sale
-                            </Button>
-                          ) : (
-                            <Button className="w-full" size="sm" onClick={() => { alert('Requested live demo for ' + product.name); }}>
-                              <Play className="h-4 w-4 mr-2" />
-                              Request Live Sale
-                            </Button>
-                          ))
+                        {product.isLiveSale ? (
+                          <Button className="w-full" size="sm" variant="primary" onClick={() => window.open(`/live/${product.id}`, "_blank") }>
+                            <Play className="h-4 w-4 mr-2" />
+                            Join Live Sale
+                          </Button>
                         ) : (
-                          <Button className="w-full" size="sm" onClick={() => { addToItinerary("products", product.id); setProductCounts(prev=> ({ ...prev, [product.id]: Math.max(1, prev[product.id] ?? 1) })); }}>
-                            <ShoppingCart className="h-4 w-4 mr-2" />
-                            Add to Cart
+                          <Button className="w-full" size="sm" onClick={() => { alert('Requested live demo for ' + product.name); }}>
+                            <Play className="h-4 w-4 mr-2" />
+                            Request Live Sale
                           </Button>
                         )}
                       </div>
