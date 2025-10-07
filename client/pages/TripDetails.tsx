@@ -1087,9 +1087,22 @@ export default function TripDetails() {
                           <Badge variant="outline" className="text-xs">{ev.category ?? 'Event'}</Badge>
                         </div>
 
-                        <div className="flex items-center space-x-1">
-                          <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                          <span className="text-sm">{ev.rating ?? ''}</span>
+                        <div className="flex items-center space-x-2">
+                          <div className="flex items-center space-x-1">
+                            <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                            <span className="text-sm">{ev.rating ?? ''}</span>
+                          </div>
+
+                          {/* Add / quantity controls at top */}
+                          {itinerary.events.includes(ev.id) ? (
+                            <div className="flex items-center border rounded overflow-hidden text-xs ml-1 space-x-1">
+                              <button className="px-1 py-0.5" aria-label="decrease" onClick={() => changePeople(ev.id, -1)}>-</button>
+                              <div className="px-2 py-0.5">{peopleCounts[ev.id] ?? 1}</div>
+                              <button className="px-1 py-0.5" aria-label="increase" onClick={() => changePeople(ev.id, 1)}>+</button>
+                            </div>
+                          ) : (
+                            <Button size="sm" className="px-2 py-0.5 text-xs" onClick={() => { setPeopleCounts(prev => ({ ...prev, [ev.id]: 1 })); addToItinerary("events", ev.id); }}>Add</Button>
+                          )}
                         </div>
                       </div>
 
