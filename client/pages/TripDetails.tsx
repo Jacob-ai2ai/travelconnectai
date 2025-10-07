@@ -1358,10 +1358,17 @@ export default function TripDetails() {
 
                       <div className="space-y-2">
                         {itinerary.products.includes(product.id) ? (
-                          <Button className="w-full" size="sm" variant="destructive" onClick={() => { removeFromItinerary("products", product.id); setProductCounts(prev=> ({ ...prev, [product.id]: 0 })); }}>
-                            <ShoppingCart className="h-4 w-4 mr-2" />
-                            Remove from Cart
-                          </Button>
+                          (product.isLiveSale ? (
+                            <Button className="w-full" size="sm" variant="primary" onClick={() => window.open(`/live/${product.id}`, "_blank") }>
+                              <Play className="h-4 w-4 mr-2" />
+                              Join Live Sale
+                            </Button>
+                          ) : (
+                            <Button className="w-full" size="sm" onClick={() => { alert('Requested live demo for ' + product.name); }}>
+                              <Play className="h-4 w-4 mr-2" />
+                              Request Live Sale
+                            </Button>
+                          ))
                         ) : (
                           <Button className="w-full" size="sm" onClick={() => { addToItinerary("products", product.id); setProductCounts(prev=> ({ ...prev, [product.id]: Math.max(1, prev[product.id] ?? 1) })); }}>
                             <ShoppingCart className="h-4 w-4 mr-2" />
@@ -1483,10 +1490,17 @@ export default function TripDetails() {
 
                       <div className="space-y-2">
                         {itinerary.products.includes(product.id) ? (
-                          <Button className="w-full" size="sm" variant="destructive" onClick={() => { removeFromItinerary("products", product.id); setProductCounts(prev=> ({ ...prev, [product.id]: 0 })); }}>
-                            <ShoppingCart className="h-4 w-4 mr-2" />
-                            Remove from Cart
-                          </Button>
+                          (product.isLiveSale ? (
+                            <Button className="w-full" size="sm" variant="primary" onClick={() => window.open(`/live/${product.id}`, "_blank") }>
+                              <Play className="h-4 w-4 mr-2" />
+                              Join Live Sale
+                            </Button>
+                          ) : (
+                            <Button className="w-full" size="sm" onClick={() => { alert('Requested live demo for ' + product.name); }}>
+                              <Play className="h-4 w-4 mr-2" />
+                              Request Live Sale
+                            </Button>
+                          ))
                         ) : (
                           <Button className="w-full" size="sm" onClick={() => { addToItinerary("products", product.id); setProductCounts(prev=> ({ ...prev, [product.id]: Math.max(1, prev[product.id] ?? 1) })); }}>
                             <ShoppingCart className="h-4 w-4 mr-2" />
