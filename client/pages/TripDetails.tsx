@@ -756,7 +756,7 @@ export default function TripDetails() {
                                 >
                                   -
                                 </button>
-                                <div className="px-3 py-1 text-sm">
+                                <div className="px-3 py-1 text-sm leading-5">
                                   {peopleCounts[f.id] ?? 1}
                                 </div>
                                 <button
@@ -913,7 +913,7 @@ export default function TripDetails() {
                               <div className="flex items-center space-x-4">
                                 <div className="flex items-center border border-gray-200 rounded overflow-hidden w-auto flex-grow-0 h-auto self-center ml-auto">
                                   <button className="h-6 w-6 flex items-center justify-center text-sm leading-5 bg-transparent border-transparent" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
-                                  <div className="px-3 py-1 text-sm">{peopleCounts[experience.id] ?? 1}</div>
+                                  <div className="px-3 py-1 text-sm leading-5">{peopleCounts[experience.id] ?? 1}</div>
                                   <button className="h-6 w-6 flex items-center justify-center text-sm leading-5 bg-transparent border-transparent" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
                                 </div>
 
@@ -1010,7 +1010,7 @@ export default function TripDetails() {
                                 <>
                                   <div className="flex items-center border border-gray-200 rounded overflow-hidden w-auto flex-grow-0 h-auto self-center ml-auto">
                                     <button className="h-6 w-6 flex items-center justify-center text-sm leading-5 bg-transparent border-transparent" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
-                                    <div className="px-3 py-1 text-sm">{peopleCounts[experience.id] ?? 1}</div>
+                                    <div className="px-3 py-1 text-sm leading-5">{peopleCounts[experience.id] ?? 1}</div>
                                     <button className="h-6 w-6 flex items-center justify-center text-sm leading-5 bg-transparent border-transparent" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
                                   </div>
 
