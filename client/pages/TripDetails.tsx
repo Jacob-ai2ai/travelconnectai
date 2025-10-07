@@ -899,7 +899,7 @@ export default function TripDetails() {
                             </div>
 
                             <div className="flex items-center justify-between mb-3">
-                              <div className="text-sm text-muted-foreground flex items-center space-x-3">
+                              <div className="text-sm text-muted-foreground flex items-center space-x-2">
                                 <div className="flex items-center space-x-1">
                                   <Calendar className="h-4 w-4" />
                                   <span>{new Date(experience.startDate).toLocaleDateString()}</span>
@@ -993,7 +993,7 @@ export default function TripDetails() {
                           </div>
 
                           <div className="flex items-center justify-between mb-3">
-                            <div className="text-sm text-muted-foreground flex items-center space-x-3">
+                            <div className="text-sm text-muted-foreground flex items-center space-x-2">
                                 <div className="flex items-center space-x-1">
                                   <Calendar className="h-4 w-4" />
                                   <span>{new Date(experience.startDate).toLocaleDateString()}</span>
