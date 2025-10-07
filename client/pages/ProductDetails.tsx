@@ -429,15 +429,44 @@ export default function ProductDetails() {
                 <div className="text-sm font-semibold">Purchase</div>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold mb-2">${product.price}</div>
-                <div className="text-sm text-muted-foreground mb-4">Quantity: {quantity}</div>
+                <div className="mb-3 text-sm font-medium">Selected items</div>
+
+                <div className="space-y-2 mb-3">
+                  {Object.entries(variantQuantities).filter(([_,q])=>q>0).length === 0 ? (
+                    <div className="text-sm text-muted-foreground">No items selected. Use Inventory to pick sizes & quantities.</div>
+                  ) : (
+                    Object.entries(variantQuantities).filter(([_,q])=>q>0).map(([key,q]) => {
+                      const [sku, size] = key.split(':');
+                      const inv = product.inventory.find((it) => it.sku === sku);
+                      if (!inv) return null;
+                      return (
+                        <div key={key} className="flex items-center justify-between">
+                          <div>
+                            <div className="text-sm font-medium">{product.name} — {inv.variant}{size?` / ${size}`:''}</div>
+                            <div className="text-xs text-muted-foreground">SKU: {sku}</div>
+                          </div>
+                          <div className="text-sm font-semibold">${(product.price * q).toFixed(2)}</div>
+                        </div>
+                      );
+                    })
+                  )}
+                </div>
+
+                <div className="flex items-center justify-between mb-4">
+                  <div className="text-sm">Subtotal</div>
+                  <div className="text-lg font-bold">${(Object.entries(variantQuantities).reduce((sum, [key, q]) => {
+                    const sku = key.split(':')[0];
+                    const inv = product.inventory.find((it) => it.sku === sku);
+                    return sum + (inv ? product.price * q : 0);
+                  }, 0)).toFixed(2)}</div>
+                </div>
 
                 {product.isLiveSale ? (
                   <Button className="w-full mb-2" onClick={handleJoinLive}>
                     <Play className="h-4 w-4 mr-2" /> Join Live Sale
                   </Button>
                 ) : (
-                  <Button className="w-full mb-2" onClick={handleAddToItinerary}>
+                  <Button className="w-full mb-2" onClick={() => { handleAddToItinerary(); toastFn({ title: 'Added to itinerary', description: 'Selected items added.' }); }}>
                     <ShoppingCart className="h-4 w-4 mr-2" /> Add to itinerary
                   </Button>
                 )}
