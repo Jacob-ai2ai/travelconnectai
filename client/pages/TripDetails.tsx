@@ -976,14 +976,14 @@ export default function TripDetails() {
                             </div>
                           </div>
 
+                          <h3 className="font-bold mb-2">{experience.name}</h3>
+                          <div className="text-sm text-muted-foreground mb-2">{experience.address}</div>
+                          <p className="text-sm text-muted-foreground mb-3">{experience.description}</p>
+
                           <div className="flex items-center justify-between mb-3">
                             <div className="text-lg font-bold">${experience.price}</div>
                             <div className="text-sm text-muted-foreground">{new Date(experience.startDate).toLocaleDateString()} • {new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</div>
                           </div>
-
-                          <h3 className="font-bold mb-2">{experience.name}</h3>
-                          <div className="text-sm text-muted-foreground mb-2">{experience.address}</div>
-                          <p className="text-sm text-muted-foreground mb-3">{experience.description}</p>
 
                           <div className="flex items-center justify-start mb-3">
                             <div>
