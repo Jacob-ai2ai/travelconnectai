@@ -907,7 +907,16 @@ export default function TripDetails() {
                             </div>
 
                             <div className="flex items-center justify-between mb-3">
-                              <div className="text-sm text-muted-foreground">{new Date(experience.startDate).toLocaleDateString()} • {new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</div>
+                              <div className="text-sm text-muted-foreground flex items-center space-x-3">
+                                <div className="flex items-center space-x-1">
+                                  <Calendar className="h-4 w-4" />
+                                  <span>{new Date(experience.startDate).toLocaleDateString()}</span>
+                                </div>
+                                <div className="flex items-center space-x-1">
+                                  <Clock className="h-4 w-4" />
+                                  <span>{new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
+                                </div>
+                              </div>
                               <div className="text-lg font-bold">${experience.price}</div>
                             </div>
 
@@ -988,7 +997,16 @@ export default function TripDetails() {
                           </div>
 
                           <div className="flex items-center justify-between mb-3">
-                            <div className="text-sm text-muted-foreground">{new Date(experience.startDate).toLocaleDateString()} • {new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</div>
+                            <div className="text-sm text-muted-foreground flex items-center space-x-3">
+                                <div className="flex items-center space-x-1">
+                                  <Calendar className="h-4 w-4" />
+                                  <span>{new Date(experience.startDate).toLocaleDateString()}</span>
+                                </div>
+                                <div className="flex items-center space-x-1">
+                                  <Clock className="h-4 w-4" />
+                                  <span>{new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
+                                </div>
+                              </div>
                             <div className="text-lg font-bold">${experience.price}</div>
                           </div>
 
