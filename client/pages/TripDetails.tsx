@@ -255,6 +255,7 @@ export default function TripDetails() {
       rating: 4.8,
       description:
         "Witness breathtaking sunrise from the active volcano peak with professional guide.",
+      address: "Kintamani, Bali",
       image: "/placeholder.svg",
       isLiveDemo: true,
       liveViewers: 156,
@@ -275,6 +276,7 @@ export default function TripDetails() {
       rating: 4.9,
       description:
         "Learn authentic Balinese recipes in a traditional village setting.",
+      address: "Ubud Village, Bali",
       image: "/placeholder.svg",
       isLiveDemo: true,
       liveViewers: 89,
@@ -295,6 +297,7 @@ export default function TripDetails() {
       rating: 4.6,
       description:
         "Thrilling rafting experience through tropical rainforest and rice terraces.",
+      address: "Ayung River, Ubud",
       image: "/placeholder.svg",
       isLiveDemo: false,
       highlights: ["Safety Briefing", "Equipment Included", "Lunch", "Photos"],
@@ -883,12 +886,16 @@ export default function TripDetails() {
                             </div>
 
                             <h3 className="font-bold mb-2">{experience.name}</h3>
+                            <div className="text-sm text-muted-foreground mb-2">{experience.address}</div>
                             <p className="text-sm text-muted-foreground mb-3">{experience.description}</p>
 
                             <div className="flex items-center justify-between mb-3">
-                              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                                <Clock className="h-4 w-4" />
-                                <span>{new Date(experience.startDate).toLocaleDateString()} • {new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                              <div className="flex flex-col text-sm text-muted-foreground">
+                                <div className="flex items-center space-x-2">
+                                  <Clock className="h-4 w-4" />
+                                  <span>{new Date(experience.startDate).toLocaleDateString()}</span>
+                                </div>
+                                <div className="ml-6 text-sm text-muted-foreground">{new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
                               </div>
 
                               <div className="flex items-center space-x-3">
@@ -932,11 +939,7 @@ export default function TripDetails() {
                                 <Button variant="outline" className="w-full py-3">View Details</Button>
                               </Link>
                               <div className="mt-2 flex justify-end">
-                                <Link to={`/replace-options/${experience.id}`}>
-                                  <Button size="sm" variant="ghost" className="p-1 h-8 w-8">
-                                    <Zap className="h-4 w-4" />
-                                  </Button>
-                                </Link>
+
                               </div>
                             </div>
 
@@ -989,13 +992,17 @@ export default function TripDetails() {
                           </div>
 
                           <h3 className="font-bold mb-2">{experience.name}</h3>
-                          <p className="text-sm text-muted-foreground mb-3">{experience.description}</p>
+                            <div className="text-sm text-muted-foreground mb-2">{experience.address}</div>
+                            <p className="text-sm text-muted-foreground mb-3">{experience.description}</p>
 
                           <div className="flex items-center justify-between mb-3">
-                            <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                              <Clock className="h-4 w-4" />
-                                <span>{new Date(experience.startDate).toLocaleDateString()} • {new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
-                            </div>
+                            <div className="flex flex-col text-sm text-muted-foreground">
+                                <div className="flex items-center space-x-2">
+                                  <Clock className="h-4 w-4" />
+                                  <span>{new Date(experience.startDate).toLocaleDateString()}</span>
+                                </div>
+                                <div className="ml-6 text-sm text-muted-foreground">{new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                              </div>
 
                             <div className="flex items-center space-x-3">
                               <div className="flex items-center border rounded overflow-hidden">
