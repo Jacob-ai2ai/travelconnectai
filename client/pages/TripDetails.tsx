@@ -282,6 +282,12 @@ export default function TripDetails() {
     },
   ];
 
+  // Events are spectator items (tickets) — different from experiences
+  const events: { id: string; name: string; date: string; venue: string; price: number; rating?: number; image?: string; description?: string }[] = [
+    { id: 'evt-1', name: 'Ubud Cultural Dance Night', date: '2025-05-12T19:00', venue: 'Ubud Palace', price: 25, rating: 4.7, image: '/placeholder.svg', description: 'Traditional Balinese dance performance with live gamelan orchestra.' },
+    { id: 'evt-2', name: 'Sanur Beach Music Festival', date: '2025-05-14T18:00', venue: 'Sanur Beach', price: 40, rating: 4.6, image: '/placeholder.svg', description: 'Local and international bands performing by the beach.' },
+  ];
+
   const services: Service[] = [
     {
       id: "transfer-1",
