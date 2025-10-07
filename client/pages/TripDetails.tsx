@@ -881,7 +881,7 @@ export default function TripDetails() {
                             <div className="flex items-center justify-between mb-3">
                               <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                                 <Clock className="h-4 w-4" />
-                                <span>{experience.duration.replace(/\s*hours?/, '').trim() + (/\bhours?\b/.test(experience.duration) ? 'h' : '')}</span>
+                                <span>{new Date(experience.startDate).toLocaleDateString()} • {new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                               </div>
 
                               <div className="flex items-center space-x-3">
@@ -985,7 +985,7 @@ export default function TripDetails() {
                           <div className="flex items-center justify-between mb-3">
                             <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                               <Clock className="h-4 w-4" />
-                              <span>{experience.duration.replace(/\s*hours?/, '').trim() + (/\bhours?\b/.test(experience.duration) ? 'h' : '')}</span>
+                                <span>{new Date(experience.startDate).toLocaleDateString()} • {new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                             </div>
 
                             <div className="flex items-center space-x-3">
