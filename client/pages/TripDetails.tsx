@@ -914,17 +914,6 @@ export default function TripDetails() {
 
                               </div>
 
-                              <div className="mt-2 flex items-center space-x-2">
-                                <Link to={`/experience/${experience.id}`}>
-                                  <Button variant="outline" size="sm">View Details</Button>
-                                </Link>
-
-                                <Link to={`/replace-options/${experience.id}`}>
-                                  <Button size="sm" variant="ghost" className="p-1 h-8 w-8">
-                                    <Zap className="h-4 w-4" />
-                                  </Button>
-                                </Link>
-                              </div>
                             </div>
 
                             <div className="space-y-2 mb-4">
@@ -937,6 +926,20 @@ export default function TripDetails() {
                             </div>
 
                             <Button className="w-full" size="sm">{experience.isLiveDemo ? "Join Live Demo" : "Book Experience"}</Button>
+
+                            <div className="mt-3">
+                              <Link to={`/experience/${experience.id}`}>
+                                <Button variant="outline" className="w-full py-3">View Details</Button>
+                              </Link>
+                              <div className="mt-2 flex justify-end">
+                                <Link to={`/replace-options/${experience.id}`}>
+                                  <Button size="sm" variant="ghost" className="p-1 h-8 w-8">
+                                    <Zap className="h-4 w-4" />
+                                  </Button>
+                                </Link>
+                              </div>
+                            </div>
+
                           </CardContent>
                         </Card>
                       ))}
