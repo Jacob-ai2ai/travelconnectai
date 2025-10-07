@@ -1097,8 +1097,28 @@ export default function TripDetails() {
                             <div className="text-xs text-muted-foreground">• {ev.venue}</div>
                           </div>
                         </div>
+                      </div>
 
-                        <div className="text-lg font-bold ml-4">${ev.price}</div>
+                      <div className="flex items-center w-full justify-between mb-3">
+                        {itinerary.events.includes(ev.id) ? (
+                          <>
+                            <div className="flex items-center border rounded overflow-hidden text-xs ml-2 space-x-1">
+                              <button className="px-1 py-0.5" aria-label="decrease" onClick={() => changePeople(ev.id, -1)}>-</button>
+                              <div className="px-2 py-0.5">{peopleCounts[ev.id] ?? 1}</div>
+                              <button className="px-1 py-0.5" aria-label="increase" onClick={() => changePeople(ev.id, 1)}>+</button>
+                            </div>
+
+                            <div className="text-lg font-bold">${ev.price}</div>
+                          </>
+                        ) : (
+                          <>
+                            <div>
+                              <Button size="sm" className="px-2 py-0.5 text-xs" onClick={() => { setPeopleCounts(prev => ({ ...prev, [ev.id]: 1 })); addToItinerary("events", ev.id); }}>Add</Button>
+                            </div>
+
+                            <div className="text-lg font-bold">${ev.price}</div>
+                          </>
+                        )}
                       </div>
 
                       <p className="text-sm text-muted-foreground mb-3">{ev.description}</p>
