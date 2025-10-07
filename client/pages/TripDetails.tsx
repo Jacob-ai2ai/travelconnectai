@@ -119,11 +119,13 @@ export default function TripDetails() {
     flights: string[];
     stays: string[];
     experiences: string[];
+    events: string[];
     products: string[];
   }>({
     flights: [],
     stays: ["villa-1"],
     experiences: ["exp-1"],
+    events: [],
     products: ["prod-1"],
   });
 
