@@ -988,7 +988,7 @@ export default function TripDetails() {
                             </div>
                           </div>
 
-                          <h3 className="font-bold mb-2">{experience.name}</h3>
+                          <h3 className="text-xl font-semibold mb-2">{experience.name}</h3>
                           <div className="text-sm text-muted-foreground mb-2">{experience.address}</div>
                           <p className="text-base text-muted-foreground mb-3">{experience.description}</p>
 
