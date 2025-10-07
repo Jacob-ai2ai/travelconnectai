@@ -974,16 +974,15 @@ export default function TripDetails() {
                             </div>
                           </div>
 
-                          <div className="flex justify-end mb-1">
-                            <div className="flex items-center border rounded overflow-hidden text-xs">
-                              <button className="px-1 py-0.5" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
-                              <div className="px-2 py-0.5">{peopleCounts[experience.id] ?? 1}</div>
-                              <button className="px-1 py-0.5" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
-                            </div>
-                          </div>
-
                           <div className="mb-3">
-                            <h3 className="text-xl font-semibold mb-2">{experience.name}</h3>
+                            <div className="flex items-center justify-between">
+                              <h3 className="text-lg font-semibold mb-1">{experience.name}</h3>
+                              <div className="flex items-center border rounded overflow-hidden text-xs">
+                                <button className="px-1 py-0.5" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
+                                <div className="px-2 py-0.5">{peopleCounts[experience.id] ?? 1}</div>
+                                <button className="px-1 py-0.5" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
+                              </div>
+                            </div>
                             <div className="text-sm text-muted-foreground mb-2">{experience.address}</div>
                             <p className="text-base text-muted-foreground mb-3">{experience.description}</p>
                           </div>
