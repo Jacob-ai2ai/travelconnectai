@@ -61,6 +61,7 @@ interface Experience {
   name: string;
   category: string;
   duration: string;
+  startDate?: string;
   price: number;
   rating: number;
   description: string;
