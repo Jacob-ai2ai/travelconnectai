@@ -30,6 +30,9 @@ import ExperiencesOnboarding from "./pages/ExperiencesOnboarding";
 import EventsOnboarding from "./pages/EventsOnboarding";
 import ProductsOnboarding from "./pages/ProductsOnboarding";
 import TravelAgentOnboarding from "./pages/TravelAgentOnboarding";
+import ExperiencePage from "./pages/ExperiencePage";
+import EventPage from "./pages/EventPage";
+import ProductDetails from "./pages/ProductDetails";
 
 const queryClient = new QueryClient();
 
