@@ -465,6 +465,12 @@ export default function TripDetails() {
     },
   ];
 
+  // Determine products recommended by AI or already added by the user
+  const recommendedProducts = products.filter((p) => itinerary.products.includes(p.id));
+  const aiRecommended = recommendedProducts.length === 0 ? products.slice(0, 2) : [];
+  const yourProducts = recommendedProducts.length > 0 ? recommendedProducts : aiRecommended;
+  const moreLikeThis = products.filter((p) => !yourProducts.includes(p));
+
   const requestLiveStream = (accommodationId: string) => {
     alert(
       `Live stream request sent for ${accommodations.find((a) => a.id === accommodationId)?.name}. You'll be notified when the stream starts!`,
