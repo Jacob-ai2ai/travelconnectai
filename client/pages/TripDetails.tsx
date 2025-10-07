@@ -249,6 +249,7 @@ export default function TripDetails() {
       name: "Sunrise Mount Batur Hiking",
       category: "Adventure",
       duration: "6 hours",
+      startDate: "2025-05-11T04:30:00",
       price: 85,
       rating: 4.8,
       description:
@@ -268,6 +269,7 @@ export default function TripDetails() {
       name: "Traditional Balinese Cooking Class",
       category: "Culture",
       duration: "4 hours",
+      startDate: "2025-05-12T10:00:00",
       price: 65,
       rating: 4.9,
       description:
@@ -287,6 +289,7 @@ export default function TripDetails() {
       name: "White Water Rafting Adventure",
       category: "Adventure",
       duration: "5 hours",
+      startDate: "2025-05-13T08:30:00",
       price: 45,
       rating: 4.6,
       description:
