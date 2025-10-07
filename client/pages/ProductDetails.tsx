@@ -81,6 +81,10 @@ export default function ProductDetails() {
   const [mainImage, setMainImage] = useState(product.images[0]);
   const [quantity, setQuantity] = useState<number>(1);
   const [itineraryProducts, setItineraryProducts] = useState<string[]>(() => readItineraryProducts());
+  const [selectedVariant, setSelectedVariant] = useState(product.inventory[0]);
+  const [deliveryTo, setDeliveryTo] = useState<'hotel' | 'address'>('hotel');
+  const [deliveryAddress, setDeliveryAddress] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState<'cod' | 'online'>('online');
 
   useEffect(() => {
     writeItineraryProducts(itineraryProducts);
@@ -234,7 +238,12 @@ export default function ProductDetails() {
                       <div className="text-sm font-semibold mb-2">Inventory</div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         {product.inventory.map((i) => (
-                          <div key={i.sku} className="border rounded p-3">
+                          <button
+                            type="button"
+                            key={i.sku}
+                            onClick={() => setSelectedVariant(i)}
+                            className={`border rounded p-3 text-left w-full ${selectedVariant?.sku === i.sku ? 'ring-2 ring-travel-blue' : ''}`}
+                          >
                             <div className="flex items-center justify-between">
                               <div>
                                 <div className="text-sm font-medium">{i.variant}</div>
@@ -242,8 +251,59 @@ export default function ProductDetails() {
                               </div>
                               <div className="text-sm">{i.stock} left</div>
                             </div>
-                          </div>
+                          </button>
                         ))}
+                      </div>
+
+                      <div className="mt-4">
+                        <div className="text-sm font-semibold mb-2">Delivery options</div>
+                        <div className="space-y-2 text-sm">
+                          <label className="flex items-center space-x-2">
+                            <input type="radio" name="delivery" checked={deliveryTo === 'hotel'} onChange={() => setDeliveryTo('hotel')} />
+                            <span>Deliver to hotel</span>
+                          </label>
+
+                          <label className="flex items-center space-x-2">
+                            <input type="radio" name="delivery" checked={deliveryTo === 'address'} onChange={() => setDeliveryTo('address')} />
+                            <span>Deliver to my address</span>
+                          </label>
+
+                          {deliveryTo === 'address' && (
+                            <div className="mt-2">
+                              <input
+                                value={deliveryAddress}
+                                onChange={(e) => setDeliveryAddress(e.target.value)}
+                                placeholder="Enter delivery address"
+                                className="w-full border rounded px-2 py-1 text-sm"
+                              />
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="mt-4">
+                        <div className="text-sm font-semibold mb-2">Payment</div>
+                        <div className="space-y-2 text-sm">
+                          <label className="flex items-center space-x-2">
+                            <input type="radio" name="payment" checked={paymentMethod === 'online'} onChange={() => setPaymentMethod('online')} />
+                            <span>Pay online</span>
+                          </label>
+
+                          <label className="flex items-center space-x-2">
+                            <input type="radio" name="payment" checked={paymentMethod === 'cod'} onChange={() => setPaymentMethod('cod')} />
+                            <span>Cash on Delivery (COD)</span>
+                          </label>
+                        </div>
+                      </div>
+
+                      <div className="mt-4">
+                        <div className="text-sm font-semibold mb-2">Warranty</div>
+                        <div className="text-sm text-muted-foreground">1 year manufacturer warranty. Extended warranty available at checkout.</div>
+                      </div>
+
+                      <div className="mt-4">
+                        <div className="text-sm font-semibold mb-2">Return & Refund</div>
+                        <div className="text-sm text-muted-foreground">Returns accepted within 30 days in original packaging. Refunds processed within 5-7 business days after inspection.</div>
                       </div>
                     </div>
                   </div>
