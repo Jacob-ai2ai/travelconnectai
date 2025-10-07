@@ -1005,29 +1005,27 @@ export default function TripDetails() {
                                 </div>
                               </div>
 
-                            <div className="flex items-center space-x-4">
+                            <div className="flex items-center space-x-4 w-full">
                               {itinerary.experiences.includes(experience.id) ? (
                                 <>
-                                  <div className="flex items-center border border-gray-200 rounded overflow-hidden w-auto flex-grow-0 h-auto self-center ml-auto">
-                                    <button className="h-4 w-4 flex items-center justify-center text-[10px] leading-4 bg-transparent border-transparent" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
-                                    <div className="px-3 py-1 text-sm leading-5">{peopleCounts[experience.id] ?? 1}</div>
-                                    <button className="h-4 w-4 flex items-center justify-center text-[10px] leading-4 bg-transparent border-transparent" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
+                                  <div className="text-right flex-1">
+                                    <div className="text-lg font-bold">{`$${experience.price * (peopleCounts[experience.id] ?? 1)}`}</div>
                                   </div>
 
-                                  <div className="text-right">
-                                    <div className="text-lg font-bold">{`$${experience.price * (peopleCounts[experience.id] ?? 1)}`}</div>
-                                    
+                                  <div className="flex items-center border border-gray-200 rounded overflow-hidden h-auto self-center">
+                                    <button className="h-3 w-3 flex items-center justify-center text-[8px] leading-3 bg-transparent border-transparent" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
+                                    <div className="px-2 py-0.5 text-xs">{peopleCounts[experience.id] ?? 1}</div>
+                                    <button className="h-3 w-3 flex items-center justify-center text-[8px] leading-3 bg-transparent border-transparent" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
                                   </div>
                                 </>
                               ) : (
                                 <>
-                                  <div>
-                                    <Button size="sm" onClick={() => { setPeopleCounts(prev => ({ ...prev, [experience.id]: 1 })); addToItinerary("experiences", experience.id); }}>Add</Button>
+                                  <div className="text-right flex-1">
+                                    <div className="text-lg font-bold">{`$${experience.price * (peopleCounts[experience.id] ?? 1)}`}</div>
                                   </div>
 
-                                  <div className="text-right">
-                                    <div className="text-lg font-bold">{`$${experience.price * (peopleCounts[experience.id] ?? 1)}`}</div>
-                                    
+                                  <div>
+                                    <Button size="sm" onClick={() => { setPeopleCounts(prev => ({ ...prev, [experience.id]: 1 })); addToItinerary("experiences", experience.id); }}>Add</Button>
                                   </div>
                                 </>
                               )}
