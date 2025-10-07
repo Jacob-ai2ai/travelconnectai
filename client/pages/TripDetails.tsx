@@ -1023,13 +1023,6 @@ export default function TripDetails() {
                             <Link to={`/experience/${experience.id}`}>
                               <Button variant="outline" className="w-full py-3">View Details</Button>
                             </Link>
-                            <div className="mt-2 flex justify-end">
-                              <Link to={`/replace-options/${experience.id}`}>
-                                <Button size="sm" variant="ghost" className="p-1 h-8 w-8">
-                                  <Zap className="h-4 w-4" />
-                                </Button>
-                              </Link>
-                            </div>
                           </div>
 
                         </CardContent>
