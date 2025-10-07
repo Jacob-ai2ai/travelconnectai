@@ -894,10 +894,7 @@ export default function TripDetails() {
                             </div>
 
                             <div className="mb-3">
-                              <div className="flex items-center justify-between">
-                                <h3 className="text-xl font-semibold mb-1">{experience.name}</h3>
-                                <div className="text-sm font-medium px-2 py-0.5 border rounded">{peopleCounts[experience.id] ?? 1}</div>
-                              </div>
+                              <h3 className="text-xl font-semibold mb-1">{experience.name}</h3>
                               <div className="text-sm text-muted-foreground mb-2">{experience.address}</div>
                               <p className="text-base text-muted-foreground mb-3">{experience.description}</p>
                             </div>
@@ -986,10 +983,7 @@ export default function TripDetails() {
                           </div>
 
                           <div className="mb-3">
-                            <div className="flex items-center justify-between">
-                              <h3 className="text-xl font-semibold mb-1">{experience.name}</h3>
-                              <div className="text-sm font-medium px-2 py-0.5 border rounded">{peopleCounts[experience.id] ?? 1}</div>
-                            </div>
+                            <h3 className="text-xl font-semibold mb-2">{experience.name}</h3>
                             <div className="text-sm text-muted-foreground mb-2">{experience.address}</div>
                             <p className="text-base text-muted-foreground mb-3">{experience.description}</p>
                           </div>
