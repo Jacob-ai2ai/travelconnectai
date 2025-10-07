@@ -166,6 +166,27 @@ export default function TripDetails() {
     });
   };
 
+  const [productCounts, setProductCounts] = useState<Record<string, number>>({});
+
+  const changeProductQty = (id: string, delta: number) => {
+    setProductCounts((prev) => {
+      const cur = prev[id] ?? 0;
+      let next = Math.max(0, cur + delta);
+
+      // schedule itinerary update based on quantity
+      setTimeout(() => {
+        if (next > 0 && !itinerary.products.includes(id)) {
+          addToItinerary("products", id);
+        }
+        if (next === 0 && itinerary.products.includes(id)) {
+          removeFromItinerary("products", id);
+        }
+      }, 0);
+
+      return { ...prev, [id]: next };
+    });
+  };
+
   const addToItinerary = (category: keyof typeof itinerary, id: string) => {
     setItinerary((prev) => ({
       ...prev,
