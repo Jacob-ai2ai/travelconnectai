@@ -1034,11 +1034,6 @@ export default function TripDetails() {
                             </div>
                           </div>
 
-                          <div className="flex items-center justify-start mb-3">
-                            <div>
-                              <Button size="sm" onClick={() => addToItinerary("experiences", experience.id)}>Add</Button>
-                            </div>
-                          </div>
 
                           <Button className="w-full" size="sm">{experience.isLiveDemo ? "Join Live Demo" : "Book Experience"}</Button>
 
