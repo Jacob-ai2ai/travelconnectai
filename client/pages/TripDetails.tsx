@@ -1014,7 +1014,7 @@ export default function TripDetails() {
                             </div>
 
                             <div className="flex items-center text-sm text-muted-foreground">
-                              <Clock className="h-4 w-4 mr-2 stroke-2 stroke-current text-muted-foreground" aria-hidden />
+                              <Clock className="h-4 w-4 mr-2 stroke-2 stroke-current fill-current text-muted-foreground opacity-90" aria-hidden />
                               <span className="whitespace-nowrap">{new Date(experience.startDate ?? experience.date ?? Date.now()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
                             </div>
 
