@@ -1221,8 +1221,15 @@ export default function TripDetails() {
                 <Badge variant="secondary">{products.length} Products</Badge>
               </div>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {products.map((product) => (
+              {/* Your Products (recommended or added) */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-semibold">Your Products</h3>
+                  <Badge variant="secondary">{yourProducts.length} Recommended</Badge>
+                </div>
+
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {yourProducts.map((product) => (
                   <Card key={product.id} className="overflow-hidden">
                     <div className="relative">
                       <div className="aspect-square relative">
@@ -1246,10 +1253,8 @@ export default function TripDetails() {
                             aria-label={product.isLiveSale ? "Join Live Sale" : "Request Live"}
                             onClick={() => {
                               if (product.isLiveSale) {
-                                // open live stream in new window (placeholder behavior)
                                 window.open(`/live/${product.id}`, "_blank");
                               } else {
-                                // request live action placeholder
                                 alert('Requested live demo for ' + product.name);
                               }
                             }}
@@ -1335,7 +1340,131 @@ export default function TripDetails() {
                       </div>
                     </CardContent>
                   </Card>
-                ))}
+                  ))}
+                </div>
+              </div>
+
+              {/* More like this */}
+              <div className="space-y-3 mt-6">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-semibold">More like this</h3>
+                  <Badge variant="secondary">{moreLikeThis.length} Options</Badge>
+                </div>
+
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {moreLikeThis.map((product) => (
+                  <Card key={product.id} className="overflow-hidden">
+                    <div className="relative">
+                      <div className="aspect-square relative">
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-full h-full object-cover"
+                        />
+                        {product.isLiveSale && (
+                          <div className="absolute top-2 left-2">
+                            <Badge className="bg-red-500 hover:bg-red-600 text-xs">
+                              <Zap className="h-3 w-3 mr-1" />
+                              LIVE SALE • {product.liveViewers}
+                            </Badge>
+                          </div>
+                        )}
+
+                        {/* Play / Live button bottom-right */}
+                        <div className="absolute bottom-2 right-2">
+                          <button
+                            aria-label={product.isLiveSale ? "Join Live Sale" : "Request Live"}
+                            onClick={() => {
+                              if (product.isLiveSale) {
+                                window.open(`/live/${product.id}`, "_blank");
+                              } else {
+                                alert('Requested live demo for ' + product.name);
+                              }
+                            }}
+                            className="p-2 h-8 w-8 rounded-full bg-white/90 shadow flex items-center justify-center"
+                          >
+                            <Play className="h-4 w-4 text-black" />
+                          </button>
+                        </div>
+                        {product.originalPrice && (
+                          <div className="absolute top-2 right-2">
+                            <Badge className="bg-travel-orange text-xs">
+                              {Math.round(
+                                ((product.originalPrice - product.price) /
+                                  product.originalPrice) *
+                                  100,
+                              )}
+                              % OFF
+                            </Badge>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <CardContent className="p-4">
+                      <Badge variant="outline" className="text-xs mb-2">
+                        {product.category}
+                      </Badge>
+
+                      <h3 className="font-bold mb-2 text-sm">{product.name}</h3>
+                      <p className="text-xs text-muted-foreground mb-3">
+                        {product.description}
+                      </p>
+
+                      <div className="flex items-center space-x-2 mb-2">
+                        <div className="flex items-center space-x-1">
+                          <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                          <span className="text-xs">{product.rating}</span>
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          {product.inStock} in stock
+                        </div>
+                      </div>
+
+                      <div className="flex items-center space-x-3 mb-3">
+                        <div className="text-lg font-bold">
+                          ${product.price}
+                        </div>
+                        {product.originalPrice && (
+                          <div className="text-sm text-muted-foreground line-through">
+                            ${product.originalPrice}
+                          </div>
+                        )}
+
+                        <Link to={`/product/${product.id}`}>
+                          <Button size="sm" variant="ghost" className="p-1 h-8 w-8">
+                            <Eye className="h-4 w-4" />
+                          </Button>
+                        </Link>
+
+                        <Link to={`/replace-options/${product.id}`}>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="p-1 h-8 w-8"
+                          >
+                            <Zap className="h-4 w-4" />
+                          </Button>
+                        </Link>
+                      </div>
+
+                      <div className="space-y-2">
+                        {itinerary.products.includes(product.id) ? (
+                          <Button className="w-full" size="sm" variant="destructive" onClick={() => removeFromItinerary("products", product.id)}>
+                            <ShoppingCart className="h-4 w-4 mr-2" />
+                            Remove from Cart
+                          </Button>
+                        ) : (
+                          <Button className="w-full" size="sm" onClick={() => addToItinerary("products", product.id)}>
+                            <ShoppingCart className="h-4 w-4 mr-2" />
+                            Add to Cart
+                          </Button>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                  ))}
+                </div>
               </div>
             </div>
           </TabsContent>
