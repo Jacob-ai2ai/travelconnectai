@@ -906,20 +906,20 @@ export default function TripDetails() {
                                 </div>
                                 <div className="flex items-center space-x-1">
                                   <Clock className="h-4 w-4" />
-                                  <span>{new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
+                                  <span className="whitespace-nowrap">{new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
                                 </div>
                               </div>
 
                               <div className="flex items-center space-x-4">
                                 <div className="flex items-center border border-gray-200 rounded overflow-hidden w-auto flex-grow-0 h-auto self-center ml-auto">
-                                  <button className="h-6 w-6 flex items-center justify-center text-sm leading-5 bg-transparent border-transparent" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
+                                  <button className="h-5 w-5 flex items-center justify-center text-xs leading-4 bg-transparent border-transparent" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
                                   <div className="px-3 py-1 text-sm leading-5">{peopleCounts[experience.id] ?? 1}</div>
-                                  <button className="h-6 w-6 flex items-center justify-center text-sm leading-5 bg-transparent border-transparent" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
+                                  <button className="h-5 w-5 flex items-center justify-center text-xs leading-4 bg-transparent border-transparent" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
                                 </div>
 
                                 <div className="text-right">
                                   <div className="text-lg font-bold">{`$${experience.price * (peopleCounts[experience.id] ?? 1)}`}</div>
-                                  <div className="text-xs text-muted-foreground">{`($${experience.price}/pp)`}</div>
+                                  
                                 </div>
                               </div>
                             </div>
@@ -1001,7 +1001,7 @@ export default function TripDetails() {
                                 </div>
                                 <div className="flex items-center space-x-1">
                                   <Clock className="h-4 w-4" />
-                                  <span>{new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
+                                  <span className="whitespace-nowrap">{new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
                                 </div>
                               </div>
 
@@ -1009,14 +1009,14 @@ export default function TripDetails() {
                               {itinerary.experiences.includes(experience.id) ? (
                                 <>
                                   <div className="flex items-center border border-gray-200 rounded overflow-hidden w-auto flex-grow-0 h-auto self-center ml-auto">
-                                    <button className="h-6 w-6 flex items-center justify-center text-sm leading-5 bg-transparent border-transparent" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
+                                    <button className="h-5 w-5 flex items-center justify-center text-xs leading-4 bg-transparent border-transparent" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
                                     <div className="px-3 py-1 text-sm leading-5">{peopleCounts[experience.id] ?? 1}</div>
-                                    <button className="h-6 w-6 flex items-center justify-center text-sm leading-5 bg-transparent border-transparent" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
+                                    <button className="h-5 w-5 flex items-center justify-center text-xs leading-4 bg-transparent border-transparent" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
                                   </div>
 
                                   <div className="text-right">
                                     <div className="text-lg font-bold">{`$${experience.price * (peopleCounts[experience.id] ?? 1)}`}</div>
-                                    <div className="text-xs text-muted-foreground">{`($${experience.price}/pp)`}</div>
+                                    
                                   </div>
                                 </>
                               ) : (
@@ -1027,7 +1027,7 @@ export default function TripDetails() {
 
                                   <div className="text-right">
                                     <div className="text-lg font-bold">{`$${experience.price * (peopleCounts[experience.id] ?? 1)}`}</div>
-                                    <div className="text-xs text-muted-foreground">{`($${experience.price}/pp)`}</div>
+                                    
                                   </div>
                                 </>
                               )}
