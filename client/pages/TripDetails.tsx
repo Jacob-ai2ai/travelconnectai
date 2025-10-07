@@ -983,13 +983,10 @@ export default function TripDetails() {
                           <div className="text-sm text-muted-foreground mb-2">{experience.address}</div>
                           <p className="text-sm text-muted-foreground mb-3">{experience.description}</p>
 
-                          <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center justify-start mb-3">
                             <div>
                               <Button size="sm" onClick={() => addToItinerary("experiences", experience.id)}>Add</Button>
                             </div>
-
-                            <div className="text-lg font-bold">${experience.price}</div>
-
                           </div>
 
                           <div className="mb-4">
