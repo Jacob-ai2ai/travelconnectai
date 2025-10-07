@@ -796,133 +796,190 @@ export default function TripDetails() {
           <TabsContent value="experiences" className="mt-6">
             <div className="space-y-6">
               <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-bold">Experiences & Events</h2>
-                <Badge variant="secondary">
-                  {experiences.length} Activities
-                </Badge>
+                <h2 className="text-2xl font-bold">Your Experiences</h2>
+                <Badge variant="secondary">{itinerary.experiences.length} Selected</Badge>
               </div>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {experiences.map((experience) => (
-                  <Card key={experience.id} className="overflow-hidden">
-                    <div className="relative">
-                      <div className="aspect-video relative">
-                        <img
-                          src={experience.image}
-                          alt={experience.name}
-                          className="w-full h-full object-cover"
-                        />
-                        {experience.isLiveDemo && (
-                          <div className="absolute top-4 left-4">
-                            <Badge className="bg-red-500 hover:bg-red-600">
-                              <Radio className="h-3 w-3 mr-1" />
-                              LIVE DEMO • {experience.liveViewers}
-                            </Badge>
-                          </div>
-                        )}
-                        <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-                          <Button
-                            size="sm"
-                            className="bg-white/90 text-black hover:bg-white"
-                          >
-                            <Play className="h-4 w-4 mr-2" />
-                            {experience.isLiveDemo
-                              ? "Join Live Demo"
-                              : "Watch Preview"}
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <CardContent className="p-4">
-                      <div className="flex items-center justify-between mb-2">
-                        <Badge variant="outline">{experience.category}</Badge>
-                        <div className="flex items-center space-x-1">
-                          <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                          <span className="text-sm">{experience.rating}</span>
-                        </div>
-                      </div>
-
-                      <h3 className="font-bold mb-2">{experience.name}</h3>
-                      <p className="text-sm text-muted-foreground mb-3">
-                        {experience.description}
-                      </p>
-
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                          <Clock className="h-4 w-4" />
-                          <span>{experience.duration}</span>
-                        </div>
-
-                        <div className="flex items-center space-x-3">
-                          {itinerary.experiences.includes(experience.id) ? (
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() =>
-                                removeFromItinerary(
-                                  "experiences",
-                                  experience.id,
-                                )
-                              }
-                            >
-                              Remove
-                            </Button>
-                          ) : (
-                            <Button
-                              size="sm"
-                              onClick={() =>
-                                addToItinerary("experiences", experience.id)
-                              }
-                            >
-                              Add
-                            </Button>
-                          )}
-
-                          <div className="text-lg font-bold">
-                            ${experience.price}
-                          </div>
-
-                          <Link to={`/experience/${experience.id}`}>
-                            <Button size="sm" variant="ghost" className="p-1 h-8 w-8">
-                              <Eye className="h-4 w-4" />
-                            </Button>
-                          </Link>
-
-                          <Link to={`/replace-options/${experience.id}`}>
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              className="p-1 h-8 w-8"
-                            >
-                              <Zap className="h-4 w-4" />
-                            </Button>
-                          </Link>
-                        </div>
-                      </div>
-
-                      <div className="space-y-2 mb-4">
-                        {experience.highlights
-                          .slice(0, 2)
-                          .map((highlight, index) => (
-                            <div
-                              key={index}
-                              className="text-xs text-muted-foreground flex items-center"
-                            >
-                              <div className="w-1.5 h-1.5 bg-travel-green rounded-full mr-2"></div>
-                              {highlight}
+              {/* Your Experiences - only show experiences included in itinerary */}
+              <div>
+                {experiences.filter((e) => itinerary.experiences.includes(e.id)).length === 0 ? (
+                  <div className="text-sm text-muted-foreground">No experiences included in your itinerary.</div>
+                ) : (
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {experiences
+                      .filter((e) => itinerary.experiences.includes(e.id))
+                      .map((experience) => (
+                        <Card key={experience.id} className="overflow-hidden">
+                          <div className="relative">
+                            <div className="aspect-video relative">
+                              <img
+                                src={experience.image}
+                                alt={experience.name}
+                                className="w-full h-full object-cover"
+                              />
+                              {experience.isLiveDemo && (
+                                <div className="absolute top-4 left-4">
+                                  <Badge className="bg-red-500 hover:bg-red-600">
+                                    <Radio className="h-3 w-3 mr-1" />
+                                    LIVE DEMO • {experience.liveViewers}
+                                  </Badge>
+                                </div>
+                              )}
+                              <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                                <Button
+                                  size="sm"
+                                  className="bg-white/90 text-black hover:bg-white"
+                                >
+                                  <Play className="h-4 w-4 mr-2" />
+                                  {experience.isLiveDemo ? "Join Live Demo" : "Watch Preview"}
+                                </Button>
+                              </div>
                             </div>
-                          ))}
-                      </div>
+                          </div>
 
-                      <Button className="w-full" size="sm">
-                        {experience.isLiveDemo
-                          ? "Join Live Demo"
-                          : "Book Experience"}
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
+                          <CardContent className="p-4">
+                            <div className="flex items-center justify-between mb-2">
+                              <Badge variant="outline">{experience.category}</Badge>
+                              <div className="flex items-center space-x-1">
+                                <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                                <span className="text-sm">{experience.rating}</span>
+                              </div>
+                            </div>
+
+                            <h3 className="font-bold mb-2">{experience.name}</h3>
+                            <p className="text-sm text-muted-foreground mb-3">{experience.description}</p>
+
+                            <div className="flex items-center justify-between mb-3">
+                              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                                <Clock className="h-4 w-4" />
+                                <span>{experience.duration}</span>
+                              </div>
+
+                              <div className="flex items-center space-x-3">
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => removeFromItinerary("experiences", experience.id)}
+                                >
+                                  Remove
+                                </Button>
+
+                                <div className="text-lg font-bold">${experience.price}</div>
+
+                                <Link to={`/experience/${experience.id}`}>
+                                  <Button size="sm" variant="ghost" className="p-1 h-8 w-8">
+                                    <Eye className="h-4 w-4" />
+                                  </Button>
+                                </Link>
+
+                                <Link to={`/replace-options/${experience.id}`}>
+                                  <Button size="sm" variant="ghost" className="p-1 h-8 w-8">
+                                    <Zap className="h-4 w-4" />
+                                  </Button>
+                                </Link>
+                              </div>
+                            </div>
+
+                            <div className="space-y-2 mb-4">
+                              {experience.highlights.slice(0, 2).map((highlight, index) => (
+                                <div key={index} className="text-xs text-muted-foreground flex items-center">
+                                  <div className="w-1.5 h-1.5 bg-travel-green rounded-full mr-2"></div>
+                                  {highlight}
+                                </div>
+                              ))}
+                            </div>
+
+                            <Button className="w-full" size="sm">{experience.isLiveDemo ? "Join Live Demo" : "Book Experience"}</Button>
+                          </CardContent>
+                        </Card>
+                      ))}
+                  </div>
+                )}
+              </div>
+
+              {/* More Experiences - show experiences not in itinerary */}
+              <div>
+                <div className="flex items-center justify-between mt-6">
+                  <h2 className="text-2xl font-bold">More Experiences</h2>
+                  <Badge variant="secondary">{experiences.filter((e) => !itinerary.experiences.includes(e.id)).length} Options</Badge>
+                </div>
+
+                <div className="mt-4 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {experiences
+                    .filter((e) => !itinerary.experiences.includes(e.id))
+                    .map((experience) => (
+                      <Card key={experience.id} className="overflow-hidden">
+                        <div className="relative">
+                          <div className="aspect-video relative">
+                            <img src={experience.image} alt={experience.name} className="w-full h-full object-cover" />
+                            {experience.isLiveDemo && (
+                              <div className="absolute top-4 left-4">
+                                <Badge className="bg-red-500 hover:bg-red-600">
+                                  <Radio className="h-3 w-3 mr-1" />
+                                  LIVE DEMO • {experience.liveViewers}
+                                </Badge>
+                              </div>
+                            )}
+                            <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                              <Button size="sm" className="bg-white/90 text-black hover:bg-white">
+                                <Play className="h-4 w-4 mr-2" />
+                                {experience.isLiveDemo ? "Join Live Demo" : "Watch Preview"}
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <CardContent className="p-4">
+                          <div className="flex items-center justify-between mb-2">
+                            <Badge variant="outline">{experience.category}</Badge>
+                            <div className="flex items-center space-x-1">
+                              <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                              <span className="text-sm">{experience.rating}</span>
+                            </div>
+                          </div>
+
+                          <h3 className="font-bold mb-2">{experience.name}</h3>
+                          <p className="text-sm text-muted-foreground mb-3">{experience.description}</p>
+
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                              <Clock className="h-4 w-4" />
+                              <span>{experience.duration}</span>
+                            </div>
+
+                            <div className="flex items-center space-x-3">
+                              <Button size="sm" onClick={() => addToItinerary("experiences", experience.id)}>Add</Button>
+
+                              <div className="text-lg font-bold">${experience.price}</div>
+
+                              <Link to={`/experience/${experience.id}`}>
+                                <Button size="sm" variant="ghost" className="p-1 h-8 w-8">
+                                  <Eye className="h-4 w-4" />
+                                </Button>
+                              </Link>
+
+                              <Link to={`/replace-options/${experience.id}`}>
+                                <Button size="sm" variant="ghost" className="p-1 h-8 w-8">
+                                  <Zap className="h-4 w-4" />
+                                </Button>
+                              </Link>
+                            </div>
+                          </div>
+
+                          <div className="space-y-2 mb-4">
+                            {experience.highlights.slice(0, 2).map((highlight, index) => (
+                              <div key={index} className="text-xs text-muted-foreground flex items-center">
+                                <div className="w-1.5 h-1.5 bg-travel-green rounded-full mr-2"></div>
+                                {highlight}
+                              </div>
+                            ))}
+                          </div>
+
+                          <Button className="w-full" size="sm">{experience.isLiveDemo ? "Join Live Demo" : "Book Experience"}</Button>
+                        </CardContent>
+                      </Card>
+                    ))}
+                </div>
               </div>
             </div>
           </TabsContent>
