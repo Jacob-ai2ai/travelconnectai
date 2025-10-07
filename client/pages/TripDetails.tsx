@@ -288,6 +288,17 @@ export default function TripDetails() {
     { id: 'evt-2', name: 'Sanur Beach Music Festival', date: '2025-05-14T18:00', venue: 'Sanur Beach', price: 40, rating: 4.6, image: '/placeholder.svg', description: 'Local and international bands performing by the beach.' },
   ];
 
+  // Ensure there is a people count entry for each experience (default 1)
+  useEffect(() => {
+    setPeopleCounts((prev) => {
+      const next = { ...prev };
+      experiences.forEach((e) => {
+        if (next[e.id] == null) next[e.id] = 1;
+      });
+      return next;
+    });
+  }, [/* run after initial render when experiences are defined */]);
+
   const services: Service[] = [
     {
       id: "transfer-1",
