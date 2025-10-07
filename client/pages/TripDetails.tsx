@@ -877,18 +877,22 @@ export default function TripDetails() {
                           </div>
 
                           <CardContent className="p-4">
-                            <div className="flex items-center space-x-4 mb-2">
-                              <Badge variant="outline">{experience.category}</Badge>
-
-                              <div className="flex items-center border rounded overflow-hidden">
-                                <button className="px-2 py-1 text-sm" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
-                                <div className="px-3 py-1 text-sm">{peopleCounts[experience.id] ?? 1}</div>
-                                <button className="px-2 py-1 text-sm" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
+                            <div className="flex items-center justify-between mb-2">
+                              <div className="flex items-start">
+                                <Badge variant="outline">{experience.category}</Badge>
                               </div>
 
-                              <div className="flex items-center space-x-1">
+                              <div className="flex items-center">
+                                <div className="flex items-center border rounded overflow-hidden">
+                                  <button className="px-2 py-1 text-sm" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
+                                  <div className="px-3 py-1 text-sm">{peopleCounts[experience.id] ?? 1}</div>
+                                  <button className="px-2 py-1 text-sm" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
+                                </div>
+                              </div>
+
+                              <div className="flex items-center">
                                 <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                                <span className="text-sm">{experience.rating}</span>
+                                <span className="text-sm ml-1">{experience.rating}</span>
                               </div>
                             </div>
 
@@ -898,16 +902,13 @@ export default function TripDetails() {
                               <p className="text-sm text-muted-foreground mb-3">{experience.description}</p>
                             </div>
 
-                            <div className="flex items-center justify-between mb-3">
-                              <div className="text-lg font-bold">${experience.price}</div>
-                              <div className="text-sm text-muted-foreground">{new Date(experience.startDate).toLocaleDateString()} • {new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</div>
+                            <div className="mb-4">
+                              {experience.highlights.slice(0, 2).join(' • ')}
                             </div>
 
-
-                            <div className="space-y-2 mb-4">
-                              {experience.highlights.slice(0, 2).map((highlight, index) => (
-                                <div key={index} className="text-xs text-muted-foreground">{highlight}</div>
-                              ))}
+                            <div className="flex items-center justify-between mb-3">
+                              <div className="text-sm text-muted-foreground">{new Date(experience.startDate).toLocaleDateString()} • {new Date(experience.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</div>
+                              <div className="text-lg font-bold">${experience.price}</div>
                             </div>
 
                             <Button className="w-full" size="sm">{experience.isLiveDemo ? "Join Live Demo" : "Book Experience"}</Button>
