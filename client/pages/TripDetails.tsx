@@ -903,21 +903,25 @@ export default function TripDetails() {
                                   </button>
                                 </div>
 
-                                <Button size="sm" variant="outline" onClick={() => removeFromItinerary("experiences", experience.id)}>
-                                  Remove
-                                </Button>
-
                                 <div className="text-lg font-bold">${experience.price}</div>
-
-                                <Link to={`/experience/${experience.id}`} className="ml-2">
-                                  <Button variant="outline" size="sm">View Details</Button>
-                                </Link>
 
                                 {experience.isLiveDemo && (
                                   <Button size="sm" className="bg-red-600 text-white ml-2" onClick={() => alert('Joining live demo for ' + experience.name)}>
                                     Join Live
                                   </Button>
                                 )}
+                              </div>
+
+                              <div className="mt-2 flex items-center space-x-2">
+                                <Link to={`/experience/${experience.id}`}>
+                                  <Button variant="outline" size="sm">View Details</Button>
+                                </Link>
+
+                                <Link to={`/replace-options/${experience.id}`}>
+                                  <Button size="sm" variant="ghost" className="p-1 h-8 w-8">
+                                    <Zap className="h-4 w-4" />
+                                  </Button>
+                                </Link>
                               </div>
                             </div>
 
