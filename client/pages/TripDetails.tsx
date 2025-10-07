@@ -911,7 +911,7 @@ export default function TripDetails() {
                               </div>
 
                               <div className="flex items-center space-x-4">
-                                <div className="flex items-center border rounded overflow-hidden">
+                                <div className="flex items-center border border-gray-200 rounded overflow-hidden w-auto flex-grow-0 h-auto self-center ml-auto">
                                   <button className="h-6 w-6 flex items-center justify-center text-sm" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
                                   <div className="px-3 py-1 text-sm">{peopleCounts[experience.id] ?? 1}</div>
                                   <button className="h-6 w-6 flex items-center justify-center text-sm" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
@@ -1008,7 +1008,7 @@ export default function TripDetails() {
                             <div className="flex items-center space-x-4">
                               {itinerary.experiences.includes(experience.id) ? (
                                 <>
-                                  <div className="flex items-center border rounded overflow-hidden">
+                                  <div className="flex items-center border border-gray-200 rounded overflow-hidden w-auto flex-grow-0 h-auto self-center ml-auto">
                                     <button className="h-6 w-6 flex items-center justify-center text-sm" aria-label="decrease" onClick={() => changePeople(experience.id, -1)}>-</button>
                                     <div className="px-3 py-1 text-sm">{peopleCounts[experience.id] ?? 1}</div>
                                     <button className="h-6 w-6 flex items-center justify-center text-sm" aria-label="increase" onClick={() => changePeople(experience.id, 1)}>+</button>
