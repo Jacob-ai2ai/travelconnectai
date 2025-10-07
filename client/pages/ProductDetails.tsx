@@ -347,21 +347,137 @@ export default function ProductDetails() {
                 <Button variant="ghost" className="w-full">Contact support</Button>
               </CardContent>
             </Card>
+
+            {/* Your Itinerary widget adapted from villa-1 */}
+            <Card className="mt-4 bg-yellow-50 border-yellow-100">
+              <CardHeader>
+                <div className="text-lg font-semibold">Your Itinerary</div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {itineraryProducts.length === 0 ? (
+                    <div className="text-sm text-muted-foreground">No items in itinerary</div>
+                  ) : (
+                    itineraryProducts.map((id) => {
+                      const item = SAMPLE_PRODUCTS.find((p) => p.id === id);
+                      if (!item) return null;
+                      return (
+                        <div key={id} className="flex items-center justify-between p-2 bg-white rounded">
+                          <div className="flex items-center gap-3">
+                            <div className="w-12 h-12 bg-gray-100 rounded overflow-hidden flex-shrink-0">
+                              <img src={item.images[0]} alt={item.name} className="w-full h-full object-cover" />
+                            </div>
+                            <div>
+                              <div className="text-sm font-medium">{item.name}</div>
+                              <div className="text-xs text-muted-foreground">${item.price}</div>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center gap-3">
+                            <button className="px-2 py-1 border rounded" onClick={() => {
+                              // remove
+                              setItineraryProducts(prev => prev.filter(x => x !== id));
+                            }}>Remove</button>
+                          </div>
+                        </div>
+                      );
+                    })
+                  )}
+
+                  <div className="mt-2 p-3 border-dashed border-2 border-yellow-100 text-center text-sm text-muted-foreground rounded">Drag products here to add to itinerary</div>
+
+                  <div className="flex items-center justify-between mt-3">
+                    <div className="text-sm">Total</div>
+                    <div className="text-lg font-bold">${itineraryProducts.reduce((sum, id) => { const it = SAMPLE_PRODUCTS.find(p=>p.id===id); return sum + (it?.price||0); }, 0)}</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </aside>
         </div>
 
-        <div className="mt-8">
-          <div className="text-sm font-semibold mb-2">Similar products</div>
-          <div className="flex gap-3">
-            {SAMPLE_PRODUCTS.filter((p) => p.id !== product.id).map((p) => (
-              <Card key={p.id} className="w-40">
-                <CardContent>
-                  <img src={p.images[0]} alt={p.name} className="w-full h-20 object-cover mb-2" />
-                  <Link to={`/product/${p.id}`} className="text-sm font-medium hover:underline">{p.name}</Link>
-                  <div className="text-sm text-muted-foreground">${p.price}</div>
-                </CardContent>
-              </Card>
-            ))}
+        <div className="mt-8 grid md:grid-cols-2 gap-6">
+          <div>
+            {/* Special offers & promotions adapted */}
+            <Card>
+              <CardContent>
+                <div className="text-sm font-semibold mb-3">Special offers & promotions</div>
+
+                <div className="space-y-3">
+                  <div className="p-3 border rounded flex items-center justify-between">
+                    <div>
+                      <div className="font-medium">Early Bird — 15% off</div>
+                      <div className="text-sm text-muted-foreground">Save 15% when you order at least 30 days in advance.</div>
+                    </div>
+                    <Button variant="outline">Apply</Button>
+                  </div>
+
+                  <div className="p-3 border rounded flex items-center justify-between">
+                    <div>
+                      <div className="font-medium">Bulk Order Discount — 10% off</div>
+                      <div className="text-sm text-muted-foreground">Order 5+ units to unlock this discount.</div>
+                    </div>
+                    <div className="text-sm text-muted-foreground">Auto-applied</div>
+                  </div>
+
+                  <div className="p-3 border rounded flex items-center justify-between">
+                    <div>
+                      <div className="font-medium">Bundle: Stay & Gear</div>
+                      <div className="text-sm text-muted-foreground">Includes complimentary packing cover.</div>
+                    </div>
+                    <Button variant="ghost">View</Button>
+                  </div>
+                </div>
+
+                <div className="text-sm text-muted-foreground mt-3">Have a coupon? Enter it at checkout.</div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div>
+            <Card>
+              <CardHeader>
+                <div className="text-sm font-semibold">Similar products</div>
+              </CardHeader>
+              <CardContent>
+                <div className="flex gap-3">
+                  {SAMPLE_PRODUCTS.filter((p) => p.id !== product.id).map((p) => (
+                    <Card key={p.id} className="w-40">
+                      <CardContent>
+                        <img src={p.images[0]} alt={p.name} className="w-full h-20 object-cover mb-2" />
+                        <Link to={`/product/${p.id}`} className="text-sm font-medium hover:underline">{p.name}</Link>
+                        <div className="text-sm text-muted-foreground">${p.price}</div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* Nova assistant floating */}
+        <div className="fixed right-6 bottom-6">
+          <button
+            aria-label="Nova Assistant"
+            onClick={() => {
+              const el = document.getElementById('nova-panel');
+              if (el) el.classList.toggle('hidden');
+            }}
+            className="w-14 h-14 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg"
+          >
+            N
+          </button>
+
+          <div id="nova-panel" className="hidden w-80 bg-white border rounded shadow-lg mt-2">
+            <div className="p-3 border-b flex items-center justify-between">
+              <div className="font-semibold">Nova</div>
+              <button onClick={() => { const el = document.getElementById('nova-panel'); if (el) el.classList.add('hidden'); }} className="text-sm text-muted-foreground">Close</button>
+            </div>
+            <div className="p-3 text-sm text-muted-foreground">Hi, I'm Nova — your travel assistant. Ask me to replace items, view inventory, or join live sales.</div>
+            <div className="p-3 border-t">
+              <input placeholder="Ask Nova..." className="w-full border rounded px-2 py-1 text-sm" />
+            </div>
           </div>
         </div>
       </div>
