@@ -98,7 +98,11 @@ export default function ExperiencePage() {
           <main className="md:col-span-2">
             <Card className="overflow-hidden mb-6">
               <div className="h-72 overflow-hidden relative bg-muted">
-                <img src={exp.image} alt={exp.name} className="w-full h-full object-cover" />
+                {exp.videos && exp.videos.length > 0 ? (
+                  <video className="w-full h-full object-cover" src={exp.videos[0]} controls />
+                ) : (
+                  <img src={exp.image} alt={exp.name} className="w-full h-full object-cover" />
+                )}
                 {exp.isLiveDemo && (
                   <div className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full flex items-center text-sm">
                     <Play className="h-4 w-4 mr-2" /> LIVE DEMO • {exp.liveViewers}
