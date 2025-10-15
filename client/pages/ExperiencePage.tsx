@@ -8,9 +8,64 @@ import TripSummaryBox from '@/components/TripSummaryBox';
 import { addSummaryItem } from '@/lib/tripSummary';
 
 const SAMPLE_EXPERIENCES = [
-  { id: 'exp-1', name: 'Sunrise Mount Batur Hiking', description: 'Witness breathtaking sunrise from the active volcano peak with professional guide. Includes hotel pickup, guide, breakfast, and photos.', duration: '6 hours', price: 85, image: '/placeholder.svg', rating: 4.8, highlights: ['Professional Guide','Breakfast Included','Hotel Pickup','Safety Gear'], startDate: '2025-05-11T04:30:00', isLiveDemo: true, liveViewers: 156 },
-  { id: 'exp-2', name: 'Traditional Balinese Cooking Class', description: 'Learn authentic Balinese recipes in a traditional village setting. Market visit and recipe booklet included.', duration: '4 hours', price: 65, image: '/placeholder.svg', rating: 4.9, highlights: ['Market Tour','Recipe Book','Lunch Included'], startDate: '2025-05-12T10:00:00', isLiveDemo: true, liveViewers: 89 },
-  { id: 'exp-3', name: 'White Water Rafting Adventure', description: 'Thrilling rafting experience through tropical rainforest and rice terraces. Includes safety briefing and photos.', duration: '5 hours', price: 45, image: '/placeholder.svg', rating: 4.6, highlights: ['Equipment Included','Photos','Transport'], isLiveDemo: false }
+  {
+    id: 'exp-1',
+    name: 'Sunrise Mount Batur Hiking',
+    description: 'Witness breathtaking sunrise from the active volcano peak with professional guide. Includes hotel pickup, guide, breakfast, and photos.',
+    duration: '6 hours',
+    price: 85,
+    image: '/placeholder.svg',
+    rating: 4.8,
+    highlights: ['Professional Guide','Breakfast Included','Hotel Pickup','Safety Gear'],
+    startDate: '2025-05-11T04:30:00',
+    isLiveDemo: true,
+    liveViewers: 156,
+    videos: ['/placeholder.svg'],
+    seatCategories: [
+      { id: 'cat-1', name: 'Standard Seat', price: 85, capacity: 20, available: 15 },
+      { id: 'cat-2', name: 'Premium Seat', price: 120, capacity: 5, available: 3 }
+    ],
+    guidelines: ['Bring warm clothing for early mornings', 'Wear good hiking shoes', 'Not suitable for pregnant travelers'],
+    safety: ['Certified local guides', 'Safety briefing before hike', 'Emergency first-aid kit available'],
+    suggestedProducts: [
+      { id: 'prod-surf-rent', name: 'Surfboard Rental', price: 20, image: '/placeholder.svg' },
+      { id: 'prod-headlamp', name: 'Headlamp', price: 12, image: '/placeholder.svg' }
+    ]
+  },
+  {
+    id: 'exp-2',
+    name: 'Traditional Balinese Cooking Class',
+    description: 'Learn authentic Balinese recipes in a traditional village setting. Market visit and recipe booklet included.',
+    duration: '4 hours',
+    price: 65,
+    image: '/placeholder.svg',
+    rating: 4.9,
+    highlights: ['Market Tour','Recipe Book','Lunch Included'],
+    startDate: '2025-05-12T10:00:00',
+    isLiveDemo: true,
+    liveViewers: 89,
+    videos: [],
+    seatCategories: [ { id: 'cat-1', name: 'General Admission', price: 65, capacity: 30, available: 25 } ],
+    guidelines: ['Arrive 15 minutes early', 'Comfortable clothing recommended'],
+    safety: ['Hygiene standards maintained', 'Instructor-led sessions'],
+    suggestedProducts: [ { id: 'prod-apron', name: 'Cooking Apron', price: 8, image: '/placeholder.svg' } ]
+  },
+  {
+    id: 'exp-3',
+    name: 'White Water Rafting Adventure',
+    description: 'Thrilling rafting experience through tropical rainforest and rice terraces. Includes safety briefing and photos.',
+    duration: '5 hours',
+    price: 45,
+    image: '/placeholder.svg',
+    rating: 4.6,
+    highlights: ['Equipment Included','Photos','Transport'],
+    isLiveDemo: false,
+    videos: [],
+    seatCategories: [ { id: 'cat-1', name: 'Raft Slot', price: 45, capacity: 40, available: 30 } ],
+    guidelines: ['Must be at least 12 years old', 'Swimwear recommended'],
+    safety: ['Life jackets provided', 'Certified guides', 'Safety briefing mandatory'],
+    suggestedProducts: [ { id: 'prod-rashguard', name: 'Rash Guard', price: 15, image: '/placeholder.svg' } ]
+  }
 ];
 
 export default function ExperiencePage() {
