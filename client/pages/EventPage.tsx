@@ -89,7 +89,11 @@ export default function EventPage() {
           <main className="md:col-span-2">
             <Card className="overflow-hidden">
               <div className="aspect-video relative">
-                <img src={ev.image} alt={ev.name} className="w-full h-full object-cover" />
+                {ev.videos && ev.videos.length>0 ? (
+                  <video className="w-full h-full object-cover" src={ev.videos[0]} controls />
+                ) : (
+                  <img src={ev.image} alt={ev.name} className="w-full h-full object-cover" />
+                )}
                 {ev.isLive && (
                   <div className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full flex items-center text-sm">
                     <Play className="h-4 w-4 mr-2" /> LIVE • {ev.viewers}
@@ -126,19 +130,43 @@ export default function EventPage() {
 
                   <div>
                     <h4 className="font-semibold mb-2">Tickets</h4>
-                    <div className="flex items-center space-x-3">
-                      <div className="flex items-center border rounded overflow-hidden text-sm">
-                        <button className="px-3 py-1" onClick={() => changeTickets(-1)}>-</button>
-                        <div className="px-3 py-1">{tickets}</div>
-                        <button className="px-3 py-1" onClick={() => changeTickets(1)}>+</button>
+
+                    {/* Seat categories */}
+                    <div className="space-y-2">
+                      {(ev.seatCategories||[]).map((cat:any)=>(
+                        <div key={cat.id} className="flex items-center justify-between border rounded p-2">
+                          <div>
+                            <div className="font-medium">{cat.name}</div>
+                            <div className="text-xs text-muted-foreground">${cat.price} • {cat.available} available</div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <button className="px-3 py-1 border rounded" onClick={()=> changeCategoryQty(cat.id, -1)}>-</button>
+                            <div className="px-3 py-1">{selectedCategories[cat.id] ?? 0}</div>
+                            <button className="px-3 py-1 border rounded" onClick={()=> changeCategoryQty(cat.id, 1)}>+</button>
+                          </div>
+                        </div>
+                      ))}
+
+                      <div className="mt-2 flex items-center justify-between">
+                        <div className="text-sm">Tickets subtotal</div>
+                        <div className="text-lg font-bold">${Object.entries(selectedCategories).reduce((s,[k,q])=>{ const cat:any = ev.seatCategories.find((c:any)=>c.id===k); return s + (cat?cat.price*q:0); },0).toFixed(2)}</div>
                       </div>
-                      <div className="text-sm text-muted-foreground">${(ev.price * tickets).toFixed(2)}</div>
+
+                      <div className="mt-3 flex items-center space-x-2">
+                        <div className="flex items-center border rounded overflow-hidden text-sm">
+                          <button className="px-3 py-1" onClick={() => changeTickets(-1)}>-</button>
+                          <div className="px-3 py-1">{tickets}</div>
+                          <button className="px-3 py-1" onClick={() => changeTickets(1)}>+</button>
+                        </div>
+                        <Button className="bg-travel-blue" onClick={handleBuy}>Buy Ticket</Button>
+                      </div>
+
                     </div>
+
                   </div>
                 </div>
 
                 <div className="mt-6 flex gap-3">
-                  <Button className="bg-travel-blue" onClick={handleBuy}>Buy Ticket</Button>
                   <Button variant="outline" onClick={handleContact}>Contact Organizer</Button>
                   {ev.isLive ? <Button onClick={() => window.open(`/live/${ev.id}`, '_blank')}>Watch Live</Button> : null}
                 </div>
