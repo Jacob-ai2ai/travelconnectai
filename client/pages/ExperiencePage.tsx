@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -84,6 +85,23 @@ export default function ExperiencePage() {
   }, [exp.id]);
 
   const changePeople = (delta: number) => setPeople((p) => Math.max(1, p + delta));
+
+  const changeSeatQty = (catId: string, delta: number) => {
+    setSelectedSeats((prev) => {
+      const cur = prev[catId] ?? 0;
+      const cat = (exp.seatCategories || []).find((s:any) => s.id === catId);
+      const maxAllowed = typeof cat?.available === 'number' ? cat.available : Infinity;
+      const next = Math.max(0, Math.min(maxAllowed, cur + delta));
+      return { ...prev, [catId]: next };
+    });
+  };
+
+  const seatsTotal = () => {
+    return (exp.seatCategories || []).reduce((sum: number, c: any) => {
+      const qty = selectedSeats[c.id] ?? 0;
+      return sum + (qty * (c.price || 0));
+    }, 0);
+  };
 
   const handleAddToItinerary = () => {
     // add to shared trip summary
