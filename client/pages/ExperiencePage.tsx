@@ -4,6 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Clock, Star, Play, MapPin } from 'lucide-react';
+import TripSummaryBox from '@/components/TripSummaryBox';
+import { addSummaryItem } from '@/lib/tripSummary';
 
 const SAMPLE_EXPERIENCES = [
   { id: 'exp-1', name: 'Sunrise Mount Batur Hiking', description: 'Witness breathtaking sunrise from the active volcano peak with professional guide. Includes hotel pickup, guide, breakfast, and photos.', duration: '6 hours', price: 85, image: '/placeholder.svg', rating: 4.8, highlights: ['Professional Guide','Breakfast Included','Hotel Pickup','Safety Gear'], startDate: '2025-05-11T04:30:00', isLiveDemo: true, liveViewers: 156 },
@@ -19,7 +21,10 @@ export default function ExperiencePage() {
   const changePeople = (delta: number) => setPeople((p) => Math.max(1, p + delta));
 
   const handleAddToItinerary = () => {
-    alert(`${exp.name} (x${people}) added to itinerary (simulated)`);
+    // add to shared trip summary
+    addSummaryItem({ id: exp.id, type: 'experience', title: exp.name, price: exp.price, qty: people, image: exp.image, meta: { startDate: exp.startDate } });
+    // show confirmation
+    alert(`${exp.name} (x${people}) added to trip summary`);
   };
 
   const handleJoinLive = () => {
@@ -154,19 +159,9 @@ export default function ExperiencePage() {
               </CardContent>
             </Card>
 
-            <Card className="bg-yellow-50 border-yellow-100">
-              <CardHeader>
-                <div className="text-lg font-semibold">Your Itinerary</div>
-              </CardHeader>
-              <CardContent>
-                <div className="text-sm text-muted-foreground mb-3">No items in itinerary (simulated)</div>
-                <div className="flex items-center justify-between">
-                  <div className="text-sm">Total</div>
-                  <div className="text-lg font-bold">$0.00</div>
-                </div>
-                <div className="mt-3"><Button className="w-full">Checkout</Button></div>
-              </CardContent>
-            </Card>
+            <div className="mt-4">
+              <TripSummaryBox />
+            </div>
 
           </aside>
         </div>
