@@ -189,7 +189,10 @@ export default function PropertyPage() {
     if (!p) return;
     setBilledItems((prev) => {
       if (prev.some((it) => it.refId === p.id && it.type === "stay")) return prev;
-      return [...prev, { id: `stay-${p.id}`, type: "stay", refId: p.id, title: p.name, price: p.pricePerNight, qty: 1 }];
+      const next = [...prev, { id: `stay-${p.id}`, type: "stay", refId: p.id, title: p.name, price: p.pricePerNight, qty: 1 }];
+      // also add to shared trip summary
+      try { addSummaryItem({ id: p.id, type: 'stay', title: p.name, price: p.pricePerNight, qty: 1, image: p.images[0], meta: {} }); } catch (e) {}
+      return next;
     });
     if (propId === property.id) setInItinerary(true);
   };
