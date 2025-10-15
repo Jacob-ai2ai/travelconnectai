@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { toast as toastFn } from '@/hooks/use-toast';
 import { Play, ShoppingCart, Star, Truck } from 'lucide-react';
+import TripSummaryBox from '@/components/TripSummaryBox';
+import { addSummaryItem, removeSummaryItem } from '@/lib/tripSummary';
 
 const SAMPLE_PRODUCTS = [
   {
@@ -108,19 +110,33 @@ export default function ProductDetails() {
   const inItinerary = itineraryProducts.includes(product.id);
 
   const handleAddToItinerary = () => {
-    if (!inItinerary) {
+    // If variant quantities selected, add those SKUs to trip summary
+    const selectedVariants = Object.entries(variantQuantities).filter(([_, q]) => q > 0);
+    if (selectedVariants.length > 0) {
+      selectedVariants.forEach(([key, q]) => {
+        const [sku, size] = key.split(':');
+        const inv = product.inventory.find((it) => it.sku === sku);
+        const title = inv ? `${product.name} — ${inv.variant}${size ? ` / ${size}` : ''}` : product.name;
+        addSummaryItem({ id: `${product.id}:${sku}:${size || ''}`, type: 'product', title, price: product.price, qty: q, image: product.images[0], meta: { sku, size } });
+      });
+      toastFn({ title: 'Added to trip summary', description: 'Selected items added.' });
+    } else if (!inItinerary) {
       setItineraryProducts((prev) => {
         const next = [...prev, product.id];
         toastFn({ title: 'Added to itinerary', description: `${product.name} was added to your trip.` });
+        // also add to trip summary
+        addSummaryItem({ id: product.id, type: 'product', title: product.name, price: product.price, qty: 1, image: product.images[0] });
         return next;
       });
       return;
     }
-    // If already in itinerary do nothing here
+    // If already in itinerary and no variant quantities, do nothing
   };
 
   const handleRemoveFromItinerary = () => {
     setItineraryProducts((prev) => prev.filter((id) => id !== product.id));
+    // remove from trip summary as well
+    try { removeSummaryItem('product', product.id); } catch (e) {}
     toastFn({ title: 'Removed', description: `${product.name} removed from itinerary` });
   };
 
@@ -488,77 +504,10 @@ export default function ProductDetails() {
               </CardContent>
             </Card>
 
-            {/* Your Itinerary widget adapted from villa-1 */}
-            <Card className="mt-4 bg-yellow-50 border-yellow-100">
-              <CardHeader>
-                <div className="text-lg font-semibold">Your Itinerary</div>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {itineraryProducts.length === 0 ? (
-                    <div className="text-sm text-muted-foreground">No items in itinerary</div>
-                  ) : (
-                    itineraryProducts.map((id) => {
-                      const item = SAMPLE_PRODUCTS.find((p) => p.id === id);
-                      if (!item) return null;
-                      return (
-                        <div key={id} className="flex items-center justify-between p-2 bg-white rounded">
-                          <div className="flex items-center gap-3">
-                            <div className="w-12 h-12 bg-gray-100 rounded overflow-hidden flex-shrink-0">
-                              <img src={item.images[0]} alt={item.name} className="w-full h-full object-cover" />
-                            </div>
-                            <div>
-                              <div className="text-sm font-medium">{item.name}</div>
-                              <div className="text-xs text-muted-foreground">${item.price}</div>
-                            </div>
-                          </div>
-
-                          <div className="flex items-center gap-3">
-                            <button className="px-2 py-1 border rounded" onClick={() => {
-                              // remove
-                              setItineraryProducts(prev => prev.filter(x => x !== id));
-                            }}>Remove</button>
-                          </div>
-                        </div>
-                      );
-                    })
-                  )}
-
-                  {/* Variant-selected items */}
-                  {Object.entries(variantQuantities).filter(([_,q])=>q>0).map(([key,q])=>{
-                    const [sku,size] = key.split(':');
-                    const inv = product.inventory.find(it=>it.sku===sku);
-                    if(!inv) return null;
-                    return (
-                      <div key={key} className="flex items-center justify-between p-2 bg-white rounded">
-                        <div className="flex items-center gap-3">
-                          <div className="w-12 h-12 bg-gray-100 rounded overflow-hidden flex-shrink-0">
-                            <img src={product.images[0]} alt={product.name} className="w-full h-full object-cover" />
-                          </div>
-                          <div>
-                            <div className="text-sm font-medium">{product.name} — {inv.variant}{size?` / ${size}`:''}</div>
-                            <div className="text-xs text-muted-foreground">SKU: {sku} · Qty: {q}</div>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center gap-3">
-                          <button className="px-2 py-1 border rounded" onClick={() => setVariantQuantities(prev=>{ const n={...prev}; delete n[key]; return n; })}>Remove</button>
-                        </div>
-                      </div>
-                    );
-                  })}
-
-                  <div className="mt-2 p-3 border-dashed border-2 border-yellow-100 text-center text-sm text-muted-foreground rounded">Drag products here to add to itinerary</div>
-
-                  <div className="flex items-center justify-between mt-3">
-                    <div className="text-sm">Total</div>
-                    <div className="text-lg font-bold">${(itineraryProducts.reduce((sum, id) => { const it = SAMPLE_PRODUCTS.find(p=>p.id===id); return sum + (it?.price||0); }, 0) + Object.entries(variantQuantities).reduce((sum,[key,q])=>{
-                      const sku = key.split(':')[0]; const inv = product.inventory.find(it=>it.sku===sku); return sum + (inv? product.price * q:0);
-                    },0)).toFixed(2)}</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            {/* Trip Summary shared widget */}
+            <div className="mt-4">
+              <TripSummaryBox />
+            </div>
           </aside>
         </div>
 
