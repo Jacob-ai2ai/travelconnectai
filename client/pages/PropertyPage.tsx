@@ -200,7 +200,10 @@ export default function PropertyPage() {
   const addBillItem = (item: BilledItem) => {
     setBilledItems((prev) => {
       if (prev.some((it) => it.id === item.id)) return prev;
-      return [...prev, item];
+      const next = [...prev, item];
+      // add to shared trip summary
+      try { addSummaryItem({ id: item.id, type: item.type === 'stay' ? 'stay' : item.type === 'experience' ? 'experience' : 'service', title: item.title, price: item.price, qty: item.qty, image: undefined, meta: { refId: item.refId } }); } catch(e) {}
+      return next;
     });
   };
 
