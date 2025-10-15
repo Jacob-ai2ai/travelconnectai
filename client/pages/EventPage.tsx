@@ -8,8 +8,39 @@ import TripSummaryBox from '@/components/TripSummaryBox';
 import { addSummaryItem } from '@/lib/tripSummary';
 
 const SAMPLE_EVENTS = [
-  { id: 'evt-1', name: 'Ubud Cultural Dance Night', date: '2025-05-12T19:00', venue: 'Ubud Palace', price: 25, image: '/placeholder.svg', description: 'Traditional Balinese dance performance with live gamelan orchestra.', rating: 4.7, isLive: false },
-  { id: 'evt-2', name: 'Sanur Beach Music Festival', date: '2025-05-14T18:00', venue: 'Sanur Beach', price: 40, image: '/placeholder.svg', description: 'Local and international bands performing by the beach.', rating: 4.6, isLive: true, viewers: 120 },
+  {
+    id: 'evt-1',
+    name: 'Ubud Cultural Dance Night',
+    date: '2025-05-12T19:00',
+    venue: 'Ubud Palace',
+    price: 25,
+    image: '/placeholder.svg',
+    description: 'Traditional Balinese dance performance with live gamelan orchestra.',
+    rating: 4.7,
+    isLive: false,
+    videos: ['/placeholder.svg'],
+    seatCategories: [ { id: 'cat-1', name: 'Adult (13+)', price: 25, available: 100 }, { id: 'cat-2', name: 'Child (2-12)', price: 12, available: 50 }, { id: 'cat-3', name: 'Infant (0-1)', price: 0, available: 50 } ],
+    guidelines: ['Arrive 20 minutes early', 'No flash photography during performances'],
+    safety: ['Wheelchair accessible seating available', 'Staff trained for emergencies'],
+    suggestedProducts: [ { id: 'prod-dance-fan', name: 'Hand Fan', price: 5, image: '/placeholder.svg' } ]
+  },
+  {
+    id: 'evt-2',
+    name: 'Sanur Beach Music Festival',
+    date: '2025-05-14T18:00',
+    venue: 'Sanur Beach',
+    price: 40,
+    image: '/placeholder.svg',
+    description: 'Local and international bands performing by the beach.',
+    rating: 4.6,
+    isLive: true,
+    viewers: 120,
+    videos: [],
+    seatCategories: [ { id: 'cat-1', name: 'General Admission', price: 40, available: 500 } ],
+    guidelines: ['No outside food allowed', 'Follow event staff instructions'],
+    safety: ['Security on site', 'First aid tent available'],
+    suggestedProducts: [ { id: 'prod-earplugs', name: 'Ear Plugs', price: 3, image: '/placeholder.svg' } ]
+  },
 ];
 
 export default function EventPage() {
