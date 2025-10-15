@@ -190,6 +190,26 @@ export default function EventPage() {
                   </Card>
                 ))}
               </div>
+
+              <div className="mt-6">
+                <h4 className="font-semibold mb-3">Suggested products</h4>
+                <div className="grid grid-cols-2 gap-3">
+                  {(ev.suggestedProducts||[]).map((p:any)=>(
+                    <Card key={p.id} className="p-3">
+                      <div className="flex items-center">
+                        <div className="w-16 h-12 overflow-hidden rounded mr-3"><img src={p.image} alt={p.name} className="w-full h-full object-cover" /></div>
+                        <div className="flex-1">
+                          <div className="font-medium">{p.name}</div>
+                          <div className="text-xs text-muted-foreground">${p.price}</div>
+                        </div>
+                        <div>
+                          <Button size="sm" onClick={()=>{ addSummaryItem({ id: p.id, type: 'product', title: p.name, price: p.price, qty: 1, image: p.image }); alert('Added '+p.name); }}>Add</Button>
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </div>
             </div>
 
           </main>
