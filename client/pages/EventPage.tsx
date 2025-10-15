@@ -47,11 +47,29 @@ export default function EventPage() {
   const { eventId } = useParams();
   const ev = SAMPLE_EVENTS.find((e) => e.id === eventId) || SAMPLE_EVENTS[0];
   const [tickets, setTickets] = useState<number>(1);
+  const [selectedCategories, setSelectedCategories] = useState<Record<string, number>>({});
 
   const changeTickets = (delta: number) => setTickets((t) => Math.max(1, t + delta));
 
+  const changeCategoryQty = (catId: string, delta: number) => {
+    setSelectedCategories((prev) => {
+      const cur = prev[catId] ?? 0;
+      const next = Math.max(0, cur + delta);
+      return { ...prev, [catId]: next };
+    });
+  };
+
   const handleBuy = () => {
-    // add tickets to trip summary
+    const selected = Object.entries(selectedCategories).filter(([_,q])=>q>0);
+    if (selected.length>0) {
+      selected.forEach(([catId,q])=>{
+        const cat:any = ev.seatCategories.find((c:any)=>c.id===catId);
+        if(!cat) return;
+        addSummaryItem({ id: `${ev.id}:${catId}`, type: 'event', title: `${ev.name} — ${cat.name}`, price: cat.price, qty: q, image: ev.image, meta: { venue: ev.venue, date: ev.date } });
+      });
+      alert('Added selected tickets to trip summary');
+      return;
+    }
     addSummaryItem({ id: ev.id, type: 'event', title: ev.name, price: ev.price, qty: tickets, image: ev.image, meta: { venue: ev.venue, date: ev.date } });
     alert(`Added ${tickets} ticket(s) for ${ev.name} to trip summary`);
   };
