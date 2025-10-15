@@ -145,14 +145,39 @@ export default function ExperiencePage() {
                     )}
                     <div className="mt-3">
                       <h4 className="font-semibold mb-2">Booking options</h4>
-                      <div className="flex items-center space-x-2">
-                        <div className="flex items-center border rounded overflow-hidden text-sm">
-                          <button className="px-3 py-1" onClick={() => changePeople(-1)}>-</button>
-                          <div className="px-3 py-1">{people}</div>
-                          <button className="px-3 py-1" onClick={() => changePeople(1)}>+</button>
+
+                      {/* Seat categories */}
+                      <div className="space-y-2">
+                        {(exp.seatCategories||[]).map((cat:any)=> (
+                          <div key={cat.id} className="flex items-center justify-between border rounded p-2">
+                            <div>
+                              <div className="font-medium">{cat.name}</div>
+                              <div className="text-xs text-muted-foreground">${cat.price} • {cat.available} available</div>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <button className="px-3 py-1 border rounded" onClick={()=> changeSeatQty(cat.id, -1)}>-</button>
+                              <div className="px-3 py-1">{selectedSeats[cat.id] ?? 0}</div>
+                              <button className="px-3 py-1 border rounded" onClick={()=> changeSeatQty(cat.id, 1)}>+</button>
+                            </div>
+                          </div>
+                        ))}
+
+                        <div className="mt-2 flex items-center justify-between">
+                          <div className="text-sm">Seats subtotal</div>
+                          <div className="text-lg font-bold">${seatsTotal().toFixed(2)}</div>
                         </div>
-                        <Button onClick={handleAddToItinerary} className="bg-travel-blue">Add to itinerary</Button>
+
+                        <div className="mt-3 flex items-center space-x-2">
+                          <div className="flex items-center border rounded overflow-hidden text-sm">
+                            <button className="px-3 py-1" onClick={() => changePeople(-1)}>-</button>
+                            <div className="px-3 py-1">{people}</div>
+                            <button className="px-3 py-1" onClick={() => changePeople(1)}>+</button>
+                          </div>
+                          <Button onClick={handleAddToItinerary} className="bg-travel-blue">Add to trip</Button>
+                        </div>
+
                       </div>
+
                     </div>
                   </div>
                 </div>
