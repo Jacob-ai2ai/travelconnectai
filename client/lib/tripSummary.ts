@@ -23,6 +23,8 @@ export function readSummary(): SummaryItem[] {
 export function writeSummary(items: SummaryItem[]) {
   try {
     localStorage.setItem(KEY, JSON.stringify(items));
+    // notify same-window listeners
+    try { window.dispatchEvent(new Event('tripSummaryUpdated')); } catch (e) {}
   } catch (e) {}
 }
 
