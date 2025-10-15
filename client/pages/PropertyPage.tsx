@@ -944,75 +944,9 @@ export default function PropertyPage() {
               <div className="mt-3 text-xs text-muted-foreground">Only 6 hours left to book. The host will stop accepting bookings for your dates soon.</div>
             </Card>
 
-              <Card className={`mt-4 p-4 w-full max-w-sm ${fromItinerary ? 'ring-2 ring-yellow-200 bg-yellow-50' : ''}`}>
-                <div>
-                  <h4 className="font-semibold mb-3">Your Itinerary</h4>
-
-                  {/* Itinerary items (cart-like) */}
-                  {billedItems.length === 0 ? (
-                    <div className="text-xs text-muted-foreground mb-4">No stays in your itinerary. Add properties below.</div>
-                  ) : (
-                    <div className="space-y-3 mb-4">
-                      {billedItems.map((it) => {
-                        const p = it.refId ? SAMPLE_PROPERTIES.find((x) => x.id === it.refId) : undefined;
-                        const imageSrc = p?.images?.[0] ?? "/placeholder.svg";
-                        const title = it.title ?? p?.name ?? "Item";
-                        const subtitle = it.type === "stay" ? (p ? `$${p.pricePerNight} / night` : `$${it.price}`) : `$${it.price}`;
-
-                        return (
-                          <div key={it.id} className="flex items-center justify-between border rounded p-3">
-                            <div className="flex items-center space-x-3">
-                              <div className="w-16 h-12 overflow-hidden rounded-md">
-                                <img src={imageSrc} alt={title} className="w-full h-full object-cover" />
-                              </div>
-                              <div>
-                                <div className="font-semibold">{title}</div>
-                                <div className="text-xs text-muted-foreground">{subtitle}</div>
-                              </div>
-                            </div>
-
-                            <div className="flex items-center space-x-2">
-                              {it.type === "stay" ? (
-                                <div className="px-4 py-1 text-sm">Qty: 1</div>
-                              ) : (
-                                <div className="flex items-center border rounded">
-                                  <button className="px-3 py-1 text-sm" onClick={() => changeBilledQty(it.id, -1)}>-</button>
-                                  <div className="px-4 py-1 text-sm">{it.qty}</div>
-                                  <button className="px-3 py-1 text-sm" onClick={() => changeBilledQty(it.id, 1)}>+</button>
-                                </div>
-                              )}
-                              <Button size="xs" variant="ghost" onClick={() => removeBilledItem(it.id)}>Remove</Button>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  )}
-
-                  {/* small drop zone to add properties by drag & drop */}
-                  <div className="mt-2 mb-3">
-                    <div
-                      onDrop={handleDropToItinerary}
-                      onDragOver={handleDragOver}
-                      className="h-12 border-2 border-dashed rounded flex items-center justify-center text-sm text-muted-foreground"
-                    >
-                      Drag properties here to add to itinerary
-                    </div>
-                  </div>
-
-                  {/* total and checkout */}
-                  <div className="border-t pt-3 mt-3 mb-3">
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="text-sm text-muted-foreground">Total</div>
-                      <div className="text-lg font-bold">${billedItems.reduce((s, it) => s + it.price * it.qty, 0).toFixed(2)}</div>
-                    </div>
-                    <Button className="w-full">Checkout</Button>
-                  </div>
-
-                  {/* total and checkout is above */}
-
-                </div>
-              </Card>
+            <div className="mt-4">
+              <TripSummaryBox />
+            </div>
 
             {/* Floating AI assistant (Nova) will appear separately */}
 
