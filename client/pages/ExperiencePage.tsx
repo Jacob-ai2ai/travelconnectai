@@ -1,51 +1,187 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Calendar, Clock, Star, Play, MapPin } from 'lucide-react';
 
 const SAMPLE_EXPERIENCES = [
-  { id: 'exp-1', name: 'Sunrise Mount Batur Hiking', description: 'Witness breathtaking sunrise from the active volcano peak with professional guide.', duration: '6 hours', price: 85, image: '/placeholder.svg' },
-  { id: 'exp-2', name: 'Traditional Balinese Cooking Class', description: 'Learn authentic Balinese recipes in a traditional village setting.', duration: '4 hours', price: 65, image: '/placeholder.svg' },
-  { id: 'exp-3', name: 'White Water Rafting Adventure', description: 'Thrilling rafting experience through rainforest and rice terraces.', duration: '5 hours', price: 45, image: '/placeholder.svg' },
+  { id: 'exp-1', name: 'Sunrise Mount Batur Hiking', description: 'Witness breathtaking sunrise from the active volcano peak with professional guide. Includes hotel pickup, guide, breakfast, and photos.', duration: '6 hours', price: 85, image: '/placeholder.svg', rating: 4.8, highlights: ['Professional Guide','Breakfast Included','Hotel Pickup','Safety Gear'], startDate: '2025-05-11T04:30:00', isLiveDemo: true, liveViewers: 156 },
+  { id: 'exp-2', name: 'Traditional Balinese Cooking Class', description: 'Learn authentic Balinese recipes in a traditional village setting. Market visit and recipe booklet included.', duration: '4 hours', price: 65, image: '/placeholder.svg', rating: 4.9, highlights: ['Market Tour','Recipe Book','Lunch Included'], startDate: '2025-05-12T10:00:00', isLiveDemo: true, liveViewers: 89 },
+  { id: 'exp-3', name: 'White Water Rafting Adventure', description: 'Thrilling rafting experience through tropical rainforest and rice terraces. Includes safety briefing and photos.', duration: '5 hours', price: 45, image: '/placeholder.svg', rating: 4.6, highlights: ['Equipment Included','Photos','Transport'], isLiveDemo: false }
 ];
 
 export default function ExperiencePage() {
   const { experienceId } = useParams();
   const exp = SAMPLE_EXPERIENCES.find((e) => e.id === experienceId) || SAMPLE_EXPERIENCES[0];
+  const [people, setPeople] = useState<number>(1);
+
+  const changePeople = (delta: number) => setPeople((p) => Math.max(1, p + delta));
+
+  const handleAddToItinerary = () => {
+    alert(`${exp.name} (x${people}) added to itinerary (simulated)`);
+  };
+
+  const handleJoinLive = () => {
+    if (exp.isLiveDemo) window.open(`/live/${exp.id}`, '_blank');
+    else alert('No live demo currently available');
+  };
 
   return (
-    <div className="min-h-screen p-6">
+    <div className="min-h-screen p-6 bg-background">
       <div className="container mx-auto">
-        <Link to="/trip-details/budget-bali" className="text-sm text-muted-foreground">Back to trip</Link>
-        <h1 className="text-3xl font-bold my-4">{exp.name}</h1>
+        <nav className="text-sm text-muted-foreground mb-3">
+          <Link to="/trip-details/standard-bali">Back to trip</Link>
+        </nav>
 
         <div className="grid md:grid-cols-3 gap-6">
           <main className="md:col-span-2">
-            <Card>
-              <div className="h-64 overflow-hidden">
+            <Card className="overflow-hidden mb-6">
+              <div className="h-72 overflow-hidden relative bg-muted">
                 <img src={exp.image} alt={exp.name} className="w-full h-full object-cover" />
+                {exp.isLiveDemo && (
+                  <div className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full flex items-center text-sm">
+                    <Play className="h-4 w-4 mr-2" /> LIVE DEMO • {exp.liveViewers}
+                  </div>
+                )}
               </div>
+
               <CardContent>
-                <p className="mb-4 text-muted-foreground">{exp.description}</p>
-                <div className="mb-4">Duration: <strong>{exp.duration}</strong></div>
-                <div className="mb-4">Price: <strong>${exp.price}</strong></div>
-                <div className="flex space-x-3">
-                  <Button onClick={() => alert('Added to itinerary (simulated)')}>Add to itinerary</Button>
-                  <Button variant="outline">Contact Provider</Button>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h1 className="text-2xl font-bold mb-1">{exp.name}</h1>
+                    <div className="flex items-center space-x-3 text-sm text-muted-foreground">
+                      <div className="flex items-center"><Star className="h-4 w-4 text-yellow-400 mr-1" />{exp.rating}</div>
+                      <div className="flex items-center"><Calendar className="h-4 w-4 mr-1" />{exp.duration}</div>
+                      {exp.startDate && <div className="flex items-center"><MapPin className="h-4 w-4 mr-1" />{new Date(exp.startDate).toLocaleDateString()}</div>}
+                    </div>
+                  </div>
+
+                  <div className="text-right">
+                    <div className="text-2xl font-bold">${exp.price}</div>
+                    <div className="text-sm text-muted-foreground">per person</div>
+                  </div>
+                </div>
+
+                <p className="mt-4 text-muted-foreground">{exp.description}</p>
+
+                <div className="mt-6 grid md:grid-cols-2 gap-4">
+                  <div>
+                    <h4 className="font-semibold mb-2">Highlights</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {exp.highlights?.map((h) => (
+                        <Badge key={h} variant="secondary" className="text-xs">{h}</Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 className="font-semibold mb-2">When & Where</h4>
+                    {exp.startDate && (
+                      <div className="text-sm text-muted-foreground">
+                        <div className="flex items-center gap-2 mb-1"><Calendar className="h-4 w-4" /> <span>{new Date(exp.startDate).toLocaleDateString()}</span></div>
+                        <div className="flex items-center gap-2"><Clock className="h-4 w-4" /> <span>{new Date(exp.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</span></div>
+                      </div>
+                    )}
+                    <div className="mt-3">
+                      <h4 className="font-semibold mb-2">Booking options</h4>
+                      <div className="flex items-center space-x-2">
+                        <div className="flex items-center border rounded overflow-hidden text-sm">
+                          <button className="px-3 py-1" onClick={() => changePeople(-1)}>-</button>
+                          <div className="px-3 py-1">{people}</div>
+                          <button className="px-3 py-1" onClick={() => changePeople(1)}>+</button>
+                        </div>
+                        <Button onClick={handleAddToItinerary} className="bg-travel-blue">Add to itinerary</Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 grid md:grid-cols-3 gap-3">
+                  <Button className="col-span-1" onClick={handleJoinLive}>{exp.isLiveDemo ? 'Join Live Demo' : 'Watch Preview'}</Button>
+                  <Button variant="outline" className="col-span-2">Contact Provider</Button>
                 </div>
               </CardContent>
             </Card>
+
+            {/* Suggested products / similar experiences */}
+            <div className="mb-6">
+              <h3 className="text-lg font-semibold mb-3">Similar Experiences</h3>
+              <div className="grid md:grid-cols-3 gap-4">
+                {SAMPLE_EXPERIENCES.filter(e => e.id !== exp.id).map(e => (
+                  <Card key={e.id} className="overflow-hidden">
+                    <div className="h-36 overflow-hidden"><img src={e.image} alt={e.name} className="w-full h-full object-cover" /></div>
+                    <CardContent>
+                      <div className="font-medium">{e.name}</div>
+                      <div className="text-xs text-muted-foreground">${e.price}</div>
+                      <div className="mt-3 flex space-x-2">
+                        <Link to={`/experience/${e.id}`}><Button size="sm">View</Button></Link>
+                        <Button size="sm" variant="outline">Book</Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
           </main>
 
           <aside className="md:col-span-1">
-            <Card>
+            <Card className="mb-4">
+              <CardHeader>
+                <div className="text-sm font-semibold">Booking</div>
+              </CardHeader>
               <CardContent>
-                <div className="font-semibold">Booking</div>
-                <div className="text-2xl font-bold my-3">${exp.price}</div>
-                <Button className="w-full">Book Experience</Button>
+                <div className="text-2xl font-bold mb-3">${exp.price}</div>
+                <div className="mb-4 text-sm text-muted-foreground">Includes guide, transfers, and breakfast where applicable.</div>
+                <Button className="w-full mb-2">Reserve</Button>
+                <Button variant="outline" className="w-full">View trip</Button>
               </CardContent>
             </Card>
+
+            <Card className="mb-4">
+              <CardContent>
+                <div className="text-sm font-semibold mb-3">Special offers & promotions</div>
+                <div className="space-y-3">
+                  <div className="p-3 border rounded flex items-center justify-between">
+                    <div>
+                      <div className="font-medium">Early Bird — 10% off</div>
+                      <div className="text-sm text-muted-foreground">Book 14+ days in advance.</div>
+                    </div>
+                    <Button variant="outline">Apply</Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-yellow-50 border-yellow-100">
+              <CardHeader>
+                <div className="text-lg font-semibold">Your Itinerary</div>
+              </CardHeader>
+              <CardContent>
+                <div className="text-sm text-muted-foreground mb-3">No items in itinerary (simulated)</div>
+                <div className="flex items-center justify-between">
+                  <div className="text-sm">Total</div>
+                  <div className="text-lg font-bold">$0.00</div>
+                </div>
+                <div className="mt-3"><Button className="w-full">Checkout</Button></div>
+              </CardContent>
+            </Card>
+
           </aside>
+        </div>
+      </div>
+
+      {/* Nova assistant floating */}
+      <div className="fixed right-6 bottom-6">
+        <button aria-label="Nova Assistant" onClick={() => { const el = document.getElementById('nova-panel'); if (el) el.classList.toggle('hidden'); }} className="w-14 h-14 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg">N</button>
+        <div id="nova-panel" className="hidden w-80 bg-white border rounded shadow-lg mt-2">
+          <div className="p-3 border-b flex items-center justify-between">
+            <div className="font-semibold">Nova</div>
+            <button onClick={() => { const el = document.getElementById('nova-panel'); if (el) el.classList.add('hidden'); }} className="text-sm text-muted-foreground">Close</button>
+          </div>
+          <div className="p-3 text-sm text-muted-foreground">Hi, I'm Nova — your travel assistant. Ask me to add this experience to your itinerary.</div>
+          <div className="p-3 border-t"><input placeholder="Ask Nova..." className="w-full border rounded px-2 py-1 text-sm" /></div>
         </div>
       </div>
     </div>
