@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Heart, Share2, Play, Video, MapPin, Star, Eye, VideoIcon, Car, Coffee, Dumbbell, ArrowLeft, ArrowRight } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import TripSummaryBox from '@/components/TripSummaryBox';
+import { addSummaryItem } from '@/lib/tripSummary';
 
 interface Property {
   id: string;
