@@ -78,9 +78,9 @@ export default function ItinerarySummary() {
       const found = items.find((it) => it.title?.toLowerCase().includes(name));
       if (found) {
         removeItem(found.id);
-        return `Removed ${found.title} from your itinerary.`;
+        return `Removed ${found.title} from your trip summary.`;
       }
-      return `Could not find "${name}" in your itinerary.`;
+      return `Could not find "${name}" in your trip summary.`;
     }
 
     if (t.startsWith('increase') || t.startsWith('decrease')) {
@@ -126,10 +126,10 @@ export default function ItinerarySummary() {
       <Card className="mt-4 w-full max-w-sm">
         <CardContent>
           <div>
-            <h4 className="font-semibold mb-3">Your Itinerary</h4>
+            <h4 className="font-semibold mb-3">Trip Summary</h4>
 
             {items.length === 0 ? (
-              <div className="text-xs text-muted-foreground mb-4">No items in your itinerary.</div>
+              <div className="text-xs text-muted-foreground mb-4">No items selected.</div>
             ) : (
               <div className="space-y-3 mb-4">
                 {items.map((it) => (
