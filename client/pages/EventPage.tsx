@@ -4,6 +4,8 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Clock, Star, Play, MapPin } from 'lucide-react';
+import TripSummaryBox from '@/components/TripSummaryBox';
+import { addSummaryItem } from '@/lib/tripSummary';
 
 const SAMPLE_EVENTS = [
   { id: 'evt-1', name: 'Ubud Cultural Dance Night', date: '2025-05-12T19:00', venue: 'Ubud Palace', price: 25, image: '/placeholder.svg', description: 'Traditional Balinese dance performance with live gamelan orchestra.', rating: 4.7, isLive: false },
@@ -18,7 +20,9 @@ export default function EventPage() {
   const changeTickets = (delta: number) => setTickets((t) => Math.max(1, t + delta));
 
   const handleBuy = () => {
-    alert(`Purchased ${tickets} ticket(s) for ${ev.name} (simulated)`);
+    // add tickets to trip summary
+    addSummaryItem({ id: ev.id, type: 'event', title: ev.name, price: ev.price, qty: tickets, image: ev.image, meta: { venue: ev.venue, date: ev.date } });
+    alert(`Added ${tickets} ticket(s) for ${ev.name} to trip summary`);
   };
 
   const handleContact = () => {
@@ -135,6 +139,11 @@ export default function EventPage() {
                 <Button variant="ghost" className="w-full">Contact support</Button>
               </CardContent>
             </Card>
+
+            {/* Trip summary shared box */}
+            <div className="mt-4">
+              <TripSummaryBox />
+            </div>
 
           </aside>
         </div>
