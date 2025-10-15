@@ -117,6 +117,10 @@ export default function ExperiencePage() {
     else alert('No live demo currently available');
   };
 
+  const handleRequest = () => {
+    alert('Request sent to provider');
+  };
+
   return (
     <div className="min-h-screen p-6 bg-background">
       <div className="container mx-auto">
@@ -140,25 +144,6 @@ export default function ExperiencePage() {
                 )}
               </div>
 
-              {/* Host / Provider info under media */}
-              <div className="px-4 py-3 border-b bg-white">
-                {exp.host && (
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-full overflow-hidden bg-muted flex items-center justify-center"><img src={exp.host.avatar} alt={exp.host.name} className="w-full h-full object-cover" /></div>
-                      <div>
-                        <div className="font-medium">{exp.host.name}</div>
-                        <div className="text-sm text-muted-foreground">{exp.host.about}</div>
-                      </div>
-                    </div>
-                    <div className="hidden sm:flex items-center gap-2">
-                      <Button size="sm" variant="outline">View provider</Button>
-                      <Button size="sm" onClick={() => alert('Contacting provider...')}>Contact</Button>
-                    </div>
-                  </div>
-                )}
-              </div>
-
               <CardContent>
                 <div className="flex items-start justify-between">
                   <div>
@@ -168,6 +153,20 @@ export default function ExperiencePage() {
                       <div className="flex items-center"><Calendar className="h-4 w-4 mr-1" />{exp.duration}</div>
                       {exp.startDate && <div className="flex items-center"><MapPin className="h-4 w-4 mr-1" />{new Date(exp.startDate).toLocaleDateString()}</div>}
                     </div>
+
+                    {exp.host && (
+                      <div className="mt-3 flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-full overflow-hidden bg-muted flex items-center justify-center"><img src={exp.host.avatar} alt={exp.host.name} className="w-full h-full object-cover" /></div>
+                        <div className="text-sm">
+                          <div className="font-medium">{exp.host.name}</div>
+                          <div className="text-xs text-muted-foreground">{exp.host.about}</div>
+                        </div>
+                        <div className="ml-4 flex items-center gap-2">
+                          <Button size="sm" variant="outline" onClick={handleRequest}>Request</Button>
+                          <Button size="sm" onClick={handleJoinLive}>{exp.isLiveDemo ? 'Join Live Demo' : 'Message Provider'}</Button>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   <div className="text-right">
