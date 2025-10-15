@@ -25,6 +25,7 @@ const SAMPLE_EXPERIENCES = [
       { id: 'cat-1', name: 'Standard Seat', price: 85, capacity: 20, available: 15 },
       { id: 'cat-2', name: 'Premium Seat', price: 120, capacity: 5, available: 3 }
     ],
+    host: { name: 'Batur Hikes Co.', avatar: '/placeholder.svg', about: 'Local guides with 10+ years of experience leading safe sunrise hikes.' },
     guidelines: ['Bring warm clothing for early mornings', 'Wear good hiking shoes', 'Not suitable for pregnant travelers'],
     safety: ['Certified local guides', 'Safety briefing before hike', 'Emergency first-aid kit available'],
     suggestedProducts: [
@@ -46,6 +47,7 @@ const SAMPLE_EXPERIENCES = [
     liveViewers: 89,
     videos: [],
     seatCategories: [ { id: 'cat-1', name: 'General Admission', price: 65, capacity: 30, available: 25 } ],
+    host: { name: 'Bali Kitchen Collective', avatar: '/placeholder.svg', about: 'Family-owned cooking school specializing in traditional Balinese cuisine.' },
     guidelines: ['Arrive 15 minutes early', 'Comfortable clothing recommended'],
     safety: ['Hygiene standards maintained', 'Instructor-led sessions'],
     suggestedProducts: [ { id: 'prod-apron', name: 'Cooking Apron', price: 8, image: '/placeholder.svg' } ]
@@ -62,6 +64,7 @@ const SAMPLE_EXPERIENCES = [
     isLiveDemo: false,
     videos: [],
     seatCategories: [ { id: 'cat-1', name: 'Raft Slot', price: 45, capacity: 40, available: 30 } ],
+    host: { name: 'River Rapids Ltd.', avatar: '/placeholder.svg', about: 'Experienced rafting operators with full safety compliance.' },
     guidelines: ['Must be at least 12 years old', 'Swimwear recommended'],
     safety: ['Life jackets provided', 'Certified guides', 'Safety briefing mandatory'],
     suggestedProducts: [ { id: 'prod-rashguard', name: 'Rash Guard', price: 15, image: '/placeholder.svg' } ]
@@ -174,41 +177,44 @@ export default function ExperiencePage() {
                         <div className="flex items-center gap-2"><Clock className="h-4 w-4" /> <span>{new Date(exp.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</span></div>
                       </div>
                     )}
+
+                    <div className="mt-3 flex items-center space-x-3">
+                      <Button className="px-4 py-2" onClick={handleJoinLive}>{exp.isLiveDemo ? 'Join Live Demo' : 'Watch Preview'}</Button>
+                      <Button variant="outline" className="px-4 py-2">Contact Provider</Button>
+                    </div>
+
                     <div className="mt-3">
                       <h4 className="font-semibold mb-2">Booking options</h4>
-
-                      <div className="mt-4">
-                        <h4 className="font-semibold mb-2">About this experience</h4>
-                        <p className="text-sm text-muted-foreground">{exp.description}</p>
-                      </div>
-
-                      <div className="mt-6">
-                        <h4 className="font-semibold mb-2">Guidelines & eligibility</h4>
-                        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
-                          {(exp.guidelines||[]).map((g:any)=> <li key={g}>{g}</li>)}
-                          {(exp.safety||[]).map((s:any)=> <li key={s}>{s}</li>)}
-                        </ul>
-                      </div>
-
-                      <div className="mt-6">
-                        <h4 className="font-semibold mb-2">Find the location</h4>
-                        <div className="w-full h-48 rounded overflow-hidden border">
-                          <iframe
-                            title="experience-location"
-                            src={`https://www.google.com/maps?q=${encodeURIComponent(exp.name)}&output=embed`}
-                            className="w-full h-full"
-                            loading="lazy"
-                          />
-                        </div>
-                      </div>
-
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-6 grid md:grid-cols-3 gap-3">
-                  <Button className="col-span-1" onClick={handleJoinLive}>{exp.isLiveDemo ? 'Join Live Demo' : 'Watch Preview'}</Button>
-                  <Button variant="outline" className="col-span-2">Contact Provider</Button>
+                {/* About / Guidelines / Map - full width below the columns */}
+                <div className="mt-6">
+                  <div className="mb-4">
+                    <h4 className="font-semibold mb-2">About this experience</h4>
+                    <p className="text-sm text-muted-foreground">{exp.description}</p>
+                  </div>
+
+                  <div className="mb-4">
+                    <h4 className="font-semibold mb-2">Guidelines & eligibility</h4>
+                    <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+                      {(exp.guidelines||[]).map((g:any)=> <li key={g}>{g}</li>)}
+                      {(exp.safety||[]).map((s:any)=> <li key={s}>{s}</li>)}
+                    </ul>
+                  </div>
+
+                  <div className="mb-4">
+                    <h4 className="font-semibold mb-2">Find the location</h4>
+                    <div className="w-full h-48 rounded overflow-hidden border">
+                      <iframe
+                        title="experience-location"
+                        src={`https://www.google.com/maps?q=${encodeURIComponent(exp.name)}&output=embed`}
+                        className="w-full h-full"
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
