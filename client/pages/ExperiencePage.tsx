@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -72,6 +73,16 @@ export default function ExperiencePage() {
   const { experienceId } = useParams();
   const exp = SAMPLE_EXPERIENCES.find((e) => e.id === experienceId) || SAMPLE_EXPERIENCES[0];
   const [people, setPeople] = useState<number>(1);
+
+  // selected seats per category
+  const [selectedSeats, setSelectedSeats] = useState<Record<string, number>>({});
+
+  useEffect(() => {
+    const init: Record<string, number> = {};
+    (exp.seatCategories || []).forEach((c: any) => { init[c.id] = 0; });
+    setSelectedSeats(init);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [exp.id]);
 
   const changePeople = (delta: number) => setPeople((p) => Math.max(1, p + delta));
 
