@@ -18,7 +18,8 @@ export default function TripSummaryBox() {
     load();
     const onStorage = () => load();
     window.addEventListener('storage', onStorage);
-    return () => window.removeEventListener('storage', onStorage);
+    window.addEventListener('tripSummaryUpdated', onStorage);
+    return () => { window.removeEventListener('storage', onStorage); window.removeEventListener('tripSummaryUpdated', onStorage); };
   }, []);
 
   const inc = (it: SummaryItem, delta: number) => {
