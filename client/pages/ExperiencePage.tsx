@@ -177,36 +177,29 @@ export default function ExperiencePage() {
                     <div className="mt-3">
                       <h4 className="font-semibold mb-2">Booking options</h4>
 
-                      {/* Seat categories */}
-                      <div className="space-y-2">
-                        {(exp.seatCategories||[]).map((cat:any)=> (
-                          <div key={cat.id} className="flex items-center justify-between border rounded p-2">
-                            <div>
-                              <div className="font-medium">{cat.name}</div>
-                              <div className="text-xs text-muted-foreground">${cat.price} • {cat.available} available</div>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <button className="px-3 py-1 border rounded" onClick={()=> changeSeatQty(cat.id, -1)}>-</button>
-                              <div className="px-3 py-1">{selectedSeats[cat.id] ?? 0}</div>
-                              <button className="px-3 py-1 border rounded" onClick={()=> changeSeatQty(cat.id, 1)}>+</button>
-                            </div>
-                          </div>
-                        ))}
+                      <div className="mt-4">
+                        <h4 className="font-semibold mb-2">About this experience</h4>
+                        <p className="text-sm text-muted-foreground">{exp.description}</p>
+                      </div>
 
-                        <div className="mt-2 flex items-center justify-between">
-                          <div className="text-sm">Seats subtotal</div>
-                          <div className="text-lg font-bold">${seatsTotal().toFixed(2)}</div>
+                      <div className="mt-6">
+                        <h4 className="font-semibold mb-2">Guidelines & eligibility</h4>
+                        <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+                          {(exp.guidelines||[]).map((g:any)=> <li key={g}>{g}</li>)}
+                          {(exp.safety||[]).map((s:any)=> <li key={s}>{s}</li>)}
+                        </ul>
+                      </div>
+
+                      <div className="mt-6">
+                        <h4 className="font-semibold mb-2">Find the location</h4>
+                        <div className="w-full h-48 rounded overflow-hidden border">
+                          <iframe
+                            title="experience-location"
+                            src={`https://www.google.com/maps?q=${encodeURIComponent(exp.name)}&output=embed`}
+                            className="w-full h-full"
+                            loading="lazy"
+                          />
                         </div>
-
-                        <div className="mt-3 flex items-center space-x-2">
-                          <div className="flex items-center border rounded overflow-hidden text-sm">
-                            <button className="px-3 py-1" onClick={() => changePeople(-1)}>-</button>
-                            <div className="px-3 py-1">{people}</div>
-                            <button className="px-3 py-1" onClick={() => changePeople(1)}>+</button>
-                          </div>
-                          <Button onClick={handleAddToItinerary} className="bg-travel-blue">Add to trip</Button>
-                        </div>
-
                       </div>
 
                     </div>
@@ -272,8 +265,39 @@ export default function ExperiencePage() {
               <CardContent>
                 <div className="text-2xl font-bold mb-3">${exp.price}</div>
                 <div className="mb-4 text-sm text-muted-foreground">Includes guide, transfers, and breakfast where applicable.</div>
+
+                {/* Inventory / Seat categories */}
+                <div className="space-y-2 mb-4">
+                  {(exp.seatCategories||[]).map((cat:any)=> (
+                    <div key={cat.id} className="flex items-center justify-between border rounded p-2">
+                      <div>
+                        <div className="font-medium">{cat.name}</div>
+                        <div className="text-xs text-muted-foreground">${cat.price} • {cat.available} available</div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <button className="px-3 py-1 border rounded" onClick={()=> changeSeatQty(cat.id, -1)}>-</button>
+                        <div className="px-3 py-1">{selectedSeats[cat.id] ?? 0}</div>
+                        <button className="px-3 py-1 border rounded" onClick={()=> changeSeatQty(cat.id, 1)}>+</button>
+                      </div>
+                    </div>
+                  ))}
+
+                  <div className="mt-2 flex items-center justify-between">
+                    <div className="text-sm">Seats subtotal</div>
+                    <div className="text-lg font-bold">${seatsTotal().toFixed(2)}</div>
+                  </div>
+                </div>
+
+                <div className="mt-3 flex items-center space-x-2 mb-4">
+                  <div className="flex items-center border rounded overflow-hidden text-sm">
+                    <button className="px-3 py-1" onClick={() => changePeople(-1)}>-</button>
+                    <div className="px-3 py-1">{people}</div>
+                    <button className="px-3 py-1" onClick={() => changePeople(1)}>+</button>
+                  </div>
+                </div>
+
                 <Button className="w-full mb-2">Reserve</Button>
-                <Button variant="outline" className="w-full">View trip</Button>
+                <Button onClick={handleAddToItinerary} className="w-full">Add to trip</Button>
               </CardContent>
             </Card>
 
