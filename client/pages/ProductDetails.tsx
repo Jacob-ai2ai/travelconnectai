@@ -338,7 +338,7 @@ export default function ProductDetails() {
                                   <div className="text-sm">{iv.variant} {size?`/ ${size}`:''}</div>
                                   <div className="flex items-center gap-2">
                                     <div className="text-sm">{q}</div>
-                                    <button className="text-sm text-red-600" onClick={()=> setVariantQuantities(prev=>{ const n = { ...prev }; delete n[key]; return n; })}>Remove</button>
+                                    <button className="text-sm text-red-600" onClick={()=> { setVariantQuantities(prev=>{ const n = { ...prev }; delete n[key]; return n; }); try { removeSummaryItem('product', `${product.id}:${key}`); } catch(e) {} }}>Remove</button>
                                   </div>
                                 </div>
                               );
