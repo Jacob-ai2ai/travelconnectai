@@ -27,7 +27,7 @@ const SAMPLE_EXPERIENCES = [
       { id: 'cat-1', name: 'Adult', price: 85, capacity: 20, available: 15 },
       { id: 'cat-2', name: 'Child', price: 60, capacity: 10, available: 5 }
     ],
-    host: { name: 'Batur Hikes Co.', avatar: '/placeholder.svg', about: 'Local guides with 10+ years of experience leading safe sunrise hikes.' },
+    host: { id: 'host-batur', name: 'Batur Hikes Co.', avatar: '/placeholder.svg', about: 'Local guides with 10+ years of experience leading safe sunrise hikes.' },
     guidelines: ['Bring warm clothing for early mornings', 'Wear good hiking shoes', 'Not suitable for pregnant travelers'],
     safety: ['Certified local guides', 'Safety briefing before hike', 'Emergency first-aid kit available'],
     suggestedProducts: [
