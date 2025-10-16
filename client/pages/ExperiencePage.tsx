@@ -159,7 +159,6 @@ export default function ExperiencePage() {
                     <div className="flex items-center space-x-3 text-sm text-muted-foreground">
                       <div className="flex items-center"><Star className="h-4 w-4 text-yellow-400 mr-1" />{exp.rating}</div>
                       <div className="flex items-center"><Calendar className="h-4 w-4 mr-1" />{exp.duration}</div>
-                      {exp.startDate && <div className="flex items-center"><MapPin className="h-4 w-4 mr-1" />{new Date(exp.startDate).toLocaleDateString()}</div>}
                     </div>
 
                     {exp.startDate && (
