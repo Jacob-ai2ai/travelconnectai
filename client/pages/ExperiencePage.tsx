@@ -163,23 +163,39 @@ export default function ExperiencePage() {
                       <div className="flex items-center"><Calendar className="h-4 w-4 mr-1" />{exp.duration}</div>
                     </div>
 
-                    {exp.startDate && (
-                      <div className="mt-3 text-sm text-muted-foreground">
-                        <div className="flex items-center gap-3"><Calendar className="h-4 w-4" /> <span>{new Date(exp.startDate).toLocaleDateString()} • {new Date(exp.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</span></div>
-                        {exp.location && <div className="flex items-center gap-3 mt-1"><MapPin className="h-4 w-4" /> <span>{exp.location}</span></div>}
+                    {/* When & Where side-by-side */}
+                    <div className="mt-3 grid grid-cols-2 gap-4 text-sm text-muted-foreground">
+                      <div>
+                        <div className="font-medium text-sm mb-1">When</div>
+                        {exp.startDate ? (
+                          <div>
+                            <div className="flex items-center gap-2"><Calendar className="h-4 w-4" /> <span>{new Date(exp.startDate).toLocaleDateString()}</span></div>
+                            <div className="flex items-center gap-2 mt-1"><Clock className="h-4 w-4" /> <span>{new Date(exp.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span></div>
+                            <div className="mt-3">
+                              <Button size="sm" onClick={exp.isLiveDemo ? handleJoinLive : handleRequest}>{exp.isLiveDemo ? 'Join Live Demo' : 'Request Live Demo'}</Button>
+                            </div>
+                          </div>
+                        ) : (
+                          <div>TBA</div>
+                        )}
                       </div>
-                    )}
+
+                      <div>
+                        <div className="font-medium text-sm mb-1">Where</div>
+                        {exp.location ? (
+                          <div className="flex items-center gap-2"><MapPin className="h-4 w-4" /> <span>{exp.location}</span></div>
+                        ) : (
+                          <div>TBA</div>
+                        )}
+                      </div>
+                    </div>
+
                   </div>
 
                   <div className="text-right">
                     <div className="text-2xl font-bold">${exp.price}</div>
                     <div className="text-sm text-muted-foreground">per person</div>
                   </div>
-                </div>
-
-
-                <div className="mb-4">
-                  <p className="text-sm text-muted-foreground">{exp.description}</p>
                 </div>
 
                 <div className="mt-4">
@@ -221,7 +237,12 @@ export default function ExperiencePage() {
 
                   <div className="mb-4">
                     <h4 className="font-semibold mb-2">About this experience</h4>
-                    <p className="text-sm text-muted-foreground mb-3">{exp.description}</p>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      {showFullDescription ? exp.description : (exp.description && exp.description.length > 160 ? `${exp.description.slice(0,160)}...` : exp.description)}
+                      {exp.description && exp.description.length > 160 && (
+                        <button className="ml-2 text-sm text-blue-600" onClick={() => setShowFullDescription((s)=>!s)}>{showFullDescription ? 'See less' : 'See more'}</button>
+                      )}
+                    </p>
                     <div className="flex items-center gap-2">
                       <Button size="sm" onClick={handleRequest}>Request</Button>
                       <Button size="sm" onClick={handleJoinLive}>{exp.isLiveDemo ? 'Join Live Demo' : 'Request Live Demo'}</Button>
