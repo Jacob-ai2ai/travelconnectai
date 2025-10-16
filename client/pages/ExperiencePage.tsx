@@ -268,7 +268,17 @@ export default function ExperiencePage() {
                 <div className="text-2xl font-bold mb-3">${exp.price}</div>
                 <div className="mb-4 text-sm text-muted-foreground">Includes guide, transfers, and breakfast where applicable.</div>
 
-                {/* Inventory / Seat categories */}
+                {/* Dates selector */}
+                <div className="mb-3">
+                  <label className="text-sm font-medium">Choose date</label>
+                  <select className="w-full border rounded mt-1 p-2" value={selectedDate || ''} onChange={(e) => setSelectedDate(e.target.value)}>
+                    {(exp.availableDates||[]).map((d:string) => (
+                      <option key={d} value={d}>{new Date(d).toLocaleDateString()} • {new Date(d).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Participants / categories */}
                 <div className="space-y-2 mb-4">
                   {(exp.seatCategories||[]).map((cat:any)=> (
                     <div key={cat.id} className="flex items-center justify-between border rounded p-2">
@@ -285,7 +295,7 @@ export default function ExperiencePage() {
                   ))}
 
                   <div className="mt-2 flex items-center justify-between">
-                    <div className="text-sm">Seats subtotal</div>
+                    <div className="text-sm">Total</div>
                     <div className="text-lg font-bold">${seatsTotal().toFixed(2)}</div>
                   </div>
                 </div>
