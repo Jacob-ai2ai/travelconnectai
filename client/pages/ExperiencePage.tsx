@@ -176,6 +176,10 @@ export default function ExperiencePage() {
                 </div>
 
 
+                <div className="mb-4">
+                  <p className="text-sm text-muted-foreground">{exp.description}</p>
+                </div>
+
                 <div className="mt-6 grid md:grid-cols-2 gap-4">
                   <div>
                     <h4 className="font-semibold mb-2">Highlights</h4>
