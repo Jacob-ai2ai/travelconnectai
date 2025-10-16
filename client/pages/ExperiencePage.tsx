@@ -51,7 +51,7 @@ const SAMPLE_EXPERIENCES = [
     seatCategories: [ { id: 'cat-1', name: 'General Admission', price: 65, capacity: 30, available: 25 } ],
     availableDates: ['2025-05-12T10:00:00'],
     location: 'Ubud Market, Bali',
-    host: { name: 'Bali Kitchen Collective', avatar: '/placeholder.svg', about: 'Family-owned cooking school specializing in traditional Balinese cuisine.' },
+    host: { id: 'host-bali-kitchen', name: 'Bali Kitchen Collective', avatar: '/placeholder.svg', about: 'Family-owned cooking school specializing in traditional Balinese cuisine.' },
     guidelines: ['Arrive 15 minutes early', 'Comfortable clothing recommended'],
     safety: ['Hygiene standards maintained', 'Instructor-led sessions'],
     suggestedProducts: [ { id: 'prod-apron', name: 'Cooking Apron', price: 8, image: '/placeholder.svg' } ]
