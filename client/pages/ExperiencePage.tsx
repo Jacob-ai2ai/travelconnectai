@@ -21,9 +21,11 @@ const SAMPLE_EXPERIENCES = [
     isLiveDemo: true,
     liveViewers: 156,
     videos: ['/placeholder.svg'],
+    availableDates: ['2025-05-11T04:30:00','2025-05-12T04:30:00','2025-05-18T04:30:00'],
+    location: 'Batur Village, Kintamani, Bali (meeting point: Hotel lobby pickup)',
     seatCategories: [
-      { id: 'cat-1', name: 'Standard Seat', price: 85, capacity: 20, available: 15 },
-      { id: 'cat-2', name: 'Premium Seat', price: 120, capacity: 5, available: 3 }
+      { id: 'cat-1', name: 'Adult', price: 85, capacity: 20, available: 15 },
+      { id: 'cat-2', name: 'Child', price: 60, capacity: 10, available: 5 }
     ],
     host: { name: 'Batur Hikes Co.', avatar: '/placeholder.svg', about: 'Local guides with 10+ years of experience leading safe sunrise hikes.' },
     guidelines: ['Bring warm clothing for early mornings', 'Wear good hiking shoes', 'Not suitable for pregnant travelers'],
