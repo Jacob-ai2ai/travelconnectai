@@ -202,23 +202,6 @@ export default function ExperiencePage() {
                 {/* About / Guidelines / Map - full width below the columns */}
                 <div className="mt-6">
                   {/* Provider information (moved) */}
-                  {exp.host && (
-                    <div className="mb-4 border rounded p-3">
-                      <div className="font-semibold">Provider</div>
-                      <div className="flex items-center gap-3 mt-2">
-                        <div className="w-10 h-10 rounded-full overflow-hidden bg-muted"><img src={exp.host.avatar} alt={exp.host.name} className="w-full h-full object-cover" /></div>
-                        <div className="text-sm">
-                          <div className="font-medium">{exp.host.name}</div>
-                          <div className="text-xs text-muted-foreground">{exp.host.about}</div>
-                        </div>
-                        <div className="ml-auto flex items-center gap-2">
-                          <Button size="sm" variant="outline" onClick={() => alert('View provider')}>View provider</Button>
-                          <Button size="sm" onClick={() => alert('Contact provider')}>Contact</Button>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
                   <div className="mb-4">
                     <h4 className="font-semibold mb-2">About this experience</h4>
                     <p className="text-sm text-muted-foreground mb-3">
