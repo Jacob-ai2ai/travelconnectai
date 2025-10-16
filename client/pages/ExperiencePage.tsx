@@ -68,6 +68,8 @@ const SAMPLE_EXPERIENCES = [
     isLiveDemo: false,
     videos: [],
     seatCategories: [ { id: 'cat-1', name: 'Raft Slot', price: 45, capacity: 40, available: 30 } ],
+    availableDates: ['2025-05-20T08:00:00','2025-05-25T08:00:00'],
+    location: 'Ayung River, Ubud',
     host: { name: 'River Rapids Ltd.', avatar: '/placeholder.svg', about: 'Experienced rafting operators with full safety compliance.' },
     guidelines: ['Must be at least 12 years old', 'Swimwear recommended'],
     safety: ['Life jackets provided', 'Certified guides', 'Safety briefing mandatory'],
