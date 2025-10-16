@@ -201,14 +201,6 @@ export default function ExperiencePage() {
 
                 {/* About / Guidelines / Map - full width below the columns */}
                 <div className="mt-6">
-                    <div className="mb-4">
-                    <h4 className="font-semibold mb-2">Guidelines & eligibility</h4>
-                    <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
-                      {(exp.guidelines||[]).map((g:any)=> <li key={g}>{g}</li>)}
-                      {(exp.safety||[]).map((s:any)=> <li key={s}>{s}</li>)}
-                    </ul>
-                  </div>
-
                   {/* Provider information (moved) */}
                   {exp.host && (
                     <div className="mb-4 border rounded p-3">
