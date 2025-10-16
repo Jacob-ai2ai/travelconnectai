@@ -154,17 +154,10 @@ export default function ExperiencePage() {
                       {exp.startDate && <div className="flex items-center"><MapPin className="h-4 w-4 mr-1" />{new Date(exp.startDate).toLocaleDateString()}</div>}
                     </div>
 
-                    {exp.host && (
-                      <div className="mt-3 flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-full overflow-hidden bg-muted flex items-center justify-center"><img src={exp.host.avatar} alt={exp.host.name} className="w-full h-full object-cover" /></div>
-                        <div className="text-sm">
-                          <div className="font-medium">{exp.host.name}</div>
-                          <div className="text-xs text-muted-foreground">{exp.host.about}</div>
-                        </div>
-                        <div className="ml-4 flex items-center gap-2">
-                          <Button size="sm" variant="outline" onClick={handleRequest}>Request</Button>
-                          <Button size="sm" onClick={handleJoinLive}>{exp.isLiveDemo ? 'Join Live Demo' : 'Message Provider'}</Button>
-                        </div>
+                    {exp.startDate && (
+                      <div className="mt-3 text-sm text-muted-foreground">
+                        <div className="flex items-center gap-3"><Calendar className="h-4 w-4" /> <span>{new Date(exp.startDate).toLocaleDateString()} • {new Date(exp.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</span></div>
+                        {exp.location && <div className="flex items-center gap-3 mt-1"><MapPin className="h-4 w-4" /> <span>{exp.location}</span></div>}
                       </div>
                     )}
                   </div>
