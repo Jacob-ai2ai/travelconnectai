@@ -7,7 +7,7 @@ import { Calendar, Clock, Star, Play, MapPin } from 'lucide-react';
 import TripSummaryBox from '@/components/TripSummaryBox';
 import { addSummaryItem } from '@/lib/tripSummary';
 
-const SAMPLE_EXPERIENCES = [
+export const SAMPLE_EXPERIENCES = [
   {
     id: 'exp-1',
     name: 'Sunrise Mount Batur Hiking',
