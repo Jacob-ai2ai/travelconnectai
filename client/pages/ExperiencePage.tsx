@@ -198,14 +198,6 @@ export default function ExperiencePage() {
                   </div>
                 </div>
 
-                <div className="mt-4">
-                  <h4 className="font-semibold mb-2">Highlights</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {exp.highlights?.map((h) => (
-                      <Badge key={h} variant="secondary" className="text-xs">{h}</Badge>
-                    ))}
-                  </div>
-                </div>
 
                 {/* About / Guidelines / Map - full width below the columns */}
                 <div className="mt-6">
