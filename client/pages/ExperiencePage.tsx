@@ -181,25 +181,12 @@ export default function ExperiencePage() {
                   <p className="text-sm text-muted-foreground">{exp.description}</p>
                 </div>
 
-                <div className="mt-6 grid md:grid-cols-2 gap-4">
-                  <div>
-                    <h4 className="font-semibold mb-2">Highlights</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {exp.highlights?.map((h) => (
-                        <Badge key={h} variant="secondary" className="text-xs">{h}</Badge>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <h4 className="font-semibold mb-2">When & Where</h4>
-                    {exp.startDate && (
-                      <div className="text-sm text-muted-foreground">
-                        <div className="flex items-center gap-2 mb-1"><Calendar className="h-4 w-4" /> <span>{new Date(exp.startDate).toLocaleDateString()}</span></div>
-                        <div className="flex items-center gap-2"><Clock className="h-4 w-4" /> <span>{new Date(exp.startDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</span></div>
-                      </div>
-                    )}
-
+                <div className="mt-4">
+                  <h4 className="font-semibold mb-2">Highlights</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {exp.highlights?.map((h) => (
+                      <Badge key={h} variant="secondary" className="text-xs">{h}</Badge>
+                    ))}
                   </div>
                 </div>
 
