@@ -85,12 +85,14 @@ export default function ExperiencePage() {
   // selected seats per category
   const [selectedSeats, setSelectedSeats] = useState<Record<string, number>>({});
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [showFullDescription, setShowFullDescription] = useState(false);
 
   useEffect(() => {
     const init: Record<string, number> = {};
     (exp.seatCategories || []).forEach((c: any) => { init[c.id] = 0; });
     setSelectedSeats(init);
     setSelectedDate((exp.availableDates && exp.availableDates[0]) || null);
+    setShowFullDescription(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [exp.id]);
 
