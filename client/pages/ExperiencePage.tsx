@@ -219,6 +219,16 @@ export default function ExperiencePage() {
                   )}
 
                   <div className="mb-4">
+                    <h4 className="font-semibold mb-2">About this experience</h4>
+                    <p className="text-sm text-muted-foreground mb-3">{exp.description}</p>
+                    <div className="flex items-center gap-2">
+                      <Button size="sm" onClick={handleRequest}>Request</Button>
+                      <Button size="sm" onClick={handleJoinLive}>{exp.isLiveDemo ? 'Join Live Demo' : 'Request Live Demo'}</Button>
+                      <Button size="sm" variant="outline" onClick={() => alert('Contacting provider')}>Contact Provider</Button>
+                    </div>
+                  </div>
+
+                  <div className="mb-4">
                     <h4 className="font-semibold mb-2">Find the location</h4>
                     <div className="w-full h-48 rounded overflow-hidden border">
                       <iframe
