@@ -175,7 +175,6 @@ export default function ExperiencePage() {
                   </div>
                 </div>
 
-                <p className="mt-4 text-muted-foreground">{exp.description}</p>
 
                 <div className="mt-6 grid md:grid-cols-2 gap-4">
                   <div>
@@ -196,25 +195,12 @@ export default function ExperiencePage() {
                       </div>
                     )}
 
-                    <div className="mt-3 flex items-center space-x-3">
-                      <Button className="px-4 py-2" onClick={handleJoinLive}>{exp.isLiveDemo ? 'Join Live Demo' : 'Watch Preview'}</Button>
-                      <Button variant="outline" className="px-4 py-2">Contact Provider</Button>
-                    </div>
-
-                    <div className="mt-3">
-                      <h4 className="font-semibold mb-2">Booking options</h4>
-                    </div>
                   </div>
                 </div>
 
                 {/* About / Guidelines / Map - full width below the columns */}
                 <div className="mt-6">
-                  <div className="mb-4">
-                    <h4 className="font-semibold mb-2">About this experience</h4>
-                    <p className="text-sm text-muted-foreground">{exp.description}</p>
-                  </div>
-
-                  <div className="mb-4">
+                    <div className="mb-4">
                     <h4 className="font-semibold mb-2">Guidelines & eligibility</h4>
                     <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
                       {(exp.guidelines||[]).map((g:any)=> <li key={g}>{g}</li>)}
