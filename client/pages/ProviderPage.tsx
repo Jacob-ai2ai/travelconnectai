@@ -4,6 +4,8 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Star, Play } from 'lucide-react';
 import { SAMPLE_EXPERIENCES } from './ExperiencePage';
+import InventoryForm from '@/components/inventory/InventoryForm';
+import CalendarEditor from '@/components/inventory/CalendarEditor';
 
 export default function ProviderPage(){
   const { providerId } = useParams();
