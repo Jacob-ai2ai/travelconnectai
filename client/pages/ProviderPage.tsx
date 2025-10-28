@@ -100,6 +100,11 @@ export default function ProviderPage(){
               </CardContent>
             </Card>
 
+            <div className="mt-4">
+              <InventoryForm providerId={provider.id} />
+              <CalendarEditor />
+            </div>
+
           </main>
 
           <aside>
