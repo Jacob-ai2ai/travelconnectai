@@ -33,6 +33,7 @@ import TravelAgentOnboarding from "./pages/TravelAgentOnboarding";
 import ExperiencePage from "./pages/ExperiencePage";
 import EventPage from "./pages/EventPage";
 import ProductDetails from "./pages/ProductDetails";
+import ProfilePage from "./pages/ProfilePage";
 
 const queryClient = new QueryClient();
 
