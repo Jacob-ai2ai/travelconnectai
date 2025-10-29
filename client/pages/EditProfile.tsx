@@ -98,23 +98,28 @@ export default function EditProfile(){
     (document as any).removeEventListener('touchend', endSelDrag);
   }
 
-  function getCroppedDataUrl(){
-    if(!rawImage) return null;
+  function getCroppedDataUrlFromSelection(): Promise<string> | null{
+    const src = rawImage;
+    if(!src) return null;
     const img = new Image();
-    img.src = rawImage;
+    img.src = src;
     return new Promise<string>((resolve)=>{
       img.onload = ()=>{
+        // map selection (sel.x, sel.y, selSize) from displayed coords to natural image coords
+        const dispW = displaySize.w;
+        const dispH = displaySize.h;
+        const sxRatio = naturalSize.w / dispW;
+        const syRatio = naturalSize.h / dispH;
+        const sx = Math.round(sel.x * sxRatio);
+        const sy = Math.round(sel.y * syRatio);
+        const sSizeW = Math.round(selSize * sxRatio);
+        const sSizeH = Math.round(selSize * syRatio);
+        const sSize = Math.min(sSizeW, sSizeH);
         const canvas = document.createElement('canvas');
-        canvas.width = containerSize;
-        canvas.height = containerSize;
+        canvas.width = selSize;
+        canvas.height = selSize;
         const ctx = canvas.getContext('2d')!;
-        // compute scale between natural and displayed
-        const dispW = naturalSize.w * baseScale * scale;
-        const ratio = naturalSize.w / dispW; // natural per displayed px
-        const sx = (-offset.x) * ratio;
-        const sy = (-offset.y) * ratio;
-        const sSize = containerSize * ratio;
-        ctx.drawImage(img, sx, sy, sSize, sSize, 0, 0, containerSize, containerSize);
+        ctx.drawImage(img, sx, sy, sSize, sSize, 0, 0, selSize, selSize);
         resolve(canvas.toDataURL('image/jpeg'));
       };
     });
