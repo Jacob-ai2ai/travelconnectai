@@ -202,7 +202,7 @@ export default function ProfilePage(){
                   )}
 
                   <div className="w-full mt-4">
-                    <Button className="w-full" onClick={()=> setEditingBio(true)}><Edit3 className="mr-2 h-4 w-4"/>Edit Profile</Button>
+                    <Link to="/edit-profile"><Button className="w-full"><Edit3 className="mr-2 h-4 w-4"/>Edit Profile</Button></Link>
                   </div>
 
                 </div>
