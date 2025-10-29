@@ -232,7 +232,7 @@ export default function ProfilePage(){
                           <div className="flex-1">
                             <div className="flex items-center justify-between">
                               <div className="font-medium">{post.author}</div>
-                              <div className="text-xs text-muted-foreground">{new Date(post.createdAt).toLocaleString()}</div>
+                              <div className="text-xs text-muted-foreground">{post.scheduledAt ? `Scheduled: ${new Date(post.scheduledAt).toLocaleString()}` : new Date(post.createdAt).toLocaleString()}</div>
                             </div>
 
                             {post.content && <div className="mt-2 text-sm">{post.content}</div>}
