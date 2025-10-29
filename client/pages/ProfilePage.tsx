@@ -83,6 +83,7 @@ export default function ProfilePage(){
   const extraVendorStories = isVendor ? Array.from({length:6}).map((_,i)=>({ id:`v${i+1}`, name:`Live ${i+1}`, avatar:`https://i.pravatar.cc/150?img=${6+i}`, isLive:true, hasStory:true })) : [];
   const displayedStories = [...stories, ...extraVendorStories];
   function scrollStories(){ if(storiesRef.current) storiesRef.current.scrollBy({ left: 220, behavior: 'smooth' }); }
+  function scrollStoriesLeft(){ if(storiesRef.current) storiesRef.current.scrollBy({ left: -220, behavior: 'smooth' }); }
 
   const [bio, setBio] = useState(() => {
     try {
