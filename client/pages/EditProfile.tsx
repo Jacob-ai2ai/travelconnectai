@@ -70,9 +70,9 @@ export default function EditProfile(){
 
     setDisplaySize({w: displayW, h: displayH});
 
-    // choose a sensible selection diameter relative to the displayed image (50% of the smaller side), clamped to industry-friendly sizes
-    const computedSel = Math.round(Math.min(displayW, displayH) * 0.5);
-    const clampedSel = Math.max(120, Math.min(360, computedSel));
+    // choose a larger selection diameter relative to the displayed image (75% of the smaller side), clamped to reasonable sizes
+    const computedSel = Math.round(Math.min(displayW, displayH) * 0.75);
+    const clampedSel = Math.max(160, Math.min(480, computedSel));
     setSelSize(clampedSel);
 
     // place selection at center of the displayed image
