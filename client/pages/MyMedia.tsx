@@ -273,7 +273,7 @@ export default function MyMedia(){
   };
 
   return (
-    <div className="min-h-screen p-0 bg-background">
+    <div className="min-h-screen p-0 bg-background overflow-auto">
       <div className="max-w-4xl mx-auto">
         <Card>
           <CardHeader>
