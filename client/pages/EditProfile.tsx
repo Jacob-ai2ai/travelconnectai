@@ -69,8 +69,13 @@ export default function EditProfile(){
 
     setDisplaySize({w: displayW, h: displayH});
 
+    // choose a sensible selection diameter relative to the displayed image (50% of the smaller side), clamped to industry-friendly sizes
+    const computedSel = Math.round(Math.min(displayW, displayH) * 0.5);
+    const clampedSel = Math.max(120, Math.min(360, computedSel));
+    setSelSize(clampedSel);
+
     // place selection at center of the displayed image
-    setSel({ x: Math.max(0, (displayW - selSize)/2), y: Math.max(0, (displayH - selSize)/2) });
+    setSel({ x: Math.max(0, (displayW - clampedSel)/2), y: Math.max(0, (displayH - clampedSel)/2) });
 
     // Ensure the image element uses the computed display size (will be applied via inline style)
   }
@@ -186,13 +191,13 @@ export default function EditProfile(){
                 {rawImage && (
                   <div className="mb-3">
                     <div className="flex items-start gap-4">
-                      <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '8px' }}>
+                      <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '8px', width: displaySize.w ? displaySize.w + 'px' : '100%', height: displaySize.h ? displaySize.h + 'px' : 'auto' }}>
                         <img
                           ref={imgRef}
                           src={rawImage}
                           alt="to-crop"
                           onLoad={onImageLoad}
-                          style={{ display: 'block', width: displaySize.w ? displaySize.w + 'px' : '100%', height: displaySize.h ? displaySize.h + 'px' : 'auto', maxWidth: '90vw', userSelect: 'none' }}
+                          style={{ display: 'block', width: '100%', height: '100%', objectFit: 'contain', maxWidth: '90vw', userSelect: 'none' }}
                         />
                         {/* selection circle overlay */}
                         <div
@@ -203,10 +208,12 @@ export default function EditProfile(){
                       </div>
 
                       {/* live preview circle showing exactly what will be used for avatar */}
-                      <div style={{ width: 84, height: 84, borderRadius: 9999, overflow: 'hidden', backgroundColor: '#eee', flexShrink: 0, display: 'inline-block' }}>
+                      <div style={{ width: 96, height: 96, borderRadius: 9999, overflow: 'hidden', backgroundColor: '#eee', flexShrink: 0, display: 'inline-block' }}>
                         <div style={{
-                          width: selSize,
-                          height: selSize,
+                          width:  (selSize),
+                          height: (selSize),
+                          transform: `scale(${96 / selSize})`,
+                          transformOrigin: 'top left',
                           backgroundImage: `url(${rawImage})`,
                           backgroundRepeat: 'no-repeat',
                           backgroundSize: `${displaySize.w}px ${displaySize.h}px`,
