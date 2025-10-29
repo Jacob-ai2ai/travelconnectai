@@ -251,7 +251,7 @@ export default function ProfilePage(){
                             </div>
                           ))}
                         </div>
-                        <button type="button" aria-label="Scroll right" onClick={scrollStories} className="absolute right-2 top-1/2 -translate-y-1/2 bg-sky-500 hover:bg-sky-600 text-white rounded-full p-2 shadow z-20">&gt;</button>
+                        <button type="button" aria-label="Scroll right" onClick={scrollStories} className="absolute -right-12 top-1/2 -translate-y-1/2 bg-sky-500 hover:bg-sky-600 text-white rounded-full p-3 shadow z-20">&gt;</button>
                       </div>
 
                     </div>
