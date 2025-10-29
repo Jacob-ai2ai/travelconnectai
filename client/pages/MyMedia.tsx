@@ -289,7 +289,6 @@ export default function MyMedia(){
                 {/* Images section */}
                 <section style={{ display: tab === 'images' ? 'block' : 'none' }}>
                   <div className="flex items-center justify-between mb-2">
-                    <div className="font-medium">Images</div>
                     <div>
                       <label className="cursor-pointer text-sm text-sky-600">
                         <input type="file" accept="image/*" onChange={(e)=> addFileForCategoryInput('image', e)} className="hidden" />
