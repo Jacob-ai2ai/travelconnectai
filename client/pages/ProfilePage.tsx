@@ -37,7 +37,7 @@ export default function ProfilePage(){
     localStorage.setItem('posts', JSON.stringify(posts));
   },[posts]);
 
-  function createPost(p: Omit<Post,'id'|'author'|'authorId'|'createdAt'|'likes'|'comments'>){
+  function createPost(p: any){
     const newPost: Post = {
       id: uid('post-'),
       author: user?.username || user?.email || 'You',
@@ -45,7 +45,7 @@ export default function ProfilePage(){
       content: p.content,
       image: p.image,
       video: p.video,
-      isBlog: !!p.isBlog,
+      scheduledAt: p.scheduledAt,
       createdAt: new Date().toISOString(),
       likes: [],
       comments: []
