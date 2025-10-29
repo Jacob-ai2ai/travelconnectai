@@ -265,14 +265,15 @@ export default function MyMedia(){
       </div>
 
       {selected && (
-        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center">
-          <div className="max-w-3xl max-h-[80vh] overflow-auto bg-white p-4 rounded" onClick={e=> e.stopPropagation()}>
+        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center" onClick={()=> setSelected(null)}>
+          <div className="max-w-3xl max-h-[80vh] overflow-auto bg-white p-4 rounded relative" onClick={e=> e.stopPropagation()}>
+            <button onClick={()=> setSelected(null)} aria-label="Close" className="absolute top-2 right-2 text-sm bg-white/90 rounded-full w-7 h-7 flex items-center justify-center">×</button>
             {!rawImage ? (
               <div>
                 <img src={selected} alt="selected" className="w-full h-auto object-contain mb-3" />
                 <div className="flex gap-2 justify-end">
                   <Button variant="outline" onClick={()=> { openEditFor(selectedId || '', selected); }}>Edit</Button>
-                  <Button onClick={()=> { useAsAvatar(); setSelected(null); }}>Use as avatar</Button>
+                  <Button onClick={()=> { useAsAvatar(selectedId); setSelected(null); }}>Use as avatar</Button>
                   <Button variant="outline" onClick={()=> setSelected(null)}>Close</Button>
                 </div>
               </div>
