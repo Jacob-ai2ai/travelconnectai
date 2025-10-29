@@ -113,7 +113,7 @@ export default function ProfilePage(){
 
   return (
     <div className="min-h-screen p-6 bg-background">
-      <header className="border-b bg-blue-600 text-white sticky top-0 z-50">
+      <header className="border-b bg-blue-400 text-white sticky top-0 z-50">
         <div className="container mx-auto px-4 py-1 flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <div className="w-7 h-7 bg-gradient-to-br from-travel-blue to-travel-purple rounded-md flex items-center justify-center">
