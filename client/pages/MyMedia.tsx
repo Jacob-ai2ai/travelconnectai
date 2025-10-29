@@ -152,9 +152,41 @@ export default function MyMedia(){
       </div>
 
       {selected && (
-        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center" onClick={()=> setSelected(null)}>
-          <div className="max-w-3xl max-h-[80vh] overflow-auto">
-            <img src={selected} alt="selected" className="w-full h-auto object-contain" />
+        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center">
+          <div className="max-w-3xl max-h-[80vh] overflow-auto bg-white p-4 rounded" onClick={e=> e.stopPropagation()}>
+            {!rawImage ? (
+              <div>
+                <img src={selected} alt="selected" className="w-full h-auto object-contain mb-3" />
+                <div className="flex gap-2 justify-end">
+                  <Button variant="outline" onClick={()=> { openEditFor(selectedId || '', selected); }}>Edit</Button>
+                  <Button onClick={()=> { useAsAvatar(); setSelected(null); }}>Use as avatar</Button>
+                  <Button variant="outline" onClick={()=> setSelected(null)}>Close</Button>
+                </div>
+              </div>
+            ) : (
+              <div>
+                <div style={{ display: 'flex', gap: 12 }}>
+                  <div style={{ width: containerSize, height: containerSize, position: 'relative', overflow: 'hidden', borderRadius: 8 }}>
+                    <img ref={imgRef} src={rawImage || undefined} alt="to-crop" onLoad={onImageLoad} onMouseDown={startDrag} onTouchStart={startDrag} style={{ position: 'absolute', left: offset.x, top: offset.y, transform: `scale(${baseScale * scale})`, transformOrigin: 'top left', cursor: draggingRef.current ? 'grabbing' : 'grab', userSelect: 'none' }} />
+                    <div style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', border: '2px dashed rgba(0,0,0,0.2)', boxSizing: 'border-box' }} />
+                  </div>
+                  <div>
+                    <div className="text-sm mb-2">Preview</div>
+                    <div style={{ width:84, height:84, borderRadius:9999, overflow:'hidden', backgroundColor:'#eee' }}>
+                      <div style={{ width: containerSize, height: containerSize, transform: `translate(${offset.x}px, ${offset.y}px) scale(${baseScale * scale})`, transformOrigin: 'top left', backgroundImage: `url(${rawImage})`, backgroundRepeat: 'no-repeat', backgroundSize: `${naturalSize.w * baseScale * scale}px ${naturalSize.h * baseScale * scale}px`, backgroundPosition: `${offset.x}px ${offset.y}px` }} />
+                    </div>
+                    <div className="mt-3">
+                      <label className="text-xs">Zoom</label>
+                      <input type="range" min="0.5" max="2" step="0.01" value={scale} onChange={e=> setScale(Number(e.target.value))} />
+                    </div>
+                    <div className="flex gap-2 justify-end mt-3">
+                      <Button variant="outline" onClick={()=> setRawImage(null)}>Cancel</Button>
+                      <Button onClick={async ()=>{ await applyCropToMedia(); setRawImage(null); setSelected(null); }}>Apply</Button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
