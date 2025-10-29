@@ -113,10 +113,10 @@ export default function ProfilePage(){
         {/* Top action icons */}
         <div className="mb-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
+            <ActionIcon to="/my/notifications" Icon={Bell} label="Notifications" />
             <ActionIcon to="/my/trips" Icon={Map} label="Trips" />
             <ActionIcon to="/my/friends" Icon={Users} label="Friends" />
-            <ActionIcon to="/my/videos" Icon={Video} label="Videos" />
-            <ActionIcon to="/my/notifications" Icon={Bell} label="Notifications" />
+            <ActionIcon to="/my/videos" Icon={Play} label="Reels" />
             <ActionIcon to="/my/media" Icon={ImageIcon} label="Media" />
           </div>
         </div>
@@ -160,18 +160,10 @@ export default function ProfilePage(){
                     </div>
                   )}
 
-                  <div className="w-full mt-4 flex gap-2">
-                    <Button className="flex-1" onClick={()=> setEditingBio(true)}><Edit3 className="mr-2 h-4 w-4"/>Edit Profile</Button>
-                    <Button variant="outline" className="flex-1" onClick={()=> window.location.assign('/my/settings')}><Settings className="mr-2 h-4 w-4"/>Settings</Button>
+                  <div className="w-full mt-4">
+                    <Button className="w-full" onClick={()=> setEditingBio(true)}><Edit3 className="mr-2 h-4 w-4"/>Edit Profile</Button>
                   </div>
 
-                  <div className="mt-6 w-full">
-                    <h4 className="font-semibold mb-2">Buddies</h4>
-                    <div className="text-sm text-muted-foreground">Connect with friends here.</div>
-                    <div className="mt-2">
-                      <Button size="sm" className="w-full">View Buddies</Button>
-                    </div>
-                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -267,18 +259,32 @@ function PostComposer({ onPost }:{ onPost: (p: any)=>void }){
   const [image, setImage] = useState('');
   const [video, setVideo] = useState('');
   const [isBlog, setIsBlog] = useState(false);
+  const [showAddOptions, setShowAddOptions] = useState(false);
 
   function submit(){
     if(!text && !image && !video) return alert('Please add some content');
     onPost({ content: text, image: image || undefined, video: video || undefined, isBlog });
     setText(''); setImage(''); setVideo(''); setIsBlog(false);
+    setShowAddOptions(false);
   }
 
   return (
     <div>
-      <div className="mb-2">
+      <div className="mb-2 relative">
         <textarea className="w-full border rounded p-2" value={text} onChange={e=> setText(e.target.value)} placeholder="Share a status, photo, or blog post..." />
+        <button type="button" onClick={() => setShowAddOptions(s => !s)} className="absolute right-2 bottom-2 bg-travel-blue text-white rounded-full w-8 h-8 flex items-center justify-center">+</button>
       </div>
+
+      {showAddOptions && (
+        <div className="mb-2 flex items-center gap-2">
+          <button className="flex items-center gap-2 px-3 py-1 border rounded"><ImageIcon className="h-4 w-4"/> Photo</button>
+          <button className="flex items-center gap-2 px-3 py-1 border rounded"><Play className="h-4 w-4"/> Reel</button>
+          <button className="flex items-center gap-2 px-3 py-1 border rounded"><Video className="h-4 w-4"/> Video</button>
+          <button className="flex items-center gap-2 px-3 py-1 border rounded"><Map className="h-4 w-4"/> Trip</button>
+          <button className="flex items-center gap-2 px-3 py-1 border rounded"><Map className="h-4 w-4"/> Itinerary</button>
+        </div>
+      )}
+
       <div className="grid grid-cols-2 gap-2">
         <Input placeholder="Image URL" value={image} onChange={e=> setImage(e.target.value)} />
         <Input placeholder="Video URL" value={video} onChange={e=> setVideo(e.target.value)} />
