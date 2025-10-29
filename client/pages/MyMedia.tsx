@@ -287,7 +287,7 @@ export default function MyMedia(){
                 <div className="flex gap-2 mt-6 mb-4">
                   <button className={`px-3 py-1 rounded ${tab==="images"?"bg-muted text-foreground":"text-muted-foreground"}`} onClick={()=> setTab('images')}>Images</button>
                   <button className={`px-3 py-1 rounded ${tab==="videos"?"bg-muted text-foreground":"text-muted-foreground"}`} onClick={()=> setTab('videos')}>Videos</button>
-                  <button className={`px-3 py-1 rounded ${tab==="reels"?"bg-muted text-foreground":"text-muted-foreground"}`} onClick={()=> setTab('reels')}>Reels</button>
+                  <button className={`px-3 py-1 rounded ${tab==="reels"?"bg-muted text-foreground":"text-muted-foreground"}`} onClick={()=> setTab('reels')}>Creatives</button>
                 </div>
                 {/* Images section */}
                 <section style={{ display: tab === 'images' ? 'block' : 'none' }}>
