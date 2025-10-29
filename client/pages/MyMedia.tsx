@@ -57,6 +57,7 @@ export default function MyMedia(){
   const [offset, setOffset] = useState({x:0,y:0});
   const draggingRef = React.useRef(false);
   const dragStart = React.useRef({x:0,y:0,ox:0,oy:0});
+  const [dragging, setDragging] = useState(false);
 
   useEffect(()=>{
     try{
@@ -141,6 +142,7 @@ export default function MyMedia(){
 
   function startDrag(e: any){
     draggingRef.current = true;
+    setDragging(true);
     const p = e.touches ? e.touches[0] : e;
     dragStart.current = { x: p.clientX, y: p.clientY, ox: offset.x, oy: offset.y } as any;
     document.addEventListener('mousemove', onMove);
@@ -165,6 +167,7 @@ export default function MyMedia(){
   }
   function endDrag(){
     draggingRef.current = false;
+    setDragging(false);
     document.removeEventListener('mousemove', onMove);
     document.removeEventListener('mouseup', endDrag);
     document.removeEventListener('touchmove', onMove);
