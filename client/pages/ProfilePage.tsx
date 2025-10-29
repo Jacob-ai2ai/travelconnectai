@@ -145,12 +145,24 @@ export default function ProfilePage(){
               <CardContent>
                 <div className="flex flex-col items-center text-center">
                   <div className="w-24 h-24 rounded-full bg-muted mb-3 flex items-center justify-center text-2xl font-bold text-white">{(user?.username || user?.email || 'U').toString().slice(0,2).toUpperCase()}</div>
-                  <div className="font-medium">{user?.username || user?.email}</div>
-                  <div className="text-sm text-muted-foreground mt-2">Member since 2025</div>
+                  <div className="font-medium">{user?.username || 'Demo'}</div>
 
-                  <div className="w-full mt-4">
-                    <Button className="w-full mb-2">Edit Profile</Button>
-                    <Button variant="outline" className="w-full">Account Settings</Button>
+                  {/* Bio */}
+                  {!editingBio ? (
+                    <div className="text-sm text-muted-foreground mt-2">{bio || <em className="text-muted-foreground">Add a short bio about yourself</em>}</div>
+                  ) : (
+                    <div className="mt-2 w-full">
+                      <textarea className="w-full border rounded p-2" value={bio} onChange={e=> setBio(e.target.value)} />
+                      <div className="mt-2 flex gap-2">
+                        <Button size="sm" onClick={saveBio}>Save</Button>
+                        <Button size="sm" variant="outline" onClick={()=> setEditingBio(false)}>Cancel</Button>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="w-full mt-4 flex gap-2">
+                    <Button className="flex-1" onClick={()=> setEditingBio(true)}><Edit3 className="mr-2 h-4 w-4"/>Edit Profile</Button>
+                    <Button variant="outline" className="flex-1" onClick={()=> window.location.assign('/my/settings')}><Settings className="mr-2 h-4 w-4"/>Settings</Button>
                   </div>
 
                   <div className="mt-6 w-full">
