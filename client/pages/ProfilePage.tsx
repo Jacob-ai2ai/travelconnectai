@@ -177,7 +177,7 @@ export default function ProfilePage(){
       <div className="max-w-7xl mx-auto px-6">
 
 
-        <div className="grid md:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-4 gap-4">
           {/* Sidebar */}
           <aside className="md:col-span-1">
             <Card>
