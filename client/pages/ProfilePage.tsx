@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -78,6 +78,11 @@ export default function ProfilePage(){
     { id: 'f4', name: 'Noah', avatar: 'https://i.pravatar.cc/150?img=4', isLive: false, hasStory: true },
     { id: 'f5', name: 'Olivia', avatar: 'https://i.pravatar.cc/150?img=5', isLive: true, hasStory: true },
   ]);
+  const storiesRef = useRef<HTMLDivElement | null>(null);
+  const isVendor = (user as any)?.role === 'vendor';
+  const extraVendorStories = isVendor ? Array.from({length:6}).map((_,i)=>({ id:`v${i+1}`, name:`Live ${i+1}`, avatar:`https://i.pravatar.cc/150?img=${6+i}`, isLive:true, hasStory:true })) : [];
+  const displayedStories = [...stories, ...extraVendorStories];
+  function scrollStories(){ if(storiesRef.current) storiesRef.current.scrollBy({ left: 220, behavior: 'smooth' }); }
 
   const [bio, setBio] = useState(() => {
     try {
@@ -126,6 +131,7 @@ export default function ProfilePage(){
           </nav>
         </div>
       </header>
+      <div className="h-4" />
 
       <div className="container mx-auto">
 
@@ -135,7 +141,7 @@ export default function ProfilePage(){
           <aside className="md:col-span-1">
             <Card>
               <CardHeader>
-                <div className="text-sm font-semibold">{user?.username || 'Profile'}</div>
+                <div className="text-sm font-semibold">Traveler Profile</div>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-col items-center text-center">
@@ -192,10 +198,10 @@ export default function ProfilePage(){
                         <ActionIcon to="/my/media" Icon={ImageIcon} label="Media" />
                       </div>
 
-                      <div className="mt-4 overflow-x-auto">
-                        <div className="flex items-center gap-4">
-                          {stories.map(s => (
-                            <div key={s.id} className="flex flex-col items-center w-20">
+                      <div className="mt-4 overflow-x-auto relative">
+                        <div ref={storiesRef} className="flex items-center gap-4 overflow-x-auto whitespace-nowrap py-2">
+                          {displayedStories.map(s => (
+                            <div key={s.id} className="flex flex-col items-center w-20 inline-block">
                               <div className={`w-14 h-14 rounded-full overflow-hidden flex items-center justify-center ${s.isLive ? 'ring-2 ring-red-500' : s.hasStory ? 'ring-2 ring-yellow-400' : ''}`}>
                                 <img src={s.avatar} alt={s.name} className="w-full h-full object-cover" />
                               </div>
@@ -203,6 +209,7 @@ export default function ProfilePage(){
                             </div>
                           ))}
                         </div>
+                        <button type="button" onClick={scrollStories} className="absolute right-1 top-1/2 -translate-y-1/2 bg-white/90 text-gray-800 rounded-full p-1 shadow">&gt;</button>
                       </div>
 
                     </div>
