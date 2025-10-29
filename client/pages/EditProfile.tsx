@@ -63,8 +63,9 @@ export default function EditProfile(){
     // Choose a display width that shows as much of the image as possible while fitting the viewport
     const viewportPadding = 120; // leave some padding around
     const maxAvailableW = Math.max(300, window.innerWidth - viewportPadding);
-    const MAX_DISPLAY_W = 612; // Instagram-friendly display width (smaller than 720)
-    const displayW = Math.min(nw, maxAvailableW, MAX_DISPLAY_W);
+    // Display the image at half its natural width (keeps high quality but reduces displayed size)
+    const displayWHalf = Math.max(200, Math.round(nw / 2));
+    const displayW = Math.min(displayWHalf, maxAvailableW);
     const displayH = Math.round(displayW * (nh / nw));
 
     setDisplaySize({w: displayW, h: displayH});
