@@ -200,6 +200,7 @@ export default function ProfilePage(){
                       </div>
 
                       <div className="mt-4 overflow-x-auto relative">
+                        <button type="button" onClick={scrollStoriesLeft} className="absolute -left-8 top-1/2 -translate-y-1/2 bg-white/90 text-gray-800 rounded-full p-3 shadow z-10">&lt;</button>
                         <div ref={storiesRef} className="flex items-center gap-4 overflow-x-auto whitespace-nowrap py-2">
                           {displayedStories.map(s => (
                             <div key={s.id} className="flex flex-col items-center w-20 inline-block">
