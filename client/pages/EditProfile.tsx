@@ -228,7 +228,7 @@ export default function EditProfile(){
                         // save full image to media
                         try{
                           const existing = JSON.parse(localStorage.getItem('media') || '[]');
-                          existing.unshift({ id: 'm-'+Date.now(), url: rawImage, uploadedAt: new Date().toISOString() });
+                          existing.unshift({ id: 'm-'+Date.now(), url: rawImage, originalUrl: rawImage, type: 'image', uploadedAt: new Date().toISOString() });
                           localStorage.setItem('media', JSON.stringify(existing));
                         }catch(e){/* ignore */}
                         const fn = getCroppedDataUrlFromSelection();
