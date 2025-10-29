@@ -127,7 +127,7 @@ export default function ProfilePage(){
             <Link to="/xperiences" className="text-white/90 hover:text-white transition-colors">Xperiences</Link>
             <Link to="/events" className="text-white/90 hover:text-white transition-colors">Events</Link>
             <Link to="/essentials" className="text-white/90 hover:text-white transition-colors">Essentials</Link>
-            <Button variant="default" className="text-sm py-1 px-2 bg-[#f5a623] text-black" onClick={() => window.location.assign('/profile')}>Profile</Button>
+            <Link to="/ai-planner"><Button variant="default" className="text-sm py-1 px-2 bg-[#f5a623] text-black">Plan</Button></Link>
           </nav>
         </div>
       </header>
