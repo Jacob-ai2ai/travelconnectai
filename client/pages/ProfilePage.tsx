@@ -185,6 +185,12 @@ export default function ProfilePage(){
                           ))}
                         </div>
                       </div>
+
+                      {/* Create post composer under stories */}
+                      <div className="mt-4">
+                        <PostComposer onPost={createPost} />
+                      </div>
+
                     </div>
                   </CardContent>
                 </Card>
