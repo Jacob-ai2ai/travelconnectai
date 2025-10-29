@@ -274,7 +274,7 @@ export default function MyMedia(){
       <div className="max-w-4xl mx-auto">
         <Card>
           <CardHeader>
-            <div className="flex items-center justify-between w-full">
+            <div className="flex items-center justify-between w-full py-4 px-4">
               <CardTitle>My Media</CardTitle>
               <Link to="/profile" className="text-sm text-muted-foreground">Back</Link>
             </div>
