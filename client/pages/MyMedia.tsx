@@ -264,7 +264,7 @@ export default function MyMedia(){
   };
 
   return (
-    <div className="min-h-screen p-4 bg-background">
+    <div className="min-h-screen px-2 py-4 bg-background">
       <div className="max-w-4xl mx-auto">
         <Card>
           <CardHeader>
