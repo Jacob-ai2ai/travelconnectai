@@ -5,22 +5,24 @@ import { Link } from 'react-router-dom';
 import { readSummary, addSummaryItem } from '@/lib/tripSummary';
 
 export default function MyMedia(){
-  const [media, setMedia] = useState<{id:string;url:string;originalUrl?:string;type?:string;uploadedAt:string}[]>([]);
+  const [media, setMedia] = useState<{id:string;url:string;originalUrl?:string;type?:string;uploadedAt:string;album?:string}[]>([]);
   const [selected, setSelected] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [tab, setTab] = useState<'images'|'videos'|'reels'>('images');
   const trips = useMemo(() => readSummary(), []);
 
   const albums = useMemo(() => {
-    const out: string[] = [];
-    const formatDate = (d: string) => {
+    const out: { key: string; label: string; dest?: string; start?: string; end?: string }[] = [];
+    const fmtDayMon = (d: string) => {
       try{
         const dt = new Date(d);
         const day = dt.getDate();
-        const mon = dt.toLocaleString('en-GB', { month: 'short' }).toUpperCase();
-        const yr = dt.getFullYear();
-        return `${day} ${mon}, ${yr}`;
+        const mon = dt.toLocaleString('en-GB', { month: 'short' });
+        return `${day} ${mon}`;
       }catch(e){ return d; }
+    };
+    const fmtYear = (d: string) => {
+      try{ return new Date(d).getFullYear(); } catch(e){ return ''; }
     };
     trips.forEach(it => {
       const meta = it.meta || {};
@@ -28,11 +30,16 @@ export default function MyMedia(){
       const sd = meta.startDate || meta.from;
       const ed = meta.endDate || meta.to;
       if(!dest) return;
-      let name = dest.toLowerCase();
+      let key = dest.toLowerCase();
+      let label = dest;
       if(sd && ed){
-        name += ` ${formatDate(sd)} to ${formatDate(ed)}`;
+        const s = fmtDayMon(sd);
+        const e = fmtDayMon(ed);
+        const yr = fmtYear(ed) || fmtYear(sd);
+        label = `${dest} ${s} - ${e} ${yr}`;
+        key = `${dest.toLowerCase().replace(/\s+/g,'-')}_${sd}_${ed}`;
       }
-      if(!out.includes(name)) out.push(name);
+      if(!out.find(x=> x.key === key)) out.push({ key, label, dest, start: sd, end: ed });
     });
     return out;
   }, [trips]);
@@ -60,7 +67,7 @@ export default function MyMedia(){
           else if(url.match(/\.(jpe?g|png|gif|bmp|webp)(\?|$)/i) || url.startsWith('data:image')) type = 'image';
           else type = 'other';
         }
-        return { id: it.id || ('m-'+Date.now()), url, originalUrl: it.originalUrl || url, type, uploadedAt: it.uploadedAt || new Date().toISOString() };
+        return { id: it.id || ('m-'+Date.now()), url, originalUrl: it.originalUrl || url, type, uploadedAt: it.uploadedAt || new Date().toISOString(), album: it.album };
       });
       setMedia(normalized);
     }catch(e){
@@ -197,7 +204,7 @@ export default function MyMedia(){
     const reader = new FileReader();
     reader.onload = ()=>{
       const data = reader.result as string;
-      const newItem = { id: 'm-'+Date.now(), url: data, originalUrl: data, type, uploadedAt: new Date().toISOString(), album: albums[0] || undefined };
+      const newItem = { id: 'm-'+Date.now(), url: data, originalUrl: data, type, uploadedAt: new Date().toISOString(), album: albums[0]?.key || undefined };
       const updated = [newItem, ...media];
       setMedia(updated);
       localStorage.setItem('media', JSON.stringify(updated));
