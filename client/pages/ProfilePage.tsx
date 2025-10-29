@@ -127,7 +127,7 @@ export default function ProfilePage(){
             <Link to="/xperiences" className="text-white/90 hover:text-white transition-colors">Xperiences</Link>
             <Link to="/events" className="text-white/90 hover:text-white transition-colors">Events</Link>
             <Link to="/essentials" className="text-white/90 hover:text-white transition-colors">Essentials</Link>
-            <Button variant="default" className="text-sm py-1 px-2 bg-amber-600 text-black hover:bg-amber-600" onClick={() => window.location.assign('/profile')}>Profile</Button>
+            <Button variant="default" className="text-sm py-1 px-2 bg-[#f5a623] text-black" onClick={() => window.location.assign('/profile')}>Profile</Button>
           </nav>
         </div>
       </header>
@@ -316,10 +316,7 @@ function PostComposer({ onPost }:{ onPost: (p: any)=>void }){
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-2">
-        <Input placeholder="Image URL" value={image} onChange={e=> setImage(e.target.value)} />
-        <Input placeholder="Video URL" value={video} onChange={e=> setVideo(e.target.value)} />
-      </div>
+      <div className="grid grid-cols-2 gap-2" />
       <div className="flex items-center justify-between mt-2">
         <div className="flex items-center gap-2">
           <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={isBlog} onChange={e=> setIsBlog(e.target.checked)} /> Post as blog</label>
