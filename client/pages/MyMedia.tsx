@@ -21,9 +21,21 @@ export default function MyMedia(){
 
   useEffect(()=>{
     try{
-      const m = JSON.parse(localStorage.getItem('media') || '[]');
-      setMedia(m);
+      const raw = JSON.parse(localStorage.getItem('media') || '[]');
+      const normalized = (raw || []).map((it: any) => {
+        const url = it.url || it;
+        let type = 'image';
+        if(typeof url === 'string'){
+          if(url.startsWith('data:video') || url.match(/\.(mp4|webm|ogg)(\?|$)/i)) type = 'video';
+          else if(url.startsWith('data:audio') || url.match(/\.(mp3|wav|m4a)(\?|$)/i)) type = 'audio';
+          else if(url.match(/\.(jpe?g|png|gif|bmp|webp)(\?|$)/i) || url.startsWith('data:image')) type = 'image';
+          else type = 'other';
+        }
+        return { id: it.id || ('m-'+Date.now()), url, originalUrl: it.originalUrl || url, type, uploadedAt: it.uploadedAt || new Date().toISOString() };
+      });
+      setMedia(normalized);
     }catch(e){
+      // ignore
     }
   },[]);
 
