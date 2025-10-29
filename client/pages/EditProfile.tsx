@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Link, useNavigate } from 'react-router-dom';
@@ -11,6 +12,17 @@ export default function EditProfile(){
   const [preferences, setPreferences] = useState('');
   const [isPublic, setIsPublic] = useState(true);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+
+  // cropping states
+  const [rawImage, setRawImage] = useState<string | null>(null);
+  const imgRef = useRef<HTMLImageElement | null>(null);
+  const containerSize = 200; // square crop box in px
+  const [naturalSize, setNaturalSize] = useState({w:0,h:0});
+  const [baseScale, setBaseScale] = useState(1);
+  const [scale, setScale] = useState(1);
+  const [offset, setOffset] = useState({x:0,y:0});
+  const draggingRef = useRef(false);
+  const dragStart = useRef({x:0,y:0,ox:0,oy:0});
 
   useEffect(()=>{
     try{
@@ -33,22 +45,102 @@ export default function EditProfile(){
     const reader = new FileReader();
     reader.onload = () => {
       const data = reader.result as string;
-      setAvatarPreview(data);
+      setRawImage(data);
+      // reset crop
+      setScale(1);
+      setOffset({x:0,y:0});
+      setNaturalSize({w:0,h:0});
+      setBaseScale(1);
     };
     reader.readAsDataURL(f);
   }
 
-  function save(){
+  function onImageLoad(){
+    const img = imgRef.current;
+    if(!img) return;
+    const nw = img.naturalWidth;
+    const nh = img.naturalHeight;
+    setNaturalSize({w:nw,h:nh});
+    const coverScale = Math.max(containerSize / nw, containerSize / nh);
+    setBaseScale(coverScale);
+    setScale(1);
+    const displayedW = nw * coverScale;
+    const displayedH = nh * coverScale;
+    const ox = (containerSize - displayedW) / 2;
+    const oy = (containerSize - displayedH) / 2;
+    setOffset({x: ox, y: oy});
+  }
+
+  function startDrag(e: React.MouseEvent | React.TouchEvent){
+    draggingRef.current = true;
+    const p = 'touches' in e ? (e as React.TouchEvent).touches[0] : (e as React.MouseEvent);
+    dragStart.current = { x: p.clientX, y: p.clientY, ox: offset.x, oy: offset.y } as any;
+    (document as any).addEventListener('mousemove', onMove);
+    (document as any).addEventListener('mouseup', endDrag);
+    (document as any).addEventListener('touchmove', onMove);
+    (document as any).addEventListener('touchend', endDrag);
+  }
+  function onMove(e: any){
+    if(!draggingRef.current) return;
+    const p = e.touches ? e.touches[0] : e;
+    const dx = p.clientX - dragStart.current.x;
+    const dy = p.clientY - dragStart.current.y;
+    const newX = dragStart.current.ox + dx;
+    const newY = dragStart.current.oy + dy;
+    // clamp so image covers box
+    const displayedW = naturalSize.w * baseScale * scale;
+    const displayedH = naturalSize.h * baseScale * scale;
+    const minX = Math.min(0, containerSize - displayedW);
+    const minY = Math.min(0, containerSize - displayedH);
+    const clampedX = Math.max(minX, Math.min(newX, 0));
+    const clampedY = Math.max(minY, Math.min(newY, 0));
+    setOffset({x: clampedX, y: clampedY});
+  }
+  function endDrag(){
+    draggingRef.current = false;
+    (document as any).removeEventListener('mousemove', onMove);
+    (document as any).removeEventListener('mouseup', endDrag);
+    (document as any).removeEventListener('touchmove', onMove);
+    (document as any).removeEventListener('touchend', endDrag);
+  }
+
+  function getCroppedDataUrl(){
+    if(!rawImage) return null;
+    const img = new Image();
+    img.src = rawImage;
+    return new Promise<string>((resolve)=>{
+      img.onload = ()=>{
+        const canvas = document.createElement('canvas');
+        canvas.width = containerSize;
+        canvas.height = containerSize;
+        const ctx = canvas.getContext('2d')!;
+        // compute scale between natural and displayed
+        const dispW = naturalSize.w * baseScale * scale;
+        const ratio = naturalSize.w / dispW; // natural per displayed px
+        const sx = (-offset.x) * ratio;
+        const sy = (-offset.y) * ratio;
+        const sSize = containerSize * ratio;
+        ctx.drawImage(img, sx, sy, sSize, sSize, 0, 0, containerSize, containerSize);
+        resolve(canvas.toDataURL('image/jpeg'));
+      };
+    });
+  }
+
+  async function save(){
+    let finalAvatar = avatarPreview;
+    if(rawImage){
+      const cropped = await getCroppedDataUrl();
+      finalAvatar = cropped;
+    }
     const u = {
       ...(user || {}),
       username,
       bio,
       preferences,
       isPublic,
-      avatar: avatarPreview,
+      avatar: finalAvatar,
     };
     localStorage.setItem('user', JSON.stringify(u));
-    // navigate back to profile
     navigate('/profile');
   }
 
