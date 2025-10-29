@@ -182,31 +182,7 @@ export default function ProfilePage(){
             </Card>
           </aside>
 
-          {/* Icons and Stories that start aligned with main column */}
-          <div className="md:col-start-2 md:col-span-3">
-            <div className="flex items-center gap-3 mb-3">
-              <ActionIcon to="/my/notifications" Icon={Bell} label="Notifications" />
-              <ActionIcon to="/my/trips" Icon={Map} label="Trips" />
-              <ActionIcon to="/my/friends" Icon={Users} label="Friends" />
-              <ActionIcon to="/my/videos" Icon={Play} label="Reels" />
-              <ActionIcon to="/my/media" Icon={ImageIcon} label="Media" />
-            </div>
-
-            <div className="mb-6 overflow-x-auto py-2">
-              <div className="flex items-center gap-4">
-                {stories.map(s => (
-                  <div key={s.id} className="flex flex-col items-center w-20">
-                    <div className={`w-14 h-14 rounded-full overflow-hidden flex items-center justify-center ${s.isLive ? 'ring-2 ring-red-500' : s.hasStory ? 'ring-2 ring-yellow-400' : ''}`}>
-                      <img src={s.avatar} alt={s.name} className="w-full h-full object-cover" />
-                    </div>
-                    <div className="text-xs text-center mt-1">{s.name}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Main feed & Suggestions area under the icons/stories */}
+          {/* Main feed & Suggestions area */}
           <div className="md:col-start-2 md:col-span-3">
             <div className="grid md:grid-cols-3 gap-6">
               <main className="md:col-span-2">
