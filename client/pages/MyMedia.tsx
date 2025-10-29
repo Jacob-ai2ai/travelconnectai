@@ -306,7 +306,7 @@ export default function MyMedia(){
 
                     {media.filter(m=> m.type === 'image').map(m => (
                       <div key={m.id} className="rounded overflow-hidden bg-muted p-0">
-                        <div className="w-full h-48 md:h-64 overflow-hidden">
+                        <div style={{ width: '100%', aspectRatio: '520 / 300' }} className="overflow-hidden">
                           <img src={m.url} alt={m.id} className="w-full h-full object-cover cursor-pointer" onClick={()=> { setSelected(m.url); setSelectedId(m.id); }} />
                         </div>
                         <div className="px-2 py-1">
@@ -354,9 +354,13 @@ export default function MyMedia(){
                     })()}
 
                     {media.filter(m=> m.type === 'video').map(m => (
-                      <div key={m.id} className="rounded overflow-hidden bg-muted p-1 relative">
-                        <video src={m.url} className="w-full h-40 object-cover cursor-pointer" onClick={()=> { setSelected(m.url); setSelectedId(m.id); }} />
-                        <div className="text-xs text-muted-foreground mt-1">{new Date(m.uploadedAt).toLocaleString()}</div>
+                      <div key={m.id} className="rounded overflow-hidden bg-muted p-0">
+                        <div style={{ width: '100%', aspectRatio: '520 / 300' }} className="overflow-hidden">
+                          <video src={m.url} className="w-full h-full object-cover cursor-pointer" onClick={()=> { setSelected(m.url); setSelectedId(m.id); }} />
+                        </div>
+                        <div className="px-2 py-1">
+                          <div className="text-xs text-muted-foreground">{new Date(m.uploadedAt).toLocaleString()}</div>
+                        </div>
                       </div>
                     ))}
                   </div>
