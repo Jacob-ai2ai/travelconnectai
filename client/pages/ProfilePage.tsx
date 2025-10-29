@@ -240,7 +240,7 @@ export default function ProfilePage(){
                       </div>
 
                       <div className="mt-4 overflow-x-auto relative">
-                        <button type="button" onClick={scrollStoriesLeft} className="absolute -left-8 top-1/2 -translate-y-1/2 bg-white/90 text-gray-800 rounded-full p-3 shadow z-10">&lt;</button>
+                        <button type="button" aria-label="Scroll left" onClick={scrollStoriesLeft} className="absolute left-2 top-1/2 -translate-y-1/2 bg-sky-500 hover:bg-sky-600 text-white rounded-full p-2 shadow z-20">&lt;</button>
                         <div ref={storiesRef} className="flex items-center gap-4 overflow-x-auto whitespace-nowrap py-2">
                           {displayedStories.map(s => (
                             <div key={s.id} className="flex flex-col items-center w-20 inline-block">
@@ -251,7 +251,7 @@ export default function ProfilePage(){
                             </div>
                           ))}
                         </div>
-                        <button type="button" onClick={scrollStories} className="absolute -right-8 top-1/2 -translate-y-1/2 bg-white/90 text-gray-800 rounded-full p-3 shadow z-10">&gt;</button>
+                        <button type="button" aria-label="Scroll right" onClick={scrollStories} className="absolute right-2 top-1/2 -translate-y-1/2 bg-sky-500 hover:bg-sky-600 text-white rounded-full p-2 shadow z-20">&gt;</button>
                       </div>
 
                     </div>
