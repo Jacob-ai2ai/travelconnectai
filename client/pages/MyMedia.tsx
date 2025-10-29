@@ -108,6 +108,34 @@ export default function MyMedia(){
     setOffset({x: ox, y: oy});
   }
 
+  // Resize images to 1280x720 (contain) before storing
+  async function resizeImage(dataUrl: string){
+    return new Promise<string>((resolve)=>{
+      const img = new Image();
+      img.onload = ()=>{
+        const targetW = 1280;
+        const targetH = 720;
+        const canvas = document.createElement('canvas');
+        canvas.width = targetW;
+        canvas.height = targetH;
+        const ctx = canvas.getContext('2d')!;
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(0,0,targetW,targetH);
+        const w = img.naturalWidth;
+        const h = img.naturalHeight;
+        const scale = Math.min(targetW / w, targetH / h);
+        const dw = Math.round(w * scale);
+        const dh = Math.round(h * scale);
+        const dx = Math.round((targetW - dw) / 2);
+        const dy = Math.round((targetH - dh) / 2);
+        ctx.drawImage(img, 0,0,w,h, dx, dy, dw, dh);
+        resolve(canvas.toDataURL('image/jpeg', 0.8));
+      };
+      img.onerror = ()=> resolve(dataUrl);
+      img.src = dataUrl;
+    });
+  }
+
   function startDrag(e: any){
     draggingRef.current = true;
     const p = e.touches ? e.touches[0] : e;
@@ -202,9 +230,13 @@ export default function MyMedia(){
 
   function handleAddFile(file: File, type = 'image'){
     const reader = new FileReader();
-    reader.onload = ()=>{
+    reader.onload = async ()=>{
       const data = reader.result as string;
-      const newItem = { id: 'm-'+Date.now(), url: data, originalUrl: data, type, uploadedAt: new Date().toISOString(), album: albums[0]?.key || undefined };
+      let finalData = data;
+      if(type === 'image'){
+        try{ finalData = await resizeImage(data); }catch(e){ finalData = data; }
+      }
+      const newItem = { id: 'm-'+Date.now(), url: finalData, originalUrl: data, type, uploadedAt: new Date().toISOString(), album: albums[0]?.key || undefined };
       const updated = [newItem, ...media];
       setMedia(updated);
       localStorage.setItem('media', JSON.stringify(updated));
@@ -274,12 +306,7 @@ export default function MyMedia(){
 
                     {media.filter(m=> m.type === 'image').map(m => (
                       <div key={m.id} className="rounded overflow-hidden bg-muted p-1 relative">
-                        <img src={m.url} alt={m.id} className="w-full h-40 object-cover cursor-pointer" onClick={()=> { setSelected(m.url); setSelectedId(m.id); }} />
-                        <div className="absolute top-2 right-2 flex gap-1">
-                          <button onClick={() => openEditFor(m.id, m.originalUrl || m.url)} className="bg-white/90 rounded px-2 py-1 text-xs">Edit</button>
-                          <button onClick={() => { useAsAvatar(m.id); }} className="bg-white/90 rounded px-2 py-1 text-xs">Avatar</button>
-                          <button onClick={() => deleteMedia(m.id)} className="bg-white/90 rounded px-2 py-1 text-xs">Delete</button>
-                        </div>
+                        <img src={m.url} alt={m.id} className="w-full h-40 object-contain bg-black/5 cursor-pointer" onClick={()=> { setSelected(m.url); setSelectedId(m.id); }} />
                         <div className="text-xs text-muted-foreground mt-1">{new Date(m.uploadedAt).toLocaleString()}</div>
                       </div>
                     ))}
