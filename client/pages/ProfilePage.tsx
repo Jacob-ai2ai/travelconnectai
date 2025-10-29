@@ -79,6 +79,15 @@ export default function ProfilePage(){
     { id: 'f5', name: 'Olivia', avatar: 'https://i.pravatar.cc/150?img=5', isLive: true, hasStory: true },
   ]);
 
+  const [bio, setBio] = useState(() => {
+    try {
+      const raw = localStorage.getItem('user');
+      const u = raw ? JSON.parse(raw) : null;
+      return u?.bio || '';
+    } catch { return ''; }
+  });
+  const [editingBio, setEditingBio] = useState(false);
+
   function ActionIcon({ to, Icon, label }:{ to:string; Icon:any; label:string }){
     return (
       <Link to={to} className="flex flex-col items-center text-center text-sm text-muted-foreground w-20">
@@ -86,6 +95,15 @@ export default function ProfilePage(){
         <div className="mt-1">{label}</div>
       </Link>
     );
+  }
+
+  function saveBio(){
+    setEditingBio(false);
+    const raw = localStorage.getItem('user');
+    let u = raw ? JSON.parse(raw) : {};
+    u.bio = bio;
+    localStorage.setItem('user', JSON.stringify(u));
+    setUser(u);
   }
 
   return (
