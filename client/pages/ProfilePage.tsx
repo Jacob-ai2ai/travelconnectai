@@ -189,7 +189,7 @@ export default function ProfilePage(){
               <main className="md:col-span-2">
                 <Card className="mb-4">
                   <CardContent>
-                    <div className="mb-2">
+                    <div className="mt-3 mb-2">
                       <div className="flex items-center gap-6 justify-start">
                         <ActionIcon to="/my/notifications" Icon={Bell} label="Notifications" />
                         <ActionIcon to="/my/trips" Icon={Map} label="Trips" />
