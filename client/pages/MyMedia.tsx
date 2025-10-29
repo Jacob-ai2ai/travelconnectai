@@ -9,6 +9,8 @@ export default function MyMedia(){
   const [selected, setSelected] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [tab, setTab] = useState<'images'|'videos'|'reels'>('images');
+  // target size used for resizing subsequent uploads; default 520x300
+  const [uploadTarget, setUploadTarget] = useState<{w:number;h:number}>({w:520,h:300});
   const trips = useMemo(() => readSummary(), []);
 
   const albums = useMemo(() => {
@@ -108,26 +110,26 @@ export default function MyMedia(){
     setOffset({x: ox, y: oy});
   }
 
-  // Resize images to 520x300 (contain) before storing
-  async function resizeImage(dataUrl: string){
+  // Resize images to uploadTarget (contain) before storing
+  async function resizeImage(dataUrl: string, targetW?: number, targetH?: number){
     return new Promise<string>((resolve)=>{
       const img = new Image();
       img.onload = ()=>{
-        const targetW = 520;
-        const targetH = 300;
+        const tW = targetW || uploadTarget.w || 520;
+        const tH = targetH || uploadTarget.h || 300;
         const canvas = document.createElement('canvas');
-        canvas.width = targetW;
-        canvas.height = targetH;
+        canvas.width = tW;
+        canvas.height = tH;
         const ctx = canvas.getContext('2d')!;
         ctx.fillStyle = '#fff';
-        ctx.fillRect(0,0,targetW,targetH);
+        ctx.fillRect(0,0,tW,tH);
         const w = img.naturalWidth;
         const h = img.naturalHeight;
-        const scale = Math.min(targetW / w, targetH / h);
+        const scale = Math.min(tW / w, tH / h);
         const dw = Math.round(w * scale);
         const dh = Math.round(h * scale);
-        const dx = Math.round((targetW - dw) / 2);
-        const dy = Math.round((targetH - dh) / 2);
+        const dx = Math.round((tW - dw) / 2);
+        const dy = Math.round((tH - dh) / 2);
         ctx.drawImage(img, 0,0,w,h, dx, dy, dw, dh);
         resolve(canvas.toDataURL('image/jpeg', 0.8));
       };
@@ -234,7 +236,7 @@ export default function MyMedia(){
       const data = reader.result as string;
       let finalData = data;
       if(type === 'image'){
-        try{ finalData = await resizeImage(data); }catch(e){ finalData = data; }
+        try{ finalData = await resizeImage(data, uploadTarget.w, uploadTarget.h); }catch(e){ finalData = data; }
       }
       const newItem = { id: 'm-'+Date.now(), url: finalData, originalUrl: data, type, uploadedAt: new Date().toISOString(), album: albums[0]?.key || undefined };
       const updated = [newItem, ...media];
@@ -307,7 +309,12 @@ export default function MyMedia(){
                     {media.filter(m=> m.type === 'image').map(m => (
                       <div key={m.id} className="rounded overflow-hidden bg-muted p-0">
                         <div className="w-full aspect-square overflow-hidden">
-                          <img src={m.url} alt={m.id} className="w-full h-full object-cover cursor-pointer" onClick={()=> { setSelected(m.url); setSelectedId(m.id); }} />
+                          <img src={m.url} alt={m.id} className="w-full h-full object-cover cursor-pointer" onClick={() => {
+                              // set selected and set upload target to this image's natural size
+                              const img = new Image();
+                              img.onload = ()=>{ setUploadTarget({ w: img.naturalWidth, h: img.naturalHeight }); setSelected(m.url); setSelectedId(m.id); };
+                              img.src = m.url;
+                            }} />
                         </div>
                         <div className="px-2 py-1">
                           <div className="text-xs text-muted-foreground">{new Date(m.uploadedAt).toLocaleString()}</div>
