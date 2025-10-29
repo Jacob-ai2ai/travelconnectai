@@ -356,21 +356,18 @@ function PostComposer({ onPost }:{ onPost: (p: any)=>void }){
         <textarea className="w-full h-auto border rounded p-2" value={text} onChange={e=> setText(e.target.value)} placeholder="Share a status or photo..." />
       </div>
 
-      <div className="mb-2 flex items-center gap-2">
-        <button onClick={() => setShowAddOptions(s=> !s)} className="flex items-center justify-center w-8 h-8 rounded-full bg-[#1a8ab3] text-white">{showAddOptions ? '×' : '+'}</button>
-        {showAddOptions && (
-          <>
-            <button className="flex items-center gap-2 px-3 py-1 border rounded"><ImageIcon className="h-4 w-4"/> Photo</button>
-            <button className="flex items-center gap-2 px-3 py-1 border rounded"><Play className="h-4 w-4"/> Reel</button>
-            <button className="flex items-center gap-2 px-3 py-1 border rounded"><Video className="h-4 w-4"/> Video</button>
-            <button className="flex items-center gap-2 px-3 py-1 border rounded"><Map className="h-4 w-4"/> Itinerary</button>
-          </>
-        )}
-      </div>
+      {showAddOptions && (
+        <div className="mb-2 flex flex-wrap gap-2">
+          <button className="flex items-center gap-2 px-3 py-1 border rounded"><ImageIcon className="h-4 w-4"/> Photo</button>
+          <button className="flex items-center gap-2 px-3 py-1 border rounded"><Play className="h-4 w-4"/> Reel</button>
+          <button className="flex items-center gap-2 px-3 py-1 border rounded"><Video className="h-4 w-4"/> Video</button>
+          <button className="flex items-center gap-2 px-3 py-1 border rounded"><Map className="h-4 w-4"/> Itinerary</button>
+        </div>
+      )}
 
-      <div className="grid grid-cols-2 gap-2" />
       <div className="flex items-center justify-between mt-2">
-        <div className="flex items-center gap-2">
+        <div>
+          <button onClick={() => setShowAddOptions(s=> !s)} className="flex items-center justify-center w-8 h-8 rounded-full bg-[#1a8ab3] text-white">{showAddOptions ? '×' : '+'}</button>
         </div>
         <div className="flex items-center gap-2">
           <Button onClick={schedule} variant="outline">Schedule</Button>
