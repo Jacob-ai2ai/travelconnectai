@@ -377,14 +377,9 @@ export default function MyMedia(){
                   </div>
                   <div className="flex flex-wrap items-start gap-1">
                     {media.filter(m=> m.type === 'other' || m.type === 'audio').map(m => (
-                      <div key={m.id} className="rounded overflow-hidden bg-muted p-1 relative">
+                      <div key={m.id} className="inline-block rounded overflow-hidden bg-muted p-0">
                         <div className="w-full h-40 bg-black/5 flex items-center justify-center text-sm">{m.type}</div>
-                        <div className="absolute top-2 right-2 flex gap-1">
-                          <button onClick={()=> openEditFor(m.id, m.originalUrl || m.url)} className="bg-white/90 rounded px-2 py-1 text-xs">Edit</button>
-                          <button onClick={()=> { useAsAvatar(m.id); }} className="bg-white/90 rounded px-2 py-1 text-xs">Avatar</button>
-                          <button onClick={()=> deleteMedia(m.id)} className="bg-white/90 rounded px-2 py-1 text-xs">Delete</button>
-                        </div>
-                        <div className="text-xs text-muted-foreground mt-1">{new Date(m.uploadedAt).toLocaleString()}</div>
+                        <div className="px-2 py-1 text-xs text-muted-foreground">{new Date(m.uploadedAt).toLocaleString()}</div>
                       </div>
                     ))}
                   </div>
