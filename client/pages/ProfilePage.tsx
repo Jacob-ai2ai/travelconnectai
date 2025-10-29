@@ -111,7 +111,7 @@ export default function ProfilePage(){
       <div className="container mx-auto">
 
         {/* Top action icons */}
-        <div className="mb-4 flex items-center justify-between">
+        <div className="mb-4 flex items-center justify-between md:ml-32">
           <div className="flex items-center gap-3">
             <ActionIcon to="/my/notifications" Icon={Bell} label="Notifications" />
             <ActionIcon to="/my/trips" Icon={Map} label="Trips" />
