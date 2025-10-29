@@ -34,6 +34,7 @@ import ExperiencePage from "./pages/ExperiencePage";
 import EventPage from "./pages/EventPage";
 import ProductDetails from "./pages/ProductDetails";
 import ProfilePage from "./pages/ProfilePage";
+import EditProfile from "./pages/EditProfile";
 
 const queryClient = new QueryClient();
 
