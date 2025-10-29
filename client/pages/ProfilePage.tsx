@@ -70,6 +70,24 @@ export default function ProfilePage(){
     }));
   }
 
+  // Stories / friends live strip sample data
+  const [stories] = useState(() => [
+    { id: 'f1', name: 'Ava', avatar: 'https://i.pravatar.cc/150?img=1', isLive: true, hasStory: true },
+    { id: 'f2', name: 'Liam', avatar: 'https://i.pravatar.cc/150?img=2', isLive: false, hasStory: true },
+    { id: 'f3', name: 'Mia', avatar: 'https://i.pravatar.cc/150?img=3', isLive: false, hasStory: false },
+    { id: 'f4', name: 'Noah', avatar: 'https://i.pravatar.cc/150?img=4', isLive: false, hasStory: true },
+    { id: 'f5', name: 'Olivia', avatar: 'https://i.pravatar.cc/150?img=5', isLive: true, hasStory: true },
+  ]);
+
+  function ActionIcon({ to, Icon, label }:{ to:string; Icon:any; label:string }){
+    return (
+      <Link to={to} className="flex flex-col items-center text-center text-sm text-muted-foreground w-20">
+        <div className="p-3 rounded-md bg-white shadow flex items-center justify-center"><Icon className="h-5 w-5" /></div>
+        <div className="mt-1">{label}</div>
+      </Link>
+    );
+  }
+
   return (
     <div className="min-h-screen p-6 bg-background">
       <div className="container mx-auto">
