@@ -46,10 +46,9 @@ export default function EditProfile(){
       const data = reader.result as string;
       setRawImage(data);
       // reset crop
-      setScale(1);
-      setOffset({x:0,y:0});
       setNaturalSize({w:0,h:0});
-      setBaseScale(1);
+      setDisplaySize({w:0,h:0});
+      setSel({ x: 0, y: 0 });
     };
     reader.readAsDataURL(f);
   }
@@ -178,37 +177,36 @@ export default function EditProfile(){
                 {rawImage && (
                   <div className="mb-3">
                     <div className="flex items-start gap-4">
-                      <div style={{ width: containerSize, height: containerSize, position: 'relative', overflow: 'hidden', borderRadius: '8px' }}>
+                      <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '8px' }}>
                         <img
                           ref={imgRef}
                           src={rawImage}
                           alt="to-crop"
                           onLoad={onImageLoad}
-                          onMouseDown={startDrag}
-                          onTouchStart={startDrag}
-                          style={{ position: 'absolute', left: offset.x, top: offset.y, transform: `scale(${baseScale * scale})`, transformOrigin: 'top left', cursor: draggingRef.current ? 'grabbing' : 'grab', userSelect: 'none' }}
+                          style={{ display: 'block', maxWidth: '600px', width: '100%', height: 'auto', userSelect: 'none' }}
                         />
-                        <div style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', border: '2px dashed rgba(255,255,255,0.6)', boxSizing: 'border-box' }} />
+                        {/* selection circle overlay */}
+                        <div
+                          onMouseDown={startSelDrag}
+                          onTouchStart={startSelDrag}
+                          style={{ position: 'absolute', left: sel.x, top: sel.y, width: selSize, height: selSize, borderRadius: '50%', border: '2px dashed rgba(0,0,0,0.6)', cursor: 'grab', boxSizing: 'border-box', background: 'rgba(255,255,255,0.0)' }}
+                        />
                       </div>
 
                       {/* live preview circle showing exactly what will be used for avatar */}
                       <div style={{ width: 84, height: 84, borderRadius: 9999, overflow: 'hidden', backgroundColor: '#eee', flexShrink: 0, display: 'inline-block' }}>
                         <div style={{
-                          width: containerSize,
-                          height: containerSize,
-                          transform: `translate(${offset.x}px, ${offset.y}px) scale(${baseScale * scale})`,
-                          transformOrigin: 'top left',
+                          width: selSize,
+                          height: selSize,
                           backgroundImage: `url(${rawImage})`,
                           backgroundRepeat: 'no-repeat',
-                          backgroundSize: `${naturalSize.w * baseScale * scale}px ${naturalSize.h * baseScale * scale}px`,
-                          backgroundPosition: `${offset.x}px ${offset.y}px`
+                          backgroundSize: `${displaySize.w}px ${displaySize.h}px`,
+                          backgroundPosition: `-${sel.x}px -${sel.y}px`
                         }} />
                       </div>
                     </div>
 
                     <div className="flex items-center gap-2 mt-2">
-                      <label className="text-xs">Zoom</label>
-                      <input type="range" min="0.5" max="2" step="0.01" value={scale} onChange={e=> setScale(Number(e.target.value))} />
                       <button onClick={async ()=>{
                         // save full image to media
                         try{
