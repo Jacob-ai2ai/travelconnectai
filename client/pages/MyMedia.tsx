@@ -126,7 +126,7 @@ export default function MyMedia(){
         ctx.fillRect(0,0,tW,tH);
         const w = img.naturalWidth;
         const h = img.naturalHeight;
-        const scale = Math.min(tW / w, tH / h);
+        const scale = Math.max(tW / w, tH / h);
         const dw = Math.round(w * scale);
         const dh = Math.round(h * scale);
         const dx = Math.round((tW - dw) / 2);
