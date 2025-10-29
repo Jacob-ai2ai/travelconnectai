@@ -157,8 +157,8 @@ export default function MyMedia(){
     const newY = dragStart.current.oy + dy;
     const displayedW = naturalSize.w * baseScale * scale;
     const displayedH = naturalSize.h * baseScale * scale;
-    const minX = Math.min(0, containerSize - displayedW);
-    const minY = Math.min(0, containerSize - displayedH);
+    const minX = Math.min(0, containerW - displayedW);
+    const minY = Math.min(0, containerH - displayedH);
     const clampedX = Math.max(minX, Math.min(newX, 0));
     const clampedY = Math.max(minY, Math.min(newY, 0));
     setOffset({x: clampedX, y: clampedY});
