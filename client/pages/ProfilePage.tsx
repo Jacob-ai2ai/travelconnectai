@@ -108,21 +108,21 @@ export default function ProfilePage(){
 
   return (
     <div className="min-h-screen p-6 bg-background">
-      <header className="border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+      <header className="border-b bg-gray-900/95 text-white sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-1 flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-travel-blue to-travel-purple rounded-lg flex items-center justify-center">
-              <Plane className="h-5 w-5 text-white" />
+            <div className="w-7 h-7 bg-gradient-to-br from-travel-blue to-travel-purple rounded-md flex items-center justify-center">
+              <Plane className="h-4 w-4 text-white" />
             </div>
-            <span className="text-lg font-bold bg-gradient-to-r from-travel-blue to-travel-purple bg-clip-text text-transparent">Traveltheworld.ai</span>
+            <span className="text-sm font-semibold">Traveltheworld.ai</span>
           </div>
-          <nav className="hidden md:flex items-center space-x-6">
-            <Link to="/stays" className="text-foreground/80 hover:text-foreground transition-colors">Stays</Link>
-            <Link to="/flights" className="text-foreground/80 hover:text-foreground transition-colors">Flights</Link>
-            <Link to="/xperiences" className="text-foreground/80 hover:text-foreground transition-colors">Xperiences</Link>
-            <Link to="/events" className="text-foreground/80 hover:text-foreground transition-colors">Events</Link>
-            <Link to="/essentials" className="text-foreground/80 hover:text-foreground transition-colors">Essentials</Link>
-            <Button variant="outline" onClick={() => window.location.assign('/profile')}>Profile</Button>
+          <nav className="hidden md:flex items-center space-x-4 text-sm">
+            <Link to="/stays" className="text-white/90 hover:text-white transition-colors">Stays</Link>
+            <Link to="/flights" className="text-white/90 hover:text-white transition-colors">Flights</Link>
+            <Link to="/xperiences" className="text-white/90 hover:text-white transition-colors">Xperiences</Link>
+            <Link to="/events" className="text-white/90 hover:text-white transition-colors">Events</Link>
+            <Link to="/essentials" className="text-white/90 hover:text-white transition-colors">Essentials</Link>
+            <Button variant="outline" className="text-sm py-1 px-2" onClick={() => window.location.assign('/profile')}>Profile</Button>
           </nav>
         </div>
       </header>
