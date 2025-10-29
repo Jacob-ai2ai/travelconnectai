@@ -169,11 +169,40 @@ export default function EditProfile(){
 
               <div>
                 <label className="block text-sm font-medium mb-1">Profile picture</label>
-                {avatarPreview ? (
+                {avatarPreview && !rawImage && (
                   <div className="mb-2">
                     <img src={avatarPreview} alt="avatar" className="w-28 h-28 rounded-full object-cover" />
                   </div>
-                ) : null}
+                )}
+
+                {/* cropping UI when a new image is selected */}
+                {rawImage && (
+                  <div className="mb-3">
+                    <div style={{ width: containerSize, height: containerSize, position: 'relative', overflow: 'hidden', borderRadius: '8px', marginBottom: 8 }}>
+                      <img
+                        ref={imgRef}
+                        src={rawImage}
+                        alt="to-crop"
+                        onLoad={onImageLoad}
+                        onMouseDown={startDrag}
+                        onTouchStart={startDrag}
+                        style={{ position: 'absolute', left: offset.x, top: offset.y, transform: `scale(${baseScale * scale})`, transformOrigin: 'top left', cursor: 'grab' }}
+                      />
+                      <div style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', border: '2px dashed rgba(255,255,255,0.6)', boxSizing: 'border-box' }} />
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <label className="text-xs">Zoom</label>
+                      <input type="range" min="0.5" max="2" step="0.01" value={scale} onChange={e=> setScale(Number(e.target.value))} />
+                      <button onClick={async ()=>{
+                        const cropped = await getCroppedDataUrl();
+                        setAvatarPreview(cropped);
+                        setRawImage(null);
+                      }} className="ml-2 px-3 py-1 border rounded">Apply</button>
+                      <button onClick={()=> setRawImage(null)} className="ml-2 px-3 py-1 border rounded">Cancel</button>
+                    </div>
+                  </div>
+                )}
+
                 <input type="file" accept="image/*" onChange={onFile} />
               </div>
 
