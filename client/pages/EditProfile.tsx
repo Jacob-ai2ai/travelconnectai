@@ -15,13 +15,13 @@ export default function EditProfile(){
   // cropping states
   const [rawImage, setRawImage] = useState<string | null>(null);
   const imgRef = useRef<HTMLImageElement | null>(null);
-  const containerSize = 200; // square crop box in px
   const [naturalSize, setNaturalSize] = useState({w:0,h:0});
-  const [baseScale, setBaseScale] = useState(1);
-  const [scale, setScale] = useState(1);
-  const [offset, setOffset] = useState({x:0,y:0});
-  const draggingRef = useRef(false);
-  const dragStart = useRef({x:0,y:0,ox:0,oy:0});
+  const [displaySize, setDisplaySize] = useState({w:0,h:0});
+  // selection circle (in displayed image coordinates)
+  const selSize = 200; // diameter of circle in px
+  const [sel, setSel] = useState({ x: 0, y: 0 });
+  const draggingSel = useRef(false);
+  const selStart = useRef({ x: 0, y: 0, sx: 0, sy: 0 });
 
   useEffect(()=>{
     try{
