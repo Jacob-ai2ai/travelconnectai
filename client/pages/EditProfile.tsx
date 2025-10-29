@@ -210,14 +210,17 @@ export default function EditProfile(){
                       <label className="text-xs">Zoom</label>
                       <input type="range" min="0.5" max="2" step="0.01" value={scale} onChange={e=> setScale(Number(e.target.value))} />
                       <button onClick={async ()=>{
-                        const cropped = await getCroppedDataUrl();
-                        setAvatarPreview(cropped);
-                        setRawImage(null);
+                        // save full image to media
                         try{
                           const existing = JSON.parse(localStorage.getItem('media') || '[]');
-                          existing.unshift({ id: 'm-'+Date.now(), url: cropped, uploadedAt: new Date().toISOString() });
+                          existing.unshift({ id: 'm-'+Date.now(), url: rawImage, uploadedAt: new Date().toISOString() });
                           localStorage.setItem('media', JSON.stringify(existing));
                         }catch(e){/* ignore */}
+                        const fn = getCroppedDataUrlFromSelection();
+                        if(!fn) return;
+                        const cropped = await fn;
+                        setAvatarPreview(cropped);
+                        setRawImage(null);
                       }} className="ml-2 px-3 py-1 border rounded">Apply</button>
                       <button onClick={()=> setRawImage(null)} className="ml-2 px-3 py-1 border rounded">Cancel</button>
                     </div>
