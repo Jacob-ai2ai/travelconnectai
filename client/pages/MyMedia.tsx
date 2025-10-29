@@ -340,20 +340,13 @@ export default function MyMedia(){
                   <div className="mt-6">
                     <div className="font-medium mb-2">Albums</div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                      <div key={"album-goa"} className="rounded overflow-hidden bg-white p-4 border flex items-center justify-between">
-                        <div className="flex items-center gap-1">
+                      <div key={"album-goa"} className="rounded overflow-hidden bg-muted p-0 h-80 md:h-96 flex items-center justify-center border-2 border-dashed border-gray-200">
+                        <label className="cursor-pointer w-full h-full flex flex-col items-center justify-center p-4" style={{ padding: 0 }}>
+                          <input type="file" accept="image/*" onChange={(e)=> addFileForCategoryInput('image', e)} className="hidden" />
                           <div className="w-12 h-12 bg-gray-100 rounded flex items-center justify-center text-2xl">📁</div>
-                          <div>
-                            <div className="font-medium">Goa Trip Aug 2025</div>
-                            <div className="text-xs text-muted-foreground">Album</div>
-                          </div>
-                        </div>
-                        <div>
-                          <label className="cursor-pointer text-sm text-sky-600">
-                            <input type="file" accept="image/*" onChange={(e)=> addFileForCategoryInput('image', e)} className="hidden" />
-                            + Add
-                          </label>
-                        </div>
+                          <div className="font-medium mt-2">Goa Trip Aug 2025</div>
+                          <div className="text-xs text-muted-foreground">Album</div>
+                        </label>
                       </div>
                     </div>
                   </div>
