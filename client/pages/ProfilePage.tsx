@@ -174,7 +174,7 @@ export default function ProfilePage(){
       </header>
       <div className="h-4" />
 
-      <div className="container mx-auto">
+      <div className="max-w-6xl mx-auto px-4">
 
 
         <div className="grid md:grid-cols-4 gap-6">
