@@ -305,8 +305,8 @@ export default function MyMedia(){
                     })()}
 
                     {media.filter(m=> m.type === 'image').map(m => (
-                      <div key={m.id} className="rounded overflow-hidden bg-muted p-1 relative">
-                        <img src={m.url} alt={m.id} className="w-full h-40 object-contain bg-black/5 cursor-pointer" onClick={()=> { setSelected(m.url); setSelectedId(m.id); }} />
+                      <div key={m.id} className="rounded overflow-hidden bg-muted p-0">
+                        <img src={m.url} alt={m.id} className="block w-auto max-w-full h-auto cursor-pointer" onClick={()=> { setSelected(m.url); setSelectedId(m.id); }} />
                         <div className="text-xs text-muted-foreground mt-1">{new Date(m.uploadedAt).toLocaleString()}</div>
                       </div>
                     ))}
@@ -351,7 +351,7 @@ export default function MyMedia(){
 
                     {media.filter(m=> m.type === 'video').map(m => (
                       <div key={m.id} className="rounded overflow-hidden bg-muted p-1 relative">
-                        <video src={m.url} className="w-full h-40 object-cover cursor-pointer" onClick={()=> { setSelected(m.url); setSelectedId(m.id); }} />
+                        <video src={m.url} className="block w-auto max-w-full h-auto cursor-pointer" onClick={()=> { setSelected(m.url); setSelectedId(m.id); }} />
                         <div className="absolute top-2 right-2 flex gap-1">
                           <button onClick={() => openEditFor(m.id, m.originalUrl || m.url)} className="bg-white/90 rounded px-2 py-1 text-xs">Edit</button>
                           <button onClick={() => { useAsAvatar(m.id); }} className="bg-white/90 rounded px-2 py-1 text-xs">Avatar</button>
@@ -399,7 +399,7 @@ export default function MyMedia(){
             <button onClick={()=> setSelected(null)} aria-label="Close" className="absolute top-2 right-2 text-sm bg-white/90 rounded-full w-7 h-7 flex items-center justify-center">×</button>
             {!rawImage ? (
               <div>
-                <img src={selected} alt="selected" className="w-full h-auto object-contain mb-3" />
+                <img src={selected} alt="selected" style={{ width: 1280, height: 720, maxWidth: 'calc(100vw - 48px)', maxHeight: '80vh', objectFit: 'contain' }} className="mb-3" />
                 <div className="flex gap-2 justify-end">
                   <Button variant="outline" onClick={()=> { openEditFor(selectedId || '', selected || ''); }}>Edit</Button>
                   <Button onClick={()=> { useAsAvatar(selectedId); setSelected(null); }}>Use as avatar</Button>
