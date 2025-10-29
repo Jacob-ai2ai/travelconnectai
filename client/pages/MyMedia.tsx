@@ -356,13 +356,9 @@ export default function MyMedia(){
                     })()}
 
                     {media.filter(m=> m.type === 'video').map(m => (
-                      <div key={m.id} className="rounded overflow-hidden bg-muted p-0">
-                        <div className="w-full aspect-square overflow-hidden">
-                          <video src={m.url} className="w-full h-full object-cover cursor-pointer" onClick={()=> { setSelected(m.url); setSelectedId(m.id); }} />
-                        </div>
-                        <div className="px-2 py-1">
-                          <div className="text-xs text-muted-foreground">{new Date(m.uploadedAt).toLocaleString()}</div>
-                        </div>
+                      <div key={m.id} className="inline-block rounded overflow-hidden bg-muted p-0">
+                        <video src={m.url} className="block max-w-full h-auto cursor-pointer" onClick={()=> { setSelected(m.url); setSelectedId(m.id); }} />
+                        <div className="px-2 py-1 text-xs text-muted-foreground">{new Date(m.uploadedAt).toLocaleString()}</div>
                       </div>
                     ))}
                   </div>
