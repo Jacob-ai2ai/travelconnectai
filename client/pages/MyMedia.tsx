@@ -307,18 +307,13 @@ export default function MyMedia(){
                     })()}
 
                     {media.filter(m=> m.type === 'image').map(m => (
-                      <div key={m.id} className="rounded overflow-hidden bg-muted p-0">
-                        <div className="w-full aspect-square overflow-hidden">
-                          <img src={m.url} alt={m.id} className="w-full h-full object-cover cursor-pointer" onClick={() => {
-                              // set selected and set upload target to this image's natural size
+                      <div key={m.id} className="inline-block rounded overflow-hidden bg-muted p-0">
+                        <img src={m.url} alt={m.id} className="block max-w-full h-auto cursor-pointer" onClick={() => {
                               const img = new Image();
                               img.onload = ()=>{ setUploadTarget({ w: img.naturalWidth, h: img.naturalHeight }); setSelected(m.url); setSelectedId(m.id); };
                               img.src = m.url;
                             }} />
-                        </div>
-                        <div className="px-2 py-1">
-                          <div className="text-xs text-muted-foreground">{new Date(m.uploadedAt).toLocaleString()}</div>
-                        </div>
+                        <div className="px-2 py-1 text-xs text-muted-foreground">{new Date(m.uploadedAt).toLocaleString()}</div>
                       </div>
                     ))}
                   </div>
