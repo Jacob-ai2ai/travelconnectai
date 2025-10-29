@@ -446,10 +446,6 @@ export default function MyMedia(){
                     <div style={{ width:84, height:84, borderRadius:9999, overflow:'hidden', backgroundColor:'#eee' }}>
                       <div style={{ width: containerW, height: containerH, transform: `translate(${offset.x}px, ${offset.y}px) scale(${baseScale * scale})`, transformOrigin: 'top left', backgroundImage: `url(${rawImage})`, backgroundRepeat: 'no-repeat', backgroundSize: `${naturalSize.w * baseScale * scale}px ${naturalSize.h * baseScale * scale}px`, backgroundPosition: `${offset.x}px ${offset.y}px` }} />
                     </div>
-                    <div className="mt-3">
-                      <label className="text-xs">Zoom</label>
-                      <input type="range" min="0.5" max="2" step="0.01" value={scale} onChange={e=> setScale(Number(e.target.value))} />
-                    </div>
                     <div className="flex gap-2 justify-end mt-3">
                       <Button variant="outline" onClick={()=> setRawImage(null)}>Cancel</Button>
                       <Button onClick={async ()=>{ await applyCropToMedia(); setRawImage(null); setSelected(null); }}>Apply</Button>
