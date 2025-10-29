@@ -177,19 +177,36 @@ export default function EditProfile(){
                 {/* cropping UI when a new image is selected */}
                 {rawImage && (
                   <div className="mb-3">
-                    <div style={{ width: containerSize, height: containerSize, position: 'relative', overflow: 'hidden', borderRadius: '8px', marginBottom: 8 }}>
-                      <img
-                        ref={imgRef}
-                        src={rawImage}
-                        alt="to-crop"
-                        onLoad={onImageLoad}
-                        onMouseDown={startDrag}
-                        onTouchStart={startDrag}
-                        style={{ position: 'absolute', left: offset.x, top: offset.y, transform: `scale(${baseScale * scale})`, transformOrigin: 'top left', cursor: 'grab' }}
-                      />
-                      <div style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', border: '2px dashed rgba(255,255,255,0.6)', boxSizing: 'border-box' }} />
+                    <div className="flex items-start gap-4">
+                      <div style={{ width: containerSize, height: containerSize, position: 'relative', overflow: 'hidden', borderRadius: '8px' }}>
+                        <img
+                          ref={imgRef}
+                          src={rawImage}
+                          alt="to-crop"
+                          onLoad={onImageLoad}
+                          onMouseDown={startDrag}
+                          onTouchStart={startDrag}
+                          style={{ position: 'absolute', left: offset.x, top: offset.y, transform: `scale(${baseScale * scale})`, transformOrigin: 'top left', cursor: draggingRef.current ? 'grabbing' : 'grab', userSelect: 'none' }}
+                        />
+                        <div style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', border: '2px dashed rgba(255,255,255,0.6)', boxSizing: 'border-box' }} />
+                      </div>
+
+                      {/* live preview circle showing exactly what will be used for avatar */}
+                      <div style={{ width: 84, height: 84, borderRadius: 9999, overflow: 'hidden', backgroundColor: '#eee', flexShrink: 0, display: 'inline-block' }}>
+                        <div style={{
+                          width: containerSize,
+                          height: containerSize,
+                          transform: `translate(${offset.x}px, ${offset.y}px) scale(${baseScale * scale})`,
+                          transformOrigin: 'top left',
+                          backgroundImage: `url(${rawImage})`,
+                          backgroundRepeat: 'no-repeat',
+                          backgroundSize: `${naturalSize.w * baseScale * scale}px ${naturalSize.h * baseScale * scale}px`,
+                          backgroundPosition: `${offset.x}px ${offset.y}px`
+                        }} />
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2">
+
+                    <div className="flex items-center gap-2 mt-2">
                       <label className="text-xs">Zoom</label>
                       <input type="range" min="0.5" max="2" step="0.01" value={scale} onChange={e=> setScale(Number(e.target.value))} />
                       <button onClick={async ()=>{
