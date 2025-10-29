@@ -31,6 +31,13 @@ export default function ProfilePage(){
     if(raw) setUser(JSON.parse(raw));
     const rawPosts = localStorage.getItem('posts');
     if(rawPosts) setPosts(JSON.parse(rawPosts));
+    else {
+      // seed with sample posts from other users so feed isn't empty
+      const seeded = generateSamplePosts(8, 0);
+      setPosts(seeded);
+      // store initial seed
+      localStorage.setItem('posts', JSON.stringify(seeded));
+    }
   },[]);
 
   useEffect(()=>{
@@ -84,6 +91,39 @@ export default function ProfilePage(){
   const displayedStories = [...stories, ...extraVendorStories];
   function scrollStories(){ if(storiesRef.current) storiesRef.current.scrollBy({ left: 220, behavior: 'smooth' }); }
   function scrollStoriesLeft(){ if(storiesRef.current) storiesRef.current.scrollBy({ left: -220, behavior: 'smooth' }); }
+
+  // Infinite scroll / load more posts
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
+  const sampleIndexRef = useRef(0);
+  function generateSamplePosts(count:number, start = 0){
+    const authors = ['Maya','Carlos','Priya','Luka','Yara','Sam','Nina','Omar','Hana','Jon'];
+    return Array.from({length: count}).map((_,i)=>({
+      id: uid('sample-') + (start+i),
+      author: authors[(start+i) % authors.length],
+      content: `This is a sample post #${start+i+1} about a recent trip and some quick highlights.`,
+      image: (i % 3 === 0) ? `https://picsum.photos/seed/${start+i}/800/400` : undefined,
+      createdAt: new Date(Date.now() - (start+i)*1000*60*60).toISOString(),
+      likes: [],
+      comments: []
+    }));
+  }
+
+  useEffect(()=>{
+    const el = loadMoreRef.current;
+    if(!el) return;
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          // append more sample posts
+          const next = generateSamplePosts(4, sampleIndexRef.current);
+          sampleIndexRef.current += next.length;
+          setPosts(prev => [...prev, ...next]);
+        }
+      });
+    }, { root: null, rootMargin: '200px', threshold: 0.1 });
+    obs.observe(el);
+    return ()=> obs.disconnect();
+  }, []);
 
   const [bio, setBio] = useState(() => {
     try {
@@ -266,6 +306,7 @@ export default function ProfilePage(){
                       </CardContent>
                     </Card>
                   ))}
+                  <div ref={loadMoreRef} className="h-6" />
                 </div>
               </main>
 
