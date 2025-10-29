@@ -281,7 +281,7 @@ export default function MyMedia(){
                       </label>
                     </div>
                   </div>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
                     {(() => {
                       const goa = albums.find(a => a.dest && a.dest.toLowerCase() === 'goa');
                       if(goa){
@@ -289,7 +289,7 @@ export default function MyMedia(){
                         if(!has){
                           return (
                             <div key={"folder-"+goa.key} className="rounded overflow-hidden bg-white p-4 border flex items-center justify-between">
-                              <div className="flex items-center gap-3">
+                              <div className="flex items-center gap-1">
                                 <div className="w-12 h-12 bg-gray-100 rounded flex items-center justify-center text-2xl">📁</div>
                                 <div>
                                   <div className="font-medium">{goa.label}</div>
@@ -335,7 +335,7 @@ export default function MyMedia(){
                       </label>
                     </div>
                   </div>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
                     {(() => {
                       const goa = albums.find(a => a.dest && a.dest.toLowerCase() === 'goa');
                       if(goa){
@@ -343,7 +343,7 @@ export default function MyMedia(){
                         if(!has){
                           return (
                             <div key={"folder-"+goa.key+"-v"} className="rounded overflow-hidden bg-white p-4 border flex items-center justify-between">
-                              <div className="flex items-center gap-3">
+                              <div className="flex items-center gap-1">
                                 <div className="w-12 h-12 bg-gray-100 rounded flex items-center justify-center text-2xl">📁</div>
                                 <div>
                                   <div className="font-medium">{goa.label}</div>
@@ -384,7 +384,7 @@ export default function MyMedia(){
                       </label>
                     </div>
                   </div>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
                     {media.filter(m=> m.type === 'other' || m.type === 'audio').map(m => (
                       <div key={m.id} className="rounded overflow-hidden bg-muted p-1 relative">
                         <div className="w-full h-40 bg-black/5 flex items-center justify-center text-sm">{m.type}</div>
