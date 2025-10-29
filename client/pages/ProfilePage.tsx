@@ -122,7 +122,7 @@ export default function ProfilePage(){
         </div>
 
         {/* Stories strip */}
-        <div className="mb-6 overflow-x-auto py-2">
+        <div className="mb-6 overflow-x-auto py-2 md:ml-32">
           <div className="flex items-center gap-4">
             {stories.map(s => (
               <div key={s.id} className="flex flex-col items-center w-20">
