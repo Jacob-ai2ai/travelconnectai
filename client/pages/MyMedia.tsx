@@ -114,7 +114,8 @@ export default function MyMedia(){
     if(!id) return;
     const cropped = await getCroppedDataUrl();
     if(!cropped) return;
-    const updated = media.map(m=> m.id === id ? { ...m, url: cropped } : m);
+    // update only the displayed url but keep originalUrl for recovery
+    const updated = media.map(m=> m.id === id ? { ...m, url: cropped, originalUrl: m.originalUrl || m.url } : m);
     setMedia(updated);
     localStorage.setItem('media', JSON.stringify(updated));
     setSelected(cropped);
