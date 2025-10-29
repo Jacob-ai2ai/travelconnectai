@@ -178,15 +178,86 @@ export default function MyMedia(){
           </CardHeader>
           <CardContent>
             {media.length === 0 ? (
-              <div className="text-sm text-muted-foreground">No media yet. Upload from your profile.</div>
+              <div className="text-sm text-muted-foreground">No media yet. Use the + Add buttons for each category to upload.</div>
             ) : (
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {media.map(m => (
-                  <div key={m.id} className="rounded overflow-hidden bg-muted p-1">
-                    <img src={m.url} alt={m.id} className="w-full h-40 object-cover cursor-pointer" onClick={()=> setSelected(m.url)} />
-                    <div className="text-xs text-muted-foreground mt-1">{new Date(m.uploadedAt).toLocaleString()}</div>
+              <div className="space-y-6">
+                {/* Images section */}
+                <section>
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="font-medium">Images</div>
+                    <div>
+                      <label className="cursor-pointer text-sm text-sky-600">
+                        <input type="file" accept="image/*" onChange={(e)=> addFileForCategoryInput('image', e)} className="hidden" />
+                        + Add
+                      </label>
+                    </div>
                   </div>
-                ))}
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    {media.filter(m=> m.type === 'image').map(m => (
+                      <div key={m.id} className="rounded overflow-hidden bg-muted p-1 relative">
+                        <img src={m.url} alt={m.id} className="w-full h-40 object-cover cursor-pointer" onClick={()=> { setSelected(m.url); setSelectedId(m.id); }} />
+                        <div className="absolute top-2 right-2 flex gap-1">
+                          <button onClick={()=> openEditFor(m.id, m.originalUrl || m.url)} className="bg-white/90 rounded px-2 py-1 text-xs">Edit</button>
+                          <button onClick={()=> { useAsAvatar(m.id); }} className="bg-white/90 rounded px-2 py-1 text-xs">Avatar</button>
+                          <button onClick={()=> deleteMedia(m.id)} className="bg-white/90 rounded px-2 py-1 text-xs">Delete</button>
+                        </div>
+                        <div className="text-xs text-muted-foreground mt-1">{new Date(m.uploadedAt).toLocaleString()}</div>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+
+                {/* Videos section */}
+                <section>
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="font-medium">Videos</div>
+                    <div>
+                      <label className="cursor-pointer text-sm text-sky-600">
+                        <input type="file" accept="video/*" onChange={(e)=> addFileForCategoryInput('video', e)} className="hidden" />
+                        + Add
+                      </label>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    {media.filter(m=> m.type === 'video').map(m => (
+                      <div key={m.id} className="rounded overflow-hidden bg-muted p-1 relative">
+                        <video src={m.url} className="w-full h-40 object-cover cursor-pointer" onClick={()=> { setSelected(m.url); setSelectedId(m.id); }} />
+                        <div className="absolute top-2 right-2 flex gap-1">
+                          <button onClick={()=> openEditFor(m.id, m.originalUrl || m.url)} className="bg-white/90 rounded px-2 py-1 text-xs">Edit</button>
+                          <button onClick={()=> { useAsAvatar(m.id); }} className="bg-white/90 rounded px-2 py-1 text-xs">Avatar</button>
+                          <button onClick={()=> deleteMedia(m.id)} className="bg-white/90 rounded px-2 py-1 text-xs">Delete</button>
+                        </div>
+                        <div className="text-xs text-muted-foreground mt-1">{new Date(m.uploadedAt).toLocaleString()}</div>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+
+                {/* Other section */}
+                <section>
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="font-medium">Other</div>
+                    <div>
+                      <label className="cursor-pointer text-sm text-sky-600">
+                        <input type="file" onChange={(e)=> addFileForCategoryInput('other', e)} className="hidden" />
+                        + Add
+                      </label>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    {media.filter(m=> m.type === 'other' || m.type === 'audio').map(m => (
+                      <div key={m.id} className="rounded overflow-hidden bg-muted p-1 relative">
+                        <div className="w-full h-40 bg-black/5 flex items-center justify-center text-sm">{m.type}</div>
+                        <div className="absolute top-2 right-2 flex gap-1">
+                          <button onClick={()=> openEditFor(m.id, m.originalUrl || m.url)} className="bg-white/90 rounded px-2 py-1 text-xs">Edit</button>
+                          <button onClick={()=> { useAsAvatar(m.id); }} className="bg-white/90 rounded px-2 py-1 text-xs">Avatar</button>
+                          <button onClick={()=> deleteMedia(m.id)} className="bg-white/90 rounded px-2 py-1 text-xs">Delete</button>
+                        </div>
+                        <div className="text-xs text-muted-foreground mt-1">{new Date(m.uploadedAt).toLocaleString()}</div>
+                      </div>
+                    ))}
+                  </div>
+                </section>
               </div>
             )}
           </CardContent>
