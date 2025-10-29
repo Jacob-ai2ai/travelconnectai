@@ -63,7 +63,8 @@ export default function EditProfile(){
     // Choose a display width that shows as much of the image as possible while fitting the viewport
     const viewportPadding = 120; // leave some padding around
     const maxAvailableW = Math.max(300, window.innerWidth - viewportPadding);
-    const displayW = Math.min(nw, maxAvailableW);
+    const MAX_DISPLAY_W = 720;
+    const displayW = Math.min(nw, maxAvailableW, MAX_DISPLAY_W);
     const displayH = Math.round(displayW * (nh / nw));
 
     setDisplaySize({w: displayW, h: displayH});
