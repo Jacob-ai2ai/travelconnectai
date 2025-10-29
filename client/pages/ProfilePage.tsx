@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Map, Users, Video, Bell, Image as ImageIcon, Settings, Edit3 } from 'lucide-react';
+import { Map, Users, Play, Video, Bell, Image as ImageIcon, Edit3 } from 'lucide-react';
 
 type User = { id?: string; email?: string; username?: string };
 
