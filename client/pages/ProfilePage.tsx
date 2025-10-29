@@ -209,7 +209,7 @@ export default function ProfilePage(){
                             </div>
                           ))}
                         </div>
-                        <button type="button" onClick={scrollStories} className="absolute -right-3 top-1/2 -translate-y-1/2 bg-white/90 text-gray-800 rounded-full p-2 shadow z-10">&gt;</button>
+                        <button type="button" onClick={scrollStories} className="absolute -right-8 top-1/2 -translate-y-1/2 bg-white/90 text-gray-800 rounded-full p-3 shadow z-10">&gt;</button>
                       </div>
 
                     </div>
