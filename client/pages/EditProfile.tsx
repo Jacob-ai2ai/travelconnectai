@@ -18,7 +18,7 @@ export default function EditProfile(){
   const [naturalSize, setNaturalSize] = useState({w:0,h:0});
   const [displaySize, setDisplaySize] = useState({w:0,h:0});
   // selection circle (in displayed image coordinates)
-  const selSize = 200; // diameter of circle in px
+  const [selSize, setSelSize] = useState(200); // diameter of circle in px (display coords). You can later expose resizing controls if needed.
   const [sel, setSel] = useState({ x: 0, y: 0 });
   const draggingSel = useRef(false);
   const selStart = useRef({ x: 0, y: 0, sx: 0, sy: 0 });
@@ -59,11 +59,19 @@ export default function EditProfile(){
     const nw = img.naturalWidth;
     const nh = img.naturalHeight;
     setNaturalSize({w:nw,h:nh});
-    const dw = img.clientWidth;
-    const dh = img.clientHeight;
-    setDisplaySize({w: dw, h: dh});
-    // place selection at center
-    setSel({ x: Math.max(0, (dw - selSize)/2), y: Math.max(0, (dh - selSize)/2) });
+
+    // Choose a display width that shows as much of the image as possible while fitting the viewport
+    const viewportPadding = 120; // leave some padding around
+    const maxAvailableW = Math.max(300, window.innerWidth - viewportPadding);
+    const displayW = Math.min(nw, maxAvailableW);
+    const displayH = Math.round(displayW * (nh / nw));
+
+    setDisplaySize({w: displayW, h: displayH});
+
+    // place selection at center of the displayed image
+    setSel({ x: Math.max(0, (displayW - selSize)/2), y: Math.max(0, (displayH - selSize)/2) });
+
+    // Ensure the image element uses the computed display size (will be applied via inline style)
   }
 
   function startSelDrag(e: React.MouseEvent | React.TouchEvent){
@@ -183,7 +191,7 @@ export default function EditProfile(){
                           src={rawImage}
                           alt="to-crop"
                           onLoad={onImageLoad}
-                          style={{ display: 'block', maxWidth: '600px', width: '100%', height: 'auto', userSelect: 'none' }}
+                          style={{ display: 'block', width: displaySize.w ? displaySize.w + 'px' : '100%', height: displaySize.h ? displaySize.h + 'px' : 'auto', maxWidth: '90vw', userSelect: 'none' }}
                         />
                         {/* selection circle overlay */}
                         <div
