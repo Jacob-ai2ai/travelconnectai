@@ -176,8 +176,8 @@ export default function EditProfile(){
 
               <div>
                 <label className="block text-sm font-medium mb-1">Bio</label>
-                <textarea value={bio} onChange={e=> setBio(e.target.value)} className="w-full border rounded p-2" rows={4} maxLength={2000} />
-                <div className="text-xs text-muted-foreground mt-1">Up to 2000 characters</div>
+                <textarea value={bio} onChange={e=> setBio(e.target.value)} className="w-full border rounded p-2" rows={4} maxLength={140} />
+                <div className="text-xs text-muted-foreground mt-1">Up to 140 characters</div>
               </div>
 
               <div>
