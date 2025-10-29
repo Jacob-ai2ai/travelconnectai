@@ -14,7 +14,7 @@ type Post = {
   content?: string;
   image?: string;
   video?: string;
-  isBlog?: boolean;
+  scheduledAt?: string;
   createdAt: string;
   likes?: string[]; // user ids
   comments?: { id: string; user: string; text: string; createdAt: string }[];
