@@ -253,6 +253,16 @@ export default function MyMedia(){
     e.currentTarget.value = '';
   }
 
+  const getCurrentIndex = () => media.findIndex(m => m.id === selectedId || m.url === selected || m.originalUrl === selected);
+  const goPrev = () => {
+    const i = getCurrentIndex();
+    if(i > 0){ const m = media[i-1]; setSelected(m.url); setSelectedId(m.id); }
+  };
+  const goNext = () => {
+    const i = getCurrentIndex();
+    if(i >= 0 && i < media.length - 1){ const m = media[i+1]; setSelected(m.url); setSelectedId(m.id); }
+  };
+
   return (
     <div className="min-h-screen p-4 bg-background">
       <div className="max-w-4xl mx-auto">
