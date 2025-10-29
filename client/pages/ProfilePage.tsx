@@ -147,7 +147,6 @@ export default function ProfilePage(){
                   <div className="w-24 h-24 rounded-full bg-muted mb-3 flex items-center justify-center text-2xl font-bold text-white">{(user?.username || user?.email || 'U').toString().slice(0,2).toUpperCase()}</div>
                   <div className="font-medium">{user?.username || 'Demo'}</div>
 
-                  {/* Bio */}
                   {!editingBio ? (
                     <div className="text-sm text-muted-foreground mt-2">{bio || <em className="text-muted-foreground">Add a short bio about yourself</em>}</div>
                   ) : (
@@ -183,71 +182,96 @@ export default function ProfilePage(){
             </Card>
           </aside>
 
-          {/* Feed */}
-          <main className="md:col-span-2">
-            <Card className="mb-4">
-              <CardContent>
-                <PostComposer onPost={createPost} />
-              </CardContent>
-            </Card>
-
-            <div className="space-y-4">
-              {posts.map(post => (
-                <Card key={post.id}>
-                  <CardContent>
-                    <div className="flex items-start gap-4">
-                      <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-white font-semibold">{post.author.slice(0,2).toUpperCase()}</div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between">
-                          <div className="font-medium">{post.author}</div>
-                          <div className="text-xs text-muted-foreground">{new Date(post.createdAt).toLocaleString()}</div>
-                        </div>
-
-                        {post.content && <div className="mt-2 text-sm">{post.content}</div>}
-                        {post.image && <img src={post.image} alt="post" className="mt-2 max-h-64 w-full object-cover rounded" />}
-                        {post.video && (
-                          <div className="mt-2">
-                            <video controls src={post.video} className="w-full rounded max-h-64" />
-                          </div>
-                        )}
-
-                        <div className="mt-3 flex items-center gap-3 text-sm">
-                          <button onClick={() => toggleLike(post.id)} className="text-muted-foreground">{post.likes && post.likes.length > 0 ? `❤ ${post.likes.length}` : 'Like'}</button>
-                          <CommentSection post={post} onAdd={(text)=> addComment(post.id, text)} />
-                        </div>
-
-                        {/* comments */}
-                        {post.comments && post.comments.length > 0 && (
-                          <div className="mt-3 space-y-2">
-                            {post.comments.map(c => (
-                              <div key={c.id} className="text-sm border rounded p-2">
-                                <div className="text-xs text-muted-foreground">{c.user} • {new Date(c.createdAt).toLocaleString()}</div>
-                                <div className="mt-1">{c.text}</div>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+          {/* Icons and Stories that start aligned with main column */}
+          <div className="md:col-start-2 md:col-span-3">
+            <div className="flex items-center gap-3 mb-3">
+              <ActionIcon to="/my/notifications" Icon={Bell} label="Notifications" />
+              <ActionIcon to="/my/trips" Icon={Map} label="Trips" />
+              <ActionIcon to="/my/friends" Icon={Users} label="Friends" />
+              <ActionIcon to="/my/videos" Icon={Play} label="Reels" />
+              <ActionIcon to="/my/media" Icon={ImageIcon} label="Media" />
             </div>
 
-          </main>
+            <div className="mb-6 overflow-x-auto py-2">
+              <div className="flex items-center gap-4">
+                {stories.map(s => (
+                  <div key={s.id} className="flex flex-col items-center w-20">
+                    <div className={`w-14 h-14 rounded-full overflow-hidden flex items-center justify-center ${s.isLive ? 'ring-2 ring-red-500' : s.hasStory ? 'ring-2 ring-yellow-400' : ''}`}>
+                      <img src={s.avatar} alt={s.name} className="w-full h-full object-cover" />
+                    </div>
+                    <div className="text-xs text-center mt-1">{s.name}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
 
-          {/* Right side suggestions */}
-          <aside className="md:col-span-1">
-            <Card>
-              <CardHeader>
-                <div className="text-sm font-semibold">Suggestions</div>
-              </CardHeader>
-              <CardContent>
-                <div className="text-sm text-muted-foreground">People you may know and experiences to try.</div>
-              </CardContent>
-            </Card>
-          </aside>
+          {/* Main feed & Suggestions area under the icons/stories */}
+          <div className="md:col-start-2 md:col-span-3">
+            <div className="grid md:grid-cols-3 gap-6">
+              <main className="md:col-span-2">
+                <Card className="mb-4">
+                  <CardContent>
+                    <PostComposer onPost={createPost} />
+                  </CardContent>
+                </Card>
+
+                <div className="space-y-4">
+                  {posts.map(post => (
+                    <Card key={post.id}>
+                      <CardContent>
+                        <div className="flex items-start gap-4">
+                          <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-white font-semibold">{post.author.slice(0,2).toUpperCase()}</div>
+                          <div className="flex-1">
+                            <div className="flex items-center justify-between">
+                              <div className="font-medium">{post.author}</div>
+                              <div className="text-xs text-muted-foreground">{new Date(post.createdAt).toLocaleString()}</div>
+                            </div>
+
+                            {post.content && <div className="mt-2 text-sm">{post.content}</div>}
+                            {post.image && <img src={post.image} alt="post" className="mt-2 max-h-64 w-full object-cover rounded" />}
+                            {post.video && (
+                              <div className="mt-2">
+                                <video controls src={post.video} className="w-full rounded max-h-64" />
+                              </div>
+                            )}
+
+                            <div className="mt-3 flex items-center gap-3 text-sm">
+                              <button onClick={() => toggleLike(post.id)} className="text-muted-foreground">{post.likes && post.likes.length > 0 ? `❤ ${post.likes.length}` : 'Like'}</button>
+                              <CommentSection post={post} onAdd={(text)=> addComment(post.id, text)} />
+                            </div>
+
+                            {post.comments && post.comments.length > 0 && (
+                              <div className="mt-3 space-y-2">
+                                {post.comments.map(c => (
+                                  <div key={c.id} className="text-sm border rounded p-2">
+                                    <div className="text-xs text-muted-foreground">{c.user} • {new Date(c.createdAt).toLocaleString()}</div>
+                                    <div className="mt-1">{c.text}</div>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </main>
+
+              <aside className="md:col-span-1">
+                <Card>
+                  <CardHeader>
+                    <div className="text-sm font-semibold">Suggestions</div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-sm text-muted-foreground">People you may know and experiences to try.</div>
+                  </CardContent>
+                </Card>
+              </aside>
+            </div>
+          </div>
         </div>
       </div>
     </div>
