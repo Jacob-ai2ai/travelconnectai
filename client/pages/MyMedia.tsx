@@ -178,9 +178,6 @@ export default function MyMedia(){
             </div>
           </CardHeader>
           <CardContent>
-            {media.length === 0 ? (
-              <div className="text-sm text-muted-foreground">No media yet. Use the + Add buttons for each category to upload.</div>
-            ) : (
               <div className="space-y-6">
                 {/* Images section */}
                 <section>
@@ -260,7 +257,6 @@ export default function MyMedia(){
                   </div>
                 </section>
               </div>
-            )}
           </CardContent>
         </Card>
       </div>
