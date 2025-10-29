@@ -140,6 +140,32 @@ export default function MyMedia(){
     setRawImage(url);
   }
 
+  function deleteMedia(id:string){
+    const updated = media.filter(m=> m.id !== id);
+    setMedia(updated);
+    localStorage.setItem('media', JSON.stringify(updated));
+    setSelected(null);
+  }
+
+  function handleAddFile(file: File, type = 'image'){
+    const reader = new FileReader();
+    reader.onload = ()=>{
+      const data = reader.result as string;
+      const newItem = { id: 'm-'+Date.now(), url: data, originalUrl: data, type, uploadedAt: new Date().toISOString() };
+      const updated = [newItem, ...media];
+      setMedia(updated);
+      localStorage.setItem('media', JSON.stringify(updated));
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function addFileForCategoryInput(cat: string, e: React.ChangeEvent<HTMLInputElement>){
+    const f = e.target.files?.[0];
+    if(!f) return;
+    handleAddFile(f, cat);
+    e.currentTarget.value = '';
+  }
+
   return (
     <div className="min-h-screen p-4 bg-background">
       <div className="max-w-4xl mx-auto">
