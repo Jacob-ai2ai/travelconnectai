@@ -9,7 +9,7 @@ export default function MyMedia(){
   const [selected, setSelected] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [tab, setTab] = useState<'images'|'videos'|'reels'>('images');
-  // target size used for resizing subsequent uploads; default 520x300
+  // target size used for resizing subsequent uploads; default 1080x1350 (4:5 portrait)
   const [uploadTarget, setUploadTarget] = useState<{w:number;h:number}>({w:1080,h:1350});
   const trips = useMemo(() => readSummary(), []);
 
@@ -111,13 +111,13 @@ export default function MyMedia(){
     setOffset({x: ox, y: oy});
   }
 
-  // Resize images to uploadTarget (contain) before storing
+  // Resize images to uploadTarget (cover/crop-to-fill) before storing (convert uploads to 1080x1350 4:5)
   async function resizeImage(dataUrl: string, targetW?: number, targetH?: number){
     return new Promise<string>((resolve)=>{
       const img = new Image();
       img.onload = ()=>{
-        const tW = targetW || uploadTarget.w || 520;
-        const tH = targetH || uploadTarget.h || 300;
+        const tW = targetW || uploadTarget.w || 1080;
+        const tH = targetH || uploadTarget.h || 1350;
         const canvas = document.createElement('canvas');
         canvas.width = tW;
         canvas.height = tH;
