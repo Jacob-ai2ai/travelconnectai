@@ -122,13 +122,16 @@ export default function MyMedia(){
     setRawImage(null);
   }
 
-  async function useAsAvatar(){
-    const url = selected;
+  async function useAsAvatar(mediaId?: string){
+    // prefer originalUrl of the media item, fallback to currently selected
+    const item = mediaId ? media.find(m=> m.id === mediaId) : media.find(m=> m.url === selected || m.originalUrl === selected);
+    const url = item?.originalUrl || item?.url || selected;
     if(!url) return;
     try{
       const raw = JSON.parse(localStorage.getItem('user') || '{}');
       raw.avatar = url;
       localStorage.setItem('user', JSON.stringify(raw));
+      // update local state if needed
     }catch(e){}
   }
 
