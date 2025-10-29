@@ -291,7 +291,7 @@ export default function MyMedia(){
                       </label>
                     </div>
                   </div>
-                  <div className="grid grid-cols-3 gap-1">
+                  <div className="flex flex-wrap items-start gap-1">
                     {(() => {
                       const goa = albums.find(a => a.dest && a.dest.toLowerCase() === 'goa');
                       if(goa){
@@ -316,15 +316,13 @@ export default function MyMedia(){
                       return null;
                     })()}
 
-                    {media.filter(m=> m.type === 'image').map((m, idx) => (
-                      <div key={m.id} className="rounded overflow-hidden bg-muted p-0">
-                        <div className="w-full h-48 md:h-64 overflow-hidden">
-                          <img src={m.url} alt={m.id} className="w-full h-full object-cover cursor-pointer" onClick={() => {
+                    {media.filter(m=> m.type === 'image').map(m => (
+                      <div key={m.id} className="inline-block rounded overflow-hidden bg-muted p-0">
+                        <img src={m.url} alt={m.id} className="block max-w-full h-auto cursor-pointer" onClick={() => {
                               const img = new Image();
                               img.onload = ()=>{ setUploadTarget({ w: img.naturalWidth, h: img.naturalHeight }); setSelected(m.url); setSelectedId(m.id); };
                               img.src = m.url;
                             }} />
-                        </div>
                       </div>
                     ))}
                   </div>
@@ -341,7 +339,7 @@ export default function MyMedia(){
                       </label>
                     </div>
                   </div>
-                  <div className="grid grid-cols-3 gap-1">
+                  <div className="flex flex-wrap items-start gap-1">
                     {(() => {
                       const goa = albums.find(a => a.dest && a.dest.toLowerCase() === 'goa');
                       if(goa){
@@ -367,10 +365,8 @@ export default function MyMedia(){
                     })()}
 
                     {media.filter(m=> m.type === 'video').map(m => (
-                      <div key={m.id} className="rounded overflow-hidden bg-muted p-0">
-                        <div className="w-full h-48 md:h-64 overflow-hidden">
-                          <video src={m.url} className="w-full h-full object-cover cursor-pointer" onClick={()=> { setSelected(m.url); setSelectedId(m.id); }} />
-                        </div>
+                      <div key={m.id} className="inline-block rounded overflow-hidden bg-muted p-0">
+                        <video src={m.url} className="block max-w-full h-auto cursor-pointer" onClick={()=> { setSelected(m.url); setSelectedId(m.id); }} />
                       </div>
                     ))}
                   </div>
@@ -387,10 +383,10 @@ export default function MyMedia(){
                       </label>
                     </div>
                   </div>
-                  <div className="grid grid-cols-3 gap-1">
+                  <div className="flex flex-wrap items-start gap-1">
                     {media.filter(m=> m.type === 'other' || m.type === 'audio').map(m => (
-                      <div key={m.id} className="rounded overflow-hidden bg-muted p-0">
-                        <div className="w-full aspect-square bg-black/5 flex items-center justify-center text-sm">{m.type}</div>
+                      <div key={m.id} className="inline-block rounded overflow-hidden bg-muted p-0">
+                        <div className="w-40 h-24 bg-black/5 flex items-center justify-center text-sm">{m.type}</div>
                       </div>
                     ))}
                   </div>
