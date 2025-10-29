@@ -109,6 +109,25 @@ export default function ProfilePage(){
 
   return (
     <div className="min-h-screen p-6 bg-background">
+      <header className="border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <div className="w-8 h-8 bg-gradient-to-br from-travel-blue to-travel-purple rounded-lg flex items-center justify-center">
+              <Plane className="h-5 w-5 text-white" />
+            </div>
+            <span className="text-lg font-bold bg-gradient-to-r from-travel-blue to-travel-purple bg-clip-text text-transparent">Traveltheworld.ai</span>
+          </div>
+          <nav className="hidden md:flex items-center space-x-6">
+            <Link to="/stays" className="text-foreground/80 hover:text-foreground transition-colors">Stays</Link>
+            <Link to="/flights" className="text-foreground/80 hover:text-foreground transition-colors">Flights</Link>
+            <Link to="/xperiences" className="text-foreground/80 hover:text-foreground transition-colors">Xperiences</Link>
+            <Link to="/events" className="text-foreground/80 hover:text-foreground transition-colors">Events</Link>
+            <Link to="/essentials" className="text-foreground/80 hover:text-foreground transition-colors">Essentials</Link>
+            <Button variant="outline" onClick={() => window.location.assign('/profile')}>Profile</Button>
+          </nav>
+        </div>
+      </header>
+
       <div className="container mx-auto">
 
 
