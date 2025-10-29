@@ -149,9 +149,23 @@ export default function Index() {
             >
               Essentials
             </Link>
-            <Button variant="outline" onClick={() => setIsAuthModalOpen(true)}>
-              Sign In
-            </Button>
+            {(() => {
+              const isSignedIn = typeof window !== 'undefined' && localStorage.getItem('isSignedIn') === 'true';
+              const rawUser = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
+              const parsedUser = rawUser ? JSON.parse(rawUser) : null;
+              const displayName = parsedUser?.username || parsedUser?.email || parsedUser?.id || 'You';
+              const initials = displayName.split(/\s+/).map(s=>s[0]).slice(0,2).join('').toUpperCase();
+              return isSignedIn ? (
+                <button onClick={() => window.location.assign('/profile')} className="flex items-center gap-2 px-3 py-1 rounded-md hover:bg-gray-100">
+                  <div className="w-8 h-8 rounded-full bg-travel-blue text-white flex items-center justify-center text-sm font-semibold">{initials}</div>
+                  <div className="text-sm font-medium">{displayName}</div>
+                </button>
+              ) : (
+                <Button variant="outline" onClick={() => setIsAuthModalOpen(true)}>
+                  Sign In
+                </Button>
+              )
+            })()}
             <Link to="/vendors">
               <Button>Become a Travel Vendor</Button>
             </Link>
