@@ -182,9 +182,10 @@ export default function ProfilePage(){
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li><Link to="/my/profile">Personal information</Link></li>
-                  <li><Link to="/my/settings">Site preferences</Link></li>
-                  <li><Link to="/my/buddies">Buddies</Link></li>
+                  <li><Link to="/my/login-security">Login &amp; security</Link></li>
+                  <li><Link to="/my/travel-preferences">Travel preferences</Link></li>
+                  <li><Link to="/my/payment-info">Payment information</Link></li>
+                  <li><Link to="/my/wallet">Wallet &amp; Rewards</Link></li>
                 </ul>
               </CardContent>
             </Card>
