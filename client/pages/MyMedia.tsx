@@ -1,12 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { readSummary } from '@/lib/tripSummary';
 
 export default function MyMedia(){
   const [media, setMedia] = useState<{id:string;url:string;originalUrl?:string;type?:string;uploadedAt:string}[]>([]);
   const [selected, setSelected] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [tab, setTab] = useState<'images'|'videos'|'reels'>('images');
+  const trips = useMemo(() => readSummary(), []);
+
+  const albums = useMemo(() => {
+    const out: string[] = [];
+    const formatDate = (d: string) => {
+      try{
+        const dt = new Date(d);
+        const day = dt.getDate();
+        const mon = dt.toLocaleString('en-GB', { month: 'short' }).toUpperCase();
+        const yr = dt.getFullYear();
+        return `${day} ${mon}, ${yr}`;
+      }catch(e){ return d; }
+    };
+    trips.forEach(it => {
+      const meta = it.meta || {};
+      const dest = (meta.destination || meta.trip?.destination || it.title || '').toString();
+      const sd = meta.startDate || meta.from;
+      const ed = meta.endDate || meta.to;
+      if(!dest) return;
+      let name = dest.toLowerCase();
+      if(sd && ed){
+        name += ` ${formatDate(sd)} to ${formatDate(ed)}`;
+      }
+      if(!out.includes(name)) out.push(name);
+    });
+    return out;
+  }, [trips]);
 
   // cropping/editing state
   const [rawImage, setRawImage] = useState<string | null>(null);
@@ -151,7 +180,7 @@ export default function MyMedia(){
     const reader = new FileReader();
     reader.onload = ()=>{
       const data = reader.result as string;
-      const newItem = { id: 'm-'+Date.now(), url: data, originalUrl: data, type, uploadedAt: new Date().toISOString() };
+      const newItem = { id: 'm-'+Date.now(), url: data, originalUrl: data, type, uploadedAt: new Date().toISOString(), album: albums[0] || undefined };
       const updated = [newItem, ...media];
       setMedia(updated);
       localStorage.setItem('media', JSON.stringify(updated));
@@ -178,8 +207,13 @@ export default function MyMedia(){
           </CardHeader>
           <CardContent>
               <div className="space-y-6">
+                <div className="flex gap-2 mb-4">
+                  <button className={`px-3 py-1 rounded ${tab==="images"?"bg-muted text-foreground":"text-muted-foreground"}`} onClick={()=> setTab('images')}>Images</button>
+                  <button className={`px-3 py-1 rounded ${tab==="videos"?"bg-muted text-foreground":"text-muted-foreground"}`} onClick={()=> setTab('videos')}>Videos</button>
+                  <button className={`px-3 py-1 rounded ${tab==="reels"?"bg-muted text-foreground":"text-muted-foreground"}`} onClick={()=> setTab('reels')}>Reels</button>
+                </div>
                 {/* Images section */}
-                <section>
+                <section style={{ display: tab === 'images' ? 'block' : 'none' }}>
                   <div className="flex items-center justify-between mb-2">
                     <div className="font-medium">Images</div>
                     <div>
@@ -205,7 +239,7 @@ export default function MyMedia(){
                 </section>
 
                 {/* Videos section */}
-                <section>
+                <section style={{ display: tab === 'videos' ? 'block' : 'none' }}>
                   <div className="flex items-center justify-between mb-2">
                     <div className="font-medium">Videos</div>
                     <div>
@@ -230,8 +264,8 @@ export default function MyMedia(){
                   </div>
                 </section>
 
-                {/* Other section */}
-                <section>
+                {/* Reels section (was Other) */}
+                <section style={{ display: tab === 'reels' ? 'block' : 'none' }}>
                   <div className="flex items-center justify-between mb-2">
                     <div className="font-medium">Other</div>
                     <div>
