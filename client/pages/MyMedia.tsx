@@ -318,7 +318,7 @@ export default function MyMedia(){
 
                     {media.filter(m=> m.type === 'image').map(m => (
                       <div key={m.id} className="rounded overflow-hidden bg-muted p-0 h-80 md:h-96">
-                        <img src={m.url} alt={m.id} className="block w-full h-full object-cover cursor-pointer" onClick={() => {
+                        <img src={m.url} alt={m.id} className="block w-full h-full object-cover cursor-pointer" style={{ marginRight: "-1px" }} onClick={() => {
                               const img = new Image();
                               img.onload = ()=>{ setUploadTarget({ w: img.naturalWidth, h: img.naturalHeight }); setSelected(m.url); setSelectedId(m.id); };
                               img.src = m.url;
