@@ -296,7 +296,7 @@ export default function MyMedia(){
                       </label>
                     </div>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     {(() => {
                       const goa = albums.find(a => a.dest && a.dest.toLowerCase() === 'goa');
                       if(goa){
@@ -352,7 +352,7 @@ export default function MyMedia(){
                       </label>
                     </div>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     {(() => {
                       const goa = albums.find(a => a.dest && a.dest.toLowerCase() === 'goa');
                       if(goa){
@@ -396,7 +396,7 @@ export default function MyMedia(){
                       </label>
                     </div>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     {media.filter(m=> m.type === 'other' || m.type === 'audio').map(m => (
                       <div key={m.id} className="rounded overflow-hidden bg-muted p-0 h-80 md:h-96">
                         <div className="w-40 h-24 bg-black/5 flex items-center justify-center text-sm">{m.type}</div>
