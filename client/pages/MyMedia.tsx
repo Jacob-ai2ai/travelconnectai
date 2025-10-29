@@ -306,7 +306,7 @@ export default function MyMedia(){
 
                     {media.filter(m=> m.type === 'image').map(m => (
                       <div key={m.id} className="rounded overflow-hidden bg-muted p-0">
-                        <div style={{ width: '100%', aspectRatio: '520 / 300' }} className="overflow-hidden">
+                        <div className="w-full aspect-square overflow-hidden">
                           <img src={m.url} alt={m.id} className="w-full h-full object-cover cursor-pointer" onClick={()=> { setSelected(m.url); setSelectedId(m.id); }} />
                         </div>
                         <div className="px-2 py-1">
@@ -355,7 +355,7 @@ export default function MyMedia(){
 
                     {media.filter(m=> m.type === 'video').map(m => (
                       <div key={m.id} className="rounded overflow-hidden bg-muted p-0">
-                        <div style={{ width: '100%', aspectRatio: '520 / 300' }} className="overflow-hidden">
+                        <div className="w-full aspect-square overflow-hidden">
                           <video src={m.url} className="w-full h-full object-cover cursor-pointer" onClick={()=> { setSelected(m.url); setSelectedId(m.id); }} />
                         </div>
                         <div className="px-2 py-1">
