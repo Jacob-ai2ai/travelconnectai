@@ -108,13 +108,13 @@ export default function MyMedia(){
     setOffset({x: ox, y: oy});
   }
 
-  // Resize images to 1280x720 (contain) before storing
+  // Resize images to 520x300 (contain) before storing
   async function resizeImage(dataUrl: string){
     return new Promise<string>((resolve)=>{
       const img = new Image();
       img.onload = ()=>{
-        const targetW = 1280;
-        const targetH = 720;
+        const targetW = 520;
+        const targetH = 300;
         const canvas = document.createElement('canvas');
         canvas.width = targetW;
         canvas.height = targetH;
