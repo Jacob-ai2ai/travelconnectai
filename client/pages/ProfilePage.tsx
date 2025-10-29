@@ -309,7 +309,7 @@ function PostComposer({ onPost }:{ onPost: (p: any)=>void }){
 
   return (
     <div>
-      <div className="mb-2 relative">
+      <div className="mt-3 mb-2 relative">
         <textarea className="w-full max-w-[500px] mb-auto h-auto flex-grow-0 border rounded p-2" value={text} onChange={e=> setText(e.target.value)} placeholder="Share a status or photo..." />
         <button type="button" onClick={() => setShowAddOptions(s => !s)} className="absolute right-2 bottom-2 bg-[#1a8ab3] text-white rounded-full w-8 h-8 flex items-center justify-center">+</button>
       </div>
