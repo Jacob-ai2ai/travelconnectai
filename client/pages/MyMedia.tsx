@@ -248,13 +248,37 @@ export default function MyMedia(){
                     </div>
                   </div>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    {(() => {
+                      const goa = albums.find(a => a.dest && a.dest.toLowerCase() === 'goa');
+                      if(goa){
+                        const has = media.some(m => m.type === 'image' && m.album === goa.key);
+                        if(!has){
+                          return (
+                            <div key={"folder-"+goa.key} className="rounded overflow-hidden bg-white p-4 border flex items-center justify-between">
+                              <div className="flex items-center gap-3">
+                                <div className="w-12 h-12 bg-gray-100 rounded flex items-center justify-center text-2xl">📁</div>
+                                <div>
+                                  <div className="font-medium">{goa.label}</div>
+                                  <div className="text-xs text-muted-foreground">Empty album</div>
+                                </div>
+                              </div>
+                              <div>
+                                <button className="text-sm text-sky-600">Open</button>
+                              </div>
+                            </div>
+                          );
+                        }
+                      }
+                      return null;
+                    })()}
+
                     {media.filter(m=> m.type === 'image').map(m => (
                       <div key={m.id} className="rounded overflow-hidden bg-muted p-1 relative">
                         <img src={m.url} alt={m.id} className="w-full h-40 object-cover cursor-pointer" onClick={()=> { setSelected(m.url); setSelectedId(m.id); }} />
                         <div className="absolute top-2 right-2 flex gap-1">
-                          <button onClick={()=> openEditFor(m.id, m.originalUrl || m.url)} className="bg-white/90 rounded px-2 py-1 text-xs">Edit</button>
-                          <button onClick={()=> { useAsAvatar(m.id); }} className="bg-white/90 rounded px-2 py-1 text-xs">Avatar</button>
-                          <button onClick={()=> deleteMedia(m.id)} className="bg-white/90 rounded px-2 py-1 text-xs">Delete</button>
+                          <button onClick={() => openEditFor(m.id, m.originalUrl || m.url)} className="bg-white/90 rounded px-2 py-1 text-xs">Edit</button>
+                          <button onClick={() => { useAsAvatar(m.id); }} className="bg-white/90 rounded px-2 py-1 text-xs">Avatar</button>
+                          <button onClick={() => deleteMedia(m.id)} className="bg-white/90 rounded px-2 py-1 text-xs">Delete</button>
                         </div>
                         <div className="text-xs text-muted-foreground mt-1">{new Date(m.uploadedAt).toLocaleString()}</div>
                       </div>
@@ -274,13 +298,37 @@ export default function MyMedia(){
                     </div>
                   </div>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    {(() => {
+                      const goa = albums.find(a => a.dest && a.dest.toLowerCase() === 'goa');
+                      if(goa){
+                        const has = media.some(m => m.type === 'video' && m.album === goa.key);
+                        if(!has){
+                          return (
+                            <div key={"folder-"+goa.key+"-v"} className="rounded overflow-hidden bg-white p-4 border flex items-center justify-between">
+                              <div className="flex items-center gap-3">
+                                <div className="w-12 h-12 bg-gray-100 rounded flex items-center justify-center text-2xl">📁</div>
+                                <div>
+                                  <div className="font-medium">{goa.label}</div>
+                                  <div className="text-xs text-muted-foreground">Empty album</div>
+                                </div>
+                              </div>
+                              <div>
+                                <button className="text-sm text-sky-600">Open</button>
+                              </div>
+                            </div>
+                          );
+                        }
+                      }
+                      return null;
+                    })()}
+
                     {media.filter(m=> m.type === 'video').map(m => (
                       <div key={m.id} className="rounded overflow-hidden bg-muted p-1 relative">
                         <video src={m.url} className="w-full h-40 object-cover cursor-pointer" onClick={()=> { setSelected(m.url); setSelectedId(m.id); }} />
                         <div className="absolute top-2 right-2 flex gap-1">
-                          <button onClick={()=> openEditFor(m.id, m.originalUrl || m.url)} className="bg-white/90 rounded px-2 py-1 text-xs">Edit</button>
-                          <button onClick={()=> { useAsAvatar(m.id); }} className="bg-white/90 rounded px-2 py-1 text-xs">Avatar</button>
-                          <button onClick={()=> deleteMedia(m.id)} className="bg-white/90 rounded px-2 py-1 text-xs">Delete</button>
+                          <button onClick={() => openEditFor(m.id, m.originalUrl || m.url)} className="bg-white/90 rounded px-2 py-1 text-xs">Edit</button>
+                          <button onClick={() => { useAsAvatar(m.id); }} className="bg-white/90 rounded px-2 py-1 text-xs">Avatar</button>
+                          <button onClick={() => deleteMedia(m.id)} className="bg-white/90 rounded px-2 py-1 text-xs">Delete</button>
                         </div>
                         <div className="text-xs text-muted-foreground mt-1">{new Date(m.uploadedAt).toLocaleString()}</div>
                       </div>
