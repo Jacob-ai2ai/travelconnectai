@@ -68,6 +68,23 @@ export default function MyMedia(){
     }
   },[]);
 
+  // Seed a Goa trip into trip summary so an album is available
+  useEffect(()=>{
+    try{
+      const existing = readSummary();
+      const exists = existing.find(it => it.id === 'goa-2025-08-11');
+      if(!exists){
+        addSummaryItem({
+          id: 'goa-2025-08-11',
+          type: 'stay',
+          title: 'Goa',
+          price: 0,
+          meta: { destination: 'Goa', startDate: '2025-08-11', endDate: '2025-08-17' }
+        });
+      }
+    }catch(e){/* ignore */}
+  },[]);
+
   function onImageLoad(){
     const img = imgRef.current;
     if(!img) return;
