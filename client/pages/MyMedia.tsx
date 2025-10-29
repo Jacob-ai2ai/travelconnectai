@@ -281,7 +281,7 @@ export default function MyMedia(){
                       </label>
                     </div>
                   </div>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
+                  <div className="flex flex-wrap items-start gap-1">
                     {(() => {
                       const goa = albums.find(a => a.dest && a.dest.toLowerCase() === 'goa');
                       if(goa){
@@ -330,7 +330,7 @@ export default function MyMedia(){
                       </label>
                     </div>
                   </div>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
+                  <div className="flex flex-wrap items-start gap-1">
                     {(() => {
                       const goa = albums.find(a => a.dest && a.dest.toLowerCase() === 'goa');
                       if(goa){
@@ -375,7 +375,7 @@ export default function MyMedia(){
                       </label>
                     </div>
                   </div>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
+                  <div className="flex flex-wrap items-start gap-1">
                     {media.filter(m=> m.type === 'other' || m.type === 'audio').map(m => (
                       <div key={m.id} className="rounded overflow-hidden bg-muted p-1 relative">
                         <div className="w-full h-40 bg-black/5 flex items-center justify-center text-sm">{m.type}</div>
