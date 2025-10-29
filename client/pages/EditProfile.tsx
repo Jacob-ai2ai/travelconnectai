@@ -60,47 +60,42 @@ export default function EditProfile(){
     const nw = img.naturalWidth;
     const nh = img.naturalHeight;
     setNaturalSize({w:nw,h:nh});
-    const coverScale = Math.max(containerSize / nw, containerSize / nh);
-    setBaseScale(coverScale);
-    setScale(1);
-    const displayedW = nw * coverScale;
-    const displayedH = nh * coverScale;
-    const ox = (containerSize - displayedW) / 2;
-    const oy = (containerSize - displayedH) / 2;
-    setOffset({x: ox, y: oy});
+    const dw = img.clientWidth;
+    const dh = img.clientHeight;
+    setDisplaySize({w: dw, h: dh});
+    // place selection at center
+    setSel({ x: Math.max(0, (dw - selSize)/2), y: Math.max(0, (dh - selSize)/2) });
   }
 
-  function startDrag(e: React.MouseEvent | React.TouchEvent){
-    draggingRef.current = true;
+  function startSelDrag(e: React.MouseEvent | React.TouchEvent){
+    draggingSel.current = true;
     const p = 'touches' in e ? (e as React.TouchEvent).touches[0] : (e as React.MouseEvent);
-    dragStart.current = { x: p.clientX, y: p.clientY, ox: offset.x, oy: offset.y } as any;
-    (document as any).addEventListener('mousemove', onMove);
-    (document as any).addEventListener('mouseup', endDrag);
-    (document as any).addEventListener('touchmove', onMove);
-    (document as any).addEventListener('touchend', endDrag);
+    selStart.current = { x: p.clientX, y: p.clientY, sx: sel.x, sy: sel.y } as any;
+    (document as any).addEventListener('mousemove', selMove);
+    (document as any).addEventListener('mouseup', endSelDrag);
+    (document as any).addEventListener('touchmove', selMove);
+    (document as any).addEventListener('touchend', endSelDrag);
   }
-  function onMove(e: any){
-    if(!draggingRef.current) return;
+  function selMove(e: any){
+    if(!draggingSel.current) return;
     const p = e.touches ? e.touches[0] : e;
-    const dx = p.clientX - dragStart.current.x;
-    const dy = p.clientY - dragStart.current.y;
-    const newX = dragStart.current.ox + dx;
-    const newY = dragStart.current.oy + dy;
-    // clamp so image covers box
-    const displayedW = naturalSize.w * baseScale * scale;
-    const displayedH = naturalSize.h * baseScale * scale;
-    const minX = Math.min(0, containerSize - displayedW);
-    const minY = Math.min(0, containerSize - displayedH);
-    const clampedX = Math.max(minX, Math.min(newX, 0));
-    const clampedY = Math.max(minY, Math.min(newY, 0));
-    setOffset({x: clampedX, y: clampedY});
+    const dx = p.clientX - selStart.current.x;
+    const dy = p.clientY - selStart.current.y;
+    const newX = selStart.current.sx + dx;
+    const newY = selStart.current.sy + dy;
+    // clamp within displayed image
+    const maxX = Math.max(0, displaySize.w - selSize);
+    const maxY = Math.max(0, displaySize.h - selSize);
+    const clampedX = Math.max(0, Math.min(newX, maxX));
+    const clampedY = Math.max(0, Math.min(newY, maxY));
+    setSel({ x: clampedX, y: clampedY });
   }
-  function endDrag(){
-    draggingRef.current = false;
-    (document as any).removeEventListener('mousemove', onMove);
-    (document as any).removeEventListener('mouseup', endDrag);
-    (document as any).removeEventListener('touchmove', onMove);
-    (document as any).removeEventListener('touchend', endDrag);
+  function endSelDrag(){
+    draggingSel.current = false;
+    (document as any).removeEventListener('mousemove', selMove);
+    (document as any).removeEventListener('mouseup', endSelDrag);
+    (document as any).removeEventListener('touchmove', selMove);
+    (document as any).removeEventListener('touchend', endSelDrag);
   }
 
   function getCroppedDataUrl(){
