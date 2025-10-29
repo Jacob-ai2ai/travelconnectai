@@ -197,6 +197,11 @@ export default function EditProfile(){
                         const cropped = await getCroppedDataUrl();
                         setAvatarPreview(cropped);
                         setRawImage(null);
+                        try{
+                          const existing = JSON.parse(localStorage.getItem('media') || '[]');
+                          existing.unshift({ id: 'm-'+Date.now(), url: cropped, uploadedAt: new Date().toISOString() });
+                          localStorage.setItem('media', JSON.stringify(existing));
+                        }catch(e){/* ignore */}
                       }} className="ml-2 px-3 py-1 border rounded">Apply</button>
                       <button onClick={()=> setRawImage(null)} className="ml-2 px-3 py-1 border rounded">Cancel</button>
                     </div>
