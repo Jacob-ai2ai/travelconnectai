@@ -279,21 +279,6 @@ export default function ProfilePage(){
 
                             {post.content && <div className="mt-2 text-sm">{post.content}</div>}
 
-                            <div className="mt-3 flex items-center gap-3 text-sm">
-                              <button onClick={() => toggleLike(post.id)} className="text-muted-foreground">{post.likes && post.likes.length > 0 ? `❤ ${post.likes.length}` : 'Like'}</button>
-                              <CommentSection post={post} onAdd={(text)=> addComment(post.id, text)} />
-                            </div>
-
-                            {post.comments && post.comments.length > 0 && (
-                              <div className="mt-3 space-y-2">
-                                {post.comments.map(c => (
-                                  <div key={c.id} className="text-sm border rounded p-2">
-                                    <div className="text-xs text-muted-foreground">{c.user} • {new Date(c.createdAt).toLocaleString()}</div>
-                                    <div className="mt-1">{c.text}</div>
-                                  </div>
-                                ))}
-                              </div>
-                            )}
 
                           </div>
                         </div>
@@ -307,6 +292,24 @@ export default function ProfilePage(){
                         {post.video && (
                           <div className="mt-3 -mx-4 px-4">
                             <video controls src={post.video} className="w-full rounded" />
+                          </div>
+                        )}
+
+                        {/* Actions under media */}
+                        <div className="mt-3 flex items-center gap-4 text-sm px-4">
+                          <button onClick={() => toggleLike(post.id)} className="text-muted-foreground">{post.likes && post.likes.length > 0 ? `❤ ${post.likes.length}` : 'Like'}</button>
+                          <button onClick={() => { /* focus comment input if implemented */ }} className="text-muted-foreground">Comment</button>
+                          <button onClick={() => { navigator.clipboard?.writeText(window.location.href + '#post-' + post.id); }} className="text-muted-foreground">Share</button>
+                        </div>
+
+                        {post.comments && post.comments.length > 0 && (
+                          <div className="mt-3 space-y-2 px-4">
+                            {post.comments.map(c => (
+                              <div key={c.id} className="text-sm border rounded p-2">
+                                <div className="text-xs text-muted-foreground">{c.user} • {new Date(c.createdAt).toLocaleString()}</div>
+                                <div className="mt-1">{c.text}</div>
+                              </div>
+                            ))}
                           </div>
                         )}
                       </CardContent>
