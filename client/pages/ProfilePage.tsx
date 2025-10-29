@@ -289,20 +289,28 @@ function PostComposer({ onPost }:{ onPost: (p: any)=>void }){
   const [text, setText] = useState('');
   const [image, setImage] = useState('');
   const [video, setVideo] = useState('');
-  const [isBlog, setIsBlog] = useState(false);
   const [showAddOptions, setShowAddOptions] = useState(false);
 
-  function submit(){
+  function submit(scheduledAt?: string){
     if(!text && !image && !video) return alert('Please add some content');
-    onPost({ content: text, image: image || undefined, video: video || undefined, isBlog });
-    setText(''); setImage(''); setVideo(''); setIsBlog(false);
+    onPost({ content: text, image: image || undefined, video: video || undefined, scheduledAt });
+    setText(''); setImage(''); setVideo('');
     setShowAddOptions(false);
+  }
+
+  function schedule(){
+    const when = window.prompt('Enter schedule datetime (YYYY-MM-DD HH:MM) in your local time');
+    if(!when) return;
+    // basic parse
+    const dt = new Date(when.replace(' ', 'T'));
+    if(isNaN(dt.getTime())) return alert('Invalid date format');
+    submit(dt.toISOString());
   }
 
   return (
     <div>
       <div className="mb-2 relative">
-        <textarea className="w-full border rounded p-2" value={text} onChange={e=> setText(e.target.value)} placeholder="Share a status, photo, or blog post..." />
+        <textarea className="w-full border rounded p-2" value={text} onChange={e=> setText(e.target.value)} placeholder="Share a status or photo..." />
         <button type="button" onClick={() => setShowAddOptions(s => !s)} className="absolute right-2 bottom-2 bg-travel-blue text-white rounded-full w-8 h-8 flex items-center justify-center">+</button>
       </div>
 
@@ -319,10 +327,10 @@ function PostComposer({ onPost }:{ onPost: (p: any)=>void }){
       <div className="grid grid-cols-2 gap-2" />
       <div className="flex items-center justify-between mt-2">
         <div className="flex items-center gap-2">
-          <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={isBlog} onChange={e=> setIsBlog(e.target.checked)} /> Post as blog</label>
         </div>
-        <div>
-          <Button onClick={submit}>Post</Button>
+        <div className="flex items-center gap-2">
+          <Button onClick={schedule} variant="outline">Schedule</Button>
+          <Button onClick={() => submit()}>Post</Button>
         </div>
       </div>
     </div>
