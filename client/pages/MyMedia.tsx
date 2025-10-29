@@ -321,6 +321,14 @@ export default function MyMedia(){
                       return null;
                     })()}
 
+                    <div className="rounded overflow-hidden bg-muted p-0 h-80 md:h-96 flex items-center justify-center border-2 border-dashed border-gray-200">
+                      <label className="cursor-pointer w-full h-full flex flex-col items-center justify-center" style={{ padding: 0 }}>
+                        <input type="file" accept="image/*" onChange={(e)=> addFileForCategoryInput('image', e)} className="hidden" />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        <div className="text-sm text-sky-600 mt-2">Add</div>
+                      </label>
+                    </div>
+
                     {media.filter(m=> m.type === 'image').map(m => (
                       <div key={m.id} className="rounded overflow-hidden bg-muted p-0 h-80 md:h-96">
                         <img src={m.url} alt={m.id} className="block w-full h-full object-cover cursor-pointer" onClick={() => {
