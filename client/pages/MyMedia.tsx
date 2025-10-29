@@ -10,7 +10,7 @@ export default function MyMedia(){
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [tab, setTab] = useState<'images'|'videos'|'reels'>('images');
   // target size used for resizing subsequent uploads; default 520x300
-  const [uploadTarget, setUploadTarget] = useState<{w:number;h:number}>({w:520,h:300});
+  const [uploadTarget, setUploadTarget] = useState<{w:number;h:number}>({w:1080,h:1350});
   const trips = useMemo(() => readSummary(), []);
 
   const albums = useMemo(() => {
@@ -49,7 +49,8 @@ export default function MyMedia(){
   // cropping/editing state
   const [rawImage, setRawImage] = useState<string | null>(null);
   const imgRef = React.useRef<HTMLImageElement | null>(null);
-  const containerSize = 300;
+  const containerW = 300;
+  const containerH = Math.round(containerW * 5 / 4);
   const [naturalSize, setNaturalSize] = useState({w:0,h:0});
   const [baseScale, setBaseScale] = useState(1);
   const [scale, setScale] = useState(1);
@@ -100,13 +101,13 @@ export default function MyMedia(){
     const nw = img.naturalWidth;
     const nh = img.naturalHeight;
     setNaturalSize({w:nw,h:nh});
-    const coverScale = Math.max(containerSize / nw, containerSize / nh);
+    const coverScale = Math.max(containerW / nw, containerH / nh);
     setBaseScale(coverScale);
     setScale(1);
     const displayedW = nw * coverScale;
     const displayedH = nh * coverScale;
-    const ox = (containerSize - displayedW) / 2;
-    const oy = (containerSize - displayedH) / 2;
+    const ox = (containerW - displayedW) / 2;
+    const oy = (containerH - displayedH) / 2;
     setOffset({x: ox, y: oy});
   }
 
@@ -178,16 +179,21 @@ export default function MyMedia(){
     return new Promise<string>((resolve)=>{
       img.onload = ()=>{
         const canvas = document.createElement('canvas');
-        canvas.width = containerSize;
-        canvas.height = containerSize;
+        const outW = uploadTarget.w || 1080;
+        const outH = uploadTarget.h || 1350;
+        canvas.width = outW;
+        canvas.height = outH;
         const ctx = canvas.getContext('2d')!;
         const dispW = naturalSize.w * baseScale * scale;
-        const ratio = naturalSize.w / dispW;
-        const sx = (-offset.x) * ratio;
-        const sy = (-offset.y) * ratio;
-        const sSize = containerSize * ratio;
-        ctx.drawImage(img, sx, sy, sSize, sSize, 0, 0, containerSize, containerSize);
-        resolve(canvas.toDataURL('image/jpeg'));
+        const dispH = naturalSize.h * baseScale * scale;
+        const ratioX = naturalSize.w / dispW;
+        const ratioY = naturalSize.h / dispH;
+        const sx = (-offset.x) * ratioX;
+        const sy = (-offset.y) * ratioY;
+        const sW = containerW * ratioX;
+        const sH = containerH * ratioY;
+        ctx.drawImage(img, sx, sy, sW, sH, 0, 0, outW, outH);
+        resolve(canvas.toDataURL('image/jpeg', 0.8));
       };
     });
   }
@@ -430,14 +436,14 @@ export default function MyMedia(){
             ) : (
               <div>
                 <div style={{ display: 'flex', gap: 12 }}>
-                  <div style={{ width: containerSize, height: containerSize, position: 'relative', overflow: 'hidden', borderRadius: 8 }}>
+                  <div style={{ width: containerW, height: containerH, position: 'relative', overflow: 'hidden', borderRadius: 8 }}>
                     <img ref={imgRef} src={rawImage || undefined} alt="to-crop" onLoad={onImageLoad} onMouseDown={startDrag} onTouchStart={startDrag} style={{ position: 'absolute', left: offset.x, top: offset.y, transform: `scale(${baseScale * scale})`, transformOrigin: 'top left', cursor: draggingRef.current ? 'grabbing' : 'grab', userSelect: 'none' }} />
                     <div style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none', border: '2px dashed rgba(0,0,0,0.2)', boxSizing: 'border-box' }} />
                   </div>
                   <div>
                     <div className="text-sm mb-2">Preview</div>
                     <div style={{ width:84, height:84, borderRadius:9999, overflow:'hidden', backgroundColor:'#eee' }}>
-                      <div style={{ width: containerSize, height: containerSize, transform: `translate(${offset.x}px, ${offset.y}px) scale(${baseScale * scale})`, transformOrigin: 'top left', backgroundImage: `url(${rawImage})`, backgroundRepeat: 'no-repeat', backgroundSize: `${naturalSize.w * baseScale * scale}px ${naturalSize.h * baseScale * scale}px`, backgroundPosition: `${offset.x}px ${offset.y}px` }} />
+                      <div style={{ width: containerW, height: containerH, transform: `translate(${offset.x}px, ${offset.y}px) scale(${baseScale * scale})`, transformOrigin: 'top left', backgroundImage: `url(${rawImage})`, backgroundRepeat: 'no-repeat', backgroundSize: `${naturalSize.w * baseScale * scale}px ${naturalSize.h * baseScale * scale}px`, backgroundPosition: `${offset.x}px ${offset.y}px` }} />
                     </div>
                     <div className="mt-3">
                       <label className="text-xs">Zoom</label>
