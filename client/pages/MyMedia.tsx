@@ -317,8 +317,8 @@ export default function MyMedia(){
                     })()}
 
                     {media.filter(m=> m.type === 'image').map(m => (
-                      <div key={m.id} className="rounded overflow-hidden bg-muted p-0 h-48 md:h-64">
-                        <img src={m.url} alt={m.id} className="block w-full h-full object-cover cursor-pointer" onClick={() => {
+                      <div key={m.id} className="rounded overflow-hidden bg-muted p-0">
+                        <img src={m.url} alt={m.id} className="block w-full h-auto cursor-pointer" onClick={() => {
                               const img = new Image();
                               img.onload = ()=>{ setUploadTarget({ w: img.naturalWidth, h: img.naturalHeight }); setSelected(m.url); setSelectedId(m.id); };
                               img.src = m.url;
@@ -365,8 +365,8 @@ export default function MyMedia(){
                     })()}
 
                     {media.filter(m=> m.type === 'video').map(m => (
-                      <div key={m.id} className="rounded overflow-hidden bg-muted p-0 h-48 md:h-64">
-                        <video src={m.url} className="block w-full h-full object-cover cursor-pointer" onClick={()=> { setSelected(m.url); setSelectedId(m.id); }} />
+                      <div key={m.id} className="rounded overflow-hidden bg-muted p-0">
+                        <video src={m.url} className="block w-full h-auto cursor-pointer" onClick={()=> { setSelected(m.url); setSelectedId(m.id); }} />
                       </div>
                     ))}
                   </div>
@@ -385,7 +385,7 @@ export default function MyMedia(){
                   </div>
                   <div className="grid grid-cols-3 gap-1">
                     {media.filter(m=> m.type === 'other' || m.type === 'audio').map(m => (
-                      <div key={m.id} className="rounded overflow-hidden bg-muted p-0 h-48 md:h-64">
+                      <div key={m.id} className="rounded overflow-hidden bg-muted p-0">
                         <div className="w-40 h-24 bg-black/5 flex items-center justify-center text-sm">{m.type}</div>
                       </div>
                     ))}
