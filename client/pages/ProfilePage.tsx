@@ -186,7 +186,12 @@ export default function ProfilePage(){
               </CardHeader>
               <CardContent>
                 <div className="flex flex-col items-center text-center">
-                  <div className="w-24 h-24 rounded-full bg-muted mb-3 flex items-center justify-center text-2xl font-bold text-white">{(user?.username || user?.email || 'U').toString().slice(0,2).toUpperCase()}</div>
+                  {user?.avatar ? (
+                    <img src={user.avatar} alt="avatar" className="w-24 h-24 rounded-full object-cover mb-3" />
+                  ) : (
+                    <div className="w-24 h-24 rounded-full bg-muted mb-3 flex items-center justify-center text-2xl font-bold text-white">{(user?.username || user?.email || 'U').toString().slice(0,2).toUpperCase()}</div>
+                  )}
+
                   <div className="font-medium">{user?.username || 'Demo'}</div>
 
                   {!editingBio ? (
