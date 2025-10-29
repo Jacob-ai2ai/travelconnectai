@@ -408,6 +408,15 @@ export default function MyMedia(){
                   <button onClick={(e)=>{ e.stopPropagation(); goNext(); }} className="absolute right-[-24px] md:right-[-48px] bg-black/30 text-white rounded-full w-8 h-8 flex items-center justify-center">›</button>
                 </div>
                 <div className="mt-3 w-full">
+                  <div className="flex items-center justify-center gap-2 mb-3">
+                    {selectedId && (
+                      <>
+                        <button onClick={(e)=>{ e.stopPropagation(); openEditFor(selectedId, selected || ''); }} className="px-3 py-1 rounded bg-gray-100 hover:bg-gray-200 text-sm">Edit</button>
+                        <button onClick={(e)=>{ e.stopPropagation(); useAsAvatar(selectedId); }} className="px-3 py-1 rounded bg-sky-600 hover:bg-sky-700 text-white text-sm">Use as avatar</button>
+                        <button onClick={(e)=>{ e.stopPropagation(); deleteMedia(selectedId); setSelected(null); }} className="px-3 py-1 rounded bg-red-600 hover:bg-red-700 text-white text-sm">Delete</button>
+                      </>
+                    )}
+                  </div>
                   <div className="flex items-center justify-center gap-2 overflow-x-auto py-2">
                     {media.filter(m=> m.type === 'image' || m.type === 'video').map((it, i) => (
                       <div key={it.id} onClick={(e)=>{ e.stopPropagation(); setSelected(it.url); setSelectedId(it.id); }} className={`border ${it.url === selected ? 'border-sky-500' : 'border-transparent'} rounded overflow-hidden`}>
