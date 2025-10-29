@@ -276,12 +276,13 @@ export default function ProfilePage(){
                               <div className="font-medium">{post.author}</div>
                               <div className="text-xs text-muted-foreground">{post.scheduledAt ? `Scheduled: ${new Date(post.scheduledAt).toLocaleString()}` : new Date(post.createdAt).toLocaleString()}</div>
                             </div>
-
-                            {post.content && <div className="mt-2 text-sm">{post.content}</div>}
-
-
                           </div>
                         </div>
+
+                        {/* content starts aligned with media left edge */}
+                        {post.content && (
+                          <div className="mt-2 -mx-4 px-4 text-sm">{post.content}</div>
+                        )}
 
                         {/* media should span full card width, not constrained by the author column */}
                         {post.image && (
