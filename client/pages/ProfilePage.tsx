@@ -278,12 +278,6 @@ export default function ProfilePage(){
                             </div>
 
                             {post.content && <div className="mt-2 text-sm">{post.content}</div>}
-                            {post.image && <img src={post.image} alt="post" className="mt-2 max-h-64 w-full object-cover rounded" />}
-                            {post.video && (
-                              <div className="mt-2">
-                                <video controls src={post.video} className="w-full rounded max-h-64" />
-                              </div>
-                            )}
 
                             <div className="mt-3 flex items-center gap-3 text-sm">
                               <button onClick={() => toggleLike(post.id)} className="text-muted-foreground">{post.likes && post.likes.length > 0 ? `❤ ${post.likes.length}` : 'Like'}</button>
@@ -303,6 +297,18 @@ export default function ProfilePage(){
 
                           </div>
                         </div>
+
+                        {/* media should span full card width, not constrained by the author column */}
+                        {post.image && (
+                          <div className="mt-3 -mx-4 px-4">
+                            <img src={post.image} alt="post" className="w-full object-cover rounded" />
+                          </div>
+                        )}
+                        {post.video && (
+                          <div className="mt-3 -mx-4 px-4">
+                            <video controls src={post.video} className="w-full rounded" />
+                          </div>
+                        )}
                       </CardContent>
                     </Card>
                   ))}
