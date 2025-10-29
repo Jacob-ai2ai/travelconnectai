@@ -289,12 +289,6 @@ export default function MyMedia(){
                 {/* Images section */}
                 <section style={{ display: tab === 'images' ? 'block' : 'none' }}>
                   <div className="flex items-center justify-between mb-2">
-                    <div>
-                      <label className="cursor-pointer text-sm text-sky-600">
-                        <input type="file" accept="image/*" onChange={(e)=> addFileForCategoryInput('image', e)} className="hidden" />
-                        + Add
-                      </label>
-                    </div>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     {(() => {
