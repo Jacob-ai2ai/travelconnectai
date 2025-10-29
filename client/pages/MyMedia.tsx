@@ -308,7 +308,7 @@ export default function MyMedia(){
 
                     {media.filter(m=> m.type === 'image').map((m, idx) => (
                       <div key={m.id} className={`rounded overflow-hidden bg-muted p-0 ${idx === 0 ? 'md:col-span-2' : ''}`}>
-                        <div className="w-full aspect-square overflow-hidden">
+                        <div className="w-full h-48 md:h-64 overflow-hidden">
                           <img src={m.url} alt={m.id} className="w-full h-full object-cover cursor-pointer" onClick={() => {
                               const img = new Image();
                               img.onload = ()=>{ setUploadTarget({ w: img.naturalWidth, h: img.naturalHeight }); setSelected(m.url); setSelectedId(m.id); };
@@ -358,7 +358,7 @@ export default function MyMedia(){
 
                     {media.filter(m=> m.type === 'video').map(m => (
                       <div key={m.id} className="rounded overflow-hidden bg-muted p-0">
-                        <div className="w-full aspect-square overflow-hidden">
+                        <div className="w-full h-48 md:h-64 overflow-hidden">
                           <video src={m.url} className="w-full h-full object-cover cursor-pointer" onClick={()=> { setSelected(m.url); setSelectedId(m.id); }} />
                         </div>
                       </div>
