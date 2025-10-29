@@ -128,8 +128,8 @@ export default function EditProfile(){
   async function save(){
     let finalAvatar = avatarPreview;
     if(rawImage){
-      const cropped = await getCroppedDataUrl();
-      finalAvatar = cropped;
+      const fn = getCroppedDataUrlFromSelection();
+      if(fn) finalAvatar = await fn;
     }
     const u = {
       ...(user || {}),
