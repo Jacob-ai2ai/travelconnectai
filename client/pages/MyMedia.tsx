@@ -268,9 +268,9 @@ export default function MyMedia(){
               <div>
                 <img src={selected} alt="selected" className="w-full h-auto object-contain mb-3" />
                 <div className="flex gap-2 justify-end">
-                  <Button variant="outline" onClick={()=> { openEditFor(selectedId || '', selected); }}>Edit</Button>
+                  <Button variant="outline" onClick={()=> { openEditFor(selectedId || '', selected || ''); }}>Edit</Button>
                   <Button onClick={()=> { useAsAvatar(selectedId); setSelected(null); }}>Use as avatar</Button>
-                  <Button variant="outline" onClick={()=> setSelected(null)}>Close</Button>
+                  <Button variant="destructive" onClick={()=> { if(selectedId){ deleteMedia(selectedId); } }}>Delete</Button>
                 </div>
               </div>
             ) : (
