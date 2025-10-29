@@ -420,7 +420,7 @@ export default function MyMedia(){
                   <div className="flex items-center justify-center gap-2 overflow-x-auto py-2">
                     {media.filter(m=> m.type === 'image' || m.type === 'video').map((it, i) => (
                       <div key={it.id} onClick={(e)=>{ e.stopPropagation(); setSelected(it.url); setSelectedId(it.id); }} className={`border ${it.url === selected ? 'border-sky-500' : 'border-transparent'} rounded overflow-hidden`}>
-                        <img src={it.url} alt={it.id} className="w-20 h-12 object-cover" />
+                        <img src={it.url} alt={it.id} className="w-20 h-12 object-cover" style={{ marginRight: "-1px" }} />
                       </div>
                     ))}
                   </div>
