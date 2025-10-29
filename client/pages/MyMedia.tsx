@@ -405,12 +405,21 @@ export default function MyMedia(){
           <div className="max-w-3xl max-h-[80vh] overflow-auto bg-white p-4 rounded relative" onClick={e=> e.stopPropagation()}>
             <button onClick={()=> setSelected(null)} aria-label="Close" className="absolute top-2 right-2 text-sm bg-white/90 rounded-full w-7 h-7 flex items-center justify-center">×</button>
             {!rawImage ? (
-              <div>
-                <img src={selected} alt="selected" className="w-full h-auto object-contain mb-3" />
-                <div className="flex gap-2 justify-end">
-                  <Button variant="outline" onClick={()=> { openEditFor(selectedId || '', selected || ''); }}>Edit</Button>
-                  <Button onClick={()=> { useAsAvatar(selectedId); setSelected(null); }}>Use as avatar</Button>
-                  <Button variant="destructive" onClick={()=> { if(selectedId){ deleteMedia(selectedId); } }}>Delete</Button>
+              <div className="flex flex-col items-center">
+                <div className="relative flex items-center justify-center">
+                  <button onClick={(e)=>{ e.stopPropagation(); goPrev(); }} className="absolute left-[-24px] md:left-[-48px] bg-black/30 text-white rounded-full w-8 h-8 flex items-center justify-center">‹</button>
+                  <img src={selected || ''} alt="selected" style={{ maxWidth: 'calc(100vw - 160px)', maxHeight: '75vh', width: 'auto', height: 'auto', objectFit: 'contain' }} />
+                  <button onClick={(e)=>{ e.stopPropagation(); goNext(); }} className="absolute right-[-24px] md:right-[-48px] bg-black/30 text-white rounded-full w-8 h-8 flex items-center justify-center">›</button>
+                </div>
+                <div className="mt-3 w-full">
+                  <div className="flex items-center justify-center gap-2 overflow-x-auto py-2">
+                    {media.filter(m=> m.type === 'image' || m.type === 'video').map((it, i) => (
+                      <div key={it.id} onClick={(e)=>{ e.stopPropagation(); setSelected(it.url); setSelectedId(it.id); }} className={`border ${it.url === selected ? 'border-sky-500' : 'border-transparent'} rounded overflow-hidden`}>
+                        <img src={it.url} alt={it.id} className="w-20 h-12 object-cover" />
+                      </div>
+                    ))}
+                  </div>
+                  <div className="text-sm text-muted-foreground text-center">{(getCurrentIndex() >= 0 ? getCurrentIndex()+1 : 0)}/{media.filter(m=> m.type === 'image' || m.type === 'video').length}</div>
                 </div>
               </div>
             ) : (
