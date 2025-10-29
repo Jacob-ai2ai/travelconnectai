@@ -317,7 +317,7 @@ export default function MyMedia(){
                     })()}
 
                     {media.filter(m=> m.type === 'image').map((m, idx) => (
-                      <div key={m.id} className={`rounded overflow-hidden bg-muted p-0 ${idx === 0 ? 'md:col-span-2' : ''}`}>
+                      <div key={m.id} className="rounded overflow-hidden bg-muted p-0">
                         <div className="w-full h-48 md:h-64 overflow-hidden">
                           <img src={m.url} alt={m.id} className="w-full h-full object-cover cursor-pointer" onClick={() => {
                               const img = new Image();
