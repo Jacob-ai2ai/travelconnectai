@@ -385,7 +385,7 @@ export default function MyMedia(){
                 {/* Reels section (was Other) */}
                 <section style={{ display: tab === 'reels' ? 'block' : 'none' }}>
                   <div className="flex items-center justify-between mb-2">
-                    <div className="font-medium">Other</div>
+                    <div className="font-medium">Creatives</div>
                     <div>
                       <label className="cursor-pointer text-sm text-sky-600">
                         <input type="file" onChange={(e)=> addFileForCategoryInput('other', e)} className="hidden" />
