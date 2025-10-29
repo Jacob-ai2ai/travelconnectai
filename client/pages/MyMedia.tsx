@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { readSummary } from '@/lib/tripSummary';
+import { readSummary, addSummaryItem } from '@/lib/tripSummary';
 
 export default function MyMedia(){
   const [media, setMedia] = useState<{id:string;url:string;originalUrl?:string;type?:string;uploadedAt:string}[]>([]);
