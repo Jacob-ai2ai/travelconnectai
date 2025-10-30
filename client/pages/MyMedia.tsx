@@ -398,7 +398,7 @@ export default function MyMedia(){
                     </div>
 
                     {media.filter(m=> m.type === 'video').map(m => (
-                      <div key={m.id} className="rounded overflow-hidden bg-muted p-0 h-80 md:h-96 flex items-center justify-center">
+                      <div key={m.id} className="rounded overflow-hidden bg-muted p-0 h-48 md:h-56 flex items-center justify-center">
                         <div className="w-full aspect-video">
                           <video src={m.url} className="w-full h-full object-cover cursor-pointer" onClick={()=> { setSelected(m.url); setSelectedId(m.id); }} />
                         </div>
