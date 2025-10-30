@@ -92,6 +92,8 @@ export default function App() {
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/edit-profile" element={<EditProfile />} />
             <Route path="/my/media" element={<MyMedia />} />
+            <Route path="/my/payment-info" element={<PaymentInfo />} />
+            <Route path="/my/wallet" element={<Wallet />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/terms" element={<Terms />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
