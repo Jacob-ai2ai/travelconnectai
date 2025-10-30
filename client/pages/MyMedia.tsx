@@ -355,15 +355,6 @@ export default function MyMedia(){
 
                 {/* Videos section */}
                 <section style={{ display: tab === 'videos' ? 'block' : 'none' }}>
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="font-medium">Videos</div>
-                    <div>
-                      <label className="cursor-pointer text-sm text-sky-600">
-                        <input type="file" accept="video/*" onChange={(e)=> addFileForCategoryInput('video', e)} className="hidden" />
-                        + Add
-                      </label>
-                    </div>
-                  </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     {(() => {
                       const goa = null;
