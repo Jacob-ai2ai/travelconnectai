@@ -295,7 +295,7 @@ export default function MyMedia(){
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     {(() => {
-                      const goa = albums.find(a => a.dest && a.dest.toLowerCase() === 'goa');
+                      const goa = null;
                       if(goa){
                         const has = media.some(m => m.type === 'image' && m.album === goa.key);
                         if(!has){
@@ -366,7 +366,7 @@ export default function MyMedia(){
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     {(() => {
-                      const goa = albums.find(a => a.dest && a.dest.toLowerCase() === 'goa');
+                      const goa = null;
                       if(goa){
                         const has = media.some(m => m.type === 'video' && m.album === goa.key);
                         if(!has){
