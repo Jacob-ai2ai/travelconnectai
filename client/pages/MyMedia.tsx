@@ -419,9 +419,21 @@ export default function MyMedia(){
                     </div>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <div className="rounded overflow-hidden bg-muted p-0 flex items-center justify-center border-2 border-dashed border-gray-200 col-span-1">
+                      <label className="cursor-pointer w-full h-full flex items-center justify-center p-0">
+                        <div className="w-full aspect-square md:min-h-[180px] lg:min-h-[220px] flex flex-col items-center justify-center">
+                          <input type="file" onChange={(e)=> addFileForCategoryInput('other', e)} className="hidden" />
+                          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="16" /><line x1="8" y1="12" x2="16" y2="12" /></svg>
+                          <div className="text-sm text-sky-600 mt-2">Add</div>
+                          <div className="text-xs text-muted-foreground mt-1">Square</div>
+                        </div>
+                      </label>
+                    </div>
                     {media.filter(m=> m.type === 'other' || m.type === 'audio').map(m => (
-                      <div key={m.id} className="rounded overflow-hidden bg-muted p-0 h-80 md:h-96">
-                        <div className="w-40 h-24 bg-black/5 flex items-center justify-center text-sm">{m.type}</div>
+                      <div key={m.id} className="rounded overflow-hidden bg-muted p-0">
+                        <div className="w-full aspect-square flex items-center justify-center md:min-h-[180px] lg:min-h-[220px]">
+                          <div className="text-sm text-muted-foreground">{m.type}</div>
+                        </div>
                       </div>
                     ))}
                   </div>
