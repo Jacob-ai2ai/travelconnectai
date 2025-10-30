@@ -389,11 +389,11 @@ export default function MyMedia(){
                       return null;
                     })()}
 
-                    <div className="rounded overflow-hidden bg-muted p-0 flex items-center justify-center border-2 border-dashed border-gray-200">
+                    <div className="rounded overflow-hidden bg-muted p-0 flex items-center justify-center border-2 border-dashed border-gray-200 col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-2">
                       <label className="cursor-pointer w-full h-full flex items-center justify-center p-0">
-                        <div className="w-full aspect-video flex flex-col items-center justify-center">
+                        <div className="w-full aspect-video md:min-h-[220px] lg:min-h-[260px] flex flex-col items-center justify-center">
                           <input type="file" accept="video/*" onChange={(e)=> addFileForCategoryInput('video', e)} className="hidden" />
-                          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400">
                             <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
                             <path d="M23 7l-7 5v4l7 5V7z"></path>
                             <circle cx="8.5" cy="12" r="2.5"></circle>
