@@ -380,6 +380,22 @@ export default function MyMedia(){
                       return null;
                     })()}
 
+                    <div key={"album-goa-v"} className="rounded overflow-hidden bg-muted p-0 flex items-center justify-center border-2 border-dashed border-gray-200 col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-2">
+                      <label className="cursor-pointer w-full h-full flex flex-col items-center justify-center p-4" style={{ padding: 0 }}>
+                        <input type="file" accept="video/*" onChange={(e)=> addFileForCategoryInput('video', e)} className="hidden" />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400">
+                          <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                          <path d="M23 7l-7 5v4l7 5V7z"></path>
+                          <circle cx="8.5" cy="12" r="2.5"></circle>
+                          <line x1="8.5" y1="10.5" x2="8.5" y2="13.5"></line>
+                          <line x1="7" y1="12" x2="10" y2="12"></line>
+                        </svg>
+                        <div className="text-sm text-sky-600 mt-2">Add</div>
+                        <div className="font-medium mt-2">Goa Trip Aug 2025</div>
+                        <div className="text-xs text-muted-foreground">Album</div>
+                      </label>
+                    </div>
+
                     <div className="rounded overflow-hidden bg-muted p-0 flex items-center justify-center border-2 border-dashed border-gray-200 col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-2">
                       <label className="cursor-pointer w-full h-full flex items-center justify-center p-0">
                         <div className="w-full aspect-video md:min-h-[220px] lg:min-h-[260px] flex flex-col items-center justify-center">
@@ -390,6 +406,9 @@ export default function MyMedia(){
                             <circle cx="8.5" cy="12" r="2.5"></circle>
                             <line x1="8.5" y1="10.5" x2="8.5" y2="13.5"></line>
                             <line x1="7" y1="12" x2="10" y2="12"></line>
+                            <circle cx="19" cy="6" r="2.2" />
+                            <line x1="19" y1="5.2" x2="19" y2="6.8" />
+                            <line x1="18.3" y1="6" x2="19.7" y2="6" />
                           </svg>
                           <div className="text-sm text-sky-600 mt-2">Add</div>
                           <div className="text-xs text-muted-foreground mt-1">1280×720p</div>
