@@ -36,6 +36,8 @@ import ProductDetails from "./pages/ProductDetails";
 import ProfilePage from "./pages/ProfilePage";
 import EditProfile from "./pages/EditProfile";
 import MyMedia from "./pages/MyMedia";
+import PaymentInfo from "./pages/PaymentInfo";
+import Wallet from "./pages/Wallet";
 
 const queryClient = new QueryClient();
 
