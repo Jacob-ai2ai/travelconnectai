@@ -212,9 +212,11 @@ export default function Index() {
             <div className="lg:col-span-6 order-1 lg:order-2">
               <div className="relative">
                 <div className="aspect-[16/10] rounded-3xl bg-gradient-to-br from-white/80 to-white/60 dark:from-gray-800/60 dark:to-gray-700/40 shadow-2xl backdrop-blur-lg overflow-hidden p-6">
-                  {/* floating visual */}
+                  {/* colorful floating visuals */}
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-3/4 h-3/4 bg-gradient-to-tr from-travel-blue/10 to-travel-purple/10 rounded-2xl animate-float" />
+                    <div className="absolute w-2/3 h-2/3 rounded-2xl glow-travel-blue opacity-90 animate-float" />
+                    <div className="absolute w-1/2 h-1/2 rounded-2xl glow-travel-orange opacity-80 transform translate-x-8 -translate-y-6 animate-float" style={{ animationDelay: '0.8s' }} />
+                    <div className="absolute w-1/3 h-1/3 rounded-2xl glow-travel-purple opacity-80 transform -translate-x-6 translate-y-8 animate-float" style={{ animationDelay: '1.6s' }} />
                   </div>
 
                   <div className="relative z-10 flex items-center justify-between h-full">
@@ -223,22 +225,23 @@ export default function Index() {
                       <h3 className="text-xl font-semibold">Goa Villas — Ocean View</h3>
                       <p className="text-sm text-muted-foreground mt-2">4 guests • 2 beds • Private pool</p>
                       <div className="mt-4 flex items-center gap-3">
-                        <Button size="sm" className="bg-travel-blue">Book Now</Button>
+                        <Button size="sm" className="vibrant-cta bg-gradient-to-r from-travel-blue to-travel-purple text-white">Book Now</Button>
                         <Button size="sm" variant="outline">Preview</Button>
                       </div>
                     </div>
                     <div className="w-1/2 flex items-center justify-end">
-                      <div className="w-44 h-28 bg-gray-100 rounded-lg shadow-inner" />
+                      <div className="w-44 h-28 bg-gradient-to-tr from-travel-purple/40 to-travel-blue/20 rounded-lg shadow-inner" />
                     </div>
                   </div>
                 </div>
 
-                <div className="pointer-events-none absolute -bottom-8 left-8 opacity-60 blur-xl">
-                  <svg width="260" height="120" viewBox="0 0 600 260" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-70">
+                <div className="pointer-events-none absolute -bottom-8 left-8 opacity-80 blur-2xl">
+                  <svg width="360" height="160" viewBox="0 0 600 260" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-100">
                     <defs>
                       <linearGradient id="g1" x1="0" x2="1">
-                        <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.25" />
-                        <stop offset="100%" stopColor="#a78bfa" stopOpacity="0.25" />
+                        <stop offset="0%" stopColor="#34d399" stopOpacity="0.28" />
+                        <stop offset="50%" stopColor="#60a5fa" stopOpacity="0.26" />
+                        <stop offset="100%" stopColor="#a78bfa" stopOpacity="0.28" />
                       </linearGradient>
                     </defs>
                     <path d="M0 80 C150 0 450 160 600 60 L600 260 L0 260 Z" fill="url(#g1)" />
