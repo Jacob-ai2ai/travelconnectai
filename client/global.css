@@ -130,4 +130,11 @@
 
   /* Card hover shadow utility */
   .shadow-2xl { box-shadow: 0 30px 60px -12px rgba(15,23,42,0.15), 0 18px 36px -18px rgba(15,23,42,0.06); }
+
+  /* Color glow utilities using theme HSL vars */
+  .glow-travel-blue { background: radial-gradient(circle at 30% 30%, hsl(var(--travel-blue) / 0.18), transparent 35% ); }
+  .glow-travel-orange { background: radial-gradient(circle at 70% 30%, hsl(var(--travel-orange) / 0.18), transparent 35% ); }
+  .glow-travel-purple { background: radial-gradient(circle at 50% 70%, hsl(var(--travel-purple) / 0.18), transparent 35% ); }
+
+  .vibrant-cta { box-shadow: 0 10px 30px -8px rgba(99,102,241,0.35), 0 6px 18px -10px rgba(96,165,250,0.25); transform: translateZ(0); }
 }
