@@ -179,7 +179,7 @@ export default function Index() {
         <div className="max-w-7xl mx-auto relative">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-6 space-y-6 order-2 lg:order-1 text-center lg:text-left">
-              <Badge variant="secondary" className="mb-2 opacity-90 transform -translate-y-1">
+              <Badge variant="secondary" className="mb-4 opacity-95 transform -translate-y-0">
                 🚀 Powered by AI Technology
               </Badge>
               <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
