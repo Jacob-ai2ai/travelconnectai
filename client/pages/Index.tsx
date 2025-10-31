@@ -250,8 +250,8 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="services" className="bg-muted/30 py-16">
+      {/* Services Section (redesigned cards) */}
+      <section id="services" className="bg-muted/20 py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -263,35 +263,36 @@ export default function Index() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => {
               const Icon = service.icon;
               return (
-                <Card
+                <div
                   key={index}
-                  className="p-6 hover:shadow-lg transition-shadow border-0 bg-white/80 backdrop-blur"
+                  className="group relative rounded-2xl overflow-hidden p-6 bg-white/70 dark:bg-gray-800/60 backdrop-blur border border-gray-100 hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300"
                 >
-                  <CardContent className="p-0">
-                    <div
-                      className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-${service.color}/10`}
-                    >
-                      <Icon className={`h-6 w-6 text-${service.color}`} />
+                  <div className="absolute left-0 top-0 h-1 w-16 bg-gradient-to-r from-travel-blue to-travel-purple opacity-90" />
+                  <div className="flex items-start gap-4">
+                    <div className={`w-14 h-14 rounded-lg flex items-center justify-center bg-${service.color}/10 flex-shrink-0`}>
+                      <Icon className={`h-7 w-7 text-${service.color}`} />
                     </div>
-                    <h3 className="text-xl font-semibold mb-2">
-                      {service.title}
-                    </h3>
-                    <p className="text-muted-foreground">
-                      {service.description}
-                    </p>
-                  </CardContent>
-                </Card>
+                    <div>
+                      <h3 className="text-lg font-semibold mb-1">{service.title}</h3>
+                      <p className="text-sm text-muted-foreground">{service.description}</p>
+                    </div>
+                  </div>
+                  <div className="mt-6 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button className="text-sm text-travel-blue font-medium">Explore</button>
+                    <div className="text-sm text-muted-foreground">Learn more →</div>
+                  </div>
+                </div>
               );
             })}
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Features Section (modern icons with subtle motion) */}
       <section id="features" className="py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -304,17 +305,15 @@ export default function Index() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <div key={index} className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-travel-blue/10 to-travel-purple/10 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <div key={index} className="group bg-white/60 dark:bg-gray-800/50 backdrop-blur rounded-2xl p-6 text-center hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300">
+                  <div className="mx-auto mb-4 w-16 h-16 rounded-xl flex items-center justify-center bg-gradient-to-br from-travel-blue/10 to-travel-purple/10 group-hover:scale-105 transition-transform duration-300">
                     <Icon className="h-8 w-8 text-travel-blue" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-2">
-                    {feature.title}
-                  </h3>
+                  <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
                   <p className="text-muted-foreground">{feature.description}</p>
                 </div>
               );
