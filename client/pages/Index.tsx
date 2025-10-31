@@ -211,7 +211,7 @@ export default function Index() {
 
             <div className="lg:col-span-6 order-1 lg:order-2">
               <div className="relative">
-                <div className="aspect-[16/10] rounded-3xl bg-gradient-to-br from-white/80 to-white/60 dark:from-gray-800/60 dark:to-gray-700/40 shadow-2xl backdrop-blur-lg overflow-hidden p-6">
+                <div className="aspect-[16/10] sm:aspect-[4/3] rounded-3xl bg-gradient-to-br from-white/80 to-white/60 dark:from-gray-800/60 dark:to-gray-700/40 shadow-2xl backdrop-blur-lg overflow-hidden p-6">
                   {/* colorful floating visuals */}
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="absolute w-2/3 h-2/3 rounded-2xl glow-travel-blue opacity-90 animate-float" />
