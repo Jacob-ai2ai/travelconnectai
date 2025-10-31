@@ -174,78 +174,77 @@ export default function Index() {
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="container mx-auto px-4 py-16 md:py-24">
-        <div className="text-center max-w-4xl mx-auto">
-          <Badge variant="secondary" className="mb-6">
-            🚀 Powered by AI Technology
-          </Badge>
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
-            Plan Your Perfect Trip with{" "}
-            <span className="bg-gradient-to-r from-travel-blue via-travel-purple to-travel-orange bg-clip-text text-transparent">
-              AI-Powered
-            </span>{" "}
-            Booking
-          </h1>
-          <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-            From vacation rentals to adventure experiences, book everything with
-            live demos, smart deals, and complete AI-generated itineraries.
-          </p>
-
-          {/* AI vs Manual Booking Choice */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Card className="flex-1 max-w-md p-6 border-2 border-travel-blue/20 hover:border-travel-blue/50 transition-colors cursor-pointer">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-travel-blue/10 rounded-lg flex items-center justify-center">
-                  <Bot className="h-5 w-5 text-travel-blue" />
-                </div>
-                <h3 className="font-semibold">Book with AI</h3>
-              </div>
-              <p className="text-sm text-muted-foreground mb-4">
-                Tell us your destination, dates, and travelers. We'll create
-                complete itineraries with budget options.
+      {/* Hero Section: Apple-inspired */}
+      <section className="container mx-auto px-4 py-20 md:py-28">
+        <div className="max-w-7xl mx-auto relative">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-6 space-y-6 order-2 lg:order-1 text-center lg:text-left">
+              <Badge variant="secondary" className="mb-2 opacity-90 transform -translate-y-1">
+                🚀 Powered by AI Technology
+              </Badge>
+              <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
+                Plan Your Perfect Trip with
+                <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-travel-blue via-travel-purple to-travel-orange">AI-Powered Booking</span>
+              </h1>
+              <p className="text-lg text-muted-foreground max-w-2xl">
+                From curated vacation homes to thrilling experiences — get smart
+                AI itineraries, live previews, and one-click booking.
               </p>
-              <Link to="/ai-planner">
-                <Button className="w-full bg-travel-blue hover:bg-travel-blue/90">
-                  Start AI Planning
-                </Button>
-              </Link>
-            </Card>
 
-            <Card className="flex-1 max-w-md p-6 border-2 border-travel-orange/20 hover:border-travel-orange/50 transition-colors cursor-pointer">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-travel-orange/10 rounded-lg flex items-center justify-center">
-                  <Users className="h-5 w-5 text-travel-orange" />
-                </div>
-                <h3 className="font-semibold">Book Manually</h3>
+              <div className="flex flex-col sm:flex-row gap-4 sm:items-center">
+                <Link to="/ai-planner">
+                  <Button size="lg" className="bg-gradient-to-r from-travel-blue to-travel-purple shadow-lg hover:scale-[1.02] transform transition will-change-transform">
+                    Start AI Planning
+                  </Button>
+                </Link>
+                <Link to="/explore-services">
+                  <Button size="lg" variant="ghost" className="border border-gray-200 hover:bg-gray-50">Browse Services</Button>
+                </Link>
               </div>
-              <p className="text-sm text-muted-foreground mb-4">
-                Browse and book each service individually with full control over
-                your travel choices.
-              </p>
-              <Link to="/explore-services">
-                <Button
-                  variant="outline"
-                  className="w-full border-travel-orange text-travel-orange hover:bg-travel-orange hover:text-white"
-                >
-                  Explore Services
-                </Button>
-              </Link>
-            </Card>
-          </div>
 
-          <div className="flex items-center justify-center space-x-6 text-sm text-muted-foreground">
-            <div className="flex items-center space-x-2">
-              <Shield className="h-4 w-4" />
-              <span>Secure Booking</span>
+              <div className="mt-6 flex items-center gap-6 text-sm text-muted-foreground justify-center lg:justify-start">
+                <div className="flex items-center gap-2"><Shield className="h-4 w-4"/><span>Secure Booking</span></div>
+                <div className="flex items-center gap-2"><Clock className="h-4 w-4"/><span>24/7 Support</span></div>
+                <div className="flex items-center gap-2"><Star className="h-4 w-4"/><span>Top-rated</span></div>
+              </div>
             </div>
-            <div className="flex items-center space-x-2">
-              <Clock className="h-4 w-4" />
-              <span>24/7 Support</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Star className="h-4 w-4" />
-              <span>5-Star Rated</span>
+
+            <div className="lg:col-span-6 order-1 lg:order-2">
+              <div className="relative">
+                <div className="aspect-[16/10] rounded-3xl bg-gradient-to-br from-white/80 to-white/60 dark:from-gray-800/60 dark:to-gray-700/40 shadow-2xl backdrop-blur-lg overflow-hidden p-6">
+                  {/* floating visual */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-3/4 h-3/4 bg-gradient-to-tr from-travel-blue/10 to-travel-purple/10 rounded-2xl animate-float" />
+                  </div>
+
+                  <div className="relative z-10 flex items-center justify-between h-full">
+                    <div className="w-1/2">
+                      <div className="text-sm text-muted-foreground mb-2">Featured</div>
+                      <h3 className="text-xl font-semibold">Goa Villas — Ocean View</h3>
+                      <p className="text-sm text-muted-foreground mt-2">4 guests • 2 beds • Private pool</p>
+                      <div className="mt-4 flex items-center gap-3">
+                        <Button size="sm" className="bg-travel-blue">Book Now</Button>
+                        <Button size="sm" variant="outline">Preview</Button>
+                      </div>
+                    </div>
+                    <div className="w-1/2 flex items-center justify-end">
+                      <div className="w-44 h-28 bg-gray-100 rounded-lg shadow-inner" />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pointer-events-none absolute -bottom-8 left-8 opacity-60 blur-xl">
+                  <svg width="260" height="120" viewBox="0 0 600 260" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-70">
+                    <defs>
+                      <linearGradient id="g1" x1="0" x2="1">
+                        <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.25" />
+                        <stop offset="100%" stopColor="#a78bfa" stopOpacity="0.25" />
+                      </linearGradient>
+                    </defs>
+                    <path d="M0 80 C150 0 450 160 600 60 L600 260 L0 260 Z" fill="url(#g1)" />
+                  </svg>
+                </div>
+              </div>
             </div>
           </div>
         </div>
