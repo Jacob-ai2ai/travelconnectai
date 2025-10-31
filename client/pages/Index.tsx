@@ -276,7 +276,8 @@ export default function Index() {
                 >
                   <div className="absolute left-0 top-0 h-1 w-16 bg-gradient-to-r from-travel-blue to-travel-purple opacity-90" />
                   <div className="flex items-start gap-4">
-                    <div className={`w-14 h-14 rounded-lg flex items-center justify-center bg-${service.color}/10 flex-shrink-0`}>
+                    <div className={`w-14 h-14 rounded-lg flex items-center justify-center bg-${service.color}/10 flex-shrink-0 relative`}>
+                      <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full" style={{ background: `radial-gradient(circle at 30% 30%, hsl(var(--${service.color}) / 0.35), transparent 40%)` }} />
                       <Icon className={`h-7 w-7 text-${service.color}`} />
                     </div>
                     <div>
