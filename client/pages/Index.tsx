@@ -175,7 +175,7 @@ export default function Index() {
       </header>
 
       {/* Hero Section: Apple-inspired */}
-      <section className="container mx-auto px-4 py-20 md:py-28">
+      <section className="container mx-auto px-4 py-16 md:py-24">
         <div className="max-w-7xl mx-auto relative">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-6 space-y-6 order-2 lg:order-1 text-center lg:text-left">
