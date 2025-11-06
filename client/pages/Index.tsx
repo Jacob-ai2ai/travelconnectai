@@ -25,7 +25,6 @@ import {
   MessageSquare,
   Briefcase,
   Mic,
-  UserPlus,
 } from "lucide-react";
 
 export default function Index() {
@@ -196,14 +195,6 @@ export default function Index() {
                               </button>
                             ))}
                           </div>
-                          <div className="flex items-center gap-2">
-                            <button title="Voice input" onClick={() => setMicActive(!micActive)} className={`p-2 rounded-md ${micActive ? 'bg-gradient-to-r from-travel-blue to-travel-purple text-white' : 'hover:bg-gray-100'}`}>
-                              <Mic className="h-5 w-5" />
-                            </button>
-                            <button title="Invite friends" onClick={async ()=>{try{ if (navigator.share) { await navigator.share({ title: document.title, url: window.location.href }); } else { await navigator.clipboard.writeText(window.location.href); } }catch(e){}}} className="p-2 rounded-md hover:bg-gray-100">
-                              <UserPlus className="h-5 w-5" />
-                            </button>
-                          </div>
                         </div>
 
                         <div className="flex flex-col gap-3">
@@ -213,17 +204,27 @@ export default function Index() {
                               <input type="date" value={staysCheckIn} onChange={(e)=>setStaysCheckIn(e.target.value)} className="border rounded-lg p-2" />
                               <input type="date" value={staysCheckOut} onChange={(e)=>setStaysCheckOut(e.target.value)} className="border rounded-lg p-2" />
                               <input type="number" min={1} value={staysGuests} onChange={(e)=>setStaysGuests(Number(e.target.value))} className="border rounded-lg p-2" />
-                              <div className="col-span-2 flex gap-3">
-                                <Link to={buildStaysUrl()} className="ml-auto"><Button className="bg-gradient-to-r from-travel-blue to-travel-purple text-white">Search Stays</Button></Link>
-                                <Link to="/explore-services"><Button variant="ghost" className="border border-gray-200 hover:bg-gray-50">Browse Services</Button></Link>
+                              <div className="col-span-2 flex flex-col md:flex-row gap-3">
+                                <Link to={buildStaysUrl()} className="w-full md:flex-1"><Button className="w-full bg-gradient-to-r from-travel-blue to-travel-purple text-white">Search Stays</Button></Link>
+                                <Link to="/explore-services" className="w-full md:flex-1"><Button variant="ghost" className="w-full border border-gray-200 hover:bg-gray-50">Browse Services</Button></Link>
                               </div>
                             </div>
                           ) : (
                             <>
-                              <textarea value={promptText} onChange={(e) => setPromptText(e.target.value)} placeholder={'Try: "Plan a 5-day family trip to Kyoto with food highlights and cultural experiences"'} rows={5} className="w-full resize-none bg-gray-50 border border-transparent focus:border-travel-blue focus:ring-2 focus:ring-travel-blue/20 rounded-2xl p-4 shadow-inner text-sm placeholder:text-muted-foreground" />
-                              <div className="flex items-center gap-3">
-                                <Link to="/ai-planner"><Button className="bg-gradient-to-r from-travel-blue to-travel-purple text-white">Start Planning</Button></Link>
-                                <Link to="/explore-services"><Button variant="ghost" className="border border-gray-200 hover:bg-gray-50">Browse Services</Button></Link>
+                              <div className="relative">
+                                <textarea value={promptText} onChange={(e) => setPromptText(e.target.value)} placeholder={'Try: "Plan a 5-day family trip to Kyoto with food highlights and cultural experiences"'} rows={5} className="w-full resize-none bg-gray-50 border border-transparent focus:border-travel-blue focus:ring-2 focus:ring-travel-blue/20 rounded-2xl p-4 shadow-inner text-sm placeholder:text-muted-foreground" />
+                                <div className="absolute right-3 bottom-3 flex items-center gap-2">
+                                  <button title="Voice input" onClick={() => setMicActive(!micActive)} className={`p-2 rounded-md ${micActive ? 'bg-gradient-to-r from-travel-blue to-travel-purple text-white' : 'hover:bg-gray-100'}`}>
+                                    <Mic className="h-4 w-4" />
+                                  </button>
+                                  <button title="Invite friends" onClick={async ()=>{try{ if (navigator.share) { await navigator.share({ title: document.title, url: window.location.href }); } else { await navigator.clipboard.writeText(window.location.href); } }catch(e){}}} className="p-2 rounded-md hover:bg-gray-100">
+                                    <Users className="h-4 w-4" />
+                                  </button>
+                                </div>
+                              </div>
+                              <div className="flex flex-col md:flex-row gap-3 mt-2">
+                                <Link to="/ai-planner" className="w-full md:flex-1"><Button className="w-full bg-gradient-to-r from-travel-blue to-travel-purple text-white">Start Planning</Button></Link>
+                                <Link to="/explore-services" className="w-full md:flex-1"><Button variant="ghost" className="w-full border border-gray-200 hover:bg-gray-50">Browse Services</Button></Link>
                               </div>
                             </>
                           )}
