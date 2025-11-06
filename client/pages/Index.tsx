@@ -176,16 +176,6 @@ export default function Index() {
                 AI itineraries, live previews, and one-click booking.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 sm:items-center">
-                <Link to="/ai-planner">
-                  <Button size="lg" className="bg-gradient-to-r from-travel-blue to-travel-purple shadow-lg hover:scale-[1.02] transform transition will-change-transform">
-                    Start AI Planning
-                  </Button>
-                </Link>
-                <Link to="/explore-services">
-                  <Button size="lg" variant="ghost" className="border border-gray-200 hover:bg-gray-50">Browse Services</Button>
-                </Link>
-              </div>
 
               <div className="mt-6 flex items-center gap-6 text-sm text-muted-foreground justify-center lg:justify-start">
                 <div className="flex items-center gap-2"><Shield className="h-4 w-4"/><span>Secure Booking</span></div>
@@ -214,23 +204,12 @@ export default function Index() {
                             </button>
                           ))}
                         </div>
-                        <div className="flex gap-3 items-center">
+                        <div className="flex flex-col sm:flex-row gap-3 items-center">
                           <input value={promptText} onChange={(e) => setPromptText(e.target.value)} placeholder="Describe your ideal trip or enter a destination..." className="flex-1 border rounded-lg p-3" />
-                          <Button className="bg-travel-blue text-white">Plan</Button>
-                        </div>
-                        <div className="mt-4 grid grid-cols-2 gap-3">
-                          {services.map((service,idx) => {
-                            const Icon = service.icon;
-                            return (
-                              <div key={idx} className="flex items-center gap-3 p-2 bg-gray-50 rounded-lg">
-                                <Icon className="h-5 w-5 text-travel-blue" />
-                                <div>
-                                  <div className="text-sm font-medium">{service.title}</div>
-                                  <div className="text-xs text-muted-foreground">{service.description}</div>
-                                </div>
-                              </div>
-                            );
-                          })}
+                          <div className="flex gap-3">
+                            <Link to="/ai-planner"><Button className="bg-gradient-to-r from-travel-blue to-travel-purple text-white">Start Planning</Button></Link>
+                            <Link to="/explore-services"><Button variant="ghost" className="border border-gray-200 hover:bg-gray-50">Browse Services</Button></Link>
+                          </div>
                         </div>
                       </div>
                     </div>
