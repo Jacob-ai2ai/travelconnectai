@@ -18,17 +18,17 @@
     --popover: 0 0% 100%;
     --popover-foreground: 215 25% 27%;
 
-    --primary: 25 90% 45%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 54 95% 62%;
+    --primary-foreground: 210 12% 12%;
 
-    --secondary: 30 80% 55%;
-    --secondary-foreground: 210 20% 98%;
+    --secondary: 52 95% 70%;
+    --secondary-foreground: 210 12% 12%;
 
-    --muted: 35 20% 95%;
-    --muted-foreground: 30 10% 35%;
+    --muted: 54 40% 97%;
+    --muted-foreground: 48 8% 20%;
 
-    --accent: 28 85% 48%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 52 95% 65%;
+    --accent-foreground: 210 12% 12%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
@@ -39,8 +39,8 @@
 
     --radius: 0.75rem;
 
-    --travel-blue: 14 85% 40%;
-    --travel-orange: 28 85% 50%;
+    --travel-blue: 54 95% 62%;
+    --travel-orange: 48 95% 62%;
     --travel-green: 60 25% 35%;
     --travel-purple: 330 45% 35%;
 
@@ -71,17 +71,17 @@
     --popover: 215 28% 17%;
     --popover-foreground: 210 20% 98%;
 
-    --primary: 25 90% 45%;
+    --primary: 54 95% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 30 80% 45%;
+    --secondary: 52 95% 60%;
     --secondary-foreground: 210 20% 98%;
 
-    --muted: 30 10% 12%;
-    --muted-foreground: 40 12% 60%;
+    --muted: 40 12% 18%;
+    --muted-foreground: 45 12% 70%;
 
-    --accent: 28 85% 48%;
-    --accent-foreground: 215 28% 17%;
+    --accent: 52 95% 65%;
+    --accent-foreground: 210 20% 98%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
@@ -90,8 +90,8 @@
     --input: 215 25% 22%;
     --ring: 196 75% 40%;
 
-    --travel-blue: 14 85% 40%;
-    --travel-orange: 28 85% 50%;
+    --travel-blue: 54 95% 62%;
+    --travel-orange: 48 95% 62%;
     --travel-green: 60 25% 35%;
     --travel-purple: 330 45% 35%;
     --sidebar-background: 240 5.9% 10%;
@@ -136,7 +136,7 @@
   .glow-travel-orange { background: radial-gradient(circle at 70% 30%, hsl(var(--travel-orange) / 0.18), transparent 35% ); }
   .glow-travel-purple { background: radial-gradient(circle at 50% 70%, hsl(var(--travel-purple) / 0.18), transparent 35% ); }
 
-  .vibrant-cta { box-shadow: 0 10px 30px -8px rgba(255,140,0,0.22), 0 6px 18px -10px rgba(220,80,40,0.18); transform: translateZ(0); }
+  .vibrant-cta { box-shadow: 0 10px 30px -8px rgba(255,230,128,0.22), 0 6px 18px -10px rgba(240,200,80,0.18); transform: translateZ(0); }
 
   /* Autumn gradient utilities */
   .bg-autumn-gradient { background: linear-gradient(90deg, hsl(var(--travel-orange)), hsl(var(--primary))); }
