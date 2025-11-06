@@ -199,12 +199,18 @@ export default function Index() {
 
                         <div className="flex flex-col gap-3">
                           {activeTab === 'stays' ? (
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                              <input value={staysDestination} onChange={(e)=>setStaysDestination(e.target.value)} placeholder="Destination (city or area)" className="col-span-2 border rounded-lg p-2" />
-                              <input type="date" value={staysCheckIn} onChange={(e)=>setStaysCheckIn(e.target.value)} className="border rounded-lg p-2" />
-                              <input type="date" value={staysCheckOut} onChange={(e)=>setStaysCheckOut(e.target.value)} className="border rounded-lg p-2" />
-                              <input type="number" min={1} value={staysGuests} onChange={(e)=>setStaysGuests(Number(e.target.value))} className="border rounded-lg p-2" />
-                              <div className="col-span-2 flex flex-col md:flex-row gap-3">
+                              <div className="grid grid-cols-1 gap-3">
+                              <div className="flex gap-3">
+                                <input value={staysDestination} onChange={(e)=>setStaysDestination(e.target.value)} placeholder="Destination (city or area)" className="flex-1 border rounded-lg p-2" />
+                                <input type="number" min={1} value={staysGuests} onChange={(e)=>setStaysGuests(Number(e.target.value))} className="w-28 border rounded-lg p-2" />
+                              </div>
+
+                              <div className="grid grid-cols-2 gap-3">
+                                <input type="date" value={staysCheckIn} onChange={(e)=>setStaysCheckIn(e.target.value)} className="border rounded-lg p-2" />
+                                <input type="date" value={staysCheckOut} onChange={(e)=>setStaysCheckOut(e.target.value)} className="border rounded-lg p-2" />
+                              </div>
+
+                              <div className="flex flex-col md:flex-row gap-3">
                                 <Link to={buildStaysUrl()} className="w-full md:flex-1"><Button className="w-full bg-gradient-to-r from-travel-blue to-travel-purple text-white">Search Stays</Button></Link>
                                 <Link to="/explore-services" className="w-full md:flex-1"><Button variant="ghost" className="w-full border border-gray-200 hover:bg-gray-50">Browse Services</Button></Link>
                               </div>
