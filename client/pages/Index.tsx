@@ -385,9 +385,9 @@ export default function Index() {
                   <svg width="360" height="160" viewBox="0 0 600 260" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-100">
                     <defs>
                       <linearGradient id="g1" x1="0" x2="1">
-                        <stop offset="0%" stopColor="#34d399" stopOpacity="0.28" />
-                        <stop offset="50%" stopColor="#60a5fa" stopOpacity="0.26" />
-                        <stop offset="100%" stopColor="#a78bfa" stopOpacity="0.28" />
+                        <stop offset="0%" stopColor="#FFD166" stopOpacity="0.28" />
+                        <stop offset="50%" stopColor="#FFB703" stopOpacity="0.26" />
+                        <stop offset="100%" stopColor="#F97316" stopOpacity="0.28" />
                       </linearGradient>
                     </defs>
                     <path d="M0 80 C150 0 450 160 600 60 L600 260 L0 260 Z" fill="url(#g1)" />
