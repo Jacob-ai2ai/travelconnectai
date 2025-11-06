@@ -33,10 +33,17 @@ export default function Header() {
             </span>
           </Link>
 
-          <nav className="hidden md:flex items-center space-x-6">
-            <Link to="/discover" className="p-2 rounded-md hover:bg-gray-100" title="Discover">
-              <Compass className="h-5 w-5 text-foreground/80" />
-            </Link>
+          <nav className="hidden md:flex items-center space-x-4">
+            <div className="flex items-center gap-2">
+              <Link to="/discover" className="p-2 rounded-md hover:bg-gray-100" title="Discover">
+                <Compass className="h-5 w-5 text-foreground/80" />
+              </Link>
+              <form onSubmit={(e)=>{e.preventDefault(); if (typeof window !== 'undefined') navigate(`/discover?q=${encodeURIComponent(searchQuery)}`);}} className="flex items-center bg-white border rounded-md px-2 py-1">
+                <SearchIcon className="h-4 w-4 text-muted-foreground mr-2" />
+                <Input placeholder="Search reels, spaces, places" value={searchQuery} onChange={(e)=>setSearchQuery(e.target.value)} className="w-56" />
+              </form>
+            </div>
+
             <button title="Notifications" onClick={() => setNotificationsOpen(true)} className="p-2 rounded-md hover:bg-gray-100">
               <Bell className="h-5 w-5 text-foreground/80" />
             </button>
