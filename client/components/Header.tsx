@@ -12,6 +12,8 @@ export default function Header() {
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [messagesOpen, setMessagesOpen] = useState(false);
   const [inviteOpen, setInviteOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
 
   const isSignedIn = typeof window !== 'undefined' && localStorage.getItem('isSignedIn') === 'true';
   const rawUser = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
