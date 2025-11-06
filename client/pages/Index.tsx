@@ -277,7 +277,7 @@ export default function Index() {
 
           <nav className="hidden md:flex items-center space-x-6">
             <button title="Discover" className="p-2 rounded-md hover:bg-gray-100">
-              <Sparkles className="h-5 w-5 text-foreground/80" />
+              <Compass className="h-5 w-5 text-foreground/80" />
             </button>
             <button title="Notifications" className="p-2 rounded-md hover:bg-gray-100">
               <Bell className="h-5 w-5 text-foreground/80" />
