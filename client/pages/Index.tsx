@@ -48,6 +48,45 @@ export default function Index() {
   const [staysCheckOut, setStaysCheckOut] = useState('');
   const [staysGuests, setStaysGuests] = useState(2);
 
+  // Location/search in header
+  const [locationCity, setLocationCity] = useState('');
+  const [locationFlag, setLocationFlag] = useState('');
+  const [currency, setCurrency] = useState('USD');
+  const [locationSearch, setLocationSearch] = useState('');
+
+  useEffect(() => {
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+      let city = '';
+      if (tz.includes('/')) {
+        city = tz.split('/').pop()?.replace('_', ' ') || '';
+      }
+      const lang = navigator.language || 'en-US';
+      const regionMatch = lang.match(/-([A-Z]{2})$/i);
+      let country = regionMatch ? regionMatch[1].toUpperCase() : '';
+      if (!country) {
+        // fallback: try extract from timezone continent/country
+        const tzPart = tz.split('/')[0];
+        if (tzPart && tzPart.length === 2) country = tzPart.toUpperCase();
+      }
+
+      const countryToCurrency: Record<string,string> = {
+        US: 'USD', GB: 'GBP', IN: 'INR', CA: 'CAD', AU: 'AUD', DE: 'EUR', FR: 'EUR', ES: 'EUR', IT: 'EUR', NL: 'EUR', JP: 'JPY', CN: 'CNY', SG: 'SGD', AE: 'AED'
+      };
+
+      const cc = country || 'US';
+      setCurrency(countryToCurrency[cc] || 'USD');
+      setLocationCity(city || (cc === 'US' ? 'United States' : cc));
+
+      // country code to flag emoji
+      const flag = cc.toUpperCase().replace(/./g, (char:any) => String.fromCodePoint(127397 + char.charCodeAt(0))).replace(/undefined/g,'');
+      setLocationFlag(flag);
+      setLocationSearch(city || '');
+    } catch (e) {
+      console.warn(e);
+    }
+  }, []);
+
   const buildStaysUrl = () => {
     return `/stays?destination=${encodeURIComponent(staysDestination)}&checkIn=${staysCheckIn}&checkOut=${staysCheckOut}&guests=${staysGuests}`;
   };
