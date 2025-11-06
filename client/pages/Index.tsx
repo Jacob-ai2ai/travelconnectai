@@ -328,7 +328,7 @@ export default function Index() {
                           <p className="text-lg text-white mt-4">Tell us where you're going next — we'll handle the rest.</p>
                       </div>
 
-                      <div className="bg-white rounded-2xl p-3 shadow-lg relative z-10 translate-y-0 md:translate-y-6 lg:translate-y-10 mx-auto">
+                      <div className="bg-white rounded-2xl p-3 shadow-lg relative z-10 -translate-y-2 md:translate-y-4 lg:translate-y-8 mx-auto">
                         <div className="flex items-center justify-between mb-4">
                           <div className="flex flex-nowrap gap-2 overflow-x-auto">
                             {['ai-planner','stays','flights','experiences','events','essentials'].map((t)=>(
