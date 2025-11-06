@@ -359,7 +359,7 @@ export default function Index() {
                               </div>
 
                               <div className="flex gap-3">
-                                <Link to={() => `/flights?from=${encodeURIComponent(flOrigin)}&to=${encodeURIComponent(flDestination)}&depart=${flDepart}&return=${flReturn}&p=${flPassengers}&c=${flCabin}`} className="w-full md:flex-1"><Button className="w-full">Search Flights</Button></Link>
+                                <Link to={`/flights?from=${encodeURIComponent(flOrigin)}&to=${encodeURIComponent(flDestination)}&depart=${flDepart}&return=${flReturn}&p=${flPassengers}&c=${flCabin}`} className="w-full md:flex-1"><Button className="w-full">Search Flights</Button></Link>
                                 <Link to="/explore-services" className="w-full md:flex-1"><Button variant="ghost" className="w-full border border-gray-200 hover:bg-gray-50">Browse Flights</Button></Link>
                               </div>
                             </div>
