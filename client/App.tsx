@@ -59,6 +59,7 @@ export default function App() {
             <Route path="/property/:propertyId" element={<PropertyPage />} />
             <Route path="/itinerary" element={<TripDetails />} />
             <Route path="/stays" element={<Stays />} />
+            <Route path="/trips" element={<Trips />} />
             <Route path="/flights" element={<Flights />} />
             <Route path="/xperiences" element={<Xperiences />} />
             <Route path="/events" element={<Events />} />
