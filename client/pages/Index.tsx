@@ -269,7 +269,7 @@ export default function Index() {
                     ))}
                   </select>
                 </div>
-                <input onChange={(e)=>setLocationSearch(e.target.value)} value={locationSearch} placeholder={locationCity || 'Search city'} className="w-full pl-28 pr-4 py-2 rounded-lg border bg-white/90" />
+                <input onChange={(e)=>setLocationSearch(e.target.value)} value={locationSearch} placeholder={locationCity || 'Search city'} className="w-full md:w-[70%] pl-28 pr-4 py-2 rounded-lg border bg-white/90" />
               </div>
             </div>
           </div>
