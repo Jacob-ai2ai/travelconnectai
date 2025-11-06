@@ -250,30 +250,7 @@ export default function ListProperty() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted">
-      {/* Header */}
-      <header className="border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <Link
-                to="/stays"
-                className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <ArrowLeft className="h-5 w-5" />
-                <span>Back to Stays</span>
-              </Link>
-              <div className="h-6 w-px bg-border"></div>
-              <div className="flex items-center space-x-2">
-                <Home className="h-6 w-6 text-travel-orange" />
-                <span className="text-xl font-bold bg-gradient-to-r from-travel-orange to-travel-blue bg-clip-text text-transparent">
-                  List Your Property
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
+      <div className="h-4" />
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           {/* Introduction */}
