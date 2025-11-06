@@ -181,7 +181,11 @@ export default function Index() {
               <div className="relative">
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
                   <span id="flag" className="text-xl">{locationFlag}</span>
-                  <span className="text-xs text-muted-foreground">· {currency}</span>
+                  <select value={currency} onChange={(e)=>setCurrency(e.target.value)} className="text-xs bg-transparent border-none focus:ring-0 ml-1">
+                    {['USD','EUR','GBP','INR','AUD','CAD','JPY','SGD','AED'].map(c=> (
+                      <option key={c} value={c}>{c}</option>
+                    ))}
+                  </select>
                 </div>
                 <input onChange={(e)=>setLocationSearch(e.target.value)} value={locationSearch} placeholder={locationCity || 'Search city'} className="w-full pl-28 pr-4 py-2 rounded-lg border bg-white/90" />
               </div>
