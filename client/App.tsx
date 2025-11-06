@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
+import Header from "@/components/Header";
 import AIPlanner from "./pages/AIPlanner";
 import TripDetails from "./pages/TripDetails";
 import RouteMap from "./pages/RouteMap";
