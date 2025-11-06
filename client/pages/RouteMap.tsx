@@ -565,45 +565,9 @@ export default function RouteMap({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted">
-      {showHeader && (
-        <header className="border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50">
-          <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <Link
-                to={`/trip-details/${planId}`}
-                className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <ArrowLeft className="h-5 w-5" />
-                <span>Back to Trip Details</span>
-              </Link>
-              <div className="h-6 w-px bg-border"></div>
-              <div className="flex items-center space-x-2">
-                <Route className="h-6 w-6 text-travel-blue" />
-                <span className="text-xl font-bold bg-gradient-to-r from-travel-blue to-travel-purple bg-clip-text text-transparent">
-                  Route Map & Navigation
-                </span>
-              </div>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setShowOffers(!showOffers)}
-              >
-                <Gift className="h-4 w-4 mr-2" />
-                {showOffers ? "Hide" : "Show"} Offers
-              </Button>
-              <Button variant="outline" size="sm">
-                <Share2 className="h-4 w-4 mr-2" />
-                Share Route
-              </Button>
-            </div>
-          </div>
-        </header>
-      )}
+      <div className="h-4" />
 
       <div className="container mx-auto px-4 py-8">
-        {showHeader && (
           <div className="mb-8">
             <div className="flex items-center space-x-2 mb-4">
               <Badge className="bg-travel-blue/10 text-travel-blue border-travel-blue/20">
@@ -620,8 +584,6 @@ export default function RouteMap({
               recommended stops, and exclusive offers along the way.
             </p>
           </div>
-        )}
-
         <div className="grid lg:grid-cols-3 gap-6">
           {/* Map Area */}
           <div className="lg:col-span-2">
