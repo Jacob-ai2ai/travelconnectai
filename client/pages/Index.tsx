@@ -180,7 +180,6 @@ export default function Index() {
               <div className="relative">
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
                   <span id="flag" className="text-xl">{locationFlag}</span>
-                  <span className="text-sm font-medium">{locationCity}</span>
                   <span className="text-xs text-muted-foreground">· {currency}</span>
                 </div>
                 <input onChange={(e)=>setLocationSearch(e.target.value)} value={locationSearch} placeholder={locationCity || 'Search city'} className="w-full pl-28 pr-4 py-2 rounded-lg border bg-white/90" />
