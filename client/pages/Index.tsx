@@ -303,7 +303,7 @@ export default function Index() {
                               <span style={{fontWeight: 'normal', color: 'rgb(0, 0, 0)'}}><em>Prompt</em></span>
                             </div>
                           </h1>
-                          <h4 className="text-lg text-white mt-4">Plan your perfect vacation— with AI powered planning &amp; booking.</h4>
+                          <h4 className="text-lg text-white mt-4">Plan your perfect vacation�� with AI powered planning &amp; booking.</h4>
                           <h5></h5>
                       </div>
 
@@ -311,7 +311,7 @@ export default function Index() {
                         <div className="flex items-center justify-between mb-4">
                           <div className="flex flex-nowrap gap-2 overflow-x-auto">
                             {['ai-planner','stays','flights','experiences','events','essentials'].map((t)=>(
-                              <button key={t} onClick={() => setActiveTab(t)} className={`px-3 py-1 rounded-md text-base whitespace-nowrap ${activeTab===t ? (t === 'ai-planner' ? 'bg-black text-white' : 'bg-travel-blue text-white') : 'text-muted-foreground bg-transparent border border-transparent hover:border-gray-200'}`}>
+                              <button key={t} onClick={() => setActiveTab(t)} className={`px-3 py-1 rounded-md text-base whitespace-nowrap ${activeTab===t ? (activeTab === t ? 'bg-black text-white' : 'text-muted-foreground bg-transparent border border-transparent hover:border-gray-200') : 'text-muted-foreground bg-transparent border border-transparent hover:border-gray-200'}`}>
                                 {t === 'ai-planner' ? 'AI Planner' : t.charAt(0).toUpperCase() + t.slice(1)}
                               </button>
                             ))}
@@ -332,7 +332,7 @@ export default function Index() {
                               </div>
 
                               <div className="flex flex-col md:flex-row gap-3">
-                                <Link to={buildStaysUrl()} className="w-full md:flex-1"><Button className="w-full">Search Stays</Button></Link>
+                                <Link to={buildStaysUrl()} className="w-full md:flex-1"><Button className="w-full bg-black text-white">Search Stays</Button></Link>
                                 <Link to="/explore-services" className="w-full md:flex-1"><Button variant="ghost" className="w-full border border-gray-200 hover:bg-gray-50">Browse Services</Button></Link>
                               </div>
                             </div>
@@ -359,7 +359,7 @@ export default function Index() {
                               </div>
 
                               <div className="flex gap-3">
-                                <Link to={`/flights?from=${encodeURIComponent(flOrigin)}&to=${encodeURIComponent(flDestination)}&depart=${flDepart}&return=${flReturn}&p=${flPassengers}&c=${flCabin}`} className="w-full md:flex-1"><Button className="w-full">Search Flights</Button></Link>
+                                <Link to={`/flights?from=${encodeURIComponent(flOrigin)}&to=${encodeURIComponent(flDestination)}&depart=${flDepart}&return=${flReturn}&p=${flPassengers}&c=${flCabin}`} className="w-full md:flex-1"><Button className="w-full bg-black text-white">Search Flights</Button></Link>
                                 <Link to="/explore-services" className="w-full md:flex-1"><Button variant="ghost" className="w-full border border-gray-200 hover:bg-gray-50">Browse Flights</Button></Link>
                               </div>
                             </div>
@@ -381,7 +381,7 @@ export default function Index() {
                               </div>
 
                               <div className="flex gap-3">
-                                <Link to={`/xperiences?loc=${encodeURIComponent(xpLocation)}&type=${xpType}&date=${xpDate}&p=${xpPeople}`} className="w-full md:flex-1"><Button className="w-full">Search Experiences</Button></Link>
+                                <Link to={`/xperiences?loc=${encodeURIComponent(xpLocation)}&type=${xpType}&date=${xpDate}&p=${xpPeople}`} className="w-full md:flex-1"><Button className="w-full bg-black text-white">Search Experiences</Button></Link>
                                 <Link to="/explore-services" className="w-full md:flex-1"><Button variant="ghost" className="w-full border border-gray-200 hover:bg-gray-50">Browse Experiences</Button></Link>
                               </div>
                             </div>
@@ -398,7 +398,7 @@ export default function Index() {
                               </div>
 
                               <div className="flex gap-3">
-                                <Link to={`/events?name=${encodeURIComponent(evName)}&loc=${encodeURIComponent(evLocation)}&date=${evDate}&t=${evTickets}`} className="w-full md:flex-1"><Button className="w-full">Search Events</Button></Link>
+                                <Link to={`/events?name=${encodeURIComponent(evName)}&loc=${encodeURIComponent(evLocation)}&date=${evDate}&t=${evTickets}`} className="w-full md:flex-1"><Button className="w-full bg-black text-white">Search Events</Button></Link>
                                 <Link to="/explore-services" className="w-full md:flex-1"><Button variant="ghost" className="w-full border border-gray-200 hover:bg-gray-50">Browse Events</Button></Link>
                               </div>
                             </div>
@@ -419,7 +419,7 @@ export default function Index() {
                               </div>
 
                               <div className="flex gap-3">
-                                <Link to={`/essentials?cat=${encodeURIComponent(essCategory)}&q=${essQuantity}&date=${essDate}`} className="w-full md:flex-1"><Button className="w-full">Find Essentials</Button></Link>
+                                <Link to={`/essentials?cat=${encodeURIComponent(essCategory)}&q=${essQuantity}&date=${essDate}`} className="w-full md:flex-1"><Button className="w-full bg-black text-white">Find Essentials</Button></Link>
                                 <Link to="/explore-services" className="w-full md:flex-1"><Button variant="ghost" className="w-full border border-gray-200 hover:bg-gray-50">Browse Essentials</Button></Link>
                               </div>
                             </div>
