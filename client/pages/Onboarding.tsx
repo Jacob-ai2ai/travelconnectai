@@ -428,25 +428,7 @@ export default function Onboarding() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted">
-      {/* Header */}
-      <header className="border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-travel-blue to-travel-purple rounded-lg flex items-center justify-center">
-                <Globe className="h-5 w-5 text-white" />
-              </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-travel-blue to-travel-purple bg-clip-text text-transparent">
-                Travel Connect
-              </span>
-            </div>
-            <div className="text-sm text-muted-foreground">
-              Step {currentStepIndex + 1} of {steps.length}
-            </div>
-          </div>
-        </div>
-      </header>
-
+      <div className="h-4" />
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         {/* Progress Bar */}
         <div className="mb-8">
