@@ -391,8 +391,9 @@ export default function Index() {
                                   <button title="Voice input" onClick={() => setMicActive(!micActive)} className={`p-2 rounded-md ${micActive ? 'bg-cta-lemon text-white' : 'hover:bg-gray-100'}`}>
                                     <Mic className="h-4 w-4" />
                                   </button>
-                                  <button title="Invite friends" onClick={() => setInviteOpen(true)} className="p-2 rounded-md hover:bg-gray-100">
+                                  <button title="Invite friends" onClick={() => setInviteOpen(true)} className="p-2 rounded-md hover:bg-gray-100 flex items-center gap-1">
                                     <Users className="h-4 w-4" />
+                                    {participants.length > 0 && <span className="text-xs font-semibold text-foreground/80">{participants.length}</span>}
                                   </button>
                                 </div>
                               </div>
