@@ -548,10 +548,7 @@ export default function Index() {
         </div>
       </footer>
 
-      {/* Dialogs: Notifications, Messages, Invite Friends */}
-      <NotificationsDialog open={notificationsOpen} onOpenChange={setNotificationsOpen} />
-      <MessagesDialog open={messagesOpen} onOpenChange={setMessagesOpen} />
-      <InviteFriendsDialog open={inviteOpen} onOpenChange={setInviteOpen} onInviteComplete={(ps)=>{ setParticipants(ps); try{ localStorage.setItem('invitedParticipants', JSON.stringify(ps)); }catch(e){} }} />
+      {/* Invite modal state kept here for prompt box; dialogs are provided by global Header */}
 
       {/* Authentication Modal */}
       <AuthModal
