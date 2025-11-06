@@ -333,7 +333,6 @@ export default function Index() {
 
                               <div className="flex flex-col md:flex-row gap-3">
                                 <Link to={buildStaysUrl()} className="w-full md:flex-1"><Button className="w-full bg-black text-white">Search Stays</Button></Link>
-                                <Link to="/explore-services" className="w-full md:flex-1"><Button variant="ghost" className="w-full border border-gray-200 hover:bg-gray-50">Browse Services</Button></Link>
                               </div>
                             </div>
                           ) : activeTab === 'flights' ? (
@@ -360,7 +359,6 @@ export default function Index() {
 
                               <div className="flex gap-3">
                                 <Link to={`/flights?from=${encodeURIComponent(flOrigin)}&to=${encodeURIComponent(flDestination)}&depart=${flDepart}&return=${flReturn}&p=${flPassengers}&c=${flCabin}`} className="w-full md:flex-1"><Button className="w-full bg-black text-white">Search Flights</Button></Link>
-                                <Link to="/explore-services" className="w-full md:flex-1"><Button variant="ghost" className="w-full border border-gray-200 hover:bg-gray-50">Browse Flights</Button></Link>
                               </div>
                             </div>
                           ) : activeTab === 'experiences' ? (
@@ -382,7 +380,6 @@ export default function Index() {
 
                               <div className="flex gap-3">
                                 <Link to={`/xperiences?loc=${encodeURIComponent(xpLocation)}&type=${xpType}&date=${xpDate}&p=${xpPeople}`} className="w-full md:flex-1"><Button className="w-full bg-black text-white">Search Experiences</Button></Link>
-                                <Link to="/explore-services" className="w-full md:flex-1"><Button variant="ghost" className="w-full border border-gray-200 hover:bg-gray-50">Browse Experiences</Button></Link>
                               </div>
                             </div>
                           ) : activeTab === 'events' ? (
@@ -399,7 +396,6 @@ export default function Index() {
 
                               <div className="flex gap-3">
                                 <Link to={`/events?name=${encodeURIComponent(evName)}&loc=${encodeURIComponent(evLocation)}&date=${evDate}&t=${evTickets}`} className="w-full md:flex-1"><Button className="w-full bg-black text-white">Search Events</Button></Link>
-                                <Link to="/explore-services" className="w-full md:flex-1"><Button variant="ghost" className="w-full border border-gray-200 hover:bg-gray-50">Browse Events</Button></Link>
                               </div>
                             </div>
                           ) : activeTab === 'essentials' ? (
@@ -420,7 +416,6 @@ export default function Index() {
 
                               <div className="flex gap-3">
                                 <Link to={`/essentials?cat=${encodeURIComponent(essCategory)}&q=${essQuantity}&date=${essDate}`} className="w-full md:flex-1"><Button className="w-full bg-black text-white">Find Essentials</Button></Link>
-                                <Link to="/explore-services" className="w-full md:flex-1"><Button variant="ghost" className="w-full border border-gray-200 hover:bg-gray-50">Browse Essentials</Button></Link>
                               </div>
                             </div>
                           ) : (
