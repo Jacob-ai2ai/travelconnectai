@@ -167,9 +167,10 @@ export default function Index() {
               <Badge variant="secondary" className="mb-4 opacity-95 transform -translate-y-0">
                 🚀 Powered by AI Technology
               </Badge>
-              <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight mt-[-1px] text-center">
-                Tell us where you want to go next.
-              </h1>
+              <h4 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight mt-[-1px] text-center text-white uppercase">
+                WHERE ARE WE GOING NEXT?
+                <br />
+              </h4>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-center mt-6">
                 From curated vacation homes to thrilling experiences — get smart
                 AI itineraries, live previews, and one-click booking.
