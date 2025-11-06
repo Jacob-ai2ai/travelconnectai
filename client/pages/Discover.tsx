@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Play, Users, Hash, FileText } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Play, Users, Hash, FileText, Search as SearchIcon } from "lucide-react";
 
 export default function Discover() {
   const tabs = [
@@ -12,13 +13,40 @@ export default function Discover() {
   ];
 
   const [active, setActive] = useState('reels');
+  const location = useLocation();
+  const navigate = useNavigate();
+  const params = new URLSearchParams(location.search);
+  const initialQ = params.get('q') || '';
+  const [searchQuery, setSearchQuery] = useState(initialQ);
+
+  useEffect(() => {
+    // keep search input in sync with query param when navigating
+    const p = new URLSearchParams(location.search).get('q') || '';
+    setSearchQuery(p);
+  }, [location.search]);
+
+  const submitSearch = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    const q = searchQuery.trim();
+    if (q) navigate(`/discover?q=${encodeURIComponent(q)}`);
+    else navigate('/discover');
+    // Optionally set active tab to reels when searching
+    setActive('reels');
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted">
       <main className="container mx-auto px-4 py-8">
         <div className="bg-white rounded-2xl p-4 shadow-md">
-          <div className="flex items-center justify-between mb-4">
-            <h1 className="text-2xl font-bold">Discover</h1>
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-3">
+            <div className="flex items-center gap-4">
+              <h1 className="text-2xl font-bold">Discover</h1>
+              <form onSubmit={submitSearch} className="flex items-center bg-gray-100 border rounded-md px-2 py-1">
+                <SearchIcon className="h-4 w-4 text-muted-foreground mr-2" />
+                <Input placeholder="Search reels, spaces, places" value={searchQuery} onChange={(e)=>setSearchQuery(e.target.value)} className="w-56 bg-transparent border-0 p-0" />
+              </form>
+            </div>
+
             <div className="text-sm text-muted-foreground">Find reels, join travel spaces, explore itineraries and see what friends are sharing.</div>
           </div>
 
@@ -28,7 +56,7 @@ export default function Discover() {
                 const Icon = t.icon as any;
                 const activeCls = active === t.id ? 'border-b-2 border-travel-blue text-travel-blue' : 'text-muted-foreground';
                 return (
-                  <button key={t.id} onClick={() => setActive(t.id)} className={`px-4 py-2 ${activeCls} rounded-t-md`}> 
+                  <button key={t.id} onClick={() => setActive(t.id)} className={`px-4 py-2 ${activeCls} rounded-t-md`}>
                     <div className="flex items-center gap-2">
                       <Icon className="h-4 w-4" />
                       <span>{t.title}</span>
