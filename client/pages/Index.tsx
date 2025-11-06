@@ -134,6 +134,21 @@ export default function Index() {
               Traveltheworld.ai
             </span>
           </div>
+
+          {/* Location search */}
+          <div className="flex-1 mx-6 hidden md:flex justify-center">
+            <div className="w-full max-w-md">
+              <div className="relative">
+                <div className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                  <span id="flag" className="text-xl">{locationFlag}</span>
+                  <span className="text-sm font-medium">{locationCity}</span>
+                  <span className="text-xs text-muted-foreground">· {currency}</span>
+                </div>
+                <input onChange={(e)=>setLocationSearch(e.target.value)} value={locationSearch} placeholder={locationCity || 'Search city'} className="w-full pl-28 pr-4 py-2 rounded-lg border bg-white/90" />
+              </div>
+            </div>
+          </div>
+
           <nav className="hidden md:flex items-center space-x-6">
             <button title="Notifications" className="p-2 rounded-md hover:bg-gray-100">
               <Bell className="h-5 w-5 text-foreground/80" />
