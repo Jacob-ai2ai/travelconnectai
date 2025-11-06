@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Plane, Compass, Bell, MessageSquare, Briefcase, Users, Mic } from "lucide-react";
 import { Button } from "@/components/ui/button";
