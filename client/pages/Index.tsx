@@ -160,7 +160,7 @@ export default function Index() {
       </header>
 
       {/* Hero Section: Apple-inspired */}
-      <section className="container mx-auto px-4 py-16 md:py-24">
+      <section className="container mx-auto px-4 py-12 md:py-12">
         <div className="max-w-7xl mx-auto relative">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-5 space-y-4 order-2 lg:order-1 text-center">
@@ -177,11 +177,6 @@ export default function Index() {
               </p>
 
 
-              <div className="mt-6 flex items-center gap-6 text-sm text-muted-foreground justify-center lg:justify-start">
-                <div className="flex items-center gap-2"><Shield className="h-4 w-4"/><span>Secure Booking</span></div>
-                <div className="flex items-center gap-2"><Clock className="h-4 w-4"/><span>24/7 Support</span></div>
-                <div className="flex items-center gap-2"><Star className="h-4 w-4"/><span>Top-rated</span></div>
-              </div>
             </div>
 
             <div className="lg:col-span-7 order-1 lg:order-2">
