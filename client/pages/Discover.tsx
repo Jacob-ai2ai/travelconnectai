@@ -47,7 +47,6 @@ export default function Discover() {
               </form>
             </div>
 
-            <div className="text-sm text-muted-foreground">Find reels, join travel spaces, explore itineraries and see what friends are sharing.</div>
           </div>
 
           <div className="border-b">
