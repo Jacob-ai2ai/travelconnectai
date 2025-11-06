@@ -49,6 +49,31 @@ export default function Index() {
   const [staysCheckOut, setStaysCheckOut] = useState('');
   const [staysGuests, setStaysGuests] = useState(2);
 
+  // Flights inputs
+  const [flOrigin, setFlOrigin] = useState('');
+  const [flDestination, setFlDestination] = useState('');
+  const [flDepart, setFlDepart] = useState('');
+  const [flReturn, setFlReturn] = useState('');
+  const [flPassengers, setFlPassengers] = useState(1);
+  const [flCabin, setFlCabin] = useState('economy');
+
+  // Experiences inputs
+  const [xpLocation, setXpLocation] = useState('');
+  const [xpDate, setXpDate] = useState('');
+  const [xpPeople, setXpPeople] = useState(2);
+  const [xpType, setXpType] = useState('any');
+
+  // Events inputs
+  const [evName, setEvName] = useState('');
+  const [evLocation, setEvLocation] = useState('');
+  const [evDate, setEvDate] = useState('');
+  const [evTickets, setEvTickets] = useState(1);
+
+  // Essentials inputs
+  const [essCategory, setEssCategory] = useState('travel-essentials');
+  const [essQuantity, setEssQuantity] = useState(1);
+  const [essDate, setEssDate] = useState('');
+
   // Location/search in header
   const [locationCity, setLocationCity] = useState('');
   const [locationFlag, setLocationFlag] = useState('');
@@ -309,6 +334,93 @@ export default function Index() {
                               <div className="flex flex-col md:flex-row gap-3">
                                 <Link to={buildStaysUrl()} className="w-full md:flex-1"><Button className="w-full">Search Stays</Button></Link>
                                 <Link to="/explore-services" className="w-full md:flex-1"><Button variant="ghost" className="w-full border border-gray-200 hover:bg-gray-50">Browse Services</Button></Link>
+                              </div>
+                            </div>
+                          ) : activeTab === 'flights' ? (
+                            <div className="grid grid-cols-1 gap-3">
+                              <div className="flex gap-3">
+                                <input value={flOrigin} onChange={(e)=>setFlOrigin(e.target.value)} placeholder="Origin" className="flex-1 border rounded-lg p-2" />
+                                <input value={flDestination} onChange={(e)=>setFlDestination(e.target.value)} placeholder="Destination" className="flex-1 border rounded-lg p-2" />
+                              </div>
+
+                              <div className="grid grid-cols-2 gap-3">
+                                <input type="date" value={flDepart} onChange={(e)=>setFlDepart(e.target.value)} className="border rounded-lg p-2" />
+                                <input type="date" value={flReturn} onChange={(e)=>setFlReturn(e.target.value)} className="border rounded-lg p-2" />
+                              </div>
+
+                              <div className="flex gap-3 items-center">
+                                <input type="number" min={1} value={flPassengers} onChange={(e)=>setFlPassengers(Number(e.target.value))} className="w-28 border rounded-lg p-2" />
+                                <select value={flCabin} onChange={(e)=>setFlCabin(e.target.value)} className="border rounded-lg p-2">
+                                  <option value="economy">Economy</option>
+                                  <option value="premium">Premium Economy</option>
+                                  <option value="business">Business</option>
+                                  <option value="first">First</option>
+                                </select>
+                              </div>
+
+                              <div className="flex gap-3">
+                                <Link to={() => `/flights?from=${encodeURIComponent(flOrigin)}&to=${encodeURIComponent(flDestination)}&depart=${flDepart}&return=${flReturn}&p=${flPassengers}&c=${flCabin}`} className="w-full md:flex-1"><Button className="w-full">Search Flights</Button></Link>
+                                <Link to="/explore-services" className="w-full md:flex-1"><Button variant="ghost" className="w-full border border-gray-200 hover:bg-gray-50">Browse Flights</Button></Link>
+                              </div>
+                            </div>
+                          ) : activeTab === 'experiences' ? (
+                            <div className="grid grid-cols-1 gap-3">
+                              <div className="flex gap-3">
+                                <input value={xpLocation} onChange={(e)=>setXpLocation(e.target.value)} placeholder="Location" className="flex-1 border rounded-lg p-2" />
+                                <select value={xpType} onChange={(e)=>setXpType(e.target.value)} className="w-40 border rounded-lg p-2">
+                                  <option value="any">Any</option>
+                                  <option value="food">Food & Drinks</option>
+                                  <option value="adventure">Adventure</option>
+                                  <option value="culture">Culture</option>
+                                </select>
+                              </div>
+
+                              <div className="flex gap-3">
+                                <input type="date" value={xpDate} onChange={(e)=>setXpDate(e.target.value)} className="border rounded-lg p-2" />
+                                <input type="number" min={1} value={xpPeople} onChange={(e)=>setXpPeople(Number(e.target.value))} className="w-28 border rounded-lg p-2" />
+                              </div>
+
+                              <div className="flex gap-3">
+                                <Link to={() => `/xperiences?loc=${encodeURIComponent(xpLocation)}&type=${xpType}&date=${xpDate}&p=${xpPeople}`} className="w-full md:flex-1"><Button className="w-full">Search Experiences</Button></Link>
+                                <Link to="/explore-services" className="w-full md:flex-1"><Button variant="ghost" className="w-full border border-gray-200 hover:bg-gray-50">Browse Experiences</Button></Link>
+                              </div>
+                            </div>
+                          ) : activeTab === 'events' ? (
+                            <div className="grid grid-cols-1 gap-3">
+                              <div className="flex gap-3">
+                                <input value={evName} onChange={(e)=>setEvName(e.target.value)} placeholder="Event or Category" className="flex-1 border rounded-lg p-2" />
+                                <input value={evLocation} onChange={(e)=>setEvLocation(e.target.value)} placeholder="Location" className="flex-1 border rounded-lg p-2" />
+                              </div>
+
+                              <div className="flex gap-3">
+                                <input type="date" value={evDate} onChange={(e)=>setEvDate(e.target.value)} className="border rounded-lg p-2" />
+                                <input type="number" min={1} value={evTickets} onChange={(e)=>setEvTickets(Number(e.target.value))} className="w-28 border rounded-lg p-2" />
+                              </div>
+
+                              <div className="flex gap-3">
+                                <Link to={() => `/events?name=${encodeURIComponent(evName)}&loc=${encodeURIComponent(evLocation)}&date=${evDate}&t=${evTickets}`} className="w-full md:flex-1"><Button className="w-full">Search Events</Button></Link>
+                                <Link to="/explore-services" className="w-full md:flex-1"><Button variant="ghost" className="w-full border border-gray-200 hover:bg-gray-50">Browse Events</Button></Link>
+                              </div>
+                            </div>
+                          ) : activeTab === 'essentials' ? (
+                            <div className="grid grid-cols-1 gap-3">
+                              <div className="flex gap-3">
+                                <select value={essCategory} onChange={(e)=>setEssCategory(e.target.value)} className="flex-1 border rounded-lg p-2">
+                                  <option value="travel-essentials">Travel Essentials</option>
+                                  <option value="gear">Gear & Gear Rental</option>
+                                  <option value="insurance">Travel Insurance</option>
+                                </select>
+                                <input type="number" min={1} value={essQuantity} onChange={(e)=>setEssQuantity(Number(e.target.value))} className="w-28 border rounded-lg p-2" />
+                              </div>
+
+                              <div className="flex gap-3">
+                                <input type="date" value={essDate} onChange={(e)=>setEssDate(e.target.value)} className="border rounded-lg p-2" />
+                                <div className="w-28" />
+                              </div>
+
+                              <div className="flex gap-3">
+                                <Link to={() => `/essentials?cat=${encodeURIComponent(essCategory)}&q=${essQuantity}&date=${essDate}`} className="w-full md:flex-1"><Button className="w-full">Find Essentials</Button></Link>
+                                <Link to="/explore-services" className="w-full md:flex-1"><Button variant="ghost" className="w-full border border-gray-200 hover:bg-gray-50">Browse Essentials</Button></Link>
                               </div>
                             </div>
                           ) : (
