@@ -318,12 +318,12 @@ export default function Index() {
             <div className="w-full">
               <div className="relative">
                   <div className="relative z-30 flex items-center justify-center h-full">
-                    <div className="w-full max-w-2xl mx-auto flex flex-col justify-center items-center">
+                    <div className="w-full max-w-4xl mx-auto flex flex-col justify-center items-center">
 
                       <div className="text-center mb-3">
                           <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight" style={{marginRight: '-5px', paddingRight: '15px'}}>
-                            <div className="text-white block" style={{width: '100%', paddingRight: '50px'}}>Go Where Your Heart Takes You</div>
-                            <div className="block mt-2 text-white">With Just a Prompt</div>
+                            <div className="text-white block text-2xl md:text-4xl" style={{width: '100%', paddingRight: '50px'}}>Go Where Your Heart Takes You</div>
+                            <div className="block mt-2 text-white text-3xl md:text-5xl">With Just a Prompt</div>
                           </h1>
                           <p className="text-lg text-white mt-4">Plan your perfect vacation— with AI powered planning & booking.</p>
                       </div>
