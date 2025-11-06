@@ -264,7 +264,30 @@ export default function Index() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {services.map((service, index) => {
+              const Icon = service.icon;
+              const to = service.title.includes('Vacation') ? '/stays' : service.title.includes('Flights') ? '/flights' : service.title.includes('Experiences') ? '/xperiences' : service.title.includes('Events') ? '/events' : '/essentials';
+              return (
+                <Link to={to} key={index} className="group block rounded-2xl overflow-hidden p-6 bg-white/70 dark:bg-gray-800/60 backdrop-blur border border-gray-100 hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300">
+                  <div className="flex items-start gap-4">
+                    <div className={`w-14 h-14 rounded-lg flex items-center justify-center bg-${service.color}/10 flex-shrink-0 relative`}>
+                      <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full" style={{ background: `radial-gradient(circle at 30% 30%, hsl(var(--${service.color}) / 0.35), transparent 40%)` }} />
+                      <Icon className={`h-7 w-7 text-${service.color}`} />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold mb-1">{service.title}</h3>
+                      <p className="text-sm text-muted-foreground">{service.description}</p>
+                    </div>
+                  </div>
+                  <div className="mt-6 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="text-sm text-travel-blue font-medium">Explore</div>
+                    <div className="text-sm text-muted-foreground">Learn more →</div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </section>
 
