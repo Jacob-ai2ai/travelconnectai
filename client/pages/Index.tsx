@@ -41,6 +41,15 @@ export default function Index() {
   const [activeTab, setActiveTab] = useState('ai-planner');
   const [promptText, setPromptText] = useState('');
 
+  const [staysDestination, setStaysDestination] = useState('');
+  const [staysCheckIn, setStaysCheckIn] = useState('');
+  const [staysCheckOut, setStaysCheckOut] = useState('');
+  const [staysGuests, setStaysGuests] = useState(2);
+
+  const buildStaysUrl = () => {
+    return `/stays?destination=${encodeURIComponent(staysDestination)}&checkIn=${staysCheckIn}&checkOut=${staysCheckOut}&guests=${staysGuests}`;
+  };
+
   const services = [
     {
       icon: Home,
@@ -181,22 +190,44 @@ export default function Index() {
 
             <div className="lg:col-span-7 order-1 lg:order-2">
               <div className="relative">
-                  <div className="relative z-10 flex items-center h-full">
-                    <div className="w-full">
+                  <div className="relative z-10 flex items-center justify-center h-full">
+                    <div className="w-full max-w-xl mx-auto">
+
+                      <div className="text-center mb-3">
+                        <h3 className="text-lg font-semibold">Tell us where you want to go next.</h3>
+                        <p className="text-sm text-muted-foreground">Enter a destination or choose a service to get tailored results.</p>
+                      </div>
+
                       <div className="bg-white rounded-2xl p-3 shadow-lg">
-                        <div className="flex flex-nowrap gap-1 mb-4 overflow-x-auto">
+                        <div className="flex flex-nowrap gap-2 mb-4 overflow-x-auto">
                           {['ai-planner','stays','flights','experiences','events','essentials'].map((t)=>(
-                            <button key={t} onClick={() => setActiveTab(t)} className={`px-2 py-0.5 rounded-md text-sm md:text-xs ${activeTab===t ? 'bg-gradient-to-r from-travel-blue to-travel-purple text-white' : 'text-muted-foreground bg-transparent border border-transparent hover:border-gray-200'}`}>
+                            <button key={t} onClick={() => setActiveTab(t)} className={`px-3 py-1 rounded-md text-base ${activeTab===t ? 'bg-gradient-to-r from-travel-blue to-travel-purple text-white' : 'text-muted-foreground bg-transparent border border-transparent hover:border-gray-200'}`}>
                               {t === 'ai-planner' ? 'AI planner' : t.charAt(0).toUpperCase() + t.slice(1)}
                             </button>
                           ))}
                         </div>
+
                         <div className="flex flex-col gap-3">
-                          <textarea value={promptText} onChange={(e) => setPromptText(e.target.value)} placeholder={'Try: "Plan a 5-day family trip to Kyoto with food highlights and cultural experiences"'} rows={5} className="w-full resize-none bg-gray-50 border border-transparent focus:border-travel-blue focus:ring-2 focus:ring-travel-blue/20 rounded-2xl p-4 shadow-inner text-sm placeholder:text-muted-foreground" />
-                          <div className="flex items-center gap-3">
-                            <Link to="/ai-planner"><Button className="bg-gradient-to-r from-travel-blue to-travel-purple text-white">Start Planning</Button></Link>
-                            <Link to="/explore-services"><Button variant="ghost" className="border border-gray-200 hover:bg-gray-50">Browse Services</Button></Link>
-                          </div>
+                          {activeTab === 'stays' ? (
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                              <input value={staysDestination} onChange={(e)=>setStaysDestination(e.target.value)} placeholder="Destination (city or area)" className="col-span-2 border rounded-lg p-2" />
+                              <input type="date" value={staysCheckIn} onChange={(e)=>setStaysCheckIn(e.target.value)} className="border rounded-lg p-2" />
+                              <input type="date" value={staysCheckOut} onChange={(e)=>setStaysCheckOut(e.target.value)} className="border rounded-lg p-2" />
+                              <input type="number" min={1} value={staysGuests} onChange={(e)=>setStaysGuests(Number(e.target.value))} className="border rounded-lg p-2" />
+                              <div className="col-span-2 flex gap-3">
+                                <Link to={buildStaysUrl()} className="ml-auto"><Button className="bg-gradient-to-r from-travel-blue to-travel-purple text-white">Search Stays</Button></Link>
+                                <Link to="/explore-services"><Button variant="ghost" className="border border-gray-200 hover:bg-gray-50">Browse Services</Button></Link>
+                              </div>
+                            </div>
+                          ) : (
+                            <>
+                              <textarea value={promptText} onChange={(e) => setPromptText(e.target.value)} placeholder={'Try: "Plan a 5-day family trip to Kyoto with food highlights and cultural experiences"'} rows={5} className="w-full resize-none bg-gray-50 border border-transparent focus:border-travel-blue focus:ring-2 focus:ring-travel-blue/20 rounded-2xl p-4 shadow-inner text-sm placeholder:text-muted-foreground" />
+                              <div className="flex items-center gap-3">
+                                <Link to="/ai-planner"><Button className="bg-gradient-to-r from-travel-blue to-travel-purple text-white">Start Planning</Button></Link>
+                                <Link to="/explore-services"><Button variant="ghost" className="border border-gray-200 hover:bg-gray-50">Browse Services</Button></Link>
+                              </div>
+                            </>
+                          )}
                         </div>
                       </div>
                     </div>
