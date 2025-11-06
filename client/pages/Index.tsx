@@ -81,7 +81,8 @@ export default function Index() {
       // country code to flag emoji
       const flag = cc.toUpperCase().replace(/./g, (char:any) => String.fromCodePoint(127397 + char.charCodeAt(0))).replace(/undefined/g,'');
       setLocationFlag(flag);
-      setLocationSearch(city || '');
+      // do not prefill the search input to avoid duplicate display
+      setLocationSearch('');
     } catch (e) {
       console.warn(e);
     }
