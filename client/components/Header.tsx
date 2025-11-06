@@ -93,7 +93,7 @@ export default function Header() {
             <button title="Messages" onClick={() => setMessagesOpen(true)} className="p-2 rounded-md hover:bg-gray-100">
               <MessageSquare className="h-5 w-5 text-foreground/80" />
             </button>
-            <Link to="/trips" className="p-2 rounded-md hover:bg-gray-100">
+            <Link to="/itinerary" className="p-2 rounded-md hover:bg-gray-100">
               <Briefcase className="h-5 w-5 text-foreground/80" />
             </Link>
 
