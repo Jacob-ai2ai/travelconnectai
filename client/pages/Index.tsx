@@ -204,9 +204,9 @@ export default function Index() {
                             </button>
                           ))}
                         </div>
-                        <div className="flex flex-col sm:flex-row gap-3 items-center">
-                          <input value={promptText} onChange={(e) => setPromptText(e.target.value)} placeholder="Describe your ideal trip or enter a destination..." className="flex-1 border rounded-lg p-3" />
-                          <div className="flex gap-3">
+                        <div className="flex flex-col gap-3">
+                          <textarea value={promptText} onChange={(e) => setPromptText(e.target.value)} placeholder={'Try: "Plan a 5-day family trip to Kyoto with food highlights and cultural experiences"'} rows={5} className="w-full resize-none bg-gray-50 border border-transparent focus:border-travel-blue focus:ring-2 focus:ring-travel-blue/20 rounded-2xl p-4 shadow-inner text-sm placeholder:text-muted-foreground" />
+                          <div className="flex items-center gap-3">
                             <Link to="/ai-planner"><Button className="bg-gradient-to-r from-travel-blue to-travel-purple text-white">Start Planning</Button></Link>
                             <Link to="/explore-services"><Button variant="ghost" className="border border-gray-200 hover:bg-gray-50">Browse Services</Button></Link>
                           </div>
