@@ -21,6 +21,9 @@ import {
   Shield,
   Users,
   Star,
+  Bell,
+  MessageSquare,
+  Suitcase,
 } from "lucide-react";
 
 export default function Index() {
@@ -34,6 +37,9 @@ export default function Index() {
       setIsAuthModalOpen(true);
     }
   }, [location.search]);
+
+  const [activeTab, setActiveTab] = useState('ai-planner');
+  const [promptText, setPromptText] = useState('');
 
   const services = [
     {
@@ -118,35 +124,14 @@ export default function Index() {
             </span>
           </div>
           <nav className="hidden md:flex items-center space-x-6">
-            <Link
-              to="/stays"
-              className="text-foreground/80 hover:text-foreground transition-colors"
-            >
-              Stays
-            </Link>
-            <Link
-              to="/flights"
-              className="text-foreground/80 hover:text-foreground transition-colors"
-            >
-              Flights
-            </Link>
-            <Link
-              to="/xperiences"
-              className="text-foreground/80 hover:text-foreground transition-colors"
-            >
-              Xperiences
-            </Link>
-            <Link
-              to="/events"
-              className="text-foreground/80 hover:text-foreground transition-colors"
-            >
-              Events
-            </Link>
-            <Link
-              to="/essentials"
-              className="text-foreground/80 hover:text-foreground transition-colors"
-            >
-              Essentials
+            <button title="Notifications" className="p-2 rounded-md hover:bg-gray-100">
+              <Bell className="h-5 w-5 text-foreground/80" />
+            </button>
+            <button title="Messages" className="p-2 rounded-md hover:bg-gray-100">
+              <MessageSquare className="h-5 w-5 text-foreground/80" />
+            </button>
+            <Link to="/trips" className="p-2 rounded-md hover:bg-gray-100">
+              <Suitcase className="h-5 w-5 text-foreground/80" />
             </Link>
             {(() => {
               const isSignedIn = typeof window !== 'undefined' && localStorage.getItem('isSignedIn') === 'true';
@@ -219,18 +204,35 @@ export default function Index() {
                     <div className="absolute w-1/3 h-1/3 rounded-2xl glow-travel-purple opacity-80 transform -translate-x-6 translate-y-8 animate-float" style={{ animationDelay: '1.6s' }} />
                   </div>
 
-                  <div className="relative z-10 flex items-center justify-between h-full">
-                    <div className="w-1/2">
-                      <div className="text-sm text-muted-foreground mb-2">Featured</div>
-                      <h3 className="text-xl font-semibold">Goa Villas — Ocean View</h3>
-                      <p className="text-sm text-muted-foreground mt-2">4 guests • 2 beds • Private pool</p>
-                      <div className="mt-4 flex items-center gap-3">
-                        <Button size="sm" className="vibrant-cta bg-gradient-to-r from-travel-blue to-travel-purple text-white">Book Now</Button>
-                        <Button size="sm" variant="outline">Preview</Button>
+                  <div className="relative z-10 flex items-center h-full">
+                    <div className="w-full">
+                      <div className="bg-white rounded-2xl p-4 shadow-lg">
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {['ai-planner','stays','flights','experiences','events','essentials'].map((t)=>(
+                            <button key={t} onClick={() => setActiveTab(t)} className={`px-3 py-1 rounded-md text-sm ${activeTab===t ? 'bg-gradient-to-r from-travel-blue to-travel-purple text-white' : 'text-muted-foreground bg-transparent border border-transparent hover:border-gray-200'}`}>
+                              {t === 'ai-planner' ? 'AI planner' : t.charAt(0).toUpperCase() + t.slice(1)}
+                            </button>
+                          ))}
+                        </div>
+                        <div className="flex gap-3 items-center">
+                          <input value={promptText} onChange={(e) => setPromptText(e.target.value)} placeholder="Describe your ideal trip or enter a destination..." className="flex-1 border rounded-lg p-3" />
+                          <Button className="bg-travel-blue text-white">Plan</Button>
+                        </div>
+                        <div className="mt-4 grid grid-cols-2 gap-3">
+                          {services.map((service,idx) => {
+                            const Icon = service.icon;
+                            return (
+                              <div key={idx} className="flex items-center gap-3 p-2 bg-gray-50 rounded-lg">
+                                <Icon className="h-5 w-5 text-travel-blue" />
+                                <div>
+                                  <div className="text-sm font-medium">{service.title}</div>
+                                  <div className="text-xs text-muted-foreground">{service.description}</div>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
                       </div>
-                    </div>
-                    <div className="w-1/2 flex items-center justify-end">
-                      <div className="w-44 h-28 bg-gradient-to-tr from-travel-purple/40 to-travel-blue/20 rounded-lg shadow-inner" />
                     </div>
                   </div>
                 </div>
@@ -266,33 +268,7 @@ export default function Index() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => {
-              const Icon = service.icon;
-              return (
-                <div
-                  key={index}
-                  className="group relative rounded-2xl overflow-hidden p-6 bg-white/70 dark:bg-gray-800/60 backdrop-blur border border-gray-100 hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300"
-                >
-                  <div className="absolute left-0 top-0 h-1 w-16 bg-gradient-to-r from-travel-blue to-travel-purple opacity-90" />
-                  <div className="flex items-start gap-4">
-                    <div className={`w-14 h-14 rounded-lg flex items-center justify-center bg-${service.color}/10 flex-shrink-0 relative`}>
-                      <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full" style={{ background: `radial-gradient(circle at 30% 30%, hsl(var(--${service.color}) / 0.35), transparent 40%)` }} />
-                      <Icon className={`h-7 w-7 text-${service.color}`} />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold mb-1">{service.title}</h3>
-                      <p className="text-sm text-muted-foreground">{service.description}</p>
-                    </div>
-                  </div>
-                  <div className="mt-6 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button className="text-sm text-travel-blue font-medium">Explore</button>
-                    <div className="text-sm text-muted-foreground">Learn more →</div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
         </div>
       </section>
 
