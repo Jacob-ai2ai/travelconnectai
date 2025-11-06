@@ -163,14 +163,14 @@ export default function Index() {
       <section className="container mx-auto px-4 py-16 md:py-24">
         <div className="max-w-7xl mx-auto relative">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-6 space-y-6 order-2 lg:order-1 text-center lg:text-left">
+            <div className="lg:col-span-6 space-y-6 order-2 lg:order-1 text-center">
               <Badge variant="secondary" className="mb-4 opacity-95 transform -translate-y-0">
                 🚀 Powered by AI Technology
               </Badge>
-              <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
+              <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight mt-[-1px] text-center">
                 Tell us where you want to go next.
               </h1>
-              <p className="text-lg text-muted-foreground max-w-2xl">
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-center mt-6">
                 From curated vacation homes to thrilling experiences — get smart
                 AI itineraries, live previews, and one-click booking.
               </p>
