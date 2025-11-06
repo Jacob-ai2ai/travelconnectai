@@ -326,7 +326,7 @@ export default function Index() {
                           Plan Your Perfect Trip with
                           <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-travel-blue via-travel-purple to-travel-orange">AI-Powered Booking</span>
                         </h1>
-                        <p className="text-lg text-white mt-4">Tell us where you're going next — we'll handle the rest.</p>
+                        <p className="text-lg text-muted-foreground mt-4">Tell us where you're going next — we'll handle the rest.</p>
                       </div>
 
                       <div className="bg-white rounded-2xl p-3 shadow-lg">
