@@ -42,6 +42,7 @@ export default function Index() {
 
   const [activeTab, setActiveTab] = useState('ai-planner');
   const [promptText, setPromptText] = useState('');
+  const [micActive, setMicActive] = useState(false);
 
   const [staysDestination, setStaysDestination] = useState('');
   const [staysCheckIn, setStaysCheckIn] = useState('');
