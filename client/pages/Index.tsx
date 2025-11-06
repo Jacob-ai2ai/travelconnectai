@@ -259,7 +259,7 @@ export default function Index() {
 
           {/* Location search */}
           <div className="flex-1 mx-6 hidden md:flex justify-center">
-            <div className="w-full max-w-md">
+            <div className="w-full max-w-sm">
               <div className="relative">
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
                   <span id="flag" className="text-xl">{locationFlag}</span>
