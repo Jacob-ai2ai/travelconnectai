@@ -163,7 +163,7 @@ export default function Index() {
       <section className="container mx-auto px-4 py-16 md:py-24">
         <div className="max-w-7xl mx-auto relative">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-6 space-y-6 order-2 lg:order-1 text-center">
+            <div className="lg:col-span-7 space-y-6 order-2 lg:order-1 text-center">
               <Badge variant="secondary" className="mb-4 opacity-95 transform -translate-y-0">
                 🚀 Powered by AI Technology
               </Badge>
@@ -184,7 +184,7 @@ export default function Index() {
               </div>
             </div>
 
-            <div className="lg:col-span-6 order-1 lg:order-2">
+            <div className="lg:col-span-5 order-1 lg:order-2">
               <div className="relative">
                 <div className="aspect-[16/10] sm:aspect-[4/3] rounded-3xl bg-gradient-to-br from-white/80 to-white/60 dark:from-gray-800/60 dark:to-gray-700/40 shadow-2xl backdrop-blur-lg overflow-hidden p-6">
                   {/* colorful floating visuals */}
@@ -196,10 +196,10 @@ export default function Index() {
 
                   <div className="relative z-10 flex items-center h-full">
                     <div className="w-full">
-                      <div className="bg-white rounded-2xl p-4 shadow-lg">
-                        <div className="flex flex-wrap gap-2 mb-4">
+                      <div className="bg-white rounded-2xl p-3 shadow-lg">
+                        <div className="flex flex-nowrap gap-1 mb-4 overflow-x-auto">
                           {['ai-planner','stays','flights','experiences','events','essentials'].map((t)=>(
-                            <button key={t} onClick={() => setActiveTab(t)} className={`px-3 py-1 rounded-md text-sm ${activeTab===t ? 'bg-gradient-to-r from-travel-blue to-travel-purple text-white' : 'text-muted-foreground bg-transparent border border-transparent hover:border-gray-200'}`}>
+                            <button key={t} onClick={() => setActiveTab(t)} className={`px-2 py-0.5 rounded-md text-sm md:text-xs ${activeTab===t ? 'bg-gradient-to-r from-travel-blue to-travel-purple text-white' : 'text-muted-foreground bg-transparent border border-transparent hover:border-gray-200'}`}>
                               {t === 'ai-planner' ? 'AI planner' : t.charAt(0).toUpperCase() + t.slice(1)}
                             </button>
                           ))}
