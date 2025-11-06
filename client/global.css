@@ -18,17 +18,17 @@
     --popover: 0 0% 100%;
     --popover-foreground: 215 25% 27%;
 
-    --primary: 196 75% 40%;
+    --primary: 25 90% 45%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 39 77% 58%;
-    --secondary-foreground: 215 25% 27%;
+    --secondary: 30 80% 55%;
+    --secondary-foreground: 210 20% 98%;
 
-    --muted: 210 20% 95%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 35 20% 95%;
+    --muted-foreground: 30 10% 35%;
 
-    --accent: 39 77% 58%;
-    --accent-foreground: 215 25% 27%;
+    --accent: 28 85% 48%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
@@ -39,10 +39,10 @@
 
     --radius: 0.75rem;
 
-    --travel-blue: 196 75% 40%;
-    --travel-orange: 39 77% 58%;
-    --travel-green: 142 71% 45%;
-    --travel-purple: 262 83% 58%;
+    --travel-blue: 14 85% 40%;
+    --travel-orange: 28 85% 50%;
+    --travel-green: 60 25% 35%;
+    --travel-purple: 330 45% 35%;
 
     --sidebar-background: 0 0% 98%;
 
@@ -71,16 +71,16 @@
     --popover: 215 28% 17%;
     --popover-foreground: 210 20% 98%;
 
-    --primary: 196 75% 40%;
+    --primary: 25 90% 45%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 39 77% 58%;
-    --secondary-foreground: 215 28% 17%;
+    --secondary: 30 80% 45%;
+    --secondary-foreground: 210 20% 98%;
 
-    --muted: 215 25% 22%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 30 10% 12%;
+    --muted-foreground: 40 12% 60%;
 
-    --accent: 39 77% 58%;
+    --accent: 28 85% 48%;
     --accent-foreground: 215 28% 17%;
 
     --destructive: 0 72% 51%;
@@ -90,10 +90,10 @@
     --input: 215 25% 22%;
     --ring: 196 75% 40%;
 
-    --travel-blue: 196 75% 40%;
-    --travel-orange: 39 77% 58%;
-    --travel-green: 142 71% 45%;
-    --travel-purple: 262 83% 58%;
+    --travel-blue: 14 85% 40%;
+    --travel-orange: 28 85% 50%;
+    --travel-green: 60 25% 35%;
+    --travel-purple: 330 45% 35%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -136,5 +136,9 @@
   .glow-travel-orange { background: radial-gradient(circle at 70% 30%, hsl(var(--travel-orange) / 0.18), transparent 35% ); }
   .glow-travel-purple { background: radial-gradient(circle at 50% 70%, hsl(var(--travel-purple) / 0.18), transparent 35% ); }
 
-  .vibrant-cta { box-shadow: 0 10px 30px -8px rgba(99,102,241,0.35), 0 6px 18px -10px rgba(96,165,250,0.25); transform: translateZ(0); }
+  .vibrant-cta { box-shadow: 0 10px 30px -8px rgba(255,140,0,0.22), 0 6px 18px -10px rgba(220,80,40,0.18); transform: translateZ(0); }
+
+  /* Autumn gradient utilities */
+  .bg-autumn-gradient { background: linear-gradient(90deg, hsl(var(--travel-orange)), hsl(var(--primary))); }
+  .text-autumn-gradient { background: linear-gradient(90deg, hsl(var(--travel-orange)), hsl(var(--primary))); -webkit-background-clip: text; background-clip: text; color: transparent; }
 }
