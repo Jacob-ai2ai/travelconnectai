@@ -27,6 +27,10 @@ import {
   Briefcase,
   Mic,
 } from "lucide-react";
+import DiscoverDialog from "@/components/DiscoverDialog";
+import NotificationsDialog from "@/components/NotificationsDialog";
+import MessagesDialog from "@/components/MessagesDialog";
+import InviteFriendsDialog from "@/components/InviteFriendsDialog";
 
 export default function Index() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -113,6 +117,18 @@ export default function Index() {
   }, []);
 
   const [locationCoords, setLocationCoords] = useState<{lat:number,lon:number} | null>(null);
+
+  // Local UI state for header dialogs and prompt participants
+  const [discoverOpen, setDiscoverOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [messagesOpen, setMessagesOpen] = useState(false);
+  const [inviteOpen, setInviteOpen] = useState(false);
+  const [participants, setParticipants] = useState<string[]>(() => {
+    try {
+      const raw = typeof window !== 'undefined' ? localStorage.getItem('invitedParticipants') : null;
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) { return [] }
+  });
 
   const requestLocation = () => {
     if (!('geolocation' in navigator)) return;
@@ -276,13 +292,13 @@ export default function Index() {
           </div>
 
           <nav className="hidden md:flex items-center space-x-6">
-            <button title="Discover" className="p-2 rounded-md hover:bg-gray-100">
+            <button title="Discover" onClick={() => setDiscoverOpen(true)} className="p-2 rounded-md hover:bg-gray-100">
               <Compass className="h-5 w-5 text-foreground/80" />
             </button>
-            <button title="Notifications" className="p-2 rounded-md hover:bg-gray-100">
+            <button title="Notifications" onClick={() => setNotificationsOpen(true)} className="p-2 rounded-md hover:bg-gray-100">
               <Bell className="h-5 w-5 text-foreground/80" />
             </button>
-            <button title="Messages" className="p-2 rounded-md hover:bg-gray-100">
+            <button title="Messages" onClick={() => setMessagesOpen(true)} className="p-2 rounded-md hover:bg-gray-100">
               <MessageSquare className="h-5 w-5 text-foreground/80" />
             </button>
             <Link to="/trips" className="p-2 rounded-md hover:bg-gray-100">
@@ -375,7 +391,7 @@ export default function Index() {
                                   <button title="Voice input" onClick={() => setMicActive(!micActive)} className={`p-2 rounded-md ${micActive ? 'bg-cta-lemon text-white' : 'hover:bg-gray-100'}`}>
                                     <Mic className="h-4 w-4" />
                                   </button>
-                                  <button title="Invite friends" onClick={async ()=>{try{ if (navigator.share) { await navigator.share({ title: document.title, url: window.location.href }); } else { await navigator.clipboard.writeText(window.location.href); } }catch(e){}}} className="p-2 rounded-md hover:bg-gray-100">
+                                  <button title="Invite friends" onClick={() => setInviteOpen(true)} className="p-2 rounded-md hover:bg-gray-100">
                                     <Users className="h-4 w-4" />
                                   </button>
                                 </div>
@@ -599,6 +615,12 @@ export default function Index() {
           </div>
         </div>
       </footer>
+
+      {/* Dialogs: Discover, Notifications, Messages, Invite Friends */}
+      <DiscoverDialog open={discoverOpen} onOpenChange={setDiscoverOpen} />
+      <NotificationsDialog open={notificationsOpen} onOpenChange={setNotificationsOpen} />
+      <MessagesDialog open={messagesOpen} onOpenChange={setMessagesOpen} />
+      <InviteFriendsDialog open={inviteOpen} onOpenChange={setInviteOpen} onInviteComplete={(ps)=>{ setParticipants(ps); try{ localStorage.setItem('invitedParticipants', JSON.stringify(ps)); }catch(e){} }} />
 
       {/* Authentication Modal */}
       <AuthModal
