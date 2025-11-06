@@ -269,12 +269,15 @@ export default function Index() {
                     ))}
                   </select>
                 </div>
-                <input onChange={(e)=>setLocationSearch(e.target.value)} value={locationSearch} placeholder={locationCity || 'Search city'} className="w-full md:w-[70%] pl-28 pr-4 py-2 rounded-lg border bg-white/90" />
+                <input onChange={(e)=>setLocationSearch(e.target.value)} value={locationSearch} placeholder={locationCity || 'Search city'} className="w-full md:w-[85%] pl-28 pr-4 py-2 rounded-lg border bg-white/90" />
               </div>
             </div>
           </div>
 
           <nav className="hidden md:flex items-center space-x-6">
+            <button title="Discover" className="p-2 rounded-md hover:bg-gray-100">
+              <Sparkles className="h-5 w-5 text-foreground/80" />
+            </button>
             <button title="Notifications" className="p-2 rounded-md hover:bg-gray-100">
               <Bell className="h-5 w-5 text-foreground/80" />
             </button>
