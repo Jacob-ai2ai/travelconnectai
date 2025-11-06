@@ -111,6 +111,65 @@ export default function Index() {
     }
   }, []);
 
+  const [locationCoords, setLocationCoords] = useState<{lat:number,lon:number} | null>(null);
+
+  const requestLocation = () => {
+    if (!('geolocation' in navigator)) return;
+    try {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const lat = pos.coords.latitude;
+          const lon = pos.coords.longitude;
+          setLocationCoords({ lat, lon });
+          // Keep detected city from timezone if available; we could reverse-geocode here using an API if desired.
+          localStorage.setItem('locationAsked','true');
+        },
+        (err) => {
+          console.warn('Location not available', err);
+          localStorage.setItem('locationAsked','true');
+        },
+        { enableHighAccuracy: false, timeout: 10000 }
+      );
+    } catch (e) {
+      console.warn(e);
+      localStorage.setItem('locationAsked','true');
+    }
+  };
+
+  // Ask for location the first time the user opens the app
+  useEffect(() => {
+    try {
+      const asked = localStorage.getItem('locationAsked');
+      if (!asked) {
+        // trigger permission prompt
+        requestLocation();
+      }
+
+      // install prompt events: request location when install flow is triggered or completed
+      const onBeforeInstall = (e: any) => {
+        try {
+          // some browsers allow showing the native install prompt only on user gesture; we still request location when the prompt is available
+          requestLocation();
+        } catch (err) {
+          console.warn(err);
+        }
+      };
+      const onAppInstalled = () => {
+        requestLocation();
+      };
+
+      window.addEventListener('beforeinstallprompt', onBeforeInstall as EventListener);
+      window.addEventListener('appinstalled', onAppInstalled as EventListener);
+
+      return () => {
+        window.removeEventListener('beforeinstallprompt', onBeforeInstall as EventListener);
+        window.removeEventListener('appinstalled', onAppInstalled as EventListener);
+      };
+    } catch (e) {
+      console.warn(e);
+    }
+  }, []);
+
   const buildStaysUrl = () => {
     return `/stays?destination=${encodeURIComponent(staysDestination)}&checkIn=${staysCheckIn}&checkOut=${staysCheckOut}&guests=${staysGuests}`;
   };
