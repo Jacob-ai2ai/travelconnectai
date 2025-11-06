@@ -171,24 +171,9 @@ export default function Index() {
       {/* Hero Section: Apple-inspired */}
       <section className="container mx-auto px-4 py-12 md:py-12">
         <div className="max-w-7xl mx-auto relative">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-5 space-y-4 order-2 lg:order-1 text-center">
-              <Badge variant="secondary" className="mb-4 opacity-95 transform -translate-y-0">
-                🚀 Powered by AI Technology
-              </Badge>
-              <h4 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight mt-0 text-center uppercase bg-gradient-to-r from-travel-blue to-travel-purple bg-clip-text text-transparent">
-                WHERE ARE WE GOING NEXT?
-                <br />
-              </h4>
-              <p className="text-base text-muted-foreground max-w-xl mx-auto text-center mt-4">
-                From curated vacation homes to thrilling experiences — get smart
-                AI itineraries, live previews, and one-click booking.
-              </p>
+          <div className="flex flex-col items-center">
 
-
-            </div>
-
-            <div className="lg:col-span-7 order-1 lg:order-2">
+            <div className="w-full">
               <div className="relative">
                   <div className="relative z-10 flex items-center justify-center h-full">
                     <div className="w-full max-w-xl mx-auto">
