@@ -438,9 +438,9 @@ export default function Index() {
                       <p className="text-sm text-foreground">{service.description}</p>
                     </div>
                   </div>
-                  <div className="mt-6 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="mt-6 flex items-center justify-between opacity-100 transition-opacity">
                     <div className="text-sm text-travel-blue font-medium">Explore</div>
-                    <div className="text-sm text-muted-foreground">Learn more →</div>
+                    <div className="text-sm text-foreground">Learn more →</div>
                   </div>
                 </Link>
               );
