@@ -39,10 +39,12 @@
 
     --radius: 0.75rem;
 
+    --lemon: 54 95% 62%;
     --travel-blue: 203 86% 60%;
     --travel-orange: 28 85% 50%;
     --travel-green: 142 71% 45%;
     --travel-purple: 262 83% 58%;
+    --lemon: 54 95% 62%;
 
     --sidebar-background: 0 0% 98%;
 
@@ -94,6 +96,7 @@
     --travel-orange: 28 85% 50%;
     --travel-green: 142 71% 45%;
     --travel-purple: 262 83% 58%;
+    --lemon: 54 95% 62%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -137,6 +140,9 @@
   .glow-travel-purple { background: radial-gradient(circle at 50% 70%, hsl(var(--travel-purple) / 0.18), transparent 35% ); }
 
   .vibrant-cta { box-shadow: 0 10px 30px -8px rgba(96,165,250,0.18), 0 6px 18px -10px rgba(59,130,246,0.12); transform: translateZ(0); }
+
+  /* Lemon utility */
+  .text-lemon { color: hsl(var(--lemon)); }
 
   /* CTA gradient utilities */
   .bg-autumn-gradient { background: linear-gradient(90deg, hsl(var(--travel-orange)), hsl(var(--primary))); }
