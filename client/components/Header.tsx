@@ -70,14 +70,21 @@ export default function Header() {
           </Link>
 
           <nav className="hidden md:flex items-center space-x-4">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <Link to="/discover" className="p-2 rounded-md hover:bg-gray-100" title="Discover">
                 <Compass className="h-5 w-5 text-foreground/80" />
               </Link>
-              <form onSubmit={(e)=>{e.preventDefault(); if (typeof window !== 'undefined') navigate(`/discover?q=${encodeURIComponent(searchQuery)}`);}} className="flex items-center bg-white border rounded-md px-2 py-1">
-                <SearchIcon className="h-4 w-4 text-muted-foreground mr-2" />
-                <Input placeholder="Search reels, spaces, places" value={searchQuery} onChange={(e)=>setSearchQuery(e.target.value)} className="w-56" />
-              </form>
+
+              {/* Location + currency shown in header (home behavior) */}
+              <div className="flex items-center gap-2 bg-white border rounded-md px-2 py-1">
+                <div className="text-lg">{locationFlag}</div>
+                <select value={currency} onChange={(e)=>setCurrency(e.target.value)} className="text-sm bg-transparent border-none focus:ring-0">
+                  {['USD','EUR','GBP','INR','AUD','CAD','JPY','SGD','AED'].map(c=> (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                </select>
+                <Input value={locationSearch} onChange={(e)=>setLocationSearch(e.target.value)} placeholder={locationCity || 'Search city'} className="w-44 bg-transparent border-0 p-0" />
+              </div>
             </div>
 
             <button title="Notifications" onClick={() => setNotificationsOpen(true)} className="p-2 rounded-md hover:bg-gray-100">
