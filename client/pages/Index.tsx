@@ -322,8 +322,13 @@ export default function Index() {
 
                       <div className="text-center mb-3">
                           <h1 style={{color: 'rgb(255, 255, 255)', fontSize: '48px', fontWeight: 800, letterSpacing: '-1.2px', lineHeight: '44px', marginRight: '-5px', paddingRight: '15px'}}>
-                            <div style={{display: 'block'}}>Go Where Your Heart Takes You</div>
-                            <div style={{display: 'block', marginTop: '4px'}}>With Just a Prompt</div>
+                            <div style={{fontWeight: 800}}>
+                              <span style={{fontWeight: 'normal'}}><em>Go Where Your Heart Takes You</em></span>
+                            </div>
+                            <div style={{fontWeight: 800, marginTop: '4px'}}>
+                              <span style={{fontWeight: 'normal'}}><em>With Just a</em></span>{' '}
+                              <span style={{fontWeight: 'normal', color: 'rgb(0, 0, 0)'}}><em>Prompt</em></span>
+                            </div>
                           </h1>
                           <p className="text-lg text-white mt-4">Plan your perfect vacation— with AI powered planning & booking.</p>
                       </div>
