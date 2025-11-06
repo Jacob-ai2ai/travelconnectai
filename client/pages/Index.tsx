@@ -371,7 +371,7 @@ export default function Index() {
                                 </div>
                               </div>
                               <div className="flex flex-col md:flex-row gap-3 mt-2">
-                                <Link to="/ai-planner" className="w-full md:flex-1"><Button className="w-full">Start Planning</Button></Link>
+                                <Link to="/ai-planner" className="w-full md:flex-1"><Button className="w-full bg-cta-lemon">Start Planning</Button></Link>
                                 <Link to="/explore-services" className="w-full md:flex-1"><Button variant="ghost" className="w-full border border-gray-200 hover:bg-gray-50">Browse Services</Button></Link>
                               </div>
                             </>
