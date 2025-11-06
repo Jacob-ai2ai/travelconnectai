@@ -6,29 +6,7 @@ import { ArrowLeft, Shield, Eye, Lock, FileText } from "lucide-react";
 export default function Terms() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted">
-      {/* Header */}
-      <header className="border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <Link
-              to="/"
-              className="inline-flex items-center text-travel-blue hover:text-travel-blue/80"
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Home
-            </Link>
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-travel-blue to-travel-purple rounded-lg flex items-center justify-center">
-                <Shield className="h-5 w-5 text-white" />
-              </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-travel-blue to-travel-purple bg-clip-text text-transparent">
-                Travel Connect
-              </span>
-            </div>
-          </div>
-        </div>
-      </header>
-
+      <div className="h-4" />
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <div className="text-center mb-8">
           <h1 className="text-3xl md:text-4xl font-bold mb-4">Terms of Service & Privacy Policy</h1>
