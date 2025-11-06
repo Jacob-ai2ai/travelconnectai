@@ -311,14 +311,14 @@ export default function Index() {
       </header>
 
       {/* Hero Section: Apple-inspired */}
-      <section className="container mx-auto px-4 relative overflow-hidden min-h-screen flex items-center" style={{backgroundImage: "url('https://cdn.builder.io/api/v1/image/assets%2F35ef8c33e09249b994ebaf72d1f85dab%2F7de7d7ca3a54450d8e51bf296f90152d?format=webp&width=1600')", backgroundSize: 'cover', backgroundPosition: 'left center'}}>
+      <section className="container mx-auto px-4 relative overflow-hidden min-h-screen flex items-center" style={{backgroundImage: "url('https://cdn.builder.io/api/v1/image/assets%2F35ef8c33e09249b994ebaf72d1f85dab%2F7de7d7ca3a54450d8e51bf296f90152d?format=webp&width=1600')", backgroundSize: 'cover', backgroundPosition: 'center center'}}>
         <div className="max-w-7xl mx-auto relative">
           <div className="flex flex-col items-center">
 
             <div className="w-full">
               <div className="relative">
                   <div className="relative z-30 flex items-center justify-center h-full">
-                    <div className="w-full max-w-xl mx-auto flex flex-col justify-center items-center md:translate-x-20 lg:translate-x-28">
+                    <div className="w-full max-w-xl mx-auto flex flex-col justify-center items-center">
 
                       <div className="text-center mb-3">
                           <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight">
