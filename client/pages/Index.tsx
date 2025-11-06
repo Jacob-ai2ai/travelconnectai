@@ -163,15 +163,15 @@ export default function Index() {
       <section className="container mx-auto px-4 py-16 md:py-24">
         <div className="max-w-7xl mx-auto relative">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-7 space-y-6 order-2 lg:order-1 text-center">
+            <div className="lg:col-span-5 space-y-4 order-2 lg:order-1 text-center">
               <Badge variant="secondary" className="mb-4 opacity-95 transform -translate-y-0">
                 🚀 Powered by AI Technology
               </Badge>
-              <h4 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight mt-[-1px] text-center uppercase bg-gradient-to-r from-travel-blue to-travel-purple bg-clip-text text-transparent">
+              <h4 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight mt-0 text-center uppercase bg-gradient-to-r from-travel-blue to-travel-purple bg-clip-text text-transparent">
                 WHERE ARE WE GOING NEXT?
                 <br />
               </h4>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-center mt-6">
+              <p className="text-base text-muted-foreground max-w-xl mx-auto text-center mt-4">
                 From curated vacation homes to thrilling experiences — get smart
                 AI itineraries, live previews, and one-click booking.
               </p>
@@ -184,7 +184,7 @@ export default function Index() {
               </div>
             </div>
 
-            <div className="lg:col-span-5 order-1 lg:order-2">
+            <div className="lg:col-span-7 order-1 lg:order-2">
               <div className="relative">
                 <div className="aspect-[16/10] sm:aspect-[4/3] rounded-3xl bg-gradient-to-br from-white/80 to-white/60 dark:from-gray-800/60 dark:to-gray-700/40 shadow-2xl backdrop-blur-lg overflow-hidden p-6">
                   {/* colorful floating visuals */}
