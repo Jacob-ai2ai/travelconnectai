@@ -311,7 +311,7 @@ export default function Index() {
       </header>
 
       {/* Hero Section: Apple-inspired */}
-      <section className="container mx-auto px-4 relative overflow-hidden min-h-screen flex items-center" style={{backgroundImage: "url('https://cdn.builder.io/api/v1/image/assets%2F35ef8c33e09249b994ebaf72d1f85dab%2F7de7d7ca3a54450d8e51bf296f90152d?format=webp&width=1600')", backgroundSize: 'cover', backgroundPosition: 'center'}}>
+      <section className="container mx-auto px-4 relative overflow-hidden min-h-screen flex items-center" style={{backgroundImage: "url('https://cdn.builder.io/api/v1/image/assets%2F35ef8c33e09249b994ebaf72d1f85dab%2F7de7d7ca3a54450d8e51bf296f90152d?format=webp&width=1600')", backgroundSize: 'cover', backgroundPosition: 'left center'}}>
         <div className="max-w-7xl mx-auto relative">
           <div className="flex flex-col items-center">
 
@@ -328,7 +328,7 @@ export default function Index() {
                           <p className="text-lg text-white mt-4">Tell us where you're going next — we'll handle the rest.</p>
                       </div>
 
-                      <div className="bg-white rounded-2xl p-3 shadow-lg relative z-10 -translate-y-6 md:-translate-y-10 lg:-translate-y-14 mx-auto">
+                      <div className="bg-white rounded-2xl p-3 shadow-lg relative z-10 translate-y-6 md:translate-y-8 lg:translate-y-10 mx-auto">
                         <div className="flex items-center justify-between mb-4">
                           <div className="flex flex-nowrap gap-2 overflow-x-auto">
                             {['ai-planner','stays','flights','experiences','events','essentials'].map((t)=>(
