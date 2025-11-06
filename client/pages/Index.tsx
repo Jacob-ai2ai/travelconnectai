@@ -168,8 +168,7 @@ export default function Index() {
                 🚀 Powered by AI Technology
               </Badge>
               <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
-                Plan Your Perfect Trip with
-                <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-travel-blue via-travel-purple to-travel-orange">AI-Powered Booking</span>
+                Tell us where you want to go next.
               </h1>
               <p className="text-lg text-muted-foreground max-w-2xl">
                 From curated vacation homes to thrilling experiences — get smart
