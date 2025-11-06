@@ -322,8 +322,8 @@ export default function Index() {
 
                       <div className="text-center mb-3">
                           <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight" style={{marginRight: '-5px', paddingRight: '15px'}}>
-                            <span className="text-white block">Go Where Your Heart Takes you</span>
-                            <span className="block mt-2 text-white">with Just a Prompt</span>
+                            <div className="text-white block" style={{width: '100%', paddingRight: '50px'}}>Go Where Your Heart Takes You</div>
+                            <div className="block mt-2 text-white">With Just a Prompt</div>
                           </h1>
                           <p className="text-lg text-white mt-4">Plan your perfect vacation— with AI powered planning & booking.</p>
                       </div>
