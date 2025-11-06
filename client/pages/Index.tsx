@@ -186,8 +186,8 @@ export default function Index() {
                       <div className="bg-white rounded-2xl p-3 shadow-lg">
                         <div className="flex flex-nowrap gap-2 mb-4 overflow-x-auto">
                           {['ai-planner','stays','flights','experiences','events','essentials'].map((t)=>(
-                            <button key={t} onClick={() => setActiveTab(t)} className={`px-3 py-1 rounded-md text-base ${activeTab===t ? 'bg-gradient-to-r from-travel-blue to-travel-purple text-white' : 'text-muted-foreground bg-transparent border border-transparent hover:border-gray-200'}`}>
-                              {t === 'ai-planner' ? 'AI planner' : t.charAt(0).toUpperCase() + t.slice(1)}
+                            <button key={t} onClick={() => setActiveTab(t)} className={`px-3 py-1 rounded-md text-base whitespace-nowrap ${activeTab===t ? 'bg-gradient-to-r from-travel-blue to-travel-purple text-white' : 'text-muted-foreground bg-transparent border border-transparent hover:border-gray-200'}`}>
+                              {t === 'ai-planner' ? 'AI Planner' : t.charAt(0).toUpperCase() + t.slice(1)}
                             </button>
                           ))}
                         </div>
