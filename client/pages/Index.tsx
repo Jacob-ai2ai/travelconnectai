@@ -27,7 +27,6 @@ import {
   Briefcase,
   Mic,
 } from "lucide-react";
-import DiscoverDialog from "@/components/DiscoverDialog";
 import NotificationsDialog from "@/components/NotificationsDialog";
 import MessagesDialog from "@/components/MessagesDialog";
 import InviteFriendsDialog from "@/components/InviteFriendsDialog";
@@ -119,7 +118,6 @@ export default function Index() {
   const [locationCoords, setLocationCoords] = useState<{lat:number,lon:number} | null>(null);
 
   // Local UI state for header dialogs and prompt participants
-  const [discoverOpen, setDiscoverOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [messagesOpen, setMessagesOpen] = useState(false);
   const [inviteOpen, setInviteOpen] = useState(false);
@@ -292,9 +290,9 @@ export default function Index() {
           </div>
 
           <nav className="hidden md:flex items-center space-x-6">
-            <button title="Discover" onClick={() => setDiscoverOpen(true)} className="p-2 rounded-md hover:bg-gray-100">
+            <Link to="/discover" title="Discover" className="p-2 rounded-md hover:bg-gray-100">
               <Compass className="h-5 w-5 text-foreground/80" />
-            </button>
+            </Link>
             <button title="Notifications" onClick={() => setNotificationsOpen(true)} className="p-2 rounded-md hover:bg-gray-100">
               <Bell className="h-5 w-5 text-foreground/80" />
             </button>
@@ -617,8 +615,7 @@ export default function Index() {
         </div>
       </footer>
 
-      {/* Dialogs: Discover, Notifications, Messages, Invite Friends */}
-      <DiscoverDialog open={discoverOpen} onOpenChange={setDiscoverOpen} />
+      {/* Dialogs: Notifications, Messages, Invite Friends */}
       <NotificationsDialog open={notificationsOpen} onOpenChange={setNotificationsOpen} />
       <MessagesDialog open={messagesOpen} onOpenChange={setMessagesOpen} />
       <InviteFriendsDialog open={inviteOpen} onOpenChange={setInviteOpen} onInviteComplete={(ps)=>{ setParticipants(ps); try{ localStorage.setItem('invitedParticipants', JSON.stringify(ps)); }catch(e){} }} />
