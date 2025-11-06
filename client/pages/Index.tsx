@@ -317,10 +317,10 @@ export default function Index() {
 
             <div className="w-full">
               <div className="relative">
-                  <div className="relative z-10 flex items-center justify-center h-full">
+                  <div className="relative z-30 flex items-center justify-center h-full">
                     <div className="w-full max-w-xl mx-auto flex flex-col justify-center items-center">
 
-                      <div className="text-center md:text-left md:translate-x-20 lg:translate-x-28 mb-3">
+                      <div className="text-center mb-3">
                           <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight">
                             <span className="text-white">Plan Your Perfect Trip with</span>
                             <span className="block mt-2 text-white">AI-Powered Booking</span>
@@ -328,7 +328,7 @@ export default function Index() {
                           <p className="text-lg text-white mt-4">Tell us where you're going next — we'll handle the rest.</p>
                       </div>
 
-                      <div className="bg-white rounded-2xl p-3 shadow-lg relative md:-translate-y-8 md:translate-x-20 lg:translate-x-28 -translate-y-4 translate-x-4">
+                      <div className="bg-white rounded-2xl p-3 shadow-lg relative z-10 md:-translate-y-8 -translate-y-4 mx-auto">
                         <div className="flex items-center justify-between mb-4">
                           <div className="flex flex-nowrap gap-2 overflow-x-auto">
                             {['ai-planner','stays','flights','experiences','events','essentials'].map((t)=>(
