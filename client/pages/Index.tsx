@@ -131,7 +131,7 @@ export default function Index() {
               <MessageSquare className="h-5 w-5 text-foreground/80" />
             </button>
             <Link to="/trips" className="p-2 rounded-md hover:bg-gray-100">
-              <Suitcase className="h-5 w-5 text-foreground/80" />
+              <Briefcase className="h-5 w-5 text-foreground/80" />
             </Link>
             {(() => {
               const isSignedIn = typeof window !== 'undefined' && localStorage.getItem('isSignedIn') === 'true';
