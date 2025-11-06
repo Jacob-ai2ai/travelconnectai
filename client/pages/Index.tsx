@@ -167,7 +167,7 @@ export default function Index() {
               <Badge variant="secondary" className="mb-4 opacity-95 transform -translate-y-0">
                 🚀 Powered by AI Technology
               </Badge>
-              <h4 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight mt-[-1px] text-center text-white uppercase">
+              <h4 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight mt-[-1px] text-center uppercase bg-gradient-to-r from-travel-blue to-travel-purple bg-clip-text text-transparent">
                 WHERE ARE WE GOING NEXT?
                 <br />
               </h4>
