@@ -183,17 +183,27 @@ export default function Index() {
                     <div className="w-full max-w-xl mx-auto">
 
                       <div className="text-center mb-3">
-                        <h3 className="text-lg font-semibold">Tell us where you want to go next.</h3>
-                        <p className="text-sm text-muted-foreground">Enter a destination or choose a service to get tailored results.</p>
+                        <h3 className="text-3xl md:text-4xl font-extrabold text-white drop-shadow-md">Tell us where you're going next — we'll handle the rest.</h3>
+                        <p className="text-sm text-white/90">Enter a destination or choose a service to get tailored results.</p>
                       </div>
 
                       <div className="bg-white rounded-2xl p-3 shadow-lg">
-                        <div className="flex flex-nowrap gap-2 mb-4 overflow-x-auto">
-                          {['ai-planner','stays','flights','experiences','events','essentials'].map((t)=>(
-                            <button key={t} onClick={() => setActiveTab(t)} className={`px-3 py-1 rounded-md text-base whitespace-nowrap ${activeTab===t ? 'bg-gradient-to-r from-travel-blue to-travel-purple text-white' : 'text-muted-foreground bg-transparent border border-transparent hover:border-gray-200'}`}>
-                              {t === 'ai-planner' ? 'AI Planner' : t.charAt(0).toUpperCase() + t.slice(1)}
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="flex flex-nowrap gap-2 overflow-x-auto">
+                            {['ai-planner','stays','flights','experiences','events','essentials'].map((t)=>(
+                              <button key={t} onClick={() => setActiveTab(t)} className={`px-3 py-1 rounded-md text-base whitespace-nowrap ${activeTab===t ? 'bg-gradient-to-r from-travel-blue to-travel-purple text-white' : 'text-muted-foreground bg-transparent border border-transparent hover:border-gray-200'}`}>
+                                {t === 'ai-planner' ? 'AI Planner' : t.charAt(0).toUpperCase() + t.slice(1)}
+                              </button>
+                            ))}
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <button title="Voice input" onClick={() => setMicActive(!micActive)} className={`p-2 rounded-md ${micActive ? 'bg-gradient-to-r from-travel-blue to-travel-purple text-white' : 'hover:bg-gray-100'}`}>
+                              <Mic className="h-5 w-5" />
                             </button>
-                          ))}
+                            <button title="Invite friends" onClick={async ()=>{try{ if (navigator.share) { await navigator.share({ title: document.title, url: window.location.href }); } else { await navigator.clipboard.writeText(window.location.href); } }catch(e){}}} className="p-2 rounded-md hover:bg-gray-100">
+                              <UserPlus className="h-5 w-5" />
+                            </button>
+                          </div>
                         </div>
 
                         <div className="flex flex-col gap-3">
