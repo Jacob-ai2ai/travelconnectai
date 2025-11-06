@@ -24,6 +24,8 @@ import {
   Bell,
   MessageSquare,
   Briefcase,
+  Mic,
+  UserPlus,
 } from "lucide-react";
 
 export default function Index() {
