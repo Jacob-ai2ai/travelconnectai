@@ -318,7 +318,7 @@ export default function Index() {
             <div className="w-full">
               <div className="relative">
                   <div className="relative z-30 flex items-center justify-center h-full">
-                    <div className="w-full max-w-xl mx-auto flex flex-col justify-center items-center">
+                    <div className="w-full max-w-2xl mx-auto flex flex-col justify-center items-center">
 
                       <div className="text-center mb-3">
                           <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight" style={{marginRight: '-5px', paddingRight: '15px'}}>
