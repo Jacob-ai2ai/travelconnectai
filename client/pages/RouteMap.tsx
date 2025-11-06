@@ -458,7 +458,7 @@ export default function RouteMap({
     return (
       <div className="relative h-full bg-gradient-to-br from-blue-50 via-green-50 to-yellow-50 overflow-hidden">
         <div className="absolute inset-0 opacity-20">
-          <div className="w-full h-full bg-gradient-to-br from-blue-200 via-green-200 to-yellow-200"></div>
+          <div className="w-full h-full bg-gradient-to-br from-yellow-100 via-green-200 to-yellow-200"></div>
         </div>
 
         <div
@@ -483,7 +483,7 @@ export default function RouteMap({
             <svg className="absolute inset-0 w-full h-full">
               <path
                 d="M 50 500 Q 150 400 200 350 Q 300 300 400 280 Q 500 260 600 250 Q 700 240 750 200"
-                stroke="#2563eb"
+                stroke="#FABC2A"
                 strokeWidth="3"
                 fill="none"
                 strokeDasharray="5,5"
