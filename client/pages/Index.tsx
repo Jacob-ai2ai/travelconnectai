@@ -303,7 +303,7 @@ export default function Index() {
                               <span style={{fontWeight: 'normal', color: 'rgb(0, 0, 0)'}}><em>Prompt</em></span>
                             </div>
                           </h1>
-                          <h4 className="text-lg text-white mt-4">Plan your perfect vacation�� with AI powered planning &amp; booking.</h4>
+                          <h4 className="text-lg text-white mt-4">Plan your perfect vacation — with AI powered planning &amp; booking.</h4>
                           <h5></h5>
                       </div>
 
