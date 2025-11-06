@@ -311,7 +311,7 @@ export default function Index() {
       </header>
 
       {/* Hero Section: Apple-inspired */}
-      <section className="container mx-auto px-4 relative overflow-hidden min-h-screen flex items-center" style={{backgroundImage: "url('https://cdn.builder.io/api/v1/image/assets%2F35ef8c33e09249b994ebaf72d1f85dab%2F7de7d7ca3a54450d8e51bf296f90152d?format=webp&width=1600')", backgroundSize: '140%', backgroundPosition: 'left center', backgroundRepeat: 'no-repeat'}}>
+      <section className="container mx-auto px-4 relative overflow-hidden min-h-screen flex items-center" style={{backgroundImage: "url('https://cdn.builder.io/api/v1/image/assets%2F35ef8c33e09249b994ebaf72d1f85dab%2F6f39022cb0984a6585a17d53ab9fa214')", backgroundSize: '140%', backgroundPosition: '0% 50%', backgroundRepeat: 'no-repeat'}}>
         <div className="max-w-7xl mx-auto relative">
           <div className="flex flex-col items-center">
 
