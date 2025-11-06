@@ -148,4 +148,7 @@
   .bg-autumn-gradient { background: linear-gradient(90deg, hsl(var(--travel-orange)), hsl(var(--primary))); }
   .text-autumn-gradient { background: linear-gradient(90deg, hsl(var(--travel-orange)), hsl(var(--primary))); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .text-cta-gradient { background: linear-gradient(90deg, hsl(var(--travel-blue)), hsl(var(--travel-purple))); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  /* Lemon CTA gradient */
+  .bg-cta-lemon { background: linear-gradient(90deg, hsl(var(--lemon)), hsl(var(--travel-orange))); color: white; }
+  .text-cta-lemon { background: linear-gradient(90deg, hsl(var(--lemon)), hsl(var(--travel-orange))); -webkit-background-clip: text; background-clip: text; color: transparent; }
 }
