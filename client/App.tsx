@@ -50,6 +50,7 @@ export default function App() {
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <Header />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/ai-planner" element={<AIPlanner />} />
