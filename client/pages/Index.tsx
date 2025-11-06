@@ -435,7 +435,7 @@ export default function Index() {
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold mb-1 text-cta-gradient">{service.title}</h3>
-                      <p className="text-sm text-white">{service.description}</p>
+                      <p className="text-sm text-foreground">{service.description}</p>
                     </div>
                   </div>
                   <div className="mt-6 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity">
