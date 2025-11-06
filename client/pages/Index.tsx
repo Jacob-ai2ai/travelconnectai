@@ -61,14 +61,37 @@ export default function Index() {
       if (tz.includes('/')) {
         city = tz.split('/').pop()?.replace('_', ' ') || '';
       }
+
+      // small mapping from common timezones to country codes for better accuracy
+      const tzToCountry: Record<string,string> = {
+        'Asia/Kolkata': 'IN',
+        'Asia/Calcutta': 'IN',
+        'Asia/Tokyo': 'JP',
+        'Europe/London': 'GB',
+        'America/New_York': 'US',
+        'America/Los_Angeles': 'US',
+        'Europe/Paris': 'FR',
+        'Europe/Berlin': 'DE',
+        'Asia/Singapore': 'SG',
+      };
+
       const lang = navigator.language || 'en-US';
       const regionMatch = lang.match(/-([A-Z]{2})$/i);
       let country = regionMatch ? regionMatch[1].toUpperCase() : '';
+
+      // prefer explicit timezone mapping when available
+      if (!country && tz && tzToCountry[tz]) {
+        country = tzToCountry[tz];
+      }
+
+      // As a last fallback, try to infer by timezone prefix (not reliable but okay)
       if (!country) {
-        // fallback: try extract from timezone continent/country
         const tzPart = tz.split('/')[0];
         if (tzPart && tzPart.length === 2) country = tzPart.toUpperCase();
       }
+
+      // Normalize some city names (Calcutta -> Kolkata)
+      if (city.toLowerCase() === 'calcutta') city = 'Kolkata';
 
       const countryToCurrency: Record<string,string> = {
         US: 'USD', GB: 'GBP', IN: 'INR', CA: 'CAD', AU: 'AUD', DE: 'EUR', FR: 'EUR', ES: 'EUR', IT: 'EUR', NL: 'EUR', JP: 'JPY', CN: 'CNY', SG: 'SGD', AE: 'AED'
