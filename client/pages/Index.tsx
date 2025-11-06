@@ -321,10 +321,9 @@ export default function Index() {
                     <div className="w-full max-w-6xl mx-auto flex flex-col justify-center items-center">
 
                       <div className="text-center mb-3">
-                          <h1 style={{color: 'rgb(255, 255, 255)', fontSize: '48px', fontWeight: 800, letterSpacing: '-1.2px', lineHeight: '48px', marginRight: '-5px', paddingRight: '15px'}}>
-                            Go Where Your Heart Takes You
-                            <br />
-                            With Just a Prompt
+                          <h1 style={{color: 'rgb(255, 255, 255)', fontSize: '48px', fontWeight: 800, letterSpacing: '-1.2px', lineHeight: '44px', marginRight: '-5px', paddingRight: '15px'}}>
+                            <div style={{display: 'block'}}>Go Where Your Heart Takes You</div>
+                            <div style={{display: 'block', marginTop: '4px'}}>With Just a Prompt</div>
                           </h1>
                           <p className="text-lg text-white mt-4">Plan your perfect vacation— with AI powered planning & booking.</p>
                       </div>
