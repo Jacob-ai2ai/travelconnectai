@@ -14,6 +14,7 @@ import Xperiences from "./pages/Xperiences";
 import Events from "./pages/Events";
 import Essentials from "./pages/Essentials";
 import ExploreServices from "./pages/ExploreServices";
+import Discover from "./pages/Discover";
 import ListProperty from "./pages/ListProperty";
 import DocumentDownload from "./pages/DocumentDownload";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -61,6 +62,7 @@ export default function App() {
             <Route path="/events" element={<Events />} />
             <Route path="/essentials" element={<Essentials />} />
             <Route path="/explore-services" element={<ExploreServices />} />
+            <Route path="/discover" element={<Discover />} />
             <Route path="/list-property" element={<ListProperty />} />
             <Route path="/document-download" element={<DocumentDownload />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
