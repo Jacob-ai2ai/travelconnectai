@@ -322,11 +322,11 @@ export default function Index() {
                     <div className="w-full max-w-xl mx-auto">
 
                       <div className="text-center mb-3">
-                        <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight">
+                        <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight text-white drop-shadow-md">
                           Plan Your Perfect Trip with
                           <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-travel-blue via-travel-purple to-travel-orange">AI-Powered Booking</span>
                         </h1>
-                        <p className="text-lg text-white/90 mt-4">Tell us where you're going next — we'll handle the rest.</p>
+                        <p className="text-lg text-white mt-4">Tell us where you're going next — we'll handle the rest.</p>
                       </div>
 
                       <div className="bg-white rounded-2xl p-3 shadow-lg">
