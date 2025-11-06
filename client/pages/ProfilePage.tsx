@@ -154,24 +154,6 @@ export default function ProfilePage(){
 
   return (
     <div className="min-h-screen p-2 bg-background">
-      <header className="border-b bg-sky-400 text-white sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-1 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="w-7 h-7 bg-gradient-to-br from-travel-blue to-travel-purple rounded-md flex items-center justify-center">
-              <Plane className="h-4 w-4 text-white" />
-            </div>
-            <span className="text-sm font-semibold">Traveltheworld.ai</span>
-          </div>
-          <nav className="hidden md:flex items-center space-x-4 text-sm">
-            <Link to="/stays" className="text-white/90 hover:text-white transition-colors">Stays</Link>
-            <Link to="/flights" className="text-white/90 hover:text-white transition-colors">Flights</Link>
-            <Link to="/xperiences" className="text-white/90 hover:text-white transition-colors">Xperiences</Link>
-            <Link to="/events" className="text-white/90 hover:text-white transition-colors">Events</Link>
-            <Link to="/essentials" className="text-white/90 hover:text-white transition-colors">Essentials</Link>
-            <Link to="/ai-planner"><Button variant="default" className="text-sm py-1 px-2 bg-[#f5a623] text-black">Plan</Button></Link>
-          </nav>
-        </div>
-      </header>
       <div className="h-4" />
 
       <div className="max-w-7xl mx-auto px-6">
