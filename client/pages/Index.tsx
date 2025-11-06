@@ -27,9 +27,6 @@ import {
   Briefcase,
   Mic,
 } from "lucide-react";
-import NotificationsDialog from "@/components/NotificationsDialog";
-import MessagesDialog from "@/components/MessagesDialog";
-import InviteFriendsDialog from "@/components/InviteFriendsDialog";
 
 export default function Index() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
