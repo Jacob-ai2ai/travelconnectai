@@ -16,6 +16,7 @@ import Events from "./pages/Events";
 import Essentials from "./pages/Essentials";
 import ExploreServices from "./pages/ExploreServices";
 import Discover from "./pages/Discover";
+import Trips from "./pages/Trips";
 import ListProperty from "./pages/ListProperty";
 import DocumentDownload from "./pages/DocumentDownload";
 import ForgotPassword from "./pages/ForgotPassword";
