@@ -320,7 +320,7 @@ export default function Index() {
                   <div className="relative z-10 flex items-center justify-center h-full">
                     <div className="w-full max-w-xl mx-auto flex flex-col justify-center items-center">
 
-                      <div className="text-center mb-3">
+                      <div className="text-center md:text-left md:translate-x-20 lg:translate-x-28 mb-3">
                           <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight">
                             <span className="text-white">Plan Your Perfect Trip with</span>
                             <span className="block mt-2 text-white">AI-Powered Booking</span>
