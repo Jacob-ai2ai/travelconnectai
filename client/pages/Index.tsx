@@ -332,7 +332,7 @@ export default function Index() {
                         <div className="flex items-center justify-between mb-4">
                           <div className="flex flex-nowrap gap-2 overflow-x-auto">
                             {['ai-planner','stays','flights','experiences','events','essentials'].map((t)=>(
-                              <button key={t} onClick={() => setActiveTab(t)} className={`px-3 py-1 rounded-md text-base whitespace-nowrap ${activeTab===t ? 'bg-gradient-to-r from-travel-blue to-travel-purple text-white' : 'text-muted-foreground bg-transparent border border-transparent hover:border-gray-200'}`}>
+                              <button key={t} onClick={() => setActiveTab(t)} className={`px-3 py-1 rounded-md text-base whitespace-nowrap ${activeTab===t ? 'bg-gradient-to-r from-travel-orange to-primary text-primary-foreground' : 'text-muted-foreground bg-transparent border border-transparent hover:border-gray-200'}`}>
                                 {t === 'ai-planner' ? 'AI Planner' : t.charAt(0).toUpperCase() + t.slice(1)}
                               </button>
                             ))}
@@ -353,7 +353,7 @@ export default function Index() {
                               </div>
 
                               <div className="flex flex-col md:flex-row gap-3">
-                                <Link to={buildStaysUrl()} className="w-full md:flex-1"><Button className="w-full bg-gradient-to-r from-travel-blue to-travel-purple text-white">Search Stays</Button></Link>
+                                <Link to={buildStaysUrl()} className="w-full md:flex-1"><Button className="w-full">Search Stays</Button></Link>
                                 <Link to="/explore-services" className="w-full md:flex-1"><Button variant="ghost" className="w-full border border-gray-200 hover:bg-gray-50">Browse Services</Button></Link>
                               </div>
                             </div>
@@ -362,7 +362,7 @@ export default function Index() {
                               <div className="relative">
                                 <textarea value={promptText} onChange={(e) => setPromptText(e.target.value)} placeholder={'Try: "Plan a 5-day family trip to Kyoto with food highlights and cultural experiences"'} rows={3} className="w-full resize-none bg-gray-50 border border-transparent focus:border-travel-blue focus:ring-2 focus:ring-travel-blue/20 rounded-2xl p-3 shadow-inner text-sm placeholder:text-muted-foreground" />
                                 <div className="absolute right-3 bottom-3 flex items-center gap-2">
-                                  <button title="Voice input" onClick={() => setMicActive(!micActive)} className={`p-2 rounded-md ${micActive ? 'bg-gradient-to-r from-travel-blue to-travel-purple text-white' : 'hover:bg-gray-100'}`}>
+                                  <button title="Voice input" onClick={() => setMicActive(!micActive)} className={`p-2 rounded-md ${micActive ? 'bg-gradient-to-r from-travel-orange to-primary text-primary-foreground' : 'hover:bg-gray-100'}`}>
                                     <Mic className="h-4 w-4" />
                                   </button>
                                   <button title="Invite friends" onClick={async ()=>{try{ if (navigator.share) { await navigator.share({ title: document.title, url: window.location.href }); } else { await navigator.clipboard.writeText(window.location.href); } }catch(e){}}} className="p-2 rounded-md hover:bg-gray-100">
@@ -371,7 +371,7 @@ export default function Index() {
                                 </div>
                               </div>
                               <div className="flex flex-col md:flex-row gap-3 mt-2">
-                                <Link to="/ai-planner" className="w-full md:flex-1"><Button className="w-full bg-gradient-to-r from-travel-blue to-travel-purple text-white">Start Planning</Button></Link>
+                                <Link to="/ai-planner" className="w-full md:flex-1"><Button className="w-full">Start Planning</Button></Link>
                                 <Link to="/explore-services" className="w-full md:flex-1"><Button variant="ghost" className="w-full border border-gray-200 hover:bg-gray-50">Browse Services</Button></Link>
                               </div>
                             </>
