@@ -612,34 +612,7 @@ export default function TripDetails() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted">
-      {/* Header */}
-      <header className="border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <Link
-              to="/ai-planner"
-              className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <ArrowLeft className="h-5 w-5" />
-              <span>Back to Plans</span>
-            </Link>
-            <div className="h-6 w-px bg-border"></div>
-            <span className="text-xl font-bold bg-gradient-to-r from-travel-blue to-travel-purple bg-clip-text text-transparent">
-              Classic Bali Experience
-            </span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Button variant="outline" size="sm">
-              <Heart className="h-4 w-4 mr-2" />
-              Save
-            </Button>
-            <Button variant="outline" size="sm">
-              <Share2 className="h-4 w-4 mr-2" />
-              Share
-            </Button>
-          </div>
-        </div>
-      </header>
+      <div className="h-4" />
 
       <div className="container mx-auto px-4 py-8">
         {/* Trip Overview */}
