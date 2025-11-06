@@ -12,8 +12,42 @@ export default function Header() {
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [messagesOpen, setMessagesOpen] = useState(false);
   const [inviteOpen, setInviteOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const navigate = useNavigate();
+
+  // Location/currency state (restore home header behavior)
+  const [locationCity, setLocationCity] = useState('');
+  const [locationFlag, setLocationFlag] = useState('');
+  const [currency, setCurrency] = useState('USD');
+  const [locationSearch, setLocationSearch] = useState('');
+
+  const location = useLocation();
+
+  useEffect(() => {
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+      let city = '';
+      if (tz.includes('/')) city = tz.split('/').pop()?.replace('_',' ') || '';
+
+      const tzToCountry: Record<string,string> = {
+        'Asia/Kolkata': 'IN', 'Asia/Calcutta': 'IN', 'Asia/Tokyo': 'JP', 'Europe/London': 'GB', 'America/New_York': 'US', 'America/Los_Angeles': 'US', 'Europe/Paris': 'FR', 'Europe/Berlin': 'DE', 'Asia/Singapore': 'SG'
+      };
+
+      const lang = navigator.language || 'en-US';
+      const regionMatch = lang.match(/-([A-Z]{2})$/i);
+      let country = regionMatch ? regionMatch[1].toUpperCase() : '';
+      if (!country && tz && tzToCountry[tz]) country = tzToCountry[tz];
+      if (!country) { const tzPart = tz.split('/')[0]; if (tzPart && tzPart.length === 2) country = tzPart.toUpperCase(); }
+      if (city.toLowerCase() === 'calcutta') city = 'Kolkata';
+      const countryToCurrency: Record<string,string> = { US: 'USD', GB: 'GBP', IN: 'INR', CA: 'CAD', AU: 'AUD', DE: 'EUR', FR: 'EUR', ES: 'EUR', IT: 'EUR', NL: 'EUR', JP: 'JPY', CN: 'CNY', SG: 'SGD', AE: 'AED' };
+      const cc = country || 'US';
+      setCurrency(countryToCurrency[cc] || 'USD');
+      setLocationCity(city || (cc === 'US' ? 'United States' : cc));
+      const flag = cc.toUpperCase().replace(/./g, (char:any) => String.fromCodePoint(127397 + char.charCodeAt(0))).replace(/undefined/g,'');
+      setLocationFlag(flag);
+      setLocationSearch('');
+    } catch (e) {
+      console.warn(e);
+    }
+  }, [location.pathname]);
 
   const isSignedIn = typeof window !== 'undefined' && localStorage.getItem('isSignedIn') === 'true';
   const rawUser = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
