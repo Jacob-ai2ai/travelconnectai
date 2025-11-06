@@ -169,7 +169,7 @@ export default function Index() {
       </header>
 
       {/* Hero Section: Apple-inspired */}
-      <section className="container mx-auto px-4 py-12 md:py-12 relative overflow-hidden" style={{backgroundImage: "url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80')", backgroundSize: 'cover', backgroundPosition: 'center'}}>
+      <section className="container mx-auto px-4 relative overflow-hidden min-h-screen flex items-center" style={{backgroundImage: "url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80')", backgroundSize: 'cover', backgroundPosition: 'center'}}>
         <div className="absolute inset-0 bg-black/40 pointer-events-none" />
         <div className="max-w-7xl mx-auto relative">
           <div className="flex flex-col items-center">
