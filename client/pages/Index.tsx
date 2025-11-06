@@ -323,7 +323,7 @@ export default function Index() {
                       <div className="text-center mb-3">
                           <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight">
                             Plan Your Perfect Trip with
-                            <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-travel-blue via-travel-purple to-travel-orange">AI-Powered Booking</span>
+                            <span className="block mt-2 text-autumn-gradient">AI-Powered Booking</span>
                           </h1>
                           <p className="text-lg text-muted-foreground mt-4">Tell us where you're going next — we'll handle the rest.</p>
                       </div>
