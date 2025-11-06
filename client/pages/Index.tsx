@@ -311,7 +311,7 @@ export default function Index() {
                         <div className="flex items-center justify-between mb-4">
                           <div className="flex flex-nowrap gap-2 overflow-x-auto">
                             {['ai-planner','stays','flights','experiences','events','essentials'].map((t)=>(
-                              <button key={t} onClick={() => setActiveTab(t)} className={`px-3 py-1 rounded-md text-base whitespace-nowrap ${activeTab===t ? (t === 'ai-planner' ? 'bg-black text-white' : 'bg-cta-lemon text-white') : 'text-muted-foreground bg-transparent border border-transparent hover:border-gray-200'}`}>
+                              <button key={t} onClick={() => setActiveTab(t)} className={`px-3 py-1 rounded-md text-base whitespace-nowrap ${activeTab===t ? (t === 'ai-planner' ? 'bg-black text-white' : 'bg-travel-blue text-white') : 'text-muted-foreground bg-transparent border border-transparent hover:border-gray-200'}`}>
                                 {t === 'ai-planner' ? 'AI Planner' : t.charAt(0).toUpperCase() + t.slice(1)}
                               </button>
                             ))}
