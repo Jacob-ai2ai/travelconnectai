@@ -212,7 +212,7 @@ export default function Index() {
                           ) : (
                             <>
                               <div className="relative">
-                                <textarea value={promptText} onChange={(e) => setPromptText(e.target.value)} placeholder={'Try: "Plan a 5-day family trip to Kyoto with food highlights and cultural experiences"'} rows={5} className="w-full resize-none bg-gray-50 border border-transparent focus:border-travel-blue focus:ring-2 focus:ring-travel-blue/20 rounded-2xl p-4 shadow-inner text-sm placeholder:text-muted-foreground" />
+                                <textarea value={promptText} onChange={(e) => setPromptText(e.target.value)} placeholder={'Try: "Plan a 5-day family trip to Kyoto with food highlights and cultural experiences"'} rows={3} className="w-full resize-none bg-gray-50 border border-transparent focus:border-travel-blue focus:ring-2 focus:ring-travel-blue/20 rounded-2xl p-3 shadow-inner text-sm placeholder:text-muted-foreground" />
                                 <div className="absolute right-3 bottom-3 flex items-center gap-2">
                                   <button title="Voice input" onClick={() => setMicActive(!micActive)} className={`p-2 rounded-md ${micActive ? 'bg-gradient-to-r from-travel-blue to-travel-purple text-white' : 'hover:bg-gray-100'}`}>
                                     <Mic className="h-4 w-4" />
