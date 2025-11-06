@@ -318,27 +318,7 @@ export default function PropertyOwnerOnboarding() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-teal-50">
-      {/* Header */}
-      <header className="border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-teal-500 to-teal-600 rounded-lg flex items-center justify-center">
-                <Building2 className="h-5 w-5 text-white" />
-              </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-teal-600 to-teal-700 bg-clip-text text-transparent">
-                Travel Connect
-              </span>
-            </div>
-            {currentStep !== "success" && (
-              <div className="text-sm text-muted-foreground">
-                Step {currentStepIndex + 1} of {steps.length}
-              </div>
-            )}
-          </div>
-        </div>
-      </header>
-
+      <div className="h-4" />
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         {/* Progress Bar */}
         {currentStep !== "success" && (
