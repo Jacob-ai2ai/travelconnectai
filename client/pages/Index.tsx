@@ -23,7 +23,7 @@ import {
   Star,
   Bell,
   MessageSquare,
-  Suitcase,
+  Briefcase,
 } from "lucide-react";
 
 export default function Index() {
