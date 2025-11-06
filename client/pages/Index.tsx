@@ -398,7 +398,7 @@ export default function Index() {
                               </div>
 
                               <div className="flex gap-3">
-                                <Link to={() => `/events?name=${encodeURIComponent(evName)}&loc=${encodeURIComponent(evLocation)}&date=${evDate}&t=${evTickets}`} className="w-full md:flex-1"><Button className="w-full">Search Events</Button></Link>
+                                <Link to={`/events?name=${encodeURIComponent(evName)}&loc=${encodeURIComponent(evLocation)}&date=${evDate}&t=${evTickets}`} className="w-full md:flex-1"><Button className="w-full">Search Events</Button></Link>
                                 <Link to="/explore-services" className="w-full md:flex-1"><Button variant="ghost" className="w-full border border-gray-200 hover:bg-gray-50">Browse Events</Button></Link>
                               </div>
                             </div>
