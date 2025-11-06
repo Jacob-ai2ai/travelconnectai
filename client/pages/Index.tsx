@@ -323,9 +323,9 @@ export default function Index() {
                       <div className="text-center mb-3">
                           <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight">
                             Plan Your Perfect Trip with
-                            <span className="block mt-2 text-autumn-gradient">AI-Powered Booking</span>
+                            <span className="block mt-2 text-cta-gradient">AI-Powered Booking</span>
                           </h1>
-                          <p className="text-lg text-muted-foreground mt-4">Tell us where you're going next — we'll handle the rest.</p>
+                          <p className="text-lg text-white mt-4">Tell us where you're going next — we'll handle the rest.</p>
                       </div>
 
                       <div className="bg-white rounded-2xl p-3 shadow-lg">
@@ -403,10 +403,10 @@ export default function Index() {
       <section id="services" className="bg-muted/20 py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-cta-gradient">
               Everything You Need for Travel
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg text-white max-w-2xl mx-auto">
               Book all aspects of your journey in one place with AI-powered
               recommendations and live previews.
             </p>
@@ -424,8 +424,8 @@ export default function Index() {
                       <Icon className={`h-7 w-7 text-${service.color}`} />
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold mb-1">{service.title}</h3>
-                      <p className="text-sm text-muted-foreground">{service.description}</p>
+                      <h3 className="text-lg font-semibold mb-1 text-cta-gradient">{service.title}</h3>
+                      <p className="text-sm text-white">{service.description}</p>
                     </div>
                   </div>
                   <div className="mt-6 flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity">
@@ -443,10 +443,10 @@ export default function Index() {
       <section id="features" className="py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-cta-gradient">
               Advanced Features for Modern Travelers
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg text-white max-w-2xl mx-auto">
               Cutting-edge technology to enhance your booking experience and
               travel planning.
             </p>
@@ -460,8 +460,8 @@ export default function Index() {
                   <div className="mx-auto mb-4 w-16 h-16 rounded-xl flex items-center justify-center bg-gradient-to-br from-travel-blue/10 to-travel-purple/10 group-hover:scale-105 transition-transform duration-300">
                     <Icon className="h-8 w-8 text-travel-blue" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-muted-foreground">{feature.description}</p>
+                  <h3 className="text-xl font-semibold mb-2 text-cta-gradient">{feature.title}</h3>
+                  <p className="text-white">{feature.description}</p>
                 </div>
               );
             })}
@@ -473,10 +473,10 @@ export default function Index() {
       <section className="bg-gradient-to-r from-travel-blue/5 via-travel-purple/5 to-travel-orange/5 py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-cta-gradient">
               Travel Wallet & Rewards
             </h2>
-            <p className="text-lg text-muted-foreground mb-8">
+            <p className="text-lg text-white mb-8">
               Earn digital coins with every booking, referral, and achievement.
               Use your travel wallet for instant bookings and exclusive deals.
             </p>
@@ -515,10 +515,10 @@ export default function Index() {
       {/* CTA Section */}
       <section className="py-16">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-cta-gradient">
             Ready to Start Your Journey?
           </h2>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+          <p className="text-lg text-white mb-8 max-w-2xl mx-auto">
             Join thousands of travelers using AI to plan better trips, save
             money, and discover amazing experiences.
           </p>
