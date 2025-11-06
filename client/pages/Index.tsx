@@ -330,11 +330,12 @@ export default function Index() {
                               <span style={{fontWeight: 'normal'}}><em>Go Where Your Heart Takes You</em></span>
                             </div>
                             <div style={{fontWeight: 800, marginTop: '4px'}}>
-                              <span style={{fontWeight: 'normal'}}><em>With Just a</em></span>{' '}
+                              <span style={{fontWeight: 'normal'}}><em>With Just a</em></span>{'\u00A0'}
                               <span style={{fontWeight: 'normal', color: 'rgb(0, 0, 0)'}}><em>Prompt</em></span>
                             </div>
                           </h1>
-                          <p className="text-lg text-white mt-4">Plan your perfect vacation— with AI powered planning & booking.</p>
+                          <h4 className="text-lg text-white mt-4">Plan your perfect vacation— with AI powered planning &amp; booking.</h4>
+                          <h5></h5>
                       </div>
 
                       <div className="bg-white rounded-2xl p-3 shadow-lg relative z-10 translate-y-0 md:translate-y-0 lg:translate-y-0 mx-auto">
@@ -380,7 +381,7 @@ export default function Index() {
                                 </div>
                               </div>
                               <div className="flex flex-col md:flex-row gap-3 mt-2">
-                                <Link to="/ai-planner" className="w-full md:flex-1"><Button className="w-full bg-cta-lemon">Start Planning</Button></Link>
+                                <Link to="/ai-planner" className="w-full md:flex-1"><Button className="w-full bg-black text-white">Start Planning</Button></Link>
                                 <Link to="/explore-services" className="w-full md:flex-1"><Button variant="ghost" className="w-full border border-gray-200 hover:bg-gray-50">Browse Services</Button></Link>
                               </div>
                             </>
