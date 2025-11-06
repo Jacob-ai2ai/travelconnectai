@@ -186,14 +186,6 @@ export default function Index() {
 
             <div className="lg:col-span-7 order-1 lg:order-2">
               <div className="relative">
-                <div className="aspect-[16/10] sm:aspect-[4/3] rounded-3xl bg-gradient-to-br from-white/80 to-white/60 dark:from-gray-800/60 dark:to-gray-700/40 shadow-2xl backdrop-blur-lg overflow-hidden p-6">
-                  {/* colorful floating visuals */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="absolute w-2/3 h-2/3 rounded-2xl glow-travel-blue opacity-90 animate-float" />
-                    <div className="absolute w-1/2 h-1/2 rounded-2xl glow-travel-orange opacity-80 transform translate-x-8 -translate-y-6 animate-float" style={{ animationDelay: '0.8s' }} />
-                    <div className="absolute w-1/3 h-1/3 rounded-2xl glow-travel-purple opacity-80 transform -translate-x-6 translate-y-8 animate-float" style={{ animationDelay: '1.6s' }} />
-                  </div>
-
                   <div className="relative z-10 flex items-center h-full">
                     <div className="w-full">
                       <div className="bg-white rounded-2xl p-3 shadow-lg">
@@ -214,7 +206,6 @@ export default function Index() {
                       </div>
                     </div>
                   </div>
-                </div>
 
                 <div className="pointer-events-none absolute -bottom-8 left-8 opacity-80 blur-2xl">
                   <svg width="360" height="160" viewBox="0 0 600 260" fill="none" xmlns="http://www.w3.org/2000/svg" className="opacity-100">
