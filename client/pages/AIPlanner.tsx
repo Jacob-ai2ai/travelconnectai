@@ -44,12 +44,14 @@ interface TourPlan {
 }
 
 export default function AIPlanner() {
+  const { toast } = useToast();
   const [prompt, setPrompt] = useState("");
   const [isListening, setIsListening] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [tourPlans, setTourPlans] = useState<TourPlan[]>([]);
   const [speechSupported, setSpeechSupported] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
 
   // Sample tour plans data
