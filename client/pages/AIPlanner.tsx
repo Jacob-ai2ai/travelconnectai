@@ -323,10 +323,16 @@ export default function AIPlanner() {
   const startListening = () => {
     if (recognitionRef.current && !isListening) {
       try {
+        setRetryCount(0);
         recognitionRef.current.start();
       } catch (error) {
         console.error("Error starting speech recognition:", error);
         setIsListening(false);
+        toast({
+          title: "Failed to Start Speech Recognition",
+          description: "Please check your microphone connection and try again.",
+          variant: "destructive",
+        });
       }
     }
   };
