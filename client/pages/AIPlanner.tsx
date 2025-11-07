@@ -251,10 +251,68 @@ export default function AIPlanner() {
       recognitionRef.current.onerror = (event) => {
         console.error("Speech recognition error:", event.error);
         setIsListening(false);
-        if (event.error === "not-allowed") {
-          alert(
-            "Microphone access is required for voice input. Please allow microphone access and try again.",
-          );
+
+        switch (event.error) {
+          case "not-allowed":
+            toast({
+              title: "Microphone Access Denied",
+              description: "Please enable microphone permissions in your browser settings to use voice input. Click the lock/camera icon in the address bar and allow microphone access.",
+              variant: "destructive",
+            });
+            break;
+          case "network":
+            if (retryCount < 2) {
+              toast({
+                title: "Network Connection Issue",
+                description: "Unable to connect to speech service. Retrying...",
+                variant: "destructive",
+              });
+              setRetryCount(prev => prev + 1);
+              setTimeout(() => {
+                if (recognitionRef.current && isListening) {
+                  try {
+                    recognitionRef.current.start();
+                  } catch (e) {
+                    console.error("Retry failed:", e);
+                  }
+                }
+              }, 1000);
+            } else {
+              toast({
+                title: "Speech Recognition Unavailable",
+                description: "Unable to connect to speech service after multiple attempts. This may be due to network issues or the service being unavailable in your region. Please try typing instead.",
+                variant: "destructive",
+              });
+              setRetryCount(0);
+            }
+            break;
+          case "no-speech":
+            toast({
+              title: "No Speech Detected",
+              description: "No speech was detected. Please try speaking again.",
+              variant: "default",
+            });
+            break;
+          case "audio-capture":
+            toast({
+              title: "Audio Capture Error",
+              description: "Could not capture audio from your microphone. Please check if your microphone is working and try again.",
+              variant: "destructive",
+            });
+            break;
+          case "service-not-allowed":
+            toast({
+              title: "Service Not Available",
+              description: "Speech recognition service is not available. Please try typing your request instead.",
+              variant: "destructive",
+            });
+            break;
+          default:
+            toast({
+              title: "Speech Recognition Error",
+              description: `An error occurred: ${event.error}. Please try typing your request instead.`,
+              variant: "destructive",
+            });
         }
       };
     } else {
