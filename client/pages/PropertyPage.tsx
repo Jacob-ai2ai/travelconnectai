@@ -235,7 +235,55 @@ export default function PropertyPage() {
         handleTranscript(transcript, 'voice');
       }
     };
-    r.onerror = (err: any) => console.warn('Speech recognition error', err);
+    r.onerror = (err: any) => {
+      const errorCode = err.error || 'unknown';
+      console.warn('Speech recognition error:', errorCode);
+      setIsListening(false);
+
+      switch (errorCode) {
+        case "not-allowed":
+          toast({
+            title: "Microphone Access Denied",
+            description: "Please enable microphone permissions in your browser settings. Click the lock/camera icon in the address bar and allow microphone access.",
+            variant: "destructive",
+          });
+          break;
+        case "network":
+          toast({
+            title: "Network Connection Issue",
+            description: "Unable to connect to speech service. Please check your internet connection and try again.",
+            variant: "destructive",
+          });
+          break;
+        case "no-speech":
+          toast({
+            title: "No Speech Detected",
+            description: "No speech was detected. Please try speaking again.",
+            variant: "default",
+          });
+          break;
+        case "audio-capture":
+          toast({
+            title: "Audio Capture Error",
+            description: "Could not capture audio from your microphone. Please check if your microphone is working.",
+            variant: "destructive",
+          });
+          break;
+        case "service-not-allowed":
+          toast({
+            title: "Service Not Available",
+            description: "Speech recognition service is not available in your region.",
+            variant: "destructive",
+          });
+          break;
+        default:
+          toast({
+            title: "Speech Recognition Error",
+            description: `An error occurred: ${errorCode}. Please try again.`,
+            variant: "destructive",
+          });
+      }
+    };
     r.onend = () => {
       setIsListening(false);
     };
@@ -864,7 +912,7 @@ export default function PropertyPage() {
                 <div className="rounded border p-3 bg-card">
                   <div className="flex items-start justify-between">
                     <div>
-                      <div className="font-semibold">Long Stay Discount — 10% off</div>
+                      <div className="font-semibold">Long Stay Discount ��� 10% off</div>
                       <div className="text-xs text-muted-foreground">Stay 5+ nights to unlock this discount.</div>
                     </div>
                     <div className="text-right">
