@@ -309,8 +309,25 @@ export default function PropertyPage() {
 
   const startListening = () => {
     const r = recognitionRef.current;
-    if (!r) return alert('Speech recognition not supported in this browser');
-    try { r.start(); setIsListening(true); } catch (e) { console.warn(e); }
+    if (!r) {
+      toast({
+        title: "Speech Recognition Not Supported",
+        description: "Your browser does not support speech recognition. Please use a modern browser like Chrome, Edge, or Safari.",
+        variant: "destructive",
+      });
+      return;
+    }
+    try {
+      r.start();
+      setIsListening(true);
+    } catch (e) {
+      console.warn("Error starting speech recognition:", e);
+      toast({
+        title: "Failed to Start Speech Recognition",
+        description: "Please check your microphone connection and try again.",
+        variant: "destructive",
+      });
+    }
   };
   const stopListening = () => { const r = recognitionRef.current; if (r) try { r.stop(); } catch (e) {} setIsListening(false); };
 
