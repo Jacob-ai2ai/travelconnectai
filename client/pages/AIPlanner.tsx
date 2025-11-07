@@ -340,6 +340,7 @@ export default function AIPlanner() {
   const stopListening = () => {
     if (recognitionRef.current && isListening) {
       try {
+        setRetryCount(0);
         recognitionRef.current.stop();
       } catch (error) {
         console.error("Error stopping speech recognition:", error);
