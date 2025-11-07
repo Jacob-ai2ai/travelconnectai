@@ -54,6 +54,7 @@ const SAMPLE_PROPERTIES: Property[] = [
 ];
 
 export default function PropertyPage() {
+  const { toast } = useToast();
   const { propertyId } = useParams();
   const property =
     SAMPLE_PROPERTIES.find((p) => p.id === propertyId) || SAMPLE_PROPERTIES[0];
