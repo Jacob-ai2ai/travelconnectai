@@ -193,7 +193,7 @@ export default function VendorDashboard() {
 
       {/* Main Dashboard Cards */}
       <div className="container mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-3 gap-6">
+        <div className="grid lg:grid-cols-4 gap-6">
           <div className="lg:col-span-2">
             <div className="grid md:grid-cols-2 gap-6">
               {/* All Orders Card */}
