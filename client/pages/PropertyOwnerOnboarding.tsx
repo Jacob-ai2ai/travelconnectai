@@ -313,7 +313,7 @@ export default function PropertyOwnerOnboarding() {
     }
 
     // Navigate to dashboard
-    navigate('/property-dashboard');
+    navigate('/vendor-dashboard');
   };
 
   return (
