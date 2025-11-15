@@ -67,7 +67,7 @@ export default function VendorDashboard() {
   };
 
   const handleAddListing = () => {
-    navigate('/vendor/select-type');
+    navigate('/vendor/create-listing');
   };
 
   const vendorTypeOptions = [
