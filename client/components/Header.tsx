@@ -21,8 +21,6 @@ export default function Header() {
   const [currency, setCurrency] = useState('USD');
   const [locationSearch, setLocationSearch] = useState('');
 
-  const location = useLocation();
-
   useEffect(() => {
     try {
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
