@@ -26,6 +26,7 @@ import VendorCategories from "./pages/VendorCategories";
 import VendorDashboard from "./pages/VendorDashboard";
 import VendorTypeSelect from "./pages/VendorTypeSelect";
 import VendorListingCreate from "./pages/VendorListingCreate";
+import VendorDemoSetup from "./pages/VendorDemoSetup";
 import Admin from "./pages/Admin";
 import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
