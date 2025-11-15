@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Plane, Compass, Bell, MessageSquare, Briefcase, Users, Mic } from "lucide-react";
+import { Plane, Compass, Bell, MessageSquare, Briefcase, Users, Mic, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import NotificationsDialog from "@/components/NotificationsDialog";
 import MessagesDialog from "@/components/MessagesDialog";
 import InviteFriendsDialog from "@/components/InviteFriendsDialog";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Header() {
   const [notificationsOpen, setNotificationsOpen] = useState(false);
