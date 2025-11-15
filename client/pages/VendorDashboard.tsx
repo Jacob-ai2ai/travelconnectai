@@ -325,7 +325,7 @@ export default function VendorDashboard() {
           </div>
 
           {/* Sidebar Cards */}
-          <div className="space-y-6">
+          <div className="lg:col-span-2 space-y-6">
             {/* Create Promotion */}
             <Card className="hover:shadow-lg transition-shadow">
               <CardHeader>
