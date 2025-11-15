@@ -111,11 +111,21 @@ export default function Header() {
             )}
 
             {isVendor ? (
-              <Link to="/vendor-dashboard">
-                <Button className="bg-travel-orange hover:bg-travel-orange/90">
-                  Vendor Dashboard
+              location.pathname === '/vendor-dashboard' ? (
+                <Button
+                  className="bg-travel-orange hover:bg-travel-orange/90"
+                  onClick={() => navigate('/vendor/create-listing')}
+                >
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add New Listing
                 </Button>
-              </Link>
+              ) : (
+                <Link to="/vendor-dashboard">
+                  <Button className="bg-travel-orange hover:bg-travel-orange/90">
+                    Vendor Dashboard
+                  </Button>
+                </Link>
+              )
             ) : (
               <Link to={isSignedIn ? '/vendor/select-type' : '/?auth=signup'}>
                 <Button>{isSignedIn ? 'Become a Travel Vendor' : 'Join as Vendor'}</Button>
