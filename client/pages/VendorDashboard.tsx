@@ -43,16 +43,35 @@ export default function VendorDashboard() {
       try {
         const userData = JSON.parse(user);
         setVendorInfo({
-          name: userData.username || userData.email || 'Vendor',
+          name: userData.username || userData.email || 'Demo Vendor',
           type: userData.vendorType || 'All Services',
-          location: userData.location || 'Not specified',
+          location: userData.location || 'Global',
           rating: 4.8,
-          revenue: 15240,
+          revenue: 52840,
           currency: 'USD',
         });
       } catch (e) {
         console.error('Error parsing user:', e);
+        // Set demo data
+        setVendorInfo({
+          name: 'Demo Vendor',
+          type: 'All Services',
+          location: 'Global',
+          rating: 4.8,
+          revenue: 52840,
+          currency: 'USD',
+        });
       }
+    } else {
+      // Demo data when not logged in
+      setVendorInfo({
+        name: 'Demo Vendor',
+        type: 'All Services',
+        location: 'Global',
+        rating: 4.8,
+        revenue: 52840,
+        currency: 'USD',
+      });
     }
   }, [navigate]);
 
