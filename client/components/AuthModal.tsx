@@ -126,9 +126,9 @@ export default function AuthModal({
       }),
     );
 
-    // Close modal and redirect to next if provided, otherwise go to onboarding
+    // Close modal and show role selection dialog
     onClose();
-    navigate(nextPath || "/onboarding");
+    setShowRoleSelection(true);
   };
 
   const handleSocialLogin = (provider: string) => {
