@@ -55,6 +55,8 @@ export default function Header() {
   const rawName = parsedUser?.username || parsedUser?.email || parsedUser?.id || '';
   const displayName = parsedUser?.username || (typeof rawName === 'string' && rawName.includes('@') ? rawName.split('@')[0] : rawName) || 'You';
   const initials = (displayName || 'You').toString().split(/\s+/).map((s:any)=>s[0]).slice(0,2).join('').toUpperCase();
+  const userRole = parsedUser?.role || 'traveler';
+  const isVendor = userRole === 'vendor';
 
   return (
     <>
