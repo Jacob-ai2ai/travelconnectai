@@ -35,13 +35,9 @@ export default function VendorDashboard() {
   useEffect(() => {
     const signedIn = localStorage.getItem('isSignedIn') === 'true';
     const user = localStorage.getItem('user');
-    
-    if (!signedIn) {
-      navigate('/');
-      return;
-    }
 
-    setIsSignedIn(true);
+    // For demo: allow accessing dashboard without login
+    setIsSignedIn(signedIn || true);
     
     if (user) {
       try {
