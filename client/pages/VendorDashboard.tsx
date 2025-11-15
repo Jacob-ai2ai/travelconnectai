@@ -239,65 +239,47 @@ export default function VendorDashboard() {
                 </CardContent>
               </Card>
 
-              {/* My Listings Card with Filter */}
-              <Card className="hover:shadow-lg transition-shadow md:col-span-2">
-                <CardHeader>
-                  <div className="flex items-center justify-between">
+              {/* My Listings Card */}
+              <Link to="/vendor/my-listings" className="hover:no-underline">
+                <Card className="hover:shadow-lg transition-shadow cursor-pointer h-full">
+                  <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Home className="h-5 w-5 text-travel-blue" />
                       My Listings
                     </CardTitle>
-                    <select
-                      value={selectedListingType}
-                      onChange={(e) => setSelectedListingType(e.target.value)}
-                      className="border rounded-lg p-1 text-sm"
-                    >
-                      {vendorTypeOptions.map((opt) => (
-                        <option key={opt.value} value={opt.value}>
-                          {opt.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="grid gap-3 max-h-96 overflow-y-auto">
-                      {dummyListings
-                        .filter((l) => selectedListingType === 'all' || l.type === selectedListingType)
-                        .map((listing) => (
-                          <div key={listing.id} className="p-3 border rounded-lg hover:bg-muted transition-colors">
-                            <div className="flex justify-between items-start mb-2">
-                              <div className="flex-1">
-                                <p className="font-semibold text-sm">{listing.title}</p>
-                                <p className="text-xs text-muted-foreground">{listing.location}</p>
-                              </div>
-                              <div className="text-right">
-                                <p className="font-bold text-travel-blue">${listing.price}</p>
-                                <div className="flex items-center justify-end gap-1 mt-1">
-                                  <Star className="h-3 w-3 text-yellow-400 fill-yellow-400" />
-                                  <span className="text-xs font-medium">{listing.rating}</span>
-                                </div>
-                              </div>
-                            </div>
-                            <Badge variant="secondary" className="capitalize text-xs">
-                              {listing.type}
-                            </Badge>
-                          </div>
-                        ))}
-                    </div>
-                    <div className="pt-2 border-t">
-                      <p className="text-sm text-muted-foreground mb-3">
-                        Showing {dummyListings.filter((l) => selectedListingType === 'all' || l.type === selectedListingType).length} of {getListingCount(selectedListingType)} listings
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <div className="text-center py-6 bg-muted rounded-lg">
+                      <p className="text-3xl font-bold text-travel-blue">
+                        {getListingCount('all')}
                       </p>
-                      <Button className="w-full" onClick={handleAddListing}>
-                        <Plus className="h-4 w-4 mr-2" />
-                        Add New Listing
-                      </Button>
+                      <p className="text-sm text-muted-foreground mt-1">Total Listings</p>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                      <div className="text-center p-2 bg-blue-50 rounded">
+                        <p className="font-semibold">3</p>
+                        <p className="text-xs text-muted-foreground">Stays</p>
+                      </div>
+                      <div className="text-center p-2 bg-orange-50 rounded">
+                        <p className="font-semibold">2</p>
+                        <p className="text-xs text-muted-foreground">Flights</p>
+                      </div>
+                      <div className="text-center p-2 bg-purple-50 rounded">
+                        <p className="font-semibold">3</p>
+                        <p className="text-xs text-muted-foreground">Experiences</p>
+                      </div>
+                      <div className="text-center p-2 bg-green-50 rounded">
+                        <p className="font-semibold">4</p>
+                        <p className="text-xs text-muted-foreground">Others</p>
+                      </div>
+                    </div>
+                    <Button className="w-full mt-2" variant="outline" onClick={handleAddListing}>
+                      <Plus className="h-4 w-4 mr-2" />
+                      Add New Listing
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Link>
 
               {/* Team/Friends Card */}
               <Card className="hover:shadow-lg transition-shadow">
