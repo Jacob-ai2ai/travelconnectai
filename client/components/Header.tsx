@@ -108,9 +108,17 @@ export default function Header() {
               <Link to="/?auth=signin"><Button variant="outline">Sign In</Button></Link>
             )}
 
-            <Link to="/vendors">
-              <Button>Become a Travel Vendor</Button>
-            </Link>
+            {isVendor ? (
+              <Link to="/vendor-dashboard">
+                <Button className="bg-travel-orange hover:bg-travel-orange/90">
+                  Vendor Dashboard
+                </Button>
+              </Link>
+            ) : (
+              <Link to={isSignedIn ? '/vendor/select-type' : '/vendors'}>
+                <Button>{isSignedIn ? 'Become a Travel Vendor' : 'Join as Vendor'}</Button>
+              </Link>
+            )}
           </nav>
         </div>
       </header>
