@@ -98,6 +98,9 @@ export default function App() {
               element={<TravelAgentOnboarding />}
             />
             <Route path="/vendors" element={<VendorCategories />} />
+            <Route path="/vendor-dashboard" element={<VendorDashboard />} />
+            <Route path="/vendor/select-type" element={<VendorTypeSelect />} />
+            <Route path="/vendor/create-listing" element={<VendorListingCreate />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/edit-profile" element={<EditProfile />} />
             <Route path="/my/media" element={<MyMedia />} />
