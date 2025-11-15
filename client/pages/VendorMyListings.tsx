@@ -122,61 +122,71 @@ export default function VendorMyListings() {
         {filteredListings.length > 0 ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredListings.map((listing) => (
-              <Card key={listing.id} className="hover:shadow-lg transition-shadow overflow-hidden">
-                <CardHeader className="pb-3">
-                  <div className="flex items-start justify-between mb-2">
-                    <Badge className={`${getTypeColor(listing.type)} capitalize`}>
-                      {listing.type}
-                    </Badge>
-                    <div className="flex items-center gap-1">
-                      <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
-                      <span className="text-sm font-medium">{listing.rating}</span>
+              <Link
+                key={listing.id}
+                to={`/vendor/listing/${listing.id}`}
+                className="hover:no-underline"
+              >
+                <Card className="h-full hover:shadow-lg transition-shadow overflow-hidden cursor-pointer">
+                  <CardHeader className="pb-3">
+                    <div className="flex items-start justify-between mb-2">
+                      <Badge className={`${getTypeColor(listing.type)} capitalize`}>
+                        {listing.type}
+                      </Badge>
+                      <div className="flex items-center gap-1">
+                        <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
+                        <span className="text-sm font-medium">{listing.rating}</span>
+                      </div>
                     </div>
-                  </div>
-                  <CardTitle className="text-lg line-clamp-2">{listing.title}</CardTitle>
-                  <p className="text-sm text-muted-foreground">{listing.location}</p>
-                </CardHeader>
+                    <CardTitle className="text-lg line-clamp-2">{listing.title}</CardTitle>
+                    <p className="text-sm text-muted-foreground">{listing.location}</p>
+                  </CardHeader>
 
-                <CardContent className="space-y-4">
-                  <div className="flex items-baseline justify-between">
-                    <span className="text-2xl font-bold text-travel-blue">
-                      ${listing.price}
-                    </span>
-                    <span className="text-xs text-muted-foreground">
-                      {listing.type === 'stays' ? 'per night' : listing.type === 'flights' ? 'per ticket' : 'per person'}
-                    </span>
-                  </div>
+                  <CardContent className="space-y-4">
+                    <div className="flex items-baseline justify-between">
+                      <span className="text-2xl font-bold text-travel-blue">
+                        ${listing.price}
+                      </span>
+                      <span className="text-xs text-muted-foreground">
+                        {listing.type === 'stays' ? 'per night' : listing.type === 'flights' ? 'per ticket' : 'per person'}
+                      </span>
+                    </div>
 
-                  <div className="flex gap-2 pt-2 border-t">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="flex-1"
-                      onClick={() => {
-                        // Store listing to edit
-                        localStorage.setItem('editingListing', JSON.stringify(listing));
-                        navigate('/vendor/create-listing');
-                      }}
-                    >
-                      <Edit2 className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="flex-1 text-red-600 hover:text-red-600"
-                      onClick={() => {
-                        if (confirm('Are you sure you want to delete this listing?')) {
-                          const updated = listings.filter((l) => l.id !== listing.id);
-                          setListings(updated);
-                          localStorage.setItem('listings', JSON.stringify(updated));
-                        }
-                      }}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+                    <div className="flex gap-2 pt-2 border-t">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="flex-1"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          // Store listing to edit
+                          localStorage.setItem('editingListing', JSON.stringify(listing));
+                          navigate('/vendor/create-listing');
+                        }}
+                      >
+                        <Edit2 className="h-4 w-4 mr-1" />
+                        <span className="hidden sm:inline">Edit</span>
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="flex-1 text-red-600 hover:text-red-600"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (confirm('Are you sure you want to delete this listing?')) {
+                            const updated = listings.filter((l) => l.id !== listing.id);
+                            setListings(updated);
+                            localStorage.setItem('listings', JSON.stringify(updated));
+                          }
+                        }}
+                      >
+                        <Trash2 className="h-4 w-4 mr-1" />
+                        <span className="hidden sm:inline">Delete</span>
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
         ) : (
