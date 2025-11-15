@@ -164,7 +164,9 @@ export default function ProfilePage(){
           <aside className="md:col-span-1">
             <Card>
               <CardHeader>
-                <div className="text-sm font-semibold">Traveler Profile</div>
+                <div className="text-sm font-semibold">
+                  {isVendor ? 'Vendor Profile' : 'Traveler Profile'}
+                </div>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-col items-center text-center">
