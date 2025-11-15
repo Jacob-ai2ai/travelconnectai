@@ -115,7 +115,7 @@ export default function Header() {
                 </Button>
               </Link>
             ) : (
-              <Link to={isSignedIn ? '/vendor/select-type' : '/vendors'}>
+              <Link to={isSignedIn ? '/vendor/select-type' : '/?auth=signup'}>
                 <Button>{isSignedIn ? 'Become a Travel Vendor' : 'Join as Vendor'}</Button>
               </Link>
             )}
