@@ -9,6 +9,8 @@ import InviteFriendsDialog from "@/components/InviteFriendsDialog";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Header() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [messagesOpen, setMessagesOpen] = useState(false);
   const [inviteOpen, setInviteOpen] = useState(false);
