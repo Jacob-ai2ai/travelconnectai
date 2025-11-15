@@ -22,11 +22,8 @@ export default function VendorMyListings() {
 
   useEffect(() => {
     const signedIn = localStorage.getItem('isSignedIn') === 'true';
-    if (!signedIn) {
-      navigate('/');
-      return;
-    }
-    setIsSignedIn(true);
+    // For demo: allow access without strict auth check
+    setIsSignedIn(signedIn || true);
 
     // Load listings from localStorage
     const savedListings = localStorage.getItem('listings');
@@ -37,7 +34,7 @@ export default function VendorMyListings() {
         console.error('Error loading listings:', e);
       }
     }
-  }, [navigate]);
+  }, []);
 
   const vendorTypeOptions = [
     { value: 'all', label: 'All Listings' },
