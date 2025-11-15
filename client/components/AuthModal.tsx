@@ -46,6 +46,7 @@ export default function AuthModal({
   });
   const [signInError, setSignInError] = useState("");
   const [isSigningIn, setIsSigningIn] = useState(false);
+  const [showRoleSelection, setShowRoleSelection] = useState(false);
 
   const validatePassword = (password: string) => {
     const requirements = {
