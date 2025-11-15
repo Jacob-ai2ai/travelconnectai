@@ -140,6 +140,7 @@ export default function AuthModal({
   const isPasswordValid = Object.values(passwordRequirements).every(Boolean);
 
   return (
+    <>
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto mx-4">
         <DialogHeader>
@@ -589,5 +590,7 @@ export default function AuthModal({
         </Tabs>
       </DialogContent>
     </Dialog>
+    <RoleSelectionDialog open={showRoleSelection} onOpenChange={setShowRoleSelection} />
+    </>
   );
 }
