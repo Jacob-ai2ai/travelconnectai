@@ -225,39 +225,61 @@ export default function VendorDashboard() {
               </Card>
 
               {/* My Listings Card with Filter */}
-              <Card className="hover:shadow-lg transition-shadow">
+              <Card className="hover:shadow-lg transition-shadow md:col-span-2">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Home className="h-5 w-5 text-travel-blue" />
-                    My Listings
-                  </CardTitle>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="flex items-center gap-2">
+                      <Home className="h-5 w-5 text-travel-blue" />
+                      My Listings
+                    </CardTitle>
+                    <select
+                      value={selectedListingType}
+                      onChange={(e) => setSelectedListingType(e.target.value)}
+                      className="border rounded-lg p-1 text-sm"
+                    >
+                      {vendorTypeOptions.map((opt) => (
+                        <option key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div>
-                      <label className="text-sm font-medium mb-2 block">Filter by Type</label>
-                      <select
-                        value={selectedListingType}
-                        onChange={(e) => setSelectedListingType(e.target.value)}
-                        className="w-full border rounded-lg p-2 text-sm"
-                      >
-                        {vendorTypeOptions.map((opt) => (
-                          <option key={opt.value} value={opt.value}>
-                            {opt.label}
-                          </option>
+                    <div className="grid gap-3 max-h-96 overflow-y-auto">
+                      {dummyListings
+                        .filter((l) => selectedListingType === 'all' || l.type === selectedListingType)
+                        .map((listing) => (
+                          <div key={listing.id} className="p-3 border rounded-lg hover:bg-muted transition-colors">
+                            <div className="flex justify-between items-start mb-2">
+                              <div className="flex-1">
+                                <p className="font-semibold text-sm">{listing.title}</p>
+                                <p className="text-xs text-muted-foreground">{listing.location}</p>
+                              </div>
+                              <div className="text-right">
+                                <p className="font-bold text-travel-blue">${listing.price}</p>
+                                <div className="flex items-center justify-end gap-1 mt-1">
+                                  <Star className="h-3 w-3 text-yellow-400 fill-yellow-400" />
+                                  <span className="text-xs font-medium">{listing.rating}</span>
+                                </div>
+                              </div>
+                            </div>
+                            <Badge variant="secondary" className="capitalize text-xs">
+                              {listing.type}
+                            </Badge>
+                          </div>
                         ))}
-                      </select>
                     </div>
-                    <div className="text-center py-4 bg-muted rounded-lg">
-                      <p className="text-3xl font-bold text-travel-blue">
-                        {getListingCount(selectedListingType)}
+                    <div className="pt-2 border-t">
+                      <p className="text-sm text-muted-foreground mb-3">
+                        Showing {dummyListings.filter((l) => selectedListingType === 'all' || l.type === selectedListingType).length} of {getListingCount(selectedListingType)} listings
                       </p>
-                      <p className="text-sm text-muted-foreground mt-1">Listings</p>
+                      <Button className="w-full" onClick={handleAddListing}>
+                        <Plus className="h-4 w-4 mr-2" />
+                        Add New Listing
+                      </Button>
                     </div>
-                    <Button className="w-full" onClick={handleAddListing}>
-                      <Plus className="h-4 w-4 mr-2" />
-                      Add New Listing
-                    </Button>
                   </div>
                 </CardContent>
               </Card>
