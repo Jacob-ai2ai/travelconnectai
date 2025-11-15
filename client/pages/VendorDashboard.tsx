@@ -208,9 +208,7 @@ export default function VendorDashboard() {
 
       {/* Main Dashboard Cards */}
       <div className="container mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-4 gap-6">
-          <div className="lg:col-span-2">
-            <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* All Orders Card */}
               <Card className="hover:shadow-lg transition-shadow">
                 <CardHeader>
@@ -318,12 +316,6 @@ export default function VendorDashboard() {
                   </Button>
                 </CardContent>
               </Card>
-            </div>
-          </div>
-
-          {/* Sidebar Cards */}
-          <div className="lg:col-span-2">
-            <div className="grid md:grid-cols-2 gap-6">
               {/* Create Promotion */}
               <Card className="hover:shadow-lg transition-shadow">
                 <CardHeader>
@@ -391,8 +383,6 @@ export default function VendorDashboard() {
                   </Link>
                 </CardContent>
               </Card>
-            </div>
-          </div>
         </div>
       </div>
     </div>
