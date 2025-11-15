@@ -325,74 +325,76 @@ export default function VendorDashboard() {
           </div>
 
           {/* Sidebar Cards */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Create Promotion */}
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <CardTitle className="text-lg">Create Promotion</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Create special offers to attract more customers
-                </p>
-                <Button className="w-full">
-                  <Plus className="h-4 w-4 mr-2" />
-                  New Promotion
-                </Button>
-              </CardContent>
-            </Card>
+          <div className="lg:col-span-2">
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Create Promotion */}
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <CardTitle className="text-lg">Create Promotion</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Create special offers to attract more customers
+                  </p>
+                  <Button className="w-full">
+                    <Plus className="h-4 w-4 mr-2" />
+                    New Promotion
+                  </Button>
+                </CardContent>
+              </Card>
 
-            {/* Payments & Transactions */}
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <CardTitle className="text-lg">Payments</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">This Month</span>
-                    <span className="font-bold">$3,420</span>
+              {/* Payments & Transactions */}
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <CardTitle className="text-lg">Payments</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">This Month</span>
+                      <span className="font-bold">$3,420</span>
+                    </div>
+                    <Button className="w-full" variant="outline">
+                      View Transactions
+                    </Button>
                   </div>
-                  <Button className="w-full" variant="outline">
-                    View Transactions
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
 
-            {/* Analytics */}
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <CardTitle className="text-lg">Analytics</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Track your performance metrics
-                </p>
-                <Button className="w-full" variant="outline">
-                  <BarChart3 className="h-4 w-4 mr-2" />
-                  View Analytics
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Settings */}
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <CardTitle className="text-lg">Settings</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Manage your account settings
-                </p>
-                <Link to="/edit-profile">
+              {/* Analytics */}
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <CardTitle className="text-lg">Analytics</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Track your performance metrics
+                  </p>
                   <Button className="w-full" variant="outline">
-                    <Settings className="h-4 w-4 mr-2" />
-                    Edit Profile
+                    <BarChart3 className="h-4 w-4 mr-2" />
+                    View Analytics
                   </Button>
-                </Link>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+
+              {/* Settings */}
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <CardTitle className="text-lg">Settings</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Manage your account settings
+                  </p>
+                  <Link to="/edit-profile">
+                    <Button className="w-full" variant="outline">
+                      <Settings className="h-4 w-4 mr-2" />
+                      Edit Profile
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </div>
