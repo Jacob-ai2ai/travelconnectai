@@ -190,8 +190,15 @@ export default function ProfilePage(){
                     </div>
                   )}
 
-                  <div className="w-full mt-4">
+                  <div className="w-full mt-4 space-y-2">
                     <Link to="/edit-profile"><Button className="w-full"><Edit3 className="mr-2 h-4 w-4"/>Edit Profile</Button></Link>
+                    {isVendor && (
+                      <Link to="/vendor-dashboard">
+                        <Button className="w-full bg-travel-orange hover:bg-travel-orange/90">
+                          Go to Vendor Dashboard
+                        </Button>
+                      </Link>
+                    )}
                   </div>
 
                 </div>
