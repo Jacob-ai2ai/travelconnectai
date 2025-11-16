@@ -1,189 +1,307 @@
 import { RequestHandler } from "express";
 import { readFileSync } from "fs";
 import { join } from "path";
+import PDFDocument from "pdfkit";
+
+type DocumentType = "srs" | "product";
+
+const getDocumentPath = (type: DocumentType): string => {
+  if (type === "product") {
+    return join(process.cwd(), "docs/Product_Descriptions.md");
+  }
+  return join(process.cwd(), "SRS_TravelConnect.md");
+};
+
+const getDocumentMetadata = (type: DocumentType) => {
+  if (type === "product") {
+    return {
+      title: "Product Descriptions - TravelConnect",
+      filename: "TravelConnect-Product-Descriptions",
+    };
+  }
+  return {
+    title: "Software Requirements Specification - TravelConnect",
+    filename: "TravelConnect-SRS",
+  };
+};
+
+const generatePDF = (
+  content: string,
+  metadata: { title: string; filename: string }
+): Buffer => {
+  return new Promise((resolve, reject) => {
+    const chunks: Buffer[] = [];
+    const doc = new PDFDocument({
+      bufferPages: true,
+      margin: 50,
+    });
+
+    doc.on("data", (chunk) => chunks.push(chunk));
+    doc.on("end", () => resolve(Buffer.concat(chunks)));
+    doc.on("error", reject);
+
+    // Parse markdown and add to PDF
+    const lines = content.split("\n");
+    let inCodeBlock = false;
+    let codeContent = "";
+
+    doc.fontSize(24).font("Helvetica-Bold").text(metadata.title, { align: "center" });
+    doc.moveDown(0.5);
+    doc.fontSize(10).font("Helvetica").text(`Generated: ${new Date().toLocaleDateString()}`, {
+      align: "center",
+    });
+    doc.moveDown(1);
+    doc.moveTo(50, doc.y).lineTo(545, doc.y).stroke();
+    doc.moveDown(0.5);
+
+    for (const line of lines) {
+      // Handle code blocks
+      if (line.startsWith("```")) {
+        if (inCodeBlock) {
+          if (codeContent) {
+            doc.fontSize(9).font("Courier").text(codeContent, {
+              align: "left",
+              width: 445,
+            });
+            codeContent = "";
+          }
+          doc.moveDown(0.3);
+          inCodeBlock = false;
+        } else {
+          inCodeBlock = true;
+        }
+        continue;
+      }
+
+      if (inCodeBlock) {
+        codeContent += line + "\n";
+        continue;
+      }
+
+      // Handle headings
+      if (line.startsWith("# ")) {
+        doc.moveDown(0.3);
+        doc.fontSize(18).font("Helvetica-Bold").text(line.substring(2), { align: "left" });
+        doc.moveDown(0.2);
+        doc.moveTo(50, doc.y).lineTo(545, doc.y).stroke();
+        doc.moveDown(0.3);
+        continue;
+      }
+
+      if (line.startsWith("## ")) {
+        doc.moveDown(0.3);
+        doc.fontSize(14).font("Helvetica-Bold").text(line.substring(3), { align: "left" });
+        doc.moveDown(0.2);
+        continue;
+      }
+
+      if (line.startsWith("### ")) {
+        doc.moveDown(0.2);
+        doc.fontSize(12).font("Helvetica-Bold").text(line.substring(4), { align: "left" });
+        doc.moveDown(0.1);
+        continue;
+      }
+
+      if (line.startsWith("#### ")) {
+        doc.moveDown(0.1);
+        doc.fontSize(11).font("Helvetica-Bold").text(line.substring(5), { align: "left" });
+        doc.moveDown(0.05);
+        continue;
+      }
+
+      // Handle horizontal rules
+      if (line.match(/^-{3,}$|^_{3,}$|\*{3,}/)) {
+        doc.moveDown(0.3);
+        doc.moveTo(50, doc.y).lineTo(545, doc.y).stroke();
+        doc.moveDown(0.3);
+        continue;
+      }
+
+      // Handle bullet points
+      if (line.match(/^[-*+]\s/)) {
+        const text = line.substring(2);
+        doc.fontSize(10).font("Helvetica").text(`• ${text}`, { align: "left", width: 425 });
+        doc.moveDown(0.1);
+        continue;
+      }
+
+      // Handle numbered lists
+      if (line.match(/^\d+\.\s/)) {
+        const match = line.match(/^(\d+\.\s)(.*)$/);
+        if (match) {
+          doc.fontSize(10).font("Helvetica").text(`${match[1]}${match[2]}`, {
+            align: "left",
+            width: 425,
+          });
+          doc.moveDown(0.1);
+        }
+        continue;
+      }
+
+      // Handle bold and italic text in regular content
+      if (line.trim()) {
+        const processedLine = line
+          .replace(/\*\*([^*]+)\*\*/g, "$1") // Remove bold markers
+          .replace(/\*([^*]+)\*/g, "$1") // Remove italic markers
+          .replace(/`([^`]+)`/g, "$1"); // Remove inline code markers
+
+        if (processedLine.trim()) {
+          doc.fontSize(10).font("Helvetica").text(processedLine, {
+            align: "left",
+            width: 445,
+          });
+          doc.moveDown(0.05);
+        }
+      } else {
+        doc.moveDown(0.15);
+      }
+    }
+
+    doc.end();
+  });
+};
 
 export const handleDownloadSRS: RequestHandler = async (req, res) => {
   try {
     const format = req.query.format as string;
-    
-    if (!format || !['pdf', 'docx', 'md', 'txt'].includes(format)) {
-      return res.status(400).json({ error: 'Invalid format specified' });
+    const documentType = (req.query.document as DocumentType) || "srs";
+
+    if (!format || !["pdf", "docx", "md", "txt"].includes(format)) {
+      return res.status(400).json({ error: "Invalid format specified" });
     }
 
-    // Read the markdown file
-    const filePath = join(process.cwd(), 'SRS_Traveltheworld_AI.md');
-    const markdownContent = readFileSync(filePath, 'utf-8');
+    if (!["srs", "product"].includes(documentType)) {
+      return res.status(400).json({ error: "Invalid document type" });
+    }
 
-    // Set appropriate headers based on format
-    const filename = `Traveltheworld-AI-SRS.${format}`;
-    
+    const filePath = getDocumentPath(documentType);
+    const metadata = getDocumentMetadata(documentType);
+    const markdownContent = readFileSync(filePath, "utf-8");
+
+    const filename = `${metadata.filename}.${format}`;
+
     switch (format) {
-      case 'md':
-        res.setHeader('Content-Type', 'text/markdown');
-        res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+      case "md":
+        res.setHeader("Content-Type", "text/markdown");
+        res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
         res.send(markdownContent);
         break;
-        
-      case 'txt':
-        // Convert markdown to plain text (remove markdown formatting)
+
+      case "txt":
         const plainText = markdownContent
-          .replace(/#{1,6}\s*/g, '') // Remove headers
-          .replace(/\*\*(.*?)\*\*/g, '$1') // Remove bold
-          .replace(/\*(.*?)\*/g, '$1') // Remove italic
-          .replace(/\[(.*?)\]\(.*?\)/g, '$1') // Remove links, keep text
-          .replace(/```[\s\S]*?```/g, '') // Remove code blocks
-          .replace(/`(.*?)`/g, '$1') // Remove inline code
-          .replace(/---+/g, '') // Remove horizontal rules
-          .replace(/^\s*[-*+]\s+/gm, '• ') // Convert list items
-          .replace(/^\s*\d+\.\s+/gm, '• ') // Convert numbered lists
-          .replace(/\n{3,}/g, '\n\n'); // Clean up extra newlines
-          
-        res.setHeader('Content-Type', 'text/plain');
-        res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+          .replace(/#{1,6}\s*/g, "")
+          .replace(/\*\*(.*?)\*\*/g, "$1")
+          .replace(/\*(.*?)\*/g, "$1")
+          .replace(/\[(.*?)\]\(.*?\)/g, "$1")
+          .replace(/```[\s\S]*?```/g, "")
+          .replace(/`(.*?)`/g, "$1")
+          .replace(/---+/g, "")
+          .replace(/^\s*[-*+]\s+/gm, "• ")
+          .replace(/^\s*\d+\.\s+/gm, "• ")
+          .replace(/\n{3,}/g, "\n\n");
+
+        res.setHeader("Content-Type", "text/plain");
+        res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
         res.send(plainText);
         break;
-        
-      case 'pdf':
-        // For PDF, we'll return the markdown with instructions to use a converter
-        // In a real implementation, you'd use a library like puppeteer or similar
-        res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
-        
-        // Create a simple HTML version for PDF conversion
-        const htmlContent = `
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Traveltheworld.ai SRS</title>
-    <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            line-height: 1.6; 
-            max-width: 800px; 
-            margin: 0 auto; 
-            padding: 20px;
-            color: #333;
+
+      case "pdf":
+        res.setHeader("Content-Type", "application/pdf");
+        res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
+
+        try {
+          const pdfBuffer = await generatePDF(markdownContent, metadata);
+          res.send(pdfBuffer);
+        } catch (pdfError) {
+          console.error("PDF generation error:", pdfError);
+          res.status(500).json({ error: "Failed to generate PDF" });
         }
-        h1 { color: #2563eb; border-bottom: 2px solid #2563eb; padding-bottom: 10px; }
-        h2 { color: #2563eb; margin-top: 30px; }
-        h3 { color: #4338ca; }
-        h4 { color: #059669; }
-        code { background: #f3f4f6; padding: 2px 4px; border-radius: 3px; }
-        pre { background: #f3f4f6; padding: 15px; border-radius: 5px; overflow-x: auto; }
-        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
-        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-        th { background-color: #f3f4f6; font-weight: bold; }
-        .requirement { background: #eff6ff; padding: 10px; margin: 5px 0; border-left: 4px solid #2563eb; }
-        .section { page-break-before: auto; }
-    </style>
-</head>
-<body>
-${markdownContent
-  .replace(/#{6}\s*(.*)/g, '<h6>$1</h6>')
-  .replace(/#{5}\s*(.*)/g, '<h5>$1</h5>')
-  .replace(/#{4}\s*(.*)/g, '<h4>$1</h4>')
-  .replace(/#{3}\s*(.*)/g, '<h3>$1</h3>')
-  .replace(/#{2}\s*(.*)/g, '<h2>$1</h2>')
-  .replace(/#{1}\s*(.*)/g, '<h1>$1</h1>')
-  .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-  .replace(/\*(.*?)\*/g, '<em>$1</em>')
-  .replace(/`(.*?)`/g, '<code>$1</code>')
-  .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>')
-  .replace(/^\s*[-*+]\s+(.*)/gm, '<li>$1</li>')
-  .replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>')
-  .replace(/\n\n/g, '</p><p>')
-  .replace(/^([^<])/gm, '<p>$1')
-  .replace(/([^>])$/gm, '$1</p>')
-  .replace(/<p><\/p>/g, '')
-  .replace(/---+/g, '<hr>')
-  .replace(/\*\*([^*]+)\*\*:/g, '<div class="requirement"><strong>$1:</strong>')
-  .replace(/(\n|^)(FR-\d+|NFR-\d+):/g, '$1<div class="requirement"><strong>$2:</strong>')
-  .replace(/<\/strong>([^<]+)(<\/div>)?/g, '</strong>$1</div>')
-}
-</body>
-</html>`;
-        
-        // In a real app, convert HTML to PDF here
-        // For now, we'll send the HTML content
-        res.send(htmlContent);
         break;
-        
-      case 'docx':
-        // For DOCX, we'll create a simple HTML version
-        // In a real implementation, you'd use a library like docx or similar
-        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-        res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
-        
-        // Simple Word-compatible HTML
+
+      case "docx":
+        res.setHeader(
+          "Content-Type",
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        );
+        res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
+
         const wordHtml = `
 <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
 <head>
 <meta charset="utf-8">
-<title>Traveltheworld.ai SRS</title>
+<title>${metadata.title}</title>
 <style>
-body { font-family: 'Calibri', sans-serif; font-size: 11pt; line-height: 1.15; }
-h1 { font-size: 18pt; color: #2563eb; }
-h2 { font-size: 16pt; color: #2563eb; }
-h3 { font-size: 14pt; color: #4338ca; }
-h4 { font-size: 12pt; color: #059669; }
-.requirement { background-color: #eff6ff; padding: 6pt; margin: 3pt 0; border-left: 3pt solid #2563eb; }
+body { font-family: 'Calibri', sans-serif; font-size: 11pt; line-height: 1.15; color: #000; }
+h1 { font-size: 18pt; color: #2563eb; margin-top: 12pt; margin-bottom: 6pt; font-weight: bold; }
+h2 { font-size: 14pt; color: #2563eb; margin-top: 12pt; margin-bottom: 6pt; font-weight: bold; }
+h3 { font-size: 12pt; color: #4338ca; margin-top: 10pt; margin-bottom: 4pt; font-weight: bold; }
+h4 { font-size: 11pt; color: #059669; margin-top: 8pt; margin-bottom: 4pt; font-weight: bold; }
+p { margin: 0 0 6pt 0; }
+ul, ol { margin: 6pt 0 6pt 36pt; }
+li { margin-bottom: 3pt; }
+code { font-family: 'Courier New'; font-size: 10pt; background-color: #f3f4f6; }
+strong { font-weight: bold; }
+em { font-style: italic; }
 </style>
 </head>
 <body>
+<p style="text-align: center; font-size: 18pt; font-weight: bold; color: #2563eb; margin-bottom: 12pt;">${metadata.title}</p>
 ${markdownContent
-  .replace(/#{6}\s*(.*)/g, '<h6>$1</h6>')
-  .replace(/#{5}\s*(.*)/g, '<h5>$1</h5>')
-  .replace(/#{4}\s*(.*)/g, '<h4>$1</h4>')
-  .replace(/#{3}\s*(.*)/g, '<h3>$1</h3>')
-  .replace(/#{2}\s*(.*)/g, '<h2>$1</h2>')
-  .replace(/#{1}\s*(.*)/g, '<h1>$1</h1>')
-  .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
-  .replace(/\*(.*?)\*/g, '<i>$1</i>')
-  .replace(/`(.*?)`/g, '<code>$1</code>')
-  .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>')
-  .replace(/^\s*[-*+]\s+(.*)/gm, '<li>$1</li>')
-  .replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>')
-  .replace(/\n\n/g, '</p><p>')
-  .replace(/^([^<])/gm, '<p>$1')
-  .replace(/([^>])$/gm, '$1</p>')
-  .replace(/<p><\/p>/g, '')
-  .replace(/---+/g, '<hr>')
-  .replace(/(FR-\d+|NFR-\d+):/g, '<div class="requirement"><b>$1:</b>')
-  .replace(/<\/b>([^<]+)(<\/div>)?/g, '</b>$1</div>')
-}
+  .replace(/#{4}\s*(.*)/g, "<h4>$1</h4>")
+  .replace(/#{3}\s*(.*)/g, "<h3>$1</h3>")
+  .replace(/#{2}\s*(.*)/g, "<h2>$1</h2>")
+  .replace(/#{1}\s*(.*)/g, "<h1>$1</h1>")
+  .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+  .replace(/\*(.*?)\*/g, "<em>$1</em>")
+  .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+  .replace(/`([^`]+)`/g, "<code>$1</code>")
+  .replace(/^\s*[-*+]\s+(.*)/gm, "<li>$1</li>")
+  .replace(/(<li>.*?<\/li>)/gs, "<ul>$&</ul>")
+  .replace(/<\/ul>\s*<ul>/g, "")
+  .replace(/^\s*\d+\.\s+(.*)/gm, "<li>$1</li>")
+  .replace(/\n\n+/g, "</p><p>")
+  .replace(/^(?!<[hou])/gm, "<p>")
+  .replace(/(?<![>p])\n/gm, "<br/>")
+  .replace(/<p><\/p>/g, "")}
 </body>
 </html>`;
-        
+
         res.send(wordHtml);
         break;
-        
+
       default:
-        res.status(400).json({ error: 'Unsupported format' });
+        res.status(400).json({ error: "Unsupported format" });
     }
   } catch (error) {
-    console.error('Download error:', error);
-    res.status(500).json({ error: 'Failed to process download' });
+    console.error("Download error:", error);
+    res.status(500).json({ error: "Failed to process download" });
   }
 };
 
 export const handleDocumentPreview: RequestHandler = async (req, res) => {
   try {
-    const filePath = join(process.cwd(), 'SRS_Traveltheworld_AI.md');
-    const markdownContent = readFileSync(filePath, 'utf-8');
-    
+    const documentType = (req.query.document as DocumentType) || "srs";
+
+    if (!["srs", "product"].includes(documentType)) {
+      return res.status(400).json({ error: "Invalid document type" });
+    }
+
+    const filePath = getDocumentPath(documentType);
+    const metadata = getDocumentMetadata(documentType);
+    const markdownContent = readFileSync(filePath, "utf-8");
+
     res.json({
       content: markdownContent,
       metadata: {
-        title: "Software Requirements Specification - Traveltheworld.ai",
+        title: metadata.title,
         version: "1.0",
         lastModified: new Date().toISOString(),
-        sections: 11,
         wordCount: markdownContent.split(/\s+/).length,
-        characterCount: markdownContent.length
-      }
+        characterCount: markdownContent.length,
+      },
     });
   } catch (error) {
-    console.error('Preview error:', error);
-    res.status(500).json({ error: 'Failed to load document preview' });
+    console.error("Preview error:", error);
+    res.status(500).json({ error: "Failed to load document preview" });
   }
 };
