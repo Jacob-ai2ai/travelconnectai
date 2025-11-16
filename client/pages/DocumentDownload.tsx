@@ -140,7 +140,7 @@ export default function DocumentDownload() {
             <Card className="text-center">
               <CardContent className="p-4">
                 <div className="text-2xl font-bold text-travel-blue mb-1">
-                  {documentInfo.pages}
+                  {documentInfo[selectedDocument].pages}
                 </div>
                 <div className="text-sm text-muted-foreground">Pages</div>
               </CardContent>
@@ -148,23 +148,25 @@ export default function DocumentDownload() {
             <Card className="text-center">
               <CardContent className="p-4">
                 <div className="text-2xl font-bold text-travel-green mb-1">
-                  {documentInfo.sections}
+                  {documentInfo[selectedDocument].sections}
                 </div>
                 <div className="text-sm text-muted-foreground">Sections</div>
               </CardContent>
             </Card>
-            <Card className="text-center">
-              <CardContent className="p-4">
-                <div className="text-2xl font-bold text-travel-purple mb-1">
-                  {documentInfo.requirements}
-                </div>
-                <div className="text-sm text-muted-foreground">Requirements</div>
-              </CardContent>
-            </Card>
+            {selectedDocument === "srs" && (
+              <Card className="text-center">
+                <CardContent className="p-4">
+                  <div className="text-2xl font-bold text-travel-purple mb-1">
+                    {documentInfo[selectedDocument].requirements}
+                  </div>
+                  <div className="text-sm text-muted-foreground">Requirements</div>
+                </CardContent>
+              </Card>
+            )}
             <Card className="text-center">
               <CardContent className="p-4">
                 <div className="text-2xl font-bold text-travel-orange mb-1">
-                  {documentInfo.version}
+                  {documentInfo[selectedDocument].version}
                 </div>
                 <div className="text-sm text-muted-foreground">Version</div>
               </CardContent>
