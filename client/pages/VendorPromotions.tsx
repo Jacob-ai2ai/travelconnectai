@@ -3,9 +3,27 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Plus, Trash2, Edit2, Sparkles, TrendingUp, Calendar, Grid3x3, List, Zap } from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
+import { ArrowLeft, Plus, Trash2, Edit2, Sparkles, TrendingUp, Calendar, Grid3x3, List, Zap, AlertCircle, Activity } from 'lucide-react';
 import { Promotion } from '@/types/promotions';
 import AIPromotionDialog from '@/components/AIPromotionDialog';
+import PendingAIApprovalsSection from '@/components/PendingAIApprovalsSection';
+import {
+  generateMockInventories,
+  detectInventoryGaps,
+  ListingInventory,
+  InventoryGap,
+  formatOccupancy,
+  getUrgencyColor,
+} from '@/lib/inventoryManager';
+import {
+  getNotificationPreferences,
+  saveNotificationPreferences,
+  toggleDailyScan,
+  addPendingPromotion,
+  PendingAIPromotion,
+} from '@/lib/notificationManager';
+import { generateAIPromotion } from '@/lib/aiPromotions';
 
 export default function VendorPromotions() {
   const [promotions, setPromotions] = useState<Promotion[]>([]);
@@ -14,6 +32,12 @@ export default function VendorPromotions() {
   const [viewMode, setViewMode] = useState<'tile' | 'list'>('tile');
   const [showAIDialog, setShowAIDialog] = useState(false);
   const [selectedServiceForAI, setSelectedServiceForAI] = useState('stays');
+
+  // Inventory and auto-scan
+  const [inventories, setInventories] = useState<ListingInventory[]>([]);
+  const [inventoryGaps, setInventoryGaps] = useState<InventoryGap[]>([]);
+  const [dailyScanEnabled, setDailyScanEnabled] = useState(false);
+  const [scanInProgress, setScanInProgress] = useState(false);
 
   useEffect(() => {
     const savedPromotions = localStorage.getItem('vendorPromotions');
@@ -27,7 +51,92 @@ export default function VendorPromotions() {
     } else {
       initializeDemoData();
     }
+
+    // Load daily scan preference
+    const prefs = getNotificationPreferences();
+    setDailyScanEnabled(prefs.dailyScanEnabled);
+
+    // Initialize inventory
+    initializeInventory();
   }, []);
+
+  const initializeInventory = () => {
+    // Load listings
+    const savedListings = localStorage.getItem('listings');
+    let listings = [];
+    if (savedListings) {
+      try {
+        listings = JSON.parse(savedListings);
+      } catch (e) {
+        console.error('Error loading listings:', e);
+      }
+    }
+
+    // If no listings, create demo listings
+    if (listings.length === 0) {
+      listings = [
+        { id: 'demo-1', type: 'stays', title: 'Beachfront Villa', location: 'Bali', price: 150, rating: 4.8 },
+        { id: 'demo-2', type: 'flights', title: 'NYC to LA Flights', location: 'USA', price: 299, rating: 4.5 },
+        { id: 'demo-3', type: 'experiences', title: 'Surfing Lessons', location: 'Hawaii', price: 75, rating: 4.9 },
+        { id: 'demo-4', type: 'events', title: 'Music Festival', location: 'Miami', price: 120, rating: 4.6 },
+        { id: 'demo-5', type: 'essentials', title: 'Travel Insurance', location: 'Global', price: 45, rating: 4.7 },
+      ];
+    }
+
+    // Generate mock inventories with booking data
+    const mockInventories = generateMockInventories(listings);
+    setInventories(mockInventories);
+
+    // Detect gaps
+    const gaps = detectInventoryGaps(mockInventories);
+    setInventoryGaps(gaps);
+  };
+
+  const performInventoryScan = async () => {
+    setScanInProgress(true);
+    try {
+      // Simulate scan delay
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      const gaps = detectInventoryGaps(inventories);
+      setInventoryGaps(gaps);
+
+      // Generate pending promotions for critical/high urgency gaps
+      const criticalOrHighGaps = gaps.filter((g) => g.urgency === 'critical' || g.urgency === 'high');
+
+      for (const gap of criticalOrHighGaps.slice(0, 3)) {
+        const aiPromotion = await generateAIPromotion(
+          gap.listingType,
+          Math.max(1, 10 - Math.round(gap.occupancyRate))
+        );
+
+        const pending: PendingAIPromotion = {
+          id: `pending-${Date.now()}-${gap.listingId}`,
+          promotionId: aiPromotion.id || `ai-${Date.now()}`,
+          promotion: aiPromotion as Promotion,
+          listingId: gap.listingId,
+          listingTitle: gap.listingTitle,
+          listingType: gap.listingType,
+          generatedAt: new Date().toISOString(),
+          expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+          status: 'pending',
+          occupancyGap: 100 - gap.occupancyRate,
+          urgency: gap.urgency,
+        };
+
+        addPendingPromotion(pending);
+      }
+    } catch (error) {
+      console.error('Inventory scan error:', error);
+    } finally {
+      setScanInProgress(false);
+    }
+  };
+
+  const handleDailyScanToggle = (enabled: boolean) => {
+    setDailyScanEnabled(enabled);
+    toggleDailyScan(enabled);
+  };
 
   const initializeDemoData = () => {
     const demoPromotions: Promotion[] = [
@@ -171,6 +280,12 @@ export default function VendorPromotions() {
     setShowAIDialog(true);
   };
 
+  const handlePendingPromotionApproved = (pending: PendingAIPromotion) => {
+    const updated = [...promotions, pending.promotion];
+    setPromotions(updated);
+    localStorage.setItem('vendorPromotions', JSON.stringify(updated));
+  };
+
   const filteredPromotions = getFilteredPromotions();
   const activeCount = promotions.filter((p) => p.status === 'active').length;
   const totalUsage = promotions.reduce((sum, p) => sum + p.usageCount, 0);
@@ -229,6 +344,88 @@ export default function VendorPromotions() {
           </div>
         </div>
 
+        {/* Daily Auto-Scan Section */}
+        <Card className="mb-6 bg-gradient-to-r from-purple-50 to-purple-100 border-purple-200">
+          <CardContent className="pt-6">
+            <div className="flex items-start justify-between">
+              <div className="flex items-start gap-4 flex-1">
+                <Activity className="h-6 w-6 text-purple-600 flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="font-semibold text-purple-900 mb-1">Daily Inventory Scan</h3>
+                  <p className="text-sm text-purple-800 mb-3">
+                    Enable AI to automatically scan your inventory daily for gaps and vacancies. AI will generate promotions and notify you for approval.
+                  </p>
+                  <p className="text-xs text-purple-700">
+                    {dailyScanEnabled ? '✓ Auto-scan enabled • Runs daily at 9:00 AM' : 'Disabled'}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 flex-shrink-0">
+                <Switch
+                  checked={dailyScanEnabled}
+                  onCheckedChange={handleDailyScanToggle}
+                  className="data-[state=checked]:bg-purple-600"
+                />
+                <Button
+                  size="sm"
+                  onClick={performInventoryScan}
+                  disabled={scanInProgress}
+                  className="bg-purple-600 hover:bg-purple-700"
+                >
+                  {scanInProgress ? 'Scanning...' : 'Scan Now'}
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Inventory Gaps Summary */}
+        {inventoryGaps.length > 0 && (
+          <Card className="mb-6 border-orange-200">
+            <CardHeader>
+              <CardTitle className="text-base flex items-center gap-2">
+                <AlertCircle className="h-5 w-5 text-orange-600" />
+                Inventory Gaps Detected
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {inventoryGaps.slice(0, 4).map((gap) => (
+                  <div
+                    key={gap.listingId}
+                    className={`p-3 border-2 rounded-lg ${getUrgencyColor(gap.urgency)}`}
+                  >
+                    <div className="flex items-start justify-between mb-2">
+                      <div>
+                        <p className="font-medium text-sm">{gap.listingTitle}</p>
+                        <p className="text-xs opacity-75">{gap.listingType}</p>
+                      </div>
+                      <Badge className={`capitalize text-xs ${getUrgencyColor(gap.urgency)}`}>
+                        {gap.urgency}
+                      </Badge>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      <div>
+                        <p className="opacity-75">Occupancy</p>
+                        <p className="font-semibold">{gap.occupancyRate}%</p>
+                      </div>
+                      <div>
+                        <p className="opacity-75">Vacancy Days</p>
+                        <p className="font-semibold">{gap.vacancyDays}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {inventoryGaps.length > 4 && (
+                <p className="text-xs text-muted-foreground mt-3">
+                  +{inventoryGaps.length - 4} more gaps detected
+                </p>
+              )}
+            </CardContent>
+          </Card>
+        )}
+
         {/* AI Insights Section */}
         <Card className="mb-6 bg-gradient-to-r from-orange-50 to-orange-100 border-orange-200">
           <CardContent className="pt-6">
@@ -256,6 +453,9 @@ export default function VendorPromotions() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Pending AI Approvals Section */}
+        <PendingAIApprovalsSection onPromotionApproved={handlePendingPromotionApproved} />
 
         {/* Filter */}
         <Card className="mb-6">
