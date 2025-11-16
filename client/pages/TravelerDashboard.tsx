@@ -134,11 +134,39 @@ export default function TravelerDashboard() {
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted py-8">
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Header */}
-        <div className="mb-12">
+        <div className="mb-8">
           <h1 className="text-4xl font-bold mb-2">Traveler Dashboard</h1>
           <p className="text-muted-foreground text-lg">
             Welcome back, {user?.username || 'Traveler'}! Manage your travel experiences.
           </p>
+        </div>
+
+        {/* Quick Stats */}
+        <div className="mb-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+          <Card>
+            <CardContent className="pt-6 text-center">
+              <p className="text-3xl font-bold text-travel-blue">{bookingCount}</p>
+              <p className="text-sm text-muted-foreground">Active Bookings</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-6 text-center">
+              <p className="text-3xl font-bold text-travel-blue">{tripCount}</p>
+              <p className="text-sm text-muted-foreground">Trips</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-6 text-center">
+              <p className="text-3xl font-bold text-travel-blue">{favoriteCount}</p>
+              <p className="text-sm text-muted-foreground">Favorites</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-6 text-center">
+              <p className="text-3xl font-bold text-travel-blue">{friendCount}</p>
+              <p className="text-sm text-muted-foreground">Friends</p>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Dashboard Tiles */}
