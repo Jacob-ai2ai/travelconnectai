@@ -370,11 +370,7 @@ export default function VendorPromotions() {
             <Card className="mb-6">
               <CardContent className="pt-6">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium">All Orders</span>
-                    <span className="text-sm text-muted-foreground">•</span>
-                    <span className="text-sm font-medium">All Statuses</span>
-                  </div>
+                  <div className="flex items-center gap-2"></div>
                   <div className="flex items-center gap-2">
                     <Button
                       variant={viewMode === 'tile' ? 'default' : 'outline'}
@@ -399,7 +395,6 @@ export default function VendorPromotions() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* Service Type Filter */}
                   <div>
-                    <label className="text-sm font-medium block mb-2">Filter by Service Type:</label>
                     <select
                       value={serviceFilter}
                       onChange={(e) => setServiceFilter(e.target.value)}
@@ -416,7 +411,6 @@ export default function VendorPromotions() {
 
                   {/* Status Filter */}
                   <div>
-                    <label className="text-sm font-medium block mb-2">Filter by Status:</label>
                     <select
                       value={statusFilter}
                       onChange={(e) => setStatusFilter(e.target.value)}
