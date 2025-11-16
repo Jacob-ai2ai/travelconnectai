@@ -178,18 +178,38 @@ export default function VendorPromotions() {
         {/* Filter */}
         <Card className="mb-6">
           <CardContent className="pt-6">
-            <div>
-              <label className="text-sm font-medium block mb-2">Filter by Status:</label>
-              <select
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
-                className="w-full md:w-64 border rounded-lg p-2 text-sm"
-              >
-                <option value="all">All Promotions ({promotions.length})</option>
-                <option value="active">Active ({activeCount})</option>
-                <option value="scheduled">Scheduled ({promotions.filter((p) => p.status === 'scheduled').length})</option>
-                <option value="expired">Expired ({promotions.filter((p) => p.status === 'expired').length})</option>
-              </select>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Service Type Filter */}
+              <div>
+                <label className="text-sm font-medium block mb-2">Filter by Service Type:</label>
+                <select
+                  value={serviceFilter}
+                  onChange={(e) => setServiceFilter(e.target.value)}
+                  className="w-full border rounded-lg p-2 text-sm"
+                >
+                  <option value="all">All Services ({promotions.length})</option>
+                  <option value="stays">Stays ({promotions.filter((p) => p.serviceType === 'stays').length})</option>
+                  <option value="flights">Flights ({promotions.filter((p) => p.serviceType === 'flights').length})</option>
+                  <option value="experiences">Experiences ({promotions.filter((p) => p.serviceType === 'experiences').length})</option>
+                  <option value="events">Events ({promotions.filter((p) => p.serviceType === 'events').length})</option>
+                  <option value="essentials">Essentials ({promotions.filter((p) => p.serviceType === 'essentials').length})</option>
+                </select>
+              </div>
+
+              {/* Status Filter */}
+              <div>
+                <label className="text-sm font-medium block mb-2">Filter by Status:</label>
+                <select
+                  value={statusFilter}
+                  onChange={(e) => setStatusFilter(e.target.value)}
+                  className="w-full border rounded-lg p-2 text-sm"
+                >
+                  <option value="all">All Statuses ({promotions.length})</option>
+                  <option value="active">Active ({activeCount})</option>
+                  <option value="scheduled">Scheduled ({promotions.filter((p) => p.status === 'scheduled').length})</option>
+                  <option value="expired">Expired ({promotions.filter((p) => p.status === 'expired').length})</option>
+                </select>
+              </div>
             </div>
           </CardContent>
         </Card>
