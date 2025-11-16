@@ -51,6 +51,7 @@ export default function AIPromotionDialog({
   const [editedStartDate, setEditedStartDate] = useState('');
   const [editedEndDate, setEditedEndDate] = useState('');
   const [scheduleDate, setScheduleDate] = useState('');
+  const [scheduleMode, setScheduleMode] = useState<'live' | 'schedule'>('live');
 
   const handleGeneratePromotion = async () => {
     setIsGenerating(true);
@@ -469,8 +470,8 @@ export default function AIPromotionDialog({
                   type="radio"
                   id="live"
                   name="status"
-                  value="live"
-                  defaultChecked
+                  checked={scheduleMode === 'live'}
+                  onChange={() => setScheduleMode('live')}
                   className="w-4 h-4"
                 />
                 <label htmlFor="live" className="flex-1">
@@ -484,16 +485,17 @@ export default function AIPromotionDialog({
                   type="radio"
                   id="schedule"
                   name="status"
-                  value="schedule"
+                  checked={scheduleMode === 'schedule'}
+                  onChange={() => {
+                    setScheduleMode('schedule');
+                    setScheduleDate(new Date(editedStartDate).toISOString().split('T')[0]);
+                  }}
                   className="w-4 h-4"
-                  onChange={() =>
-                    setScheduleDate(new Date(editedStartDate).toISOString().split('T')[0])
-                  }
                 />
                 <label htmlFor="schedule" className="flex-1">
                   <p className="font-medium">Schedule for Later</p>
                   <p className="text-sm text-muted-foreground">Choose when to activate</p>
-                  {document.querySelector('input[value="schedule"]')?.checked && (
+                  {scheduleMode === 'schedule' && (
                     <Input
                       type="date"
                       value={scheduleDate}
