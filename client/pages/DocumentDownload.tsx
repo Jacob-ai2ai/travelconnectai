@@ -310,26 +310,68 @@ export default function DocumentDownload() {
               What's Included in This Document
             </h2>
             <div className="grid md:grid-cols-2 gap-6">
-              {keyFeatures.map((feature, index) => {
-                const Icon = feature.icon;
-                return (
-                  <Card key={index}>
-                    <CardContent className="p-6">
-                      <div className="flex items-start space-x-4">
-                        <div className="w-12 h-12 bg-travel-blue/10 rounded-lg flex items-center justify-center">
-                          <Icon className="h-6 w-6 text-travel-blue" />
-                        </div>
-                        <div>
-                          <h3 className="font-semibold mb-2">{feature.title}</h3>
-                          <p className="text-sm text-muted-foreground">
-                            {feature.description}
-                          </p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
+              {selectedDocument === "srs"
+                ? keyFeatures.map((feature, index) => {
+                    const Icon = feature.icon;
+                    return (
+                      <Card key={index}>
+                        <CardContent className="p-6">
+                          <div className="flex items-start space-x-4">
+                            <div className="w-12 h-12 bg-travel-blue/10 rounded-lg flex items-center justify-center">
+                              <Icon className="h-6 w-6 text-travel-blue" />
+                            </div>
+                            <div>
+                              <h3 className="font-semibold mb-2">{feature.title}</h3>
+                              <p className="text-sm text-muted-foreground">
+                                {feature.description}
+                              </p>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    );
+                  })
+                : [
+                    {
+                      icon: Users,
+                      title: "Platform Overview",
+                      description: "Complete introduction to TravelConnect and its core value proposition",
+                    },
+                    {
+                      icon: Zap,
+                      title: "Traveler Features",
+                      description: "Comprehensive features and capabilities available to travelers",
+                    },
+                    {
+                      icon: Shield,
+                      title: "Vendor Tools",
+                      description: "Complete vendor dashboard and business management capabilities",
+                    },
+                    {
+                      icon: FileCheck,
+                      title: "Service Categories",
+                      description: "Detailed overview of Stays, Flights, Experiences, Events, and Essentials",
+                    },
+                  ].map((feature, index) => {
+                    const Icon = feature.icon;
+                    return (
+                      <Card key={index}>
+                        <CardContent className="p-6">
+                          <div className="flex items-start space-x-4">
+                            <div className="w-12 h-12 bg-travel-blue/10 rounded-lg flex items-center justify-center">
+                              <Icon className="h-6 w-6 text-travel-blue" />
+                            </div>
+                            <div>
+                              <h3 className="font-semibold mb-2">{feature.title}</h3>
+                              <p className="text-sm text-muted-foreground">
+                                {feature.description}
+                              </p>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    );
+                  })}
             </div>
           </div>
 
