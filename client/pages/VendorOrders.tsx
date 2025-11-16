@@ -257,7 +257,7 @@ export default function VendorOrders() {
         <Card className="mb-6">
           <CardContent className="pt-6 space-y-4">
             {/* Filters Row 1 */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" id="filters-row">
               <div>
                 <label className="text-xs font-semibold text-muted-foreground mb-2 block">Service Type</label>
                 <select
@@ -301,6 +301,7 @@ export default function VendorOrders() {
                   <option value="week">Last 7 Days</option>
                   <option value="month">Last 30 Days</option>
                   <option value="quarter">Last 90 Days</option>
+                  <option value="custom">Custom Range</option>
                 </select>
               </div>
 
@@ -318,6 +319,30 @@ export default function VendorOrders() {
                 </select>
               </div>
             </div>
+
+            {/* Custom Date Range Inputs */}
+            {dateRange === 'custom' && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <div>
+                  <label className="text-xs font-semibold text-gray-700 mb-2 block">Start Date</label>
+                  <input
+                    type="date"
+                    value={customDateStart}
+                    onChange={(e) => setCustomDateStart(e.target.value)}
+                    className="w-full border rounded-lg p-2 text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-gray-700 mb-2 block">End Date</label>
+                  <input
+                    type="date"
+                    value={customDateEnd}
+                    onChange={(e) => setCustomDateEnd(e.target.value)}
+                    className="w-full border rounded-lg p-2 text-sm"
+                  />
+                </div>
+              </div>
+            )}
 
             {/* View Toggle */}
             <div className="flex items-center justify-between pt-2 border-t">
