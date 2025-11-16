@@ -28,8 +28,8 @@ const getDocumentMetadata = (type: DocumentType) => {
 const generatePDF = (
   content: string,
   metadata: { title: string; filename: string }
-): Buffer => {
-  return new Promise((resolve, reject) => {
+): Promise<Buffer> => {
+  return new Promise<Buffer>((resolve, reject) => {
     const chunks: Buffer[] = [];
     const doc = new PDFDocument({
       bufferPages: true,
