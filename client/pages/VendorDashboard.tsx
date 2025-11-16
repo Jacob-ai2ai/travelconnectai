@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
 import {
-  BarChart3,
   ShoppingCart,
   Home,
   Zap,
   Users,
   Settings,
-  LogOut,
-  Plus,
-  TrendingUp,
-  Star,
+  BarChart3,
   DollarSign,
+  Sparkles,
+  ArrowRight,
 } from 'lucide-react';
 
 interface VendorInfo {
@@ -26,19 +22,51 @@ interface VendorInfo {
   currency: string;
 }
 
+interface DashboardTile {
+  id: string;
+  title: string;
+  description: string;
+  icon: any;
+  route?: string;
+  action?: () => void;
+  count?: number;
+  color: string;
+}
+
+const dummyListings = [
+  { id: '1', type: 'stays', title: 'Luxurious Beach Villa in Bali', location: 'Bali, Indonesia', price: 250, rating: 4.8 },
+  { id: '2', type: 'stays', title: 'Cozy Apartment in Paris', location: 'Paris, France', price: 180, rating: 4.6 },
+  { id: '3', type: 'stays', title: 'Mountain Cabin with Mountain Views', location: 'Swiss Alps, Switzerland', price: 320, rating: 4.9 },
+  { id: '4', type: 'flights', title: 'Round Trip: New York to London', location: 'NYC to LHR', price: 520, rating: 4.5 },
+  { id: '5', type: 'flights', title: 'Business Class: Dubai to Singapore', location: 'DXB to SIN', price: 1200, rating: 4.7 },
+  { id: '6', type: 'experiences', title: 'Guided Tour: Hidden Gems of Barcelona', location: 'Barcelona, Spain', price: 85, rating: 4.8 },
+  { id: '7', type: 'experiences', title: 'Cooking Class: Italian Cuisine in Rome', location: 'Rome, Italy', price: 95, rating: 4.9 },
+  { id: '8', type: 'experiences', title: 'Scuba Diving Adventure in Great Barrier Reef', location: 'Australia', price: 150, rating: 4.7 },
+  { id: '9', type: 'events', title: 'Tech Conference 2024', location: 'San Francisco, USA', price: 299, rating: 4.6 },
+  { id: '10', type: 'events', title: 'Music Festival Summer Vibes', location: 'Ibiza, Spain', price: 180, rating: 4.8 },
+  { id: '11', type: 'essentials', title: 'Comprehensive Travel Insurance Premium', location: 'Worldwide', price: 45, rating: 4.7 },
+  { id: '12', type: 'essentials', title: 'International Visa Assistance Service', location: 'Global', price: 199, rating: 4.6 },
+];
+
+const mockOrders = {
+  pending: 24,
+  completed: 156,
+  cancelled: 8,
+  total: 188,
+};
+
 export default function VendorDashboard() {
   const navigate = useNavigate();
   const [vendorInfo, setVendorInfo] = useState<VendorInfo | null>(null);
   const [isSignedIn, setIsSignedIn] = useState(false);
-  const [selectedListingType, setSelectedListingType] = useState('all');
+  const [listingCount, setListingCount] = useState(0);
 
   useEffect(() => {
     const signedIn = localStorage.getItem('isSignedIn') === 'true';
     const user = localStorage.getItem('user');
 
-    // For demo: allow accessing dashboard without login
     setIsSignedIn(signedIn || true);
-    
+
     if (user) {
       try {
         const userData = JSON.parse(user);
@@ -52,7 +80,6 @@ export default function VendorDashboard() {
         });
       } catch (e) {
         console.error('Error parsing user:', e);
-        // Set demo data
         setVendorInfo({
           name: 'Demo Vendor',
           type: 'All Services',
@@ -63,7 +90,6 @@ export default function VendorDashboard() {
         });
       }
     } else {
-      // Demo data when not logged in
       setVendorInfo({
         name: 'Demo Vendor',
         type: 'All Services',
@@ -73,316 +99,185 @@ export default function VendorDashboard() {
         currency: 'USD',
       });
     }
-  }, [navigate]);
 
-  const handleLogout = () => {
-    localStorage.removeItem('isSignedIn');
-    localStorage.removeItem('user');
-    navigate('/');
-  };
-
-  const handleAddListing = () => {
-    navigate('/vendor/create-listing');
-  };
-
-  const vendorTypeOptions = [
-    { value: 'all', label: 'All Listings' },
-    { value: 'stays', label: 'Stays' },
-    { value: 'flights', label: 'Flights' },
-    { value: 'experiences', label: 'Experiences' },
-    { value: 'events', label: 'Events' },
-    { value: 'essentials', label: 'Essentials' },
-  ];
-
-  const dummyListings = [
-    { id: '1', type: 'stays', title: 'Luxurious Beach Villa in Bali', location: 'Bali, Indonesia', price: 250, rating: 4.8 },
-    { id: '2', type: 'stays', title: 'Cozy Apartment in Paris', location: 'Paris, France', price: 180, rating: 4.6 },
-    { id: '3', type: 'stays', title: 'Mountain Cabin with Mountain Views', location: 'Swiss Alps, Switzerland', price: 320, rating: 4.9 },
-    { id: '4', type: 'flights', title: 'Round Trip: New York to London', location: 'NYC to LHR', price: 520, rating: 4.5 },
-    { id: '5', type: 'flights', title: 'Business Class: Dubai to Singapore', location: 'DXB to SIN', price: 1200, rating: 4.7 },
-    { id: '6', type: 'experiences', title: 'Guided Tour: Hidden Gems of Barcelona', location: 'Barcelona, Spain', price: 85, rating: 4.8 },
-    { id: '7', type: 'experiences', title: 'Cooking Class: Italian Cuisine in Rome', location: 'Rome, Italy', price: 95, rating: 4.9 },
-    { id: '8', type: 'experiences', title: 'Scuba Diving Adventure in Great Barrier Reef', location: 'Australia', price: 150, rating: 4.7 },
-    { id: '9', type: 'events', title: 'Tech Conference 2024', location: 'San Francisco, USA', price: 299, rating: 4.6 },
-    { id: '10', type: 'events', title: 'Music Festival Summer Vibes', location: 'Ibiza, Spain', price: 180, rating: 4.8 },
-    { id: '11', type: 'essentials', title: 'Comprehensive Travel Insurance Premium', location: 'Worldwide', price: 45, rating: 4.7 },
-    { id: '12', type: 'essentials', title: 'International Visa Assistance Service', location: 'Global', price: 199, rating: 4.6 },
-  ];
-
-  // Initialize dummy listings in localStorage if not already there
-  useEffect(() => {
+    // Load listings
     const listings = localStorage.getItem('listings');
-    if (!listings) {
+    if (listings) {
+      try {
+        const parsedListings = JSON.parse(listings);
+        setListingCount(parsedListings.length);
+      } catch (e) {
+        setListingCount(dummyListings.length);
+      }
+    } else {
       localStorage.setItem('listings', JSON.stringify(dummyListings));
+      setListingCount(dummyListings.length);
     }
   }, []);
 
-  const mockListings = {
-    stays: 3,
-    flights: 2,
-    experiences: 3,
-    events: 2,
-    essentials: 2,
-    all: 12,
-  };
-
-  const mockOrders = {
-    pending: 24,
-    completed: 156,
-    cancelled: 8,
-    total: 188,
-  };
+  const tiles: DashboardTile[] = [
+    {
+      id: 'listings',
+      title: 'My Listings',
+      description: 'Manage and organize your services',
+      icon: Home,
+      route: '/vendor/my-listings',
+      count: listingCount,
+      color: 'bg-blue-100 text-blue-800',
+    },
+    {
+      id: 'orders',
+      title: 'All Orders',
+      description: 'Track orders and customer requests',
+      icon: ShoppingCart,
+      route: '/vendor/orders',
+      count: mockOrders.total,
+      color: 'bg-green-100 text-green-800',
+    },
+    {
+      id: 'team',
+      title: 'Team Members',
+      description: 'Manage your team and collaborators',
+      icon: Users,
+      route: '/vendor/team',
+      count: 3,
+      color: 'bg-purple-100 text-purple-800',
+    },
+    {
+      id: 'livestream',
+      title: 'Create Live Stream',
+      description: 'Engage with customers in real-time',
+      icon: Zap,
+      route: '/vendor/livestream',
+      color: 'bg-orange-100 text-orange-800',
+    },
+    {
+      id: 'promotions',
+      title: 'Create Promotions',
+      description: 'Attract more customers with offers',
+      icon: Sparkles,
+      route: '/vendor/promotions',
+      color: 'bg-pink-100 text-pink-800',
+    },
+    {
+      id: 'payments',
+      title: 'Payments & Revenue',
+      description: 'View your earnings and transactions',
+      icon: DollarSign,
+      route: '/vendor/payments',
+      color: 'bg-emerald-100 text-emerald-800',
+    },
+    {
+      id: 'analytics',
+      title: 'Analytics',
+      description: 'Track your performance metrics',
+      icon: BarChart3,
+      route: '/vendor/analytics',
+      color: 'bg-indigo-100 text-indigo-800',
+    },
+    {
+      id: 'settings',
+      title: 'Settings',
+      description: 'Manage your account preferences',
+      icon: Settings,
+      route: '/edit-profile',
+      color: 'bg-gray-100 text-gray-800',
+    },
+  ];
 
   if (!isSignedIn || !vendorInfo) {
     return null;
   }
 
-  const getListingCount = (type: string) => {
-    return mockListings[type as keyof typeof mockListings] || 0;
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted">
-      {/* Title Card with Greeting */}
-      <div className="bg-gradient-to-r from-travel-blue via-travel-purple to-travel-orange text-white">
-        <div className="container mx-auto px-4 py-12">
-          <div className="flex justify-between items-start">
-            <div>
-              <h1 className="text-4xl font-bold mb-2">Welcome back, {vendorInfo.name}! 👋</h1>
-              <p className="text-blue-100 text-lg">You're doing great! Keep up the momentum.</p>
-            </div>
-            <Button
-              onClick={handleLogout}
-              variant="outline"
-              className="bg-white/20 border-white/40 text-white hover:bg-white/30"
-            >
-              <LogOut className="h-4 w-4 mr-2" />
-              Logout
-            </Button>
-          </div>
-
-          <div className="grid md:grid-cols-4 gap-4 mt-8">
-            {/* Vendor Name Card */}
-            <Card className="bg-white/10 border-white/20">
-              <CardContent className="pt-6">
-                <p className="text-blue-100 text-sm mb-1">Vendor Name</p>
-                <p className="text-2xl font-bold text-white">{vendorInfo.name}</p>
-              </CardContent>
-            </Card>
-
-            {/* Vendor Type Card */}
-            <Card className="bg-white/10 border-white/20">
-              <CardContent className="pt-6">
-                <p className="text-blue-100 text-sm mb-2">Services</p>
-                <div className="flex flex-wrap gap-2">
-                  <Badge className="bg-white/30 text-white border-white/50">
-                    {vendorInfo.type}
-                  </Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Revenue Card */}
-            <Card className="bg-white/10 border-white/20">
-              <CardContent className="pt-6">
-                <p className="text-blue-100 text-sm mb-1">Total Revenue</p>
-                <p className="text-2xl font-bold text-white">
-                  {vendorInfo.currency} {vendorInfo.revenue.toLocaleString()}
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* Rating Card */}
-            <Card className="bg-white/10 border-white/20">
-              <CardContent className="pt-6">
-                <p className="text-blue-100 text-sm mb-1">Business Rating</p>
-                <div className="flex items-center gap-2">
-                  <Star className="h-5 w-5 text-yellow-300 fill-yellow-300" />
-                  <span className="text-2xl font-bold text-white">{vendorInfo.rating}</span>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted py-8">
+      <div className="container mx-auto px-4 max-w-7xl">
+        {/* Header */}
+        <div className="mb-12">
+          <h1 className="text-4xl font-bold mb-2">Vendor Dashboard</h1>
+          <p className="text-muted-foreground text-lg">
+            Welcome back, {vendorInfo.name}! Manage your travel services and grow your business.
+          </p>
         </div>
-      </div>
 
-      {/* Main Dashboard Cards */}
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* All Orders Card */}
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <ShoppingCart className="h-5 w-5 text-travel-blue" />
-                    All Orders
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Total Orders</span>
-                      <span className="font-bold text-lg">{mockOrders.total}</span>
+        {/* Dashboard Tiles */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {tiles.map((tile) => {
+            const Icon = tile.icon;
+            const tileComponent = (
+              <Card className="h-full overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group">
+                <CardContent className="p-6">
+                  {/* Icon with background */}
+                  <div className={`w-16 h-16 rounded-lg mb-4 flex items-center justify-center ${tile.color} group-hover:scale-110 transition-transform`}>
+                    <Icon className="h-8 w-8" />
+                  </div>
+
+                  {/* Title and description */}
+                  <h3 className="text-lg font-bold mb-1 group-hover:text-travel-blue transition-colors">
+                    {tile.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    {tile.description}
+                  </p>
+
+                  {/* Count badge if exists */}
+                  {tile.count !== undefined && tile.count > 0 && (
+                    <div className="inline-block px-3 py-1 bg-muted rounded-full text-sm font-semibold text-travel-blue mb-4">
+                      {tile.count} {tile.count === 1 ? 'item' : 'items'}
                     </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-green-600">Completed: {mockOrders.completed}</span>
-                      <span className="text-yellow-600">Pending: {mockOrders.pending}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-red-600">Cancelled: {mockOrders.cancelled}</span>
-                    </div>
-                    <Button className="w-full mt-4" variant="outline">
-                      View All Orders
-                    </Button>
+                  )}
+
+                  {/* Arrow indicator */}
+                  <div className="flex items-center text-travel-blue font-semibold text-sm group-hover:translate-x-1 transition-transform">
+                    Explore
+                    <ArrowRight className="h-4 w-4 ml-2" />
                   </div>
                 </CardContent>
               </Card>
+            );
 
-              {/* My Listings Card */}
-              <Link to="/vendor/my-listings" className="hover:no-underline">
-                <Card className="hover:shadow-lg transition-shadow cursor-pointer h-full">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Home className="h-5 w-5 text-travel-blue" />
-                      My Listings
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div className="text-center py-6 bg-muted rounded-lg">
-                      <p className="text-3xl font-bold text-travel-blue">
-                        {getListingCount('all')}
-                      </p>
-                      <p className="text-sm text-muted-foreground mt-1">Total Listings</p>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2 text-sm">
-                      <div className="text-center p-2 bg-blue-50 rounded">
-                        <p className="font-semibold">3</p>
-                        <p className="text-xs text-muted-foreground">Stays</p>
-                      </div>
-                      <div className="text-center p-2 bg-orange-50 rounded">
-                        <p className="font-semibold">2</p>
-                        <p className="text-xs text-muted-foreground">Flights</p>
-                      </div>
-                      <div className="text-center p-2 bg-purple-50 rounded">
-                        <p className="font-semibold">3</p>
-                        <p className="text-xs text-muted-foreground">Experiences</p>
-                      </div>
-                      <div className="text-center p-2 bg-green-50 rounded">
-                        <p className="font-semibold">4</p>
-                        <p className="text-xs text-muted-foreground">Others</p>
-                      </div>
-                    </div>
-                    <Button className="w-full mt-2" variant="outline" onClick={handleAddListing}>
-                      <Plus className="h-4 w-4 mr-2" />
-                      Add New Listing
-                    </Button>
-                  </CardContent>
-                </Card>
+            return tile.route ? (
+              <Link
+                key={tile.id}
+                to={tile.route}
+                className="hover:no-underline"
+              >
+                {tileComponent}
               </Link>
+            ) : (
+              <div key={tile.id} onClick={tile.action}>
+                {tileComponent}
+              </div>
+            );
+          })}
+        </div>
 
-              {/* Team/Friends Card */}
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Users className="h-5 w-5 text-travel-blue" />
-                    Team Members
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground mb-4">Manage your team and collaborators</p>
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between p-3 bg-muted rounded">
-                      <span className="text-sm">Active Members: 3</span>
-                      <Badge>Active</Badge>
-                    </div>
-                    <Button className="w-full" variant="outline">
-                      Manage Team
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Live Stream Card */}
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Zap className="h-5 w-5 text-travel-orange" />
-                    Create Live Stream
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground mb-4">Engage with customers in real-time</p>
-                  <Button className="w-full" variant="outline">
-                    Start Live Stream
-                  </Button>
-                </CardContent>
-              </Card>
-              {/* Create Promotion */}
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <CardTitle className="text-lg">Create Promotion</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Create special offers to attract more customers
-                  </p>
-                  <Button className="w-full">
-                    <Plus className="h-4 w-4 mr-2" />
-                    New Promotion
-                  </Button>
-                </CardContent>
-              </Card>
-
-              {/* Payments & Transactions */}
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <CardTitle className="text-lg">Payments</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">This Month</span>
-                      <span className="font-bold">$3,420</span>
-                    </div>
-                    <Button className="w-full" variant="outline">
-                      View Transactions
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Analytics */}
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <CardTitle className="text-lg">Analytics</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Track your performance metrics
-                  </p>
-                  <Button className="w-full" variant="outline">
-                    <BarChart3 className="h-4 w-4 mr-2" />
-                    View Analytics
-                  </Button>
-                </CardContent>
-              </Card>
-
-              {/* Settings */}
-              <Card className="hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <CardTitle className="text-lg">Settings</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Manage your account settings
-                  </p>
-                  <Link to="/edit-profile">
-                    <Button className="w-full" variant="outline">
-                      <Settings className="h-4 w-4 mr-2" />
-                      Edit Profile
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
+        {/* Quick Stats */}
+        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+          <Card>
+            <CardContent className="pt-6 text-center">
+              <p className="text-3xl font-bold text-travel-blue">{listingCount}</p>
+              <p className="text-sm text-muted-foreground">Total Listings</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-6 text-center">
+              <p className="text-3xl font-bold text-travel-blue">{mockOrders.total}</p>
+              <p className="text-sm text-muted-foreground">Total Orders</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-6 text-center">
+              <p className="text-3xl font-bold text-travel-blue">${vendorInfo.revenue.toLocaleString()}</p>
+              <p className="text-sm text-muted-foreground">Total Revenue</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-6 text-center">
+              <p className="text-3xl font-bold text-travel-blue">{vendorInfo.rating}</p>
+              <p className="text-sm text-muted-foreground">Business Rating</p>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
