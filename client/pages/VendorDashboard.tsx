@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
+import BookingCalendar from '@/components/BookingCalendar';
+import { generateMockInventories } from '@/lib/inventoryManager';
 import {
   ShoppingCart,
   Home,
