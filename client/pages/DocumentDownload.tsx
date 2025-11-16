@@ -109,19 +109,29 @@ export default function DocumentDownload() {
       <div className="container mx-auto px-4 py-12">
         {/* Document Overview */}
         <div className="max-w-4xl mx-auto">
+          {/* Document Selector */}
+          <div className="flex justify-center gap-4 mb-12">
+            {(["srs", "product"] as DocumentType[]).map((docType) => (
+              <Button
+                key={docType}
+                variant={selectedDocument === docType ? "default" : "outline"}
+                onClick={() => setSelectedDocument(docType)}
+                className="px-6"
+              >
+                {docType === "srs" ? "📋 SRS Document" : "📝 Product Descriptions"}
+              </Button>
+            ))}
+          </div>
+
           <div className="text-center mb-12">
             <Badge variant="secondary" className="mb-4">
               📄 Technical Documentation
             </Badge>
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
-              {documentInfo.title}
+              {documents[selectedDocument].title}
             </h1>
             <p className="text-xl text-muted-foreground mb-8">
-              Complete technical specifications and requirements for the{" "}
-              <span className="bg-gradient-to-r from-travel-blue to-travel-purple bg-clip-text text-transparent">
-                Traveltheworld.ai
-              </span>{" "}
-              platform
+              {documents[selectedDocument].description}
             </p>
           </div>
 
