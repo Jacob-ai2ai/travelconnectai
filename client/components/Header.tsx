@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import NotificationsDialog from "@/components/NotificationsDialog";
 import MessagesDialog from "@/components/MessagesDialog";
 import InviteFriendsDialog from "@/components/InviteFriendsDialog";
+import NotificationBell from "@/components/NotificationBell";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Header() {
@@ -89,9 +90,13 @@ export default function Header() {
               </div>
             </div>
 
-            <button title="Notifications" onClick={() => setNotificationsOpen(true)} className="p-2 rounded-md hover:bg-gray-100">
-              <Bell className="h-5 w-5 text-foreground/80" />
-            </button>
+            {isVendor ? (
+              <NotificationBell />
+            ) : (
+              <button title="Notifications" onClick={() => setNotificationsOpen(true)} className="p-2 rounded-md hover:bg-gray-100">
+                <Bell className="h-5 w-5 text-foreground/80" />
+              </button>
+            )}
             <button title="Messages" onClick={() => setMessagesOpen(true)} className="p-2 rounded-md hover:bg-gray-100">
               <MessageSquare className="h-5 w-5 text-foreground/80" />
             </button>
