@@ -304,20 +304,46 @@ export default function VendorPromotions() {
             </Button>
           </Link>
 
-          <div className="mb-6">
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h1 className="text-3xl font-bold mb-2">Create Promotions</h1>
-                <p className="text-muted-foreground">
-                  Attract more customers with special offers and discounts
-                </p>
-              </div>
-              <Button className="bg-travel-blue hover:bg-travel-blue/90">
-                <Plus className="h-4 w-4 mr-2" />
-                New Promotion
-              </Button>
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h1 className="text-3xl font-bold mb-2">Create Promotions</h1>
+              <p className="text-muted-foreground">
+                Attract more customers with special offers and discounts
+              </p>
             </div>
+            <Button className="bg-travel-blue hover:bg-travel-blue/90">
+              <Plus className="h-4 w-4 mr-2" />
+              New Promotion
+            </Button>
           </div>
+        </div>
+
+        {/* Total Promotions Stats - Moved to Top */}
+        <div className="mb-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+          <Card>
+            <CardContent className="pt-6 text-center">
+              <p className="text-3xl font-bold text-travel-blue">{promotions.length}</p>
+              <p className="text-sm text-muted-foreground">Total Promotions</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-6 text-center">
+              <p className="text-3xl font-bold text-green-600">{activeCount}</p>
+              <p className="text-sm text-muted-foreground">Active</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-6 text-center">
+              <p className="text-3xl font-bold text-travel-blue">{totalUsage}</p>
+              <p className="text-sm text-muted-foreground">Total Usage</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-6 text-center">
+              <p className="text-3xl font-bold text-orange-600">{inventoryGaps.length}</p>
+              <p className="text-sm text-muted-foreground">Inventory Gaps</p>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Daily Auto-Scan Section */}
@@ -355,53 +381,6 @@ export default function VendorPromotions() {
           </CardContent>
         </Card>
 
-        {/* Inventory Gaps Summary */}
-        {inventoryGaps.length > 0 && (
-          <Card className="mb-6 border-orange-200">
-            <CardHeader>
-              <CardTitle className="text-base flex items-center gap-2">
-                <AlertCircle className="h-5 w-5 text-orange-600" />
-                Inventory Gaps Detected
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {inventoryGaps.slice(0, 4).map((gap) => (
-                  <div
-                    key={gap.listingId}
-                    className={`p-3 border-2 rounded-lg ${getUrgencyColor(gap.urgency)}`}
-                  >
-                    <div className="flex items-start justify-between mb-2">
-                      <div>
-                        <p className="font-medium text-sm">{gap.listingTitle}</p>
-                        <p className="text-xs opacity-75">{gap.listingType}</p>
-                      </div>
-                      <Badge className={`capitalize text-xs ${getUrgencyColor(gap.urgency)}`}>
-                        {gap.urgency}
-                      </Badge>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2 text-xs">
-                      <div>
-                        <p className="opacity-75">Occupancy</p>
-                        <p className="font-semibold">{gap.occupancyRate}%</p>
-                      </div>
-                      <div>
-                        <p className="opacity-75">Vacancy Days</p>
-                        <p className="font-semibold">{gap.vacancyDays}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              {inventoryGaps.length > 4 && (
-                <p className="text-xs text-muted-foreground mt-3">
-                  +{inventoryGaps.length - 4} more gaps detected
-                </p>
-              )}
-            </CardContent>
-          </Card>
-        )}
-
         {/* AI Insights Section */}
         <Card className="mb-6 bg-gradient-to-r from-orange-50 to-orange-100 border-orange-200">
           <CardContent className="pt-6">
@@ -433,172 +412,134 @@ export default function VendorPromotions() {
         {/* Pending AI Approvals Section */}
         <PendingAIApprovalsSection onPromotionApproved={handlePendingPromotionApproved} />
 
-        {/* Filter */}
-        <Card className="mb-6">
-          <CardContent className="pt-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Service Type Filter */}
-              <div>
-                <label className="text-sm font-medium block mb-2">Filter by Service Type:</label>
-                <select
-                  value={serviceFilter}
-                  onChange={(e) => setServiceFilter(e.target.value)}
-                  className="w-full border rounded-lg p-2 text-sm"
-                >
-                  <option value="all">All Services ({promotions.length})</option>
-                  <option value="stays">Stays ({promotions.filter((p) => p.serviceType === 'stays').length})</option>
-                  <option value="flights">Flights ({promotions.filter((p) => p.serviceType === 'flights').length})</option>
-                  <option value="experiences">Experiences ({promotions.filter((p) => p.serviceType === 'experiences').length})</option>
-                  <option value="events">Events ({promotions.filter((p) => p.serviceType === 'events').length})</option>
-                  <option value="essentials">Essentials ({promotions.filter((p) => p.serviceType === 'essentials').length})</option>
-                </select>
-              </div>
+        {/* Tabs Section */}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
+          <TabsList className="grid w-full grid-cols-2 mb-6">
+            <TabsTrigger value="all-promotions">
+              All Promotions
+            </TabsTrigger>
+            <TabsTrigger value="ai-promo-builder" className="flex items-center gap-2">
+              <Zap className="h-4 w-4" />
+              AI Promo Builder
+            </TabsTrigger>
+          </TabsList>
 
-              {/* Status Filter */}
-              <div>
-                <label className="text-sm font-medium block mb-2">Filter by Status:</label>
-                <select
-                  value={statusFilter}
-                  onChange={(e) => setStatusFilter(e.target.value)}
-                  className="w-full border rounded-lg p-2 text-sm"
-                >
-                  <option value="all">All Statuses ({promotions.length})</option>
-                  <option value="active">Active ({promotions.filter((p) => p.status === 'active').length})</option>
-                  <option value="scheduled">Scheduled ({promotions.filter((p) => p.status === 'scheduled').length})</option>
-                  <option value="draft">Draft ({promotions.filter((p) => p.status === 'draft').length})</option>
-                  <option value="expired">Expired ({promotions.filter((p) => p.status === 'expired').length})</option>
-                </select>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+          {/* All Promotions Tab */}
+          <TabsContent value="all-promotions" className="space-y-6">
+            {/* Filter */}
+            <Card className="mb-6">
+              <CardContent className="pt-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-medium">All Orders</span>
+                    <span className="text-sm text-muted-foreground">•</span>
+                    <span className="text-sm font-medium">All Statuses</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant={viewMode === 'tile' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => setViewMode('tile')}
+                      className="gap-2"
+                    >
+                      <Grid3x3 className="h-4 w-4" />
+                      Tile
+                    </Button>
+                    <Button
+                      variant={viewMode === 'list' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => setViewMode('list')}
+                      className="gap-2"
+                    >
+                      <List className="h-4 w-4" />
+                      List
+                    </Button>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Service Type Filter */}
+                  <div>
+                    <label className="text-sm font-medium block mb-2">Filter by Service Type:</label>
+                    <select
+                      value={serviceFilter}
+                      onChange={(e) => setServiceFilter(e.target.value)}
+                      className="w-full border rounded-lg p-2 text-sm"
+                    >
+                      <option value="all">All Services ({promotions.length})</option>
+                      <option value="stays">Stays ({promotions.filter((p) => p.serviceType === 'stays').length})</option>
+                      <option value="flights">Flights ({promotions.filter((p) => p.serviceType === 'flights').length})</option>
+                      <option value="experiences">Experiences ({promotions.filter((p) => p.serviceType === 'experiences').length})</option>
+                      <option value="events">Events ({promotions.filter((p) => p.serviceType === 'events').length})</option>
+                      <option value="essentials">Essentials ({promotions.filter((p) => p.serviceType === 'essentials').length})</option>
+                    </select>
+                  </div>
 
-        {/* Promotions View */}
-        {filteredPromotions.length > 0 ? (
-          viewMode === 'tile' ? (
-            // Tile View
-            <div className="grid md:grid-cols-2 gap-6">
-              {filteredPromotions.map((promotion) => (
-                <Card key={promotion.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                  <CardHeader className="pb-3">
-                    <div className="flex items-start justify-between mb-2">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <Badge className={`${getStatusColor(promotion.status)} capitalize text-xs`}>
-                          {promotion.status}
-                        </Badge>
-                        <Badge className="bg-gray-100 text-gray-800 text-xs capitalize">
-                          {promotion.serviceType}
-                        </Badge>
-                        {promotion.aiGenerated && (
-                          <Badge className="bg-orange-100 text-orange-800 text-xs flex items-center gap-1">
-                            <Sparkles className="h-3 w-3" />
-                            AI Generated
-                          </Badge>
-                        )}
-                      </div>
-                    </div>
-                    <CardTitle className="text-lg line-clamp-2 flex items-center gap-2">
-                      <Sparkles className="h-5 w-5 text-orange-500" />
-                      {promotion.name}
-                    </CardTitle>
-                    <p className="text-sm text-muted-foreground mt-1">{promotion.description}</p>
-                  </CardHeader>
+                  {/* Status Filter */}
+                  <div>
+                    <label className="text-sm font-medium block mb-2">Filter by Status:</label>
+                    <select
+                      value={statusFilter}
+                      onChange={(e) => setStatusFilter(e.target.value)}
+                      className="w-full border rounded-lg p-2 text-sm"
+                    >
+                      <option value="all">All Statuses ({promotions.length})</option>
+                      <option value="active">Active ({promotions.filter((p) => p.status === 'active').length})</option>
+                      <option value="scheduled">Scheduled ({promotions.filter((p) => p.status === 'scheduled').length})</option>
+                      <option value="draft">Draft ({promotions.filter((p) => p.status === 'draft').length})</option>
+                      <option value="expired">Expired ({promotions.filter((p) => p.status === 'expired').length})</option>
+                    </select>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
 
-                  <CardContent className="space-y-4">
-                    {/* Discount Info */}
-                    <div className="p-3 bg-muted rounded-lg">
-                      <p className="text-2xl font-bold text-travel-blue">
-                        {promotion.discountType === 'percentage'
-                          ? `${promotion.discountValue}%`
-                          : `$${promotion.discountValue}`}
-                        <span className="text-sm font-normal text-muted-foreground ml-2">
-                          {promotion.discountType === 'percentage' ? 'off' : 'discount'}
-                        </span>
-                      </p>
-                    </div>
-
-                    {/* Date Range */}
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Calendar className="h-4 w-4" />
-                      <span>
-                        {new Date(promotion.startDate).toLocaleDateString('en-US', {
-                          month: 'short',
-                          day: 'numeric',
-                        })}{' '}
-                        -{' '}
-                        {new Date(promotion.endDate).toLocaleDateString('en-US', {
-                          month: 'short',
-                          day: 'numeric',
-                        })}
-                      </span>
-                    </div>
-
-                    {/* Stats */}
-                    <div className="grid grid-cols-2 gap-3 text-sm">
-                      <div className="p-2 bg-muted rounded">
-                        <p className="text-muted-foreground text-xs">Applicable Listings</p>
-                        <p className="font-semibold">{promotion.applicableListings}</p>
-                      </div>
-                      <div className="p-2 bg-muted rounded">
-                        <p className="text-muted-foreground text-xs">Usage Count</p>
-                        <p className="font-semibold">{promotion.usageCount}</p>
-                      </div>
-                    </div>
-
-                    {/* AI Analysis (if available) */}
-                    {promotion.aiAnalysis && (
-                      <div className="p-3 bg-orange-50 rounded-lg border border-orange-100 text-sm space-y-1">
-                        <p className="font-medium text-orange-900">AI Insight:</p>
-                        <p className="text-orange-800 text-xs">{promotion.aiAnalysis.reasoning}</p>
-                      </div>
-                    )}
-
-                    {/* Actions */}
-                    <div className="flex gap-2 pt-2 border-t">
-                      <Button variant="outline" size="sm" className="flex-1">
-                        <Edit2 className="h-4 w-4 mr-1" />
-                        Edit
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="flex-1 text-red-600 hover:text-red-600"
-                        onClick={() => handleDeletePromotion(promotion.id)}
-                      >
-                        <Trash2 className="h-4 w-4 mr-1" />
-                        Delete
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          ) : (
-            // List View
-            <div className="space-y-3">
-              {filteredPromotions.map((promotion) => (
-                <Card key={promotion.id} className="overflow-hidden hover:shadow-md transition-shadow">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between gap-4">
-                      {/* Left side - Promo details */}
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1 flex-wrap">
-                          <h3 className="font-semibold">{promotion.name}</h3>
-                          <Badge className={`${getStatusColor(promotion.status)} capitalize text-xs`}>
-                            {promotion.status}
-                          </Badge>
-                          <Badge className="bg-gray-100 text-gray-800 text-xs capitalize">
-                            {promotion.serviceType}
-                          </Badge>
-                          {promotion.aiGenerated && (
-                            <Badge className="bg-orange-100 text-orange-800 text-xs flex items-center gap-1">
-                              <Sparkles className="h-3 w-3" />
-                              AI
+            {/* Promotions View */}
+            {filteredPromotions.length > 0 ? (
+              viewMode === 'tile' ? (
+                // Tile View
+                <div className="grid md:grid-cols-2 gap-6">
+                  {filteredPromotions.map((promotion) => (
+                    <Card key={promotion.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+                      <CardHeader className="pb-3">
+                        <div className="flex items-start justify-between mb-2">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <Badge className={`${getStatusColor(promotion.status)} capitalize text-xs`}>
+                              {promotion.status}
                             </Badge>
-                          )}
+                            <Badge className="bg-gray-100 text-gray-800 text-xs capitalize">
+                              {promotion.serviceType}
+                            </Badge>
+                            {promotion.aiGenerated && (
+                              <Badge className="bg-orange-100 text-orange-800 text-xs flex items-center gap-1">
+                                <Sparkles className="h-3 w-3" />
+                                AI Generated
+                              </Badge>
+                            )}
+                          </div>
                         </div>
-                        <p className="text-sm text-muted-foreground truncate">{promotion.description}</p>
-                        <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground">
+                        <CardTitle className="text-lg line-clamp-2 flex items-center gap-2">
+                          <Sparkles className="h-5 w-5 text-orange-500" />
+                          {promotion.name}
+                        </CardTitle>
+                        <p className="text-sm text-muted-foreground mt-1">{promotion.description}</p>
+                      </CardHeader>
+
+                      <CardContent className="space-y-4">
+                        {/* Discount Info */}
+                        <div className="p-3 bg-muted rounded-lg">
+                          <p className="text-2xl font-bold text-travel-blue">
+                            {promotion.discountType === 'percentage'
+                              ? `${promotion.discountValue}%`
+                              : `$${promotion.discountValue}`}
+                            <span className="text-sm font-normal text-muted-foreground ml-2">
+                              {promotion.discountType === 'percentage' ? 'off' : 'discount'}
+                            </span>
+                          </p>
+                        </div>
+
+                        {/* Date Range */}
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <Calendar className="h-4 w-4" />
                           <span>
                             {new Date(promotion.startDate).toLocaleDateString('en-US', {
                               month: 'short',
@@ -610,86 +551,227 @@ export default function VendorPromotions() {
                               day: 'numeric',
                             })}
                           </span>
-                          <span>Used {promotion.usageCount} times</span>
                         </div>
-                      </div>
 
-                      {/* Right side - Discount & Actions */}
-                      <div className="flex items-center gap-4 flex-shrink-0">
-                        <div className="text-right">
-                          <p className="text-lg font-bold text-travel-blue">
-                            {promotion.discountType === 'percentage'
-                              ? `${promotion.discountValue}%`
-                              : `$${promotion.discountValue}`}
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            {promotion.applicableListings} listing{promotion.applicableListings !== 1 ? 's' : ''}
-                          </p>
+                        {/* Stats */}
+                        <div className="grid grid-cols-2 gap-3 text-sm">
+                          <div className="p-2 bg-muted rounded">
+                            <p className="text-muted-foreground text-xs">Applicable Listings</p>
+                            <p className="font-semibold">{promotion.applicableListings}</p>
+                          </div>
+                          <div className="p-2 bg-muted rounded">
+                            <p className="text-muted-foreground text-xs">Usage Count</p>
+                            <p className="font-semibold">{promotion.usageCount}</p>
+                          </div>
                         </div>
-                        <div className="flex gap-2">
-                          <Button variant="outline" size="sm">
-                            <Edit2 className="h-4 w-4" />
+
+                        {/* AI Analysis (if available) */}
+                        {promotion.aiAnalysis && (
+                          <div className="p-3 bg-orange-50 rounded-lg border border-orange-100 text-sm space-y-1">
+                            <p className="font-medium text-orange-900">AI Insight:</p>
+                            <p className="text-orange-800 text-xs">{promotion.aiAnalysis.reasoning}</p>
+                          </div>
+                        )}
+
+                        {/* Actions */}
+                        <div className="flex gap-2 pt-2 border-t">
+                          <Button variant="outline" size="sm" className="flex-1">
+                            <Edit2 className="h-4 w-4 mr-1" />
+                            Edit
                           </Button>
                           <Button
                             variant="outline"
                             size="sm"
-                            className="text-red-600 hover:text-red-600"
+                            className="flex-1 text-red-600 hover:text-red-600"
                             onClick={() => handleDeletePromotion(promotion.id)}
                           >
-                            <Trash2 className="h-4 w-4" />
+                            <Trash2 className="h-4 w-4 mr-1" />
+                            Delete
                           </Button>
                         </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          )
-        ) : (
-          <Card className="text-center py-12">
-            <CardContent>
-              <Sparkles className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
-              <p className="text-muted-foreground mb-4">No promotions found.</p>
-              <Button className="bg-travel-blue hover:bg-travel-blue/90">
-                <Plus className="h-4 w-4 mr-2" />
-                Create First Promotion
-              </Button>
-            </CardContent>
-          </Card>
-        )}
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              ) : (
+                // List View
+                <div className="space-y-3">
+                  {filteredPromotions.map((promotion) => (
+                    <Card key={promotion.id} className="overflow-hidden hover:shadow-md transition-shadow">
+                      <CardContent className="p-4">
+                        <div className="flex items-center justify-between gap-4">
+                          {/* Left side - Promo details */}
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-1 flex-wrap">
+                              <h3 className="font-semibold">{promotion.name}</h3>
+                              <Badge className={`${getStatusColor(promotion.status)} capitalize text-xs`}>
+                                {promotion.status}
+                              </Badge>
+                              <Badge className="bg-gray-100 text-gray-800 text-xs capitalize">
+                                {promotion.serviceType}
+                              </Badge>
+                              {promotion.aiGenerated && (
+                                <Badge className="bg-orange-100 text-orange-800 text-xs flex items-center gap-1">
+                                  <Sparkles className="h-3 w-3" />
+                                  AI
+                                </Badge>
+                              )}
+                            </div>
+                            <p className="text-sm text-muted-foreground truncate">{promotion.description}</p>
+                            <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground">
+                              <span>
+                                {new Date(promotion.startDate).toLocaleDateString('en-US', {
+                                  month: 'short',
+                                  day: 'numeric',
+                                })}{' '}
+                                -{' '}
+                                {new Date(promotion.endDate).toLocaleDateString('en-US', {
+                                  month: 'short',
+                                  day: 'numeric',
+                                })}
+                              </span>
+                              <span>Used {promotion.usageCount} times</span>
+                            </div>
+                          </div>
 
-        {/* Summary Stats */}
-        {filteredPromotions.length > 0 && (
-          <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Card>
-              <CardContent className="pt-6 text-center">
-                <p className="text-3xl font-bold text-travel-blue">{promotions.length}</p>
-                <p className="text-sm text-muted-foreground">Total Promotions</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="pt-6 text-center">
-                <p className="text-3xl font-bold text-green-600">{activeCount}</p>
-                <p className="text-sm text-muted-foreground">Active</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="pt-6 text-center">
-                <p className="text-3xl font-bold text-travel-blue">{totalUsage}</p>
-                <p className="text-sm text-muted-foreground">Total Usage</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="pt-6 text-center">
-                <p className="text-3xl font-bold text-travel-blue">
-                  ${promotions.reduce((sum, p) => sum + (p.discountType === 'fixed' ? p.discountValue * p.usageCount : 0), 0).toLocaleString()}
-                </p>
-                <p className="text-sm text-muted-foreground">Est. Discounts</p>
-              </CardContent>
-            </Card>
-          </div>
-        )}
+                          {/* Right side - Discount & Actions */}
+                          <div className="flex items-center gap-4 flex-shrink-0">
+                            <div className="text-right">
+                              <p className="text-lg font-bold text-travel-blue">
+                                {promotion.discountType === 'percentage'
+                                  ? `${promotion.discountValue}%`
+                                  : `$${promotion.discountValue}`}
+                              </p>
+                              <p className="text-xs text-muted-foreground">
+                                {promotion.applicableListings} listing{promotion.applicableListings !== 1 ? 's' : ''}
+                              </p>
+                            </div>
+                            <div className="flex gap-2">
+                              <Button variant="outline" size="sm">
+                                <Edit2 className="h-4 w-4" />
+                              </Button>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="text-red-600 hover:text-red-600"
+                                onClick={() => handleDeletePromotion(promotion.id)}
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              )
+            ) : (
+              <Card className="text-center py-12">
+                <CardContent>
+                  <Sparkles className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
+                  <p className="text-muted-foreground mb-4">No promotions found.</p>
+                  <Button className="bg-travel-blue hover:bg-travel-blue/90">
+                    <Plus className="h-4 w-4 mr-2" />
+                    Create First Promotion
+                  </Button>
+                </CardContent>
+              </Card>
+            )}
+          </TabsContent>
+
+          {/* AI Promo Builder Tab */}
+          <TabsContent value="ai-promo-builder" className="space-y-6">
+            {/* Inventory Gaps Section */}
+            {inventoryGaps.length > 0 ? (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <AlertCircle className="h-5 w-5 text-orange-600" />
+                    Inventory Gaps Detected ({inventoryGaps.length})
+                  </CardTitle>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    These gaps represent opportunities to create promotions and fill vacant inventory slots.
+                  </p>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {inventoryGaps.map((gap) => (
+                      <div
+                        key={gap.listingId}
+                        className={`p-4 border-2 rounded-lg ${getUrgencyColor(gap.urgency)}`}
+                      >
+                        <div className="flex items-start justify-between mb-3">
+                          <div>
+                            <p className="font-semibold text-sm">{gap.listingTitle}</p>
+                            <p className="text-xs opacity-75 capitalize">{gap.listingType}</p>
+                          </div>
+                          <Badge className={`capitalize text-xs ${getUrgencyColor(gap.urgency)}`}>
+                            {gap.urgency}
+                          </Badge>
+                        </div>
+                        <div className="grid grid-cols-3 gap-2 text-xs mb-3">
+                          <div>
+                            <p className="opacity-75">Occupancy</p>
+                            <p className="font-semibold text-sm">{gap.occupancyRate}%</p>
+                          </div>
+                          <div>
+                            <p className="opacity-75">Vacancy Days</p>
+                            <p className="font-semibold text-sm">{gap.vacancyDays}</p>
+                          </div>
+                          <div>
+                            <p className="opacity-75">Recommended</p>
+                            <p className="font-semibold text-sm">
+                              {gap.recommendedDiscountRange.min}-{gap.recommendedDiscountRange.max}%
+                            </p>
+                          </div>
+                        </div>
+                        <p className="text-xs text-gray-600 mb-3">{gap.reason}</p>
+                        <Button
+                          size="sm"
+                          className="w-full bg-travel-blue hover:bg-travel-blue/90"
+                          onClick={() => openAIDialog(gap.listingType)}
+                        >
+                          <Zap className="h-4 w-4 mr-1" />
+                          Create Promo
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            ) : (
+              <Card className="text-center py-12">
+                <CardContent>
+                  <AlertCircle className="h-16 w-16 mx-auto mb-4 text-green-400" />
+                  <p className="text-muted-foreground mb-2 text-lg font-semibold">No Inventory Gaps</p>
+                  <p className="text-muted-foreground">Your inventory is performing well! All listings have healthy occupancy rates.</p>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* AI Promotion Creation Button */}
+            {inventoryGaps.length > 0 && (
+              <Card className="bg-gradient-to-r from-blue-50 to-blue-100 border-blue-200">
+                <CardContent className="pt-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="font-semibold text-blue-900 mb-1">Ready to Create a Promotion?</h4>
+                      <p className="text-sm text-blue-800">Use our AI-powered builder to create targeted promotions based on your inventory gaps.</p>
+                    </div>
+                    <Button
+                      className="bg-travel-blue hover:bg-travel-blue/90"
+                      onClick={() => openAIDialog('stays')}
+                    >
+                      <Zap className="h-4 w-4 mr-2" />
+                      Launch AI Builder
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </TabsContent>
+        </Tabs>
 
         {/* AI Promotion Dialog */}
         <AIPromotionDialog
