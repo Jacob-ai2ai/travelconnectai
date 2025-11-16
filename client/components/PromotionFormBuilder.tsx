@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
-import { Home, Plane, MapPin, Ticket, Shopping, AlertCircle } from 'lucide-react';
+import { Home, Plane, MapPin, Ticket, Package, AlertCircle } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Promotion, PromotionForm } from '@/types/promotions';
 
@@ -166,7 +166,7 @@ const serviceConfigs: Record<string, ServiceConfig> = {
     applicableListingsHint: 'How many events are covered by this promotion?',
   },
   essentials: {
-    icon: <Shopping className="h-5 w-5" />,
+    icon: <Package className="h-5 w-5" />,
     title: 'Essential Services Promotions',
     description: 'Create special offers for travel essentials',
     discountSuggestions: [
