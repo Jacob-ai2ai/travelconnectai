@@ -356,11 +356,8 @@ export default function TravelerFriends() {
         ) : (
           <Card className="text-center py-12">
             <CardContent>
-              <p className="text-muted-foreground mb-4">No friends found.</p>
-              <Button className="bg-travel-blue hover:bg-travel-blue/90">
-                <Plus className="h-4 w-4 mr-2" />
-                Add Your First Friend
-              </Button>
+              <p className="text-muted-foreground mb-4">No friends found matching your search.</p>
+              <p className="text-sm text-muted-foreground">Try searching for friends by name or email.</p>
             </CardContent>
           </Card>
         )}
