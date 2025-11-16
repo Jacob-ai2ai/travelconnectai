@@ -245,8 +245,9 @@ export default function VendorPromotions() {
                   className="w-full border rounded-lg p-2 text-sm"
                 >
                   <option value="all">All Statuses ({promotions.length})</option>
-                  <option value="active">Active ({activeCount})</option>
+                  <option value="active">Active ({promotions.filter((p) => p.status === 'active').length})</option>
                   <option value="scheduled">Scheduled ({promotions.filter((p) => p.status === 'scheduled').length})</option>
+                  <option value="draft">Draft ({promotions.filter((p) => p.status === 'draft').length})</option>
                   <option value="expired">Expired ({promotions.filter((p) => p.status === 'expired').length})</option>
                 </select>
               </div>
