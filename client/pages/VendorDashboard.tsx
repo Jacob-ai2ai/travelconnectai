@@ -62,6 +62,7 @@ export default function VendorDashboard() {
   const [vendorInfo, setVendorInfo] = useState<VendorInfo | null>(null);
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [listingCount, setListingCount] = useState(0);
+  const [inventories, setInventories] = useState<any[]>([]);
 
   useEffect(() => {
     const signedIn = localStorage.getItem('isSignedIn') === 'true';
