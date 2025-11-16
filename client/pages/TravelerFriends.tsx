@@ -19,6 +19,8 @@ interface Friend {
 export default function TravelerFriends() {
   const [friends, setFriends] = useState<Friend[]>([]);
   const [statusFilter, setStatusFilter] = useState('all');
+  const [viewMode, setViewMode] = useState<'tile' | 'list'>('tile');
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const savedFriends = localStorage.getItem('travelerFriends');
