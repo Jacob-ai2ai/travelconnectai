@@ -233,13 +233,19 @@ export default function VendorPromotions() {
                 <Card key={promotion.id} className="overflow-hidden hover:shadow-lg transition-shadow">
                   <CardHeader className="pb-3">
                     <div className="flex items-start justify-between mb-2">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 flex-wrap">
                         <Badge className={`${getStatusColor(promotion.status)} capitalize text-xs`}>
                           {promotion.status}
                         </Badge>
                         <Badge className="bg-gray-100 text-gray-800 text-xs capitalize">
                           {promotion.serviceType}
                         </Badge>
+                        {promotion.aiGenerated && (
+                          <Badge className="bg-orange-100 text-orange-800 text-xs flex items-center gap-1">
+                            <Sparkles className="h-3 w-3" />
+                            AI Generated
+                          </Badge>
+                        )}
                       </div>
                     </div>
                     <CardTitle className="text-lg line-clamp-2 flex items-center gap-2">
@@ -289,6 +295,14 @@ export default function VendorPromotions() {
                         <p className="font-semibold">{promotion.usageCount}</p>
                       </div>
                     </div>
+
+                    {/* AI Analysis (if available) */}
+                    {promotion.aiAnalysis && (
+                      <div className="p-3 bg-orange-50 rounded-lg border border-orange-100 text-sm space-y-1">
+                        <p className="font-medium text-orange-900">AI Insight:</p>
+                        <p className="text-orange-800 text-xs">{promotion.aiAnalysis.reasoning}</p>
+                      </div>
+                    )}
 
                     {/* Actions */}
                     <div className="flex gap-2 pt-2 border-t">
