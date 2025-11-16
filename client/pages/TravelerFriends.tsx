@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { ArrowLeft, MessageSquare, User, Trash2, Grid3x3, List } from 'lucide-react';
+import { ArrowLeft, MessageSquare, User, Trash2, Grid3x3, List, Plus } from 'lucide-react';
 
 interface Friend {
   id: string;
