@@ -99,8 +99,11 @@ export default function VendorPromotions() {
   };
 
   const getFilteredPromotions = () => {
-    if (statusFilter === 'all') return promotions;
-    return promotions.filter((p) => p.status === statusFilter);
+    return promotions.filter((p) => {
+      const statusMatch = statusFilter === 'all' || p.status === statusFilter;
+      const serviceMatch = serviceFilter === 'all' || p.serviceType === serviceFilter;
+      return statusMatch && serviceMatch;
+    });
   };
 
   const getStatusColor = (status: string) => {
