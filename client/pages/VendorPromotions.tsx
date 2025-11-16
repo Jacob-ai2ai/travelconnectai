@@ -33,6 +33,7 @@ export default function VendorPromotions() {
   const [viewMode, setViewMode] = useState<'tile' | 'list'>('tile');
   const [showAIDialog, setShowAIDialog] = useState(false);
   const [selectedServiceForAI, setSelectedServiceForAI] = useState('stays');
+  const [activeTab, setActiveTab] = useState('all-promotions');
 
   // Inventory and auto-scan
   const [inventories, setInventories] = useState<ListingInventory[]>([]);
