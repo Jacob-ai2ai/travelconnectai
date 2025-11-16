@@ -33,6 +33,7 @@ import TravelerDashboard from "./pages/TravelerDashboard";
 import TravelerBookings from "./pages/TravelerBookings";
 import TravelerTrips from "./pages/TravelerTrips";
 import TravelerFavorites from "./pages/TravelerFavorites";
+import TravelerTripDetail from "./pages/TravelerTripDetail";
 import Admin from "./pages/Admin";
 import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
