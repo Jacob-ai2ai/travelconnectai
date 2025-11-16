@@ -104,6 +104,8 @@ export default function VendorPromotions() {
         return 'bg-blue-100 text-blue-800';
       case 'expired':
         return 'bg-gray-100 text-gray-800';
+      case 'draft':
+        return 'bg-yellow-100 text-yellow-800';
       default:
         return 'bg-gray-100 text-gray-800';
     }
@@ -184,6 +186,34 @@ export default function VendorPromotions() {
             </div>
           </div>
         </div>
+
+        {/* AI Insights Section */}
+        <Card className="mb-6 bg-gradient-to-r from-orange-50 to-orange-100 border-orange-200">
+          <CardContent className="pt-6">
+            <div className="flex items-start gap-4">
+              <Sparkles className="h-6 w-6 text-orange-600 flex-shrink-0 mt-1" />
+              <div className="flex-1">
+                <h3 className="font-semibold text-orange-900 mb-2">AI-Powered Promotion Tips</h3>
+                <p className="text-sm text-orange-800 mb-4">
+                  Let our AI analyze your inventory and current travel trends to generate targeted promotions that help move unsold inventory quickly.
+                </p>
+                <div className="flex gap-2">
+                  <Button
+                    size="sm"
+                    onClick={() => openAIDialog('stays')}
+                    className="bg-orange-600 hover:bg-orange-700 text-white"
+                  >
+                    <Zap className="h-4 w-4 mr-1" />
+                    Try AI Generator
+                  </Button>
+                  <Button size="sm" variant="outline" className="border-orange-300">
+                    Learn More
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Filter */}
         <Card className="mb-6">
