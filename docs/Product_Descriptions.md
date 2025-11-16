@@ -6,6 +6,7 @@
 ---
 
 ## Table of Contents
+
 1. [Platform Overview](#platform-overview)
 2. [For Travelers](#for-travelers)
 3. [For Vendors](#for-vendors)
@@ -23,6 +24,7 @@
 TravelConnect is an innovative, AI-powered travel and commerce platform that revolutionizes how people plan, book, and experience travel. Whether you're a traveler looking for the perfect trip or a vendor seeking to grow your travel business, TravelConnect provides the tools, insights, and connections you need.
 
 The platform seamlessly integrates five major service categories:
+
 - **Stays** - Accommodations
 - **Flights** - Air travel
 - **Experiences** - Activities and adventures
@@ -32,6 +34,7 @@ The platform seamlessly integrates five major service categories:
 ### Platform Vision
 
 To democratize travel planning and commerce by:
+
 - Making travel booking simple and personalized
 - Helping vendors reach global travelers
 - Using AI to optimize every aspect of travel
@@ -44,6 +47,7 @@ To democratize travel planning and commerce by:
 ### Discover & Explore
 
 #### Intuitive Search & Discovery
+
 - **Powerful Search:** Search across all service categories with advanced filtering
 - **Smart Filters:** Filter by location, price, ratings, dates, and custom preferences
 - **AI Recommendations:** Receive personalized suggestions based on your travel history
@@ -52,6 +56,7 @@ To democratize travel planning and commerce by:
 #### Service Categories
 
 **Stays**
+
 - Explore accommodations from budget hostels to luxury villas
 - See real photos, detailed descriptions, and guest reviews
 - Check availability and pricing
@@ -59,6 +64,7 @@ To democratize travel planning and commerce by:
 - Read cancellation policies
 
 **Flights**
+
 - Search flights across multiple airlines
 - Compare prices and flight times
 - Book direct or through partners
@@ -66,6 +72,7 @@ To democratize travel planning and commerce by:
 - Get real-time updates on flight status
 
 **Experiences**
+
 - Discover unique activities and adventures
 - Browse guided tours, classes, and workshops
 - See reviews from other travelers
@@ -73,6 +80,7 @@ To democratize travel planning and commerce by:
 - Get detailed activity information and inclusions
 
 **Events**
+
 - Find concerts, festivals, and ticketed events
 - Browse different ticket categories
 - View venue information and seating
@@ -80,6 +88,7 @@ To democratize travel planning and commerce by:
 - Receive event reminders
 
 **Essentials**
+
 - Purchase travel insurance policies
 - Get visa assistance services
 - Book travel guides
@@ -89,6 +98,7 @@ To democratize travel planning and commerce by:
 ### Trip Planning with AI
 
 #### AI-Powered Trip Planner
+
 - **Smart Itineraries:** AI generates custom itineraries based on your preferences
 - **Multi-Service Integration:** Combine stays, flights, experiences, and events
 - **Budget Optimization:** Get recommendations within your budget
@@ -98,6 +108,7 @@ To democratize travel planning and commerce by:
 - **Share Trips:** Invite friends to view and collaborate on trips
 
 #### Trip Management
+
 - **Centralized Dashboard:** View all bookings in one place
 - **Trip Summary:** See costs, dates, and activities at a glance
 - **Quick Access:** Find important details about each booking
@@ -106,6 +117,7 @@ To democratize travel planning and commerce by:
 ### Booking & Reservations
 
 #### Easy Booking Process
+
 1. Select service and check availability
 2. Add to cart or book directly
 3. Provide necessary details (dates, guests, preferences)
@@ -114,6 +126,7 @@ To democratize travel planning and commerce by:
 6. Receive confirmation email
 
 #### Flexible Management
+
 - **Modify Bookings:** Change dates or details (subject to policy)
 - **Cancel Bookings:** Process cancellations with instant refunds
 - **View Confirmations:** Access booking details anytime
@@ -123,6 +136,7 @@ To democratize travel planning and commerce by:
 ### Account & Profile
 
 #### Personal Dashboard
+
 - **Profile Management:** Update profile information and preferences
 - **Booking History:** View past, current, and future bookings
 - **Favorites:** Save services for later booking
@@ -130,6 +144,7 @@ To democratize travel planning and commerce by:
 - **Saved Preferences:** Set travel preferences for better recommendations
 
 #### Payment Methods
+
 - **Multiple Options:** Credit cards, debit cards, wallets
 - **Saved Cards:** Securely store multiple payment methods
 - **Wallet System:** Load credits and use for bookings
@@ -137,6 +152,7 @@ To democratize travel planning and commerce by:
 - **Payment History:** Track all transactions
 
 #### Social Features
+
 - **Friend Connections:** Connect with other travelers
 - **Share Trips:** Invite friends to view your itineraries
 - **Recommendations:** Get suggestions from friends
@@ -146,6 +162,7 @@ To democratize travel planning and commerce by:
 ### Notifications & Communication
 
 #### Stay Informed
+
 - **Booking Confirmations:** Receive instant confirmations
 - **Reminders:** Get notifications before your trip
 - **Status Updates:** Track booking changes
@@ -161,6 +178,7 @@ To democratize travel planning and commerce by:
 ### Dashboard & Overview
 
 #### Comprehensive Dashboard
+
 - **Key Metrics:** View revenue, bookings, and occupancy at a glance
 - **Quick Actions:** Access frequent tasks
 - **Recent Activity:** Monitor recent bookings and inquiries
@@ -168,6 +186,7 @@ To democratize travel planning and commerce by:
 - **Alerts:** Important notifications and action items
 
 #### Available Tiles
+
 1. **My Listings** - Manage your service offerings
 2. **All Orders** - Track customer bookings
 3. **Team Members** - Manage your staff
@@ -181,6 +200,7 @@ To democratize travel planning and commerce by:
 ### Listing Management
 
 #### Create & Edit Listings
+
 - **Multiple Service Types:** Create listings for stays, flights, experiences, events, or essentials
 - **Service-Specific Forms:** Tailored fields for each service type
 - **Rich Descriptions:** Add detailed descriptions and amenities
@@ -192,6 +212,7 @@ To democratize travel planning and commerce by:
 #### Service-Specific Details
 
 **Stays**
+
 - Property type and capacity
 - Bedrooms and bathrooms
 - Amenities checklist
@@ -200,6 +221,7 @@ To democratize travel planning and commerce by:
 - Minimum stay requirements
 
 **Flights**
+
 - Routes and schedules
 - Cabin classes available
 - Baggage allowance
@@ -207,6 +229,7 @@ To democratize travel planning and commerce by:
 - Seat configuration
 
 **Experiences**
+
 - Activity duration
 - Group size limits
 - Difficulty level
@@ -215,6 +238,7 @@ To democratize travel planning and commerce by:
 - Equipment provided
 
 **Events**
+
 - Event date and time
 - Venue details
 - Capacity
@@ -223,6 +247,7 @@ To democratize travel planning and commerce by:
 - Event description
 
 **Essentials**
+
 - Service description
 - Coverage details
 - Validity period
@@ -232,8 +257,9 @@ To democratize travel planning and commerce by:
 ### Inventory Management
 
 #### Booking Calendar View
+
 - **Visual Calendar:** See all bookings on a calendar
-- **Status Indicators:** 
+- **Status Indicators:**
   - Sold Out (fully booked)
   - Reserved (partial bookings)
   - Vacant (available)
@@ -246,6 +272,7 @@ To democratize travel planning and commerce by:
 - **Monthly Navigation:** Easy month-to-month browsing
 
 #### Inventory Status
+
 - **Occupancy Rate:** Track percentage of booked capacity
 - **Vacancy Periods:** Identify gaps in bookings
 - **Dead Inventory:** Find dates that need promotion
@@ -255,6 +282,7 @@ To democratize travel planning and commerce by:
 ### Order Management
 
 #### Track Customer Bookings
+
 - **Complete List:** View all customer orders
 - **Filter Options:**
   - By service type (stays, flights, experiences, events, essentials)
@@ -266,6 +294,7 @@ To democratize travel planning and commerce by:
 - **Download Reports:** Export order data
 
 #### Order Actions
+
 - **Confirm Bookings:** Accept customer reservations
 - **Cancel Orders:** Process cancellations
 - **Modify Orders:** Change order details
@@ -275,6 +304,7 @@ To democratize travel planning and commerce by:
 ### Promotion Management
 
 #### Create Promotions
+
 - **Manual Creation:** Design custom promotions
 - **Promo Types:**
   - Percentage discounts
@@ -289,6 +319,7 @@ To democratize travel planning and commerce by:
 #### AI Promo Builder
 
 ##### AI-Powered Generation
+
 - **Inventory Analysis:** AI identifies unsold inventory
 - **Trend Recognition:** Analyzes current travel trends
 - **Smart Recommendations:** Suggests optimal discount rates
@@ -296,6 +327,7 @@ To democratize travel planning and commerce by:
 - **Personalized Offers:** Different promos for different travelers
 
 ##### Inventory Gaps Tab
+
 - **Gap Detection:** Shows all booking gaps
 - **Urgency Levels:** Critical, High, Medium, Low
 - **Metrics:**
@@ -306,6 +338,7 @@ To democratize travel planning and commerce by:
 - **Bulk Generation:** Create multiple promos at once
 
 ##### Daily Inventory Scan
+
 - **Automated Scanning:** Daily automatic analysis
 - **Cancellation Detection:** Identify new availability
 - **Gap Detection:** Find periods with no bookings
@@ -315,6 +348,7 @@ To democratize travel planning and commerce by:
 - **Manual Scan:** Run scan anytime
 
 ##### Approval Workflow
+
 - **Pending Approvals:** Review AI-generated promotions
 - **Edit Before Launch:** Modify AI suggestions
 - **Approve/Reject:** Accept or decline promotions
@@ -322,6 +356,7 @@ To democratize travel planning and commerce by:
 - **Auto-Approval:** Optional instant approval
 
 #### Promotion Analytics
+
 - **Usage Metrics:** See how many times applied
 - **Conversion Rate:** Track booking impact
 - **Revenue Impact:** Measure effectiveness
@@ -331,6 +366,7 @@ To democratize travel planning and commerce by:
 ### Analytics & Reports
 
 #### Performance Dashboard
+
 - **Revenue Tracking:** Daily, weekly, monthly earnings
 - **Booking Trends:** Visualize booking patterns
 - **Occupancy Analysis:** See capacity utilization
@@ -339,6 +375,7 @@ To democratize travel planning and commerce by:
 - **Seasonal Insights:** Identify seasonal trends
 
 #### Custom Reports
+
 - **Export Data:** Download reports as CSV/Excel
 - **Date Range Selection:** Choose analysis period
 - **Custom Metrics:** Select metrics to include
@@ -348,6 +385,7 @@ To democratize travel planning and commerce by:
 ### Team Management
 
 #### Add Team Members
+
 - **Invite Collaborators:** Add managers and staff
 - **Role Assignment:**
   - Manager: Full access
@@ -356,6 +394,7 @@ To democratize travel planning and commerce by:
 - **Activity Tracking:** See who did what
 
 #### Collaboration
+
 - **Shared Access:** Team members see same listings
 - **Comment & Notes:** Communicate within platform
 - **Activity History:** Track all changes
@@ -364,6 +403,7 @@ To democratize travel planning and commerce by:
 ### Live Streaming
 
 #### Broadcast to Customers
+
 - **Go Live:** Start live broadcasts anytime
 - **Interactive Chat:** Real-time Q&A with viewers
 - **Product Demo:** Show off your services
@@ -375,6 +415,7 @@ To democratize travel planning and commerce by:
 ### Payment & Revenue Management
 
 #### Track Earnings
+
 - **Revenue Overview:** Total earnings by period
 - **Breakdown by Service:** See earnings per listing
 - **Transaction History:** View all payments
@@ -382,6 +423,7 @@ To democratize travel planning and commerce by:
 - **Settled Payments:** View completed payments
 
 #### Payment Methods
+
 - **Bank Account:** Direct deposits
 - **Wallet System:** Store credits
 - **Payout Schedule:** Automated payouts
@@ -389,6 +431,7 @@ To democratize travel planning and commerce by:
 - **Invoice Tracking:** See all invoices
 
 #### Financial Reports
+
 - **Revenue Reports:** By service, date, customer
 - **Tax Preparation:** Get tax documents
 - **Profit Analysis:** Calculate margins
@@ -397,6 +440,7 @@ To democratize travel planning and commerce by:
 ### Settings & Configuration
 
 #### Account Settings
+
 - **Profile Information:** Update vendor details
 - **Business Information:** Company details
 - **Contact Information:** Phone, email
@@ -404,6 +448,7 @@ To democratize travel planning and commerce by:
 - **Preferences:** Communication preferences
 
 #### Service Settings
+
 - **Default Pricing:** Set base rates
 - **Cancellation Policies:** Define terms
 - **Service Hours:** Operating hours
@@ -411,6 +456,7 @@ To democratize travel planning and commerce by:
 - **Capacity Settings:** Default capacities
 
 #### Notification Preferences
+
 - **Email Alerts:** Choose what to receive
 - **SMS Notifications:** Optional SMS updates
 - **In-App Notifications:** Real-time alerts
@@ -424,6 +470,7 @@ To democratize travel planning and commerce by:
 ### Stays
 
 **What Travelers Get:**
+
 - Browse thousands of accommodations worldwide
 - Read detailed descriptions and reviews
 - View high-quality photos
@@ -434,6 +481,7 @@ To democratize travel planning and commerce by:
 - 24/7 customer support
 
 **What Vendors Get:**
+
 - Reach global travelers
 - Manage availability easily
 - Set dynamic pricing
@@ -446,6 +494,7 @@ To democratize travel planning and commerce by:
 ### Flights
 
 **What Travelers Get:**
+
 - Search multiple airlines
 - Compare prices and times
 - Choose cabin class
@@ -456,6 +505,7 @@ To democratize travel planning and commerce by:
 - Mobile boarding passes
 
 **What Vendors Get:**
+
 - List multiple routes
 - Dynamic pricing capability
 - Real-time availability
@@ -468,6 +518,7 @@ To democratize travel planning and commerce by:
 ### Experiences
 
 **What Travelers Get:**
+
 - Discover unique activities
 - Read detailed descriptions
 - See what's included
@@ -478,6 +529,7 @@ To democratize travel planning and commerce by:
 - Flexible booking options
 
 **What Vendors Get:**
+
 - Reach adventure seekers
 - Manage capacity per session
 - Set multiple price tiers
@@ -490,6 +542,7 @@ To democratize travel planning and commerce by:
 ### Events
 
 **What Travelers Get:**
+
 - Browse events by category
 - View venue and seat maps
 - Compare ticket types
@@ -500,6 +553,7 @@ To democratize travel planning and commerce by:
 - Reminder notifications
 
 **What Vendors Get:**
+
 - List unlimited events
 - Multiple ticket categories
 - Seating management
@@ -512,6 +566,7 @@ To democratize travel planning and commerce by:
 ### Essentials
 
 **What Travelers Get:**
+
 - Access travel insurance
 - Visa assistance services
 - Travel guides
@@ -522,6 +577,7 @@ To democratize travel planning and commerce by:
 - 24/7 support
 
 **What Vendors Get:**
+
 - Reach traveling audience
 - Simple product listing
 - Automated fulfillment
@@ -538,6 +594,7 @@ To democratize travel planning and commerce by:
 ### AI Trip Planner
 
 **For Travelers:**
+
 - Chat with AI to plan your trip
 - Get personalized recommendations
 - Auto-generate multi-day itineraries
@@ -548,6 +605,7 @@ To democratize travel planning and commerce by:
 - Share with travel companions
 
 **How It Works:**
+
 1. Tell AI your preferences (dates, budget, interests)
 2. AI suggests destinations and activities
 3. AI creates detailed itinerary
@@ -558,6 +616,7 @@ To democratize travel planning and commerce by:
 ### AI Promotions
 
 **For Vendors:**
+
 - AI analyzes your inventory daily
 - Identifies booking gaps
 - Suggests discount strategies
@@ -567,6 +626,7 @@ To democratize travel planning and commerce by:
 - Tracks effectiveness
 
 **Benefits:**
+
 - Reduce vacancy
 - Increase revenue
 - Save time on promotion creation
@@ -578,6 +638,7 @@ To democratize travel planning and commerce by:
 ### AI Recommendations
 
 **For Travelers:**
+
 - Personalized service suggestions
 - Based on search history
 - Based on booking history
@@ -588,6 +649,7 @@ To democratize travel planning and commerce by:
 - Category specific suggestions
 
 **For Vendors:**
+
 - See what drives clicks
 - Understand customer interests
 - Improve listing visibility
@@ -597,6 +659,7 @@ To democratize travel planning and commerce by:
 ### Daily Inventory Scan
 
 **What It Does:**
+
 - Automatically runs each day
 - Scans all your listings
 - Detects booking cancellations
@@ -606,6 +669,7 @@ To democratize travel planning and commerce by:
 - Sends notifications
 
 **Benefits:**
+
 - Never miss selling opportunity
 - Automated gap detection
 - Quick response to changes
@@ -614,6 +678,7 @@ To democratize travel planning and commerce by:
 - Higher revenue
 
 **Optional Settings:**
+
 - Enable/disable scanning
 - Set scan time
 - Auto-approval of promotions
@@ -627,26 +692,31 @@ To democratize travel planning and commerce by:
 ### For Travelers
 
 1. **Convenience**
+
    - One platform for all travel needs
    - Unified booking experience
    - Centralized trip management
 
 2. **Selection**
+
    - Thousands of options
    - All service types in one place
    - Global coverage
 
 3. **Value**
+
    - Best prices through promotions
    - Price transparency
    - Flexible cancellation
 
 4. **Personalization**
+
    - AI recommendations
    - Customized itineraries
    - Preferences saved
 
 5. **Support**
+
    - 24/7 customer service
    - Message vendors directly
    - Problem resolution
@@ -659,29 +729,34 @@ To democratize travel planning and commerce by:
 ### For Vendors
 
 1. **Reach**
+
    - Access global customers
    - Multiple service types
    - Marketing support
 
 2. **Tools**
+
    - Comprehensive dashboard
    - Analytics and insights
    - Promotional features
    - Calendar management
 
 3. **Automation**
+
    - AI promotion generation
    - Daily inventory scanning
    - Automated notifications
    - Workflow automation
 
 4. **Growth**
+
    - Increase occupancy
    - Optimize pricing
    - Expand offerings
    - Scale business
 
 5. **Support**
+
    - Dedicated vendor support
    - Training resources
    - Best practice guides
@@ -751,6 +826,7 @@ To democratize travel planning and commerce by:
 ## Support & Resources
 
 ### Traveler Support
+
 - Help Center with FAQs
 - Video tutorials
 - Live chat support
@@ -759,6 +835,7 @@ To democratize travel planning and commerce by:
 - Community forum
 
 ### Vendor Support
+
 - Onboarding training
 - Best practice guides
 - Webinars
@@ -771,10 +848,12 @@ To democratize travel planning and commerce by:
 ## Pricing
 
 ### For Travelers
+
 - **Free:** Browse and plan trips
 - **Premium Features:** As you book
 
 ### For Vendors
+
 - **Commission-Based:** Pay only on sales
 - **Transparent Pricing:** No hidden fees
 - **Flexible Terms:** Scale with your business
@@ -784,13 +863,14 @@ To democratize travel planning and commerce by:
 
 ## Success Stories
 
-*This section would include real examples of successful vendors and travelers on the platform.*
+_This section would include real examples of successful vendors and travelers on the platform._
 
 ---
 
 ## Looking Forward
 
 TravelConnect is constantly evolving with planned features including:
+
 - Native mobile apps
 - Virtual reality tours
 - Blockchain integration
@@ -812,4 +892,3 @@ TravelConnect is constantly evolving with planned features including:
 
 **Last Updated:** 2025
 **Version:** 1.0
-

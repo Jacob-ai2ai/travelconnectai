@@ -27,7 +27,7 @@ const getDocumentMetadata = (type: DocumentType) => {
 
 const generatePDF = (
   content: string,
-  metadata: { title: string; filename: string }
+  metadata: { title: string; filename: string },
 ): Promise<Buffer> => {
   return new Promise<Buffer>((resolve, reject) => {
     const chunks: Buffer[] = [];
@@ -45,11 +45,17 @@ const generatePDF = (
     let inCodeBlock = false;
     let codeContent = "";
 
-    doc.fontSize(24).font("Helvetica-Bold").text(metadata.title, { align: "center" });
+    doc
+      .fontSize(24)
+      .font("Helvetica-Bold")
+      .text(metadata.title, { align: "center" });
     doc.moveDown(0.5);
-    doc.fontSize(10).font("Helvetica").text(`Generated: ${new Date().toLocaleDateString()}`, {
-      align: "center",
-    });
+    doc
+      .fontSize(10)
+      .font("Helvetica")
+      .text(`Generated: ${new Date().toLocaleDateString()}`, {
+        align: "center",
+      });
     doc.moveDown(1);
     doc.moveTo(50, doc.y).lineTo(545, doc.y).stroke();
     doc.moveDown(0.5);
@@ -81,7 +87,10 @@ const generatePDF = (
       // Handle headings
       if (line.startsWith("# ")) {
         doc.moveDown(0.3);
-        doc.fontSize(18).font("Helvetica-Bold").text(line.substring(2), { align: "left" });
+        doc
+          .fontSize(18)
+          .font("Helvetica-Bold")
+          .text(line.substring(2), { align: "left" });
         doc.moveDown(0.2);
         doc.moveTo(50, doc.y).lineTo(545, doc.y).stroke();
         doc.moveDown(0.3);
@@ -90,21 +99,30 @@ const generatePDF = (
 
       if (line.startsWith("## ")) {
         doc.moveDown(0.3);
-        doc.fontSize(14).font("Helvetica-Bold").text(line.substring(3), { align: "left" });
+        doc
+          .fontSize(14)
+          .font("Helvetica-Bold")
+          .text(line.substring(3), { align: "left" });
         doc.moveDown(0.2);
         continue;
       }
 
       if (line.startsWith("### ")) {
         doc.moveDown(0.2);
-        doc.fontSize(12).font("Helvetica-Bold").text(line.substring(4), { align: "left" });
+        doc
+          .fontSize(12)
+          .font("Helvetica-Bold")
+          .text(line.substring(4), { align: "left" });
         doc.moveDown(0.1);
         continue;
       }
 
       if (line.startsWith("#### ")) {
         doc.moveDown(0.1);
-        doc.fontSize(11).font("Helvetica-Bold").text(line.substring(5), { align: "left" });
+        doc
+          .fontSize(11)
+          .font("Helvetica-Bold")
+          .text(line.substring(5), { align: "left" });
         doc.moveDown(0.05);
         continue;
       }
@@ -120,7 +138,10 @@ const generatePDF = (
       // Handle bullet points
       if (line.match(/^[-*+]\s/)) {
         const text = line.substring(2);
-        doc.fontSize(10).font("Helvetica").text(`• ${text}`, { align: "left", width: 425 });
+        doc
+          .fontSize(10)
+          .font("Helvetica")
+          .text(`• ${text}`, { align: "left", width: 425 });
         doc.moveDown(0.1);
         continue;
       }
@@ -183,7 +204,10 @@ export const handleDownloadSRS: RequestHandler = async (req, res) => {
     switch (format) {
       case "md":
         res.setHeader("Content-Type", "text/markdown");
-        res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
+        res.setHeader(
+          "Content-Disposition",
+          `attachment; filename="${filename}"`,
+        );
         res.send(markdownContent);
         break;
 
@@ -201,13 +225,19 @@ export const handleDownloadSRS: RequestHandler = async (req, res) => {
           .replace(/\n{3,}/g, "\n\n");
 
         res.setHeader("Content-Type", "text/plain");
-        res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
+        res.setHeader(
+          "Content-Disposition",
+          `attachment; filename="${filename}"`,
+        );
         res.send(plainText);
         break;
 
       case "pdf":
         res.setHeader("Content-Type", "application/pdf");
-        res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
+        res.setHeader(
+          "Content-Disposition",
+          `attachment; filename="${filename}"`,
+        );
 
         try {
           const pdfBuffer = await generatePDF(markdownContent, metadata);
@@ -221,9 +251,12 @@ export const handleDownloadSRS: RequestHandler = async (req, res) => {
       case "docx":
         res.setHeader(
           "Content-Type",
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         );
-        res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
+        res.setHeader(
+          "Content-Disposition",
+          `attachment; filename="${filename}"`,
+        );
 
         const wordHtml = `
 <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">

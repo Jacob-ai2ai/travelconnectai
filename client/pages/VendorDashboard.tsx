@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Card, CardContent } from '@/components/ui/card';
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   ShoppingCart,
   Home,
@@ -12,7 +12,7 @@ import {
   Sparkles,
   ArrowRight,
   FileText,
-} from 'lucide-react';
+} from "lucide-react";
 
 interface VendorInfo {
   name: string;
@@ -35,18 +35,102 @@ interface DashboardTile {
 }
 
 const dummyListings = [
-  { id: '1', type: 'stays', title: 'Luxurious Beach Villa in Bali', location: 'Bali, Indonesia', price: 250, rating: 4.8 },
-  { id: '2', type: 'stays', title: 'Cozy Apartment in Paris', location: 'Paris, France', price: 180, rating: 4.6 },
-  { id: '3', type: 'stays', title: 'Mountain Cabin with Mountain Views', location: 'Swiss Alps, Switzerland', price: 320, rating: 4.9 },
-  { id: '4', type: 'flights', title: 'Round Trip: New York to London', location: 'NYC to LHR', price: 520, rating: 4.5 },
-  { id: '5', type: 'flights', title: 'Business Class: Dubai to Singapore', location: 'DXB to SIN', price: 1200, rating: 4.7 },
-  { id: '6', type: 'experiences', title: 'Guided Tour: Hidden Gems of Barcelona', location: 'Barcelona, Spain', price: 85, rating: 4.8 },
-  { id: '7', type: 'experiences', title: 'Cooking Class: Italian Cuisine in Rome', location: 'Rome, Italy', price: 95, rating: 4.9 },
-  { id: '8', type: 'experiences', title: 'Scuba Diving Adventure in Great Barrier Reef', location: 'Australia', price: 150, rating: 4.7 },
-  { id: '9', type: 'events', title: 'Tech Conference 2024', location: 'San Francisco, USA', price: 299, rating: 4.6 },
-  { id: '10', type: 'events', title: 'Music Festival Summer Vibes', location: 'Ibiza, Spain', price: 180, rating: 4.8 },
-  { id: '11', type: 'essentials', title: 'Comprehensive Travel Insurance Premium', location: 'Worldwide', price: 45, rating: 4.7 },
-  { id: '12', type: 'essentials', title: 'International Visa Assistance Service', location: 'Global', price: 199, rating: 4.6 },
+  {
+    id: "1",
+    type: "stays",
+    title: "Luxurious Beach Villa in Bali",
+    location: "Bali, Indonesia",
+    price: 250,
+    rating: 4.8,
+  },
+  {
+    id: "2",
+    type: "stays",
+    title: "Cozy Apartment in Paris",
+    location: "Paris, France",
+    price: 180,
+    rating: 4.6,
+  },
+  {
+    id: "3",
+    type: "stays",
+    title: "Mountain Cabin with Mountain Views",
+    location: "Swiss Alps, Switzerland",
+    price: 320,
+    rating: 4.9,
+  },
+  {
+    id: "4",
+    type: "flights",
+    title: "Round Trip: New York to London",
+    location: "NYC to LHR",
+    price: 520,
+    rating: 4.5,
+  },
+  {
+    id: "5",
+    type: "flights",
+    title: "Business Class: Dubai to Singapore",
+    location: "DXB to SIN",
+    price: 1200,
+    rating: 4.7,
+  },
+  {
+    id: "6",
+    type: "experiences",
+    title: "Guided Tour: Hidden Gems of Barcelona",
+    location: "Barcelona, Spain",
+    price: 85,
+    rating: 4.8,
+  },
+  {
+    id: "7",
+    type: "experiences",
+    title: "Cooking Class: Italian Cuisine in Rome",
+    location: "Rome, Italy",
+    price: 95,
+    rating: 4.9,
+  },
+  {
+    id: "8",
+    type: "experiences",
+    title: "Scuba Diving Adventure in Great Barrier Reef",
+    location: "Australia",
+    price: 150,
+    rating: 4.7,
+  },
+  {
+    id: "9",
+    type: "events",
+    title: "Tech Conference 2024",
+    location: "San Francisco, USA",
+    price: 299,
+    rating: 4.6,
+  },
+  {
+    id: "10",
+    type: "events",
+    title: "Music Festival Summer Vibes",
+    location: "Ibiza, Spain",
+    price: 180,
+    rating: 4.8,
+  },
+  {
+    id: "11",
+    type: "essentials",
+    title: "Comprehensive Travel Insurance Premium",
+    location: "Worldwide",
+    price: 45,
+    rating: 4.7,
+  },
+  {
+    id: "12",
+    type: "essentials",
+    title: "International Visa Assistance Service",
+    location: "Global",
+    price: 199,
+    rating: 4.6,
+  },
 ];
 
 const mockOrders = {
@@ -63,8 +147,8 @@ export default function VendorDashboard() {
   const [listingCount, setListingCount] = useState(0);
 
   useEffect(() => {
-    const signedIn = localStorage.getItem('isSignedIn') === 'true';
-    const user = localStorage.getItem('user');
+    const signedIn = localStorage.getItem("isSignedIn") === "true";
+    const user = localStorage.getItem("user");
 
     setIsSignedIn(signedIn || true);
 
@@ -72,37 +156,37 @@ export default function VendorDashboard() {
       try {
         const userData = JSON.parse(user);
         setVendorInfo({
-          name: userData.username || userData.email || 'Demo Vendor',
-          type: userData.vendorType || 'All Services',
-          location: userData.location || 'Global',
+          name: userData.username || userData.email || "Demo Vendor",
+          type: userData.vendorType || "All Services",
+          location: userData.location || "Global",
           rating: 4.8,
           revenue: 52840,
-          currency: 'USD',
+          currency: "USD",
         });
       } catch (e) {
-        console.error('Error parsing user:', e);
+        console.error("Error parsing user:", e);
         setVendorInfo({
-          name: 'Demo Vendor',
-          type: 'All Services',
-          location: 'Global',
+          name: "Demo Vendor",
+          type: "All Services",
+          location: "Global",
           rating: 4.8,
           revenue: 52840,
-          currency: 'USD',
+          currency: "USD",
         });
       }
     } else {
       setVendorInfo({
-        name: 'Demo Vendor',
-        type: 'All Services',
-        location: 'Global',
+        name: "Demo Vendor",
+        type: "All Services",
+        location: "Global",
         rating: 4.8,
         revenue: 52840,
-        currency: 'USD',
+        currency: "USD",
       });
     }
 
     // Load listings
-    const listings = localStorage.getItem('listings');
+    const listings = localStorage.getItem("listings");
     let listingsToUse = dummyListings;
     if (listings) {
       try {
@@ -112,95 +196,94 @@ export default function VendorDashboard() {
         setListingCount(dummyListings.length);
       }
     } else {
-      localStorage.setItem('listings', JSON.stringify(dummyListings));
+      localStorage.setItem("listings", JSON.stringify(dummyListings));
       setListingCount(dummyListings.length);
     }
-
   }, []);
 
   const tiles: DashboardTile[] = [
     {
-      id: 'listings',
-      title: 'My Listings',
-      description: 'Manage and organize your services',
+      id: "listings",
+      title: "My Listings",
+      description: "Manage and organize your services",
       icon: Home,
-      route: '/vendor/my-listings',
+      route: "/vendor/my-listings",
       count: listingCount,
-      color: 'bg-blue-100 text-blue-800',
+      color: "bg-blue-100 text-blue-800",
     },
     {
-      id: 'orders',
-      title: 'All Orders',
-      description: 'Track orders and customer requests',
+      id: "orders",
+      title: "All Orders",
+      description: "Track orders and customer requests",
       icon: ShoppingCart,
-      route: '/vendor/orders',
+      route: "/vendor/orders",
       count: mockOrders.total,
-      color: 'bg-green-100 text-green-800',
+      color: "bg-green-100 text-green-800",
     },
     {
-      id: 'team',
-      title: 'Team Members',
-      description: 'Manage your team and collaborators',
+      id: "team",
+      title: "Team Members",
+      description: "Manage your team and collaborators",
       icon: Users,
-      route: '/vendor/team',
+      route: "/vendor/team",
       count: 3,
-      color: 'bg-purple-100 text-purple-800',
+      color: "bg-purple-100 text-purple-800",
     },
     {
-      id: 'livestream',
-      title: 'Create Live Stream',
-      description: 'Engage with customers in real-time',
+      id: "livestream",
+      title: "Create Live Stream",
+      description: "Engage with customers in real-time",
       icon: Zap,
-      route: '/vendor/livestream',
-      color: 'bg-orange-100 text-orange-800',
+      route: "/vendor/livestream",
+      color: "bg-orange-100 text-orange-800",
     },
     {
-      id: 'promotions',
-      title: 'Create Promotions',
-      description: 'Attract more customers with offers',
+      id: "promotions",
+      title: "Create Promotions",
+      description: "Attract more customers with offers",
       icon: Sparkles,
-      route: '/vendor/promotions',
-      color: 'bg-pink-100 text-pink-800',
+      route: "/vendor/promotions",
+      color: "bg-pink-100 text-pink-800",
     },
     {
-      id: 'payments',
-      title: 'Payments & Revenue',
-      description: 'View your earnings and transactions',
+      id: "payments",
+      title: "Payments & Revenue",
+      description: "View your earnings and transactions",
       icon: DollarSign,
-      route: '/vendor/payments',
-      color: 'bg-emerald-100 text-emerald-800',
+      route: "/vendor/payments",
+      color: "bg-emerald-100 text-emerald-800",
     },
     {
-      id: 'analytics',
-      title: 'Analytics',
-      description: 'Track your performance metrics',
+      id: "analytics",
+      title: "Analytics",
+      description: "Track your performance metrics",
       icon: BarChart3,
-      route: '/vendor/analytics',
-      color: 'bg-indigo-100 text-indigo-800',
+      route: "/vendor/analytics",
+      color: "bg-indigo-100 text-indigo-800",
     },
     {
-      id: 'settings',
-      title: 'Settings',
-      description: 'Manage your account preferences',
+      id: "settings",
+      title: "Settings",
+      description: "Manage your account preferences",
       icon: Settings,
-      route: '/edit-profile',
-      color: 'bg-gray-100 text-gray-800',
+      route: "/edit-profile",
+      color: "bg-gray-100 text-gray-800",
     },
     {
-      id: 'bookings',
-      title: 'Booking Calendars',
-      description: 'View inventory and booking status',
+      id: "bookings",
+      title: "Booking Calendars",
+      description: "View inventory and booking status",
       icon: BarChart3,
-      route: '/vendor/booking-calendars',
-      color: 'bg-cyan-100 text-cyan-800',
+      route: "/vendor/booking-calendars",
+      color: "bg-cyan-100 text-cyan-800",
     },
     {
-      id: 'documents',
-      title: 'Documentation',
-      description: 'Download SRS and product guides',
+      id: "documents",
+      title: "Documentation",
+      description: "Download SRS and product guides",
       icon: FileText,
-      route: '/vendor/documents',
-      color: 'bg-teal-100 text-teal-800',
+      route: "/vendor/documents",
+      color: "bg-teal-100 text-teal-800",
     },
   ];
 
@@ -215,7 +298,8 @@ export default function VendorDashboard() {
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-2">Vendor Dashboard</h1>
           <p className="text-muted-foreground text-lg">
-            Welcome back, {vendorInfo.name}! Manage your travel services and grow your business.
+            Welcome back, {vendorInfo.name}! Manage your travel services and
+            grow your business.
           </p>
         </div>
 
@@ -223,25 +307,33 @@ export default function VendorDashboard() {
         <div className="mb-12 grid grid-cols-2 md:grid-cols-4 gap-4">
           <Card>
             <CardContent className="pt-6 text-center">
-              <p className="text-3xl font-bold text-travel-blue">{listingCount}</p>
+              <p className="text-3xl font-bold text-travel-blue">
+                {listingCount}
+              </p>
               <p className="text-sm text-muted-foreground">Total Listings</p>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="pt-6 text-center">
-              <p className="text-3xl font-bold text-travel-blue">{mockOrders.total}</p>
+              <p className="text-3xl font-bold text-travel-blue">
+                {mockOrders.total}
+              </p>
               <p className="text-sm text-muted-foreground">Total Orders</p>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="pt-6 text-center">
-              <p className="text-3xl font-bold text-travel-blue">${vendorInfo.revenue.toLocaleString()}</p>
+              <p className="text-3xl font-bold text-travel-blue">
+                ${vendorInfo.revenue.toLocaleString()}
+              </p>
               <p className="text-sm text-muted-foreground">Total Revenue</p>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="pt-6 text-center">
-              <p className="text-3xl font-bold text-travel-blue">{vendorInfo.rating}</p>
+              <p className="text-3xl font-bold text-travel-blue">
+                {vendorInfo.rating}
+              </p>
               <p className="text-sm text-muted-foreground">Business Rating</p>
             </CardContent>
           </Card>
@@ -255,7 +347,9 @@ export default function VendorDashboard() {
               <Card className="h-full overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group">
                 <CardContent className="p-6">
                   {/* Icon with background */}
-                  <div className={`w-16 h-16 rounded-lg mb-4 flex items-center justify-center ${tile.color} group-hover:scale-110 transition-transform`}>
+                  <div
+                    className={`w-16 h-16 rounded-lg mb-4 flex items-center justify-center ${tile.color} group-hover:scale-110 transition-transform`}
+                  >
                     <Icon className="h-8 w-8" />
                   </div>
 
@@ -270,7 +364,7 @@ export default function VendorDashboard() {
                   {/* Count badge if exists */}
                   {tile.count !== undefined && tile.count > 0 && (
                     <div className="inline-block px-3 py-1 bg-muted rounded-full text-sm font-semibold text-travel-blue mb-4">
-                      {tile.count} {tile.count === 1 ? 'item' : 'items'}
+                      {tile.count} {tile.count === 1 ? "item" : "items"}
                     </div>
                   )}
 
@@ -298,7 +392,6 @@ export default function VendorDashboard() {
             );
           })}
         </div>
-
       </div>
     </div>
   );

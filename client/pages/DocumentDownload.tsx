@@ -24,15 +24,20 @@ export default function DocumentDownload() {
   const [selectedDocument, setSelectedDocument] = useState<DocumentType>("srs");
   const [isDownloading, setIsDownloading] = useState(false);
 
-  const documents: Record<DocumentType, { title: string; description: string; filename: string }> = {
+  const documents: Record<
+    DocumentType,
+    { title: string; description: string; filename: string }
+  > = {
     srs: {
       title: "Software Requirements Specification (SRS)",
-      description: "Complete technical specifications and requirements for the TravelConnect platform",
+      description:
+        "Complete technical specifications and requirements for the TravelConnect platform",
       filename: "TravelConnect-SRS",
     },
     product: {
       title: "Product Descriptions",
-      description: "Comprehensive product overview, features, and capabilities for all stakeholders",
+      description:
+        "Comprehensive product overview, features, and capabilities for all stakeholders",
       filename: "TravelConnect-Product-Descriptions",
     },
   };
@@ -40,7 +45,9 @@ export default function DocumentDownload() {
   const handleDownload = async (format: string) => {
     try {
       setIsDownloading(true);
-      const response = await fetch(`/api/download-srs?format=${format}&document=${selectedDocument}`);
+      const response = await fetch(
+        `/api/download-srs?format=${format}&document=${selectedDocument}`,
+      );
       if (response.ok) {
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
@@ -62,7 +69,17 @@ export default function DocumentDownload() {
     }
   };
 
-  const documentInfo: Record<DocumentType, { version: string; date: string; pages: string; sections: number; requirements?: string; fileSize: string }> = {
+  const documentInfo: Record<
+    DocumentType,
+    {
+      version: string;
+      date: string;
+      pages: string;
+      sections: number;
+      requirements?: string;
+      fileSize: string;
+    }
+  > = {
     srs: {
       version: "1.0",
       date: "December 2024",
@@ -84,7 +101,8 @@ export default function DocumentDownload() {
     {
       icon: Zap,
       title: "Comprehensive Coverage",
-      description: "150+ functional requirements covering all platform features",
+      description:
+        "150+ functional requirements covering all platform features",
     },
     {
       icon: Shield,
@@ -94,7 +112,8 @@ export default function DocumentDownload() {
     {
       icon: Users,
       title: "Stakeholder Ready",
-      description: "Professional format for developers, investors, and management",
+      description:
+        "Professional format for developers, investors, and management",
     },
     {
       icon: FileCheck,
@@ -118,7 +137,9 @@ export default function DocumentDownload() {
                 onClick={() => setSelectedDocument(docType)}
                 className="px-6"
               >
-                {docType === "srs" ? "📋 SRS Document" : "📝 Product Descriptions"}
+                {docType === "srs"
+                  ? "📋 SRS Document"
+                  : "📝 Product Descriptions"}
               </Button>
             ))}
           </div>
@@ -159,7 +180,9 @@ export default function DocumentDownload() {
                   <div className="text-2xl font-bold text-travel-purple mb-1">
                     {documentInfo[selectedDocument].requirements}
                   </div>
-                  <div className="text-sm text-muted-foreground">Requirements</div>
+                  <div className="text-sm text-muted-foreground">
+                    Requirements
+                  </div>
                 </CardContent>
               </Card>
             )}
@@ -187,12 +210,16 @@ export default function DocumentDownload() {
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Document Type:</span>
                   <span className="font-medium">
-                    {selectedDocument === "srs" ? "Software Requirements Specification" : "Product Descriptions"}
+                    {selectedDocument === "srs"
+                      ? "Software Requirements Specification"
+                      : "Product Descriptions"}
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Version:</span>
-                  <span className="font-medium">{documentInfo[selectedDocument].version}</span>
+                  <span className="font-medium">
+                    {documentInfo[selectedDocument].version}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Last Updated:</span>
@@ -203,7 +230,9 @@ export default function DocumentDownload() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">File Size:</span>
-                  <span className="font-medium">{documentInfo[selectedDocument].fileSize}</span>
+                  <span className="font-medium">
+                    {documentInfo[selectedDocument].fileSize}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Language:</span>
@@ -321,7 +350,9 @@ export default function DocumentDownload() {
                               <Icon className="h-6 w-6 text-travel-blue" />
                             </div>
                             <div>
-                              <h3 className="font-semibold mb-2">{feature.title}</h3>
+                              <h3 className="font-semibold mb-2">
+                                {feature.title}
+                              </h3>
                               <p className="text-sm text-muted-foreground">
                                 {feature.description}
                               </p>
@@ -335,22 +366,26 @@ export default function DocumentDownload() {
                     {
                       icon: Users,
                       title: "Platform Overview",
-                      description: "Complete introduction to TravelConnect and its core value proposition",
+                      description:
+                        "Complete introduction to TravelConnect and its core value proposition",
                     },
                     {
                       icon: Zap,
                       title: "Traveler Features",
-                      description: "Comprehensive features and capabilities available to travelers",
+                      description:
+                        "Comprehensive features and capabilities available to travelers",
                     },
                     {
                       icon: Shield,
                       title: "Vendor Tools",
-                      description: "Complete vendor dashboard and business management capabilities",
+                      description:
+                        "Complete vendor dashboard and business management capabilities",
                     },
                     {
                       icon: FileCheck,
                       title: "Service Categories",
-                      description: "Detailed overview of Stays, Flights, Experiences, Events, and Essentials",
+                      description:
+                        "Detailed overview of Stays, Flights, Experiences, Events, and Essentials",
                     },
                   ].map((feature, index) => {
                     const Icon = feature.icon;
@@ -362,7 +397,9 @@ export default function DocumentDownload() {
                               <Icon className="h-6 w-6 text-travel-blue" />
                             </div>
                             <div>
-                              <h3 className="font-semibold mb-2">{feature.title}</h3>
+                              <h3 className="font-semibold mb-2">
+                                {feature.title}
+                              </h3>
                               <p className="text-sm text-muted-foreground">
                                 {feature.description}
                               </p>
@@ -387,7 +424,9 @@ export default function DocumentDownload() {
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2">
                         <div className="w-2 h-2 bg-travel-blue rounded-full"></div>
-                        <span className="text-sm">1. Introduction & Overview</span>
+                        <span className="text-sm">
+                          1. Introduction & Overview
+                        </span>
                       </div>
                       <div className="flex items-center space-x-2">
                         <div className="w-2 h-2 bg-travel-blue rounded-full"></div>
@@ -395,11 +434,15 @@ export default function DocumentDownload() {
                       </div>
                       <div className="flex items-center space-x-2">
                         <div className="w-2 h-2 bg-travel-blue rounded-full"></div>
-                        <span className="text-sm">3. Functional Requirements</span>
+                        <span className="text-sm">
+                          3. Functional Requirements
+                        </span>
                       </div>
                       <div className="flex items-center space-x-2">
                         <div className="w-2 h-2 bg-travel-blue rounded-full"></div>
-                        <span className="text-sm">4. Non-Functional Requirements</span>
+                        <span className="text-sm">
+                          4. Non-Functional Requirements
+                        </span>
                       </div>
                       <div className="flex items-center space-x-2">
                         <div className="w-2 h-2 bg-travel-blue rounded-full"></div>
@@ -407,7 +450,9 @@ export default function DocumentDownload() {
                       </div>
                       <div className="flex items-center space-x-2">
                         <div className="w-2 h-2 bg-travel-blue rounded-full"></div>
-                        <span className="text-sm">6. User Interface Requirements</span>
+                        <span className="text-sm">
+                          6. User Interface Requirements
+                        </span>
                       </div>
                     </div>
                     <div className="space-y-2">
@@ -417,15 +462,21 @@ export default function DocumentDownload() {
                       </div>
                       <div className="flex items-center space-x-2">
                         <div className="w-2 h-2 bg-travel-purple rounded-full"></div>
-                        <span className="text-sm">8. Integration Requirements</span>
+                        <span className="text-sm">
+                          8. Integration Requirements
+                        </span>
                       </div>
                       <div className="flex items-center space-x-2">
                         <div className="w-2 h-2 bg-travel-purple rounded-full"></div>
-                        <span className="text-sm">9. Security Requirements</span>
+                        <span className="text-sm">
+                          9. Security Requirements
+                        </span>
                       </div>
                       <div className="flex items-center space-x-2">
                         <div className="w-2 h-2 bg-travel-purple rounded-full"></div>
-                        <span className="text-sm">10. Performance Requirements</span>
+                        <span className="text-sm">
+                          10. Performance Requirements
+                        </span>
                       </div>
                       <div className="flex items-center space-x-2">
                         <div className="w-2 h-2 bg-travel-purple rounded-full"></div>
@@ -464,7 +515,9 @@ export default function DocumentDownload() {
                       </div>
                       <div className="flex items-center space-x-2">
                         <div className="w-2 h-2 bg-travel-purple rounded-full"></div>
-                        <span className="text-sm">7. Platform Capabilities</span>
+                        <span className="text-sm">
+                          7. Platform Capabilities
+                        </span>
                       </div>
                     </div>
                   </>

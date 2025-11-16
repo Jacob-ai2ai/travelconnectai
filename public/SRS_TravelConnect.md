@@ -1,4 +1,5 @@
 # Software Requirements Specification (SRS)
+
 ## TravelConnect - AI-Powered Travel & Commerce Platform
 
 **Version:** 2.0
@@ -18,6 +19,7 @@ TravelConnect is a comprehensive AI-powered travel and commerce platform that co
 ### 2.1 Platform Architecture
 
 The platform consists of two primary user roles:
+
 - **Travelers:** Explore and book travel services
 - **Vendors:** Create listings, manage inventory, and optimize promotions
 
@@ -43,6 +45,7 @@ The platform consists of two primary user roles:
 ### 3.1 Traveler Features
 
 #### 3.1.1 Discovery & Search
+
 - Search across all service categories
 - Filter by location, price, rating, dates
 - AI-powered recommendations based on history
@@ -50,6 +53,7 @@ The platform consists of two primary user roles:
 - View detailed service descriptions with reviews
 
 #### 3.1.2 Trip Planning
+
 - AI Planner - Create custom itineraries
 - Add multiple services to a single trip
 - View trip summary with costs
@@ -57,6 +61,7 @@ The platform consists of two primary user roles:
 - Share trips with friends
 
 #### 3.1.3 Booking Management
+
 - Book services across all categories
 - View booking history
 - Cancel or modify bookings
@@ -64,6 +69,7 @@ The platform consists of two primary user roles:
 - Track order status
 
 #### 3.1.4 User Account
+
 - Profile management
 - Favorites/wishlist
 - Payment methods management
@@ -72,6 +78,7 @@ The platform consists of two primary user roles:
 - Message notifications
 
 #### 3.1.5 Payments
+
 - Multiple payment options
 - Wallet integration
 - Transaction history
@@ -81,6 +88,7 @@ The platform consists of two primary user roles:
 ### 3.2 Vendor Features
 
 #### 3.2.1 Listing Management
+
 - Create listings for all service types
 - Edit and manage listings
 - Upload images and media
@@ -88,6 +96,7 @@ The platform consists of two primary user roles:
 - Set pricing and availability
 
 #### 3.2.2 Inventory Management
+
 - Track booking status by date
 - View occupancy rates
 - Identify vacant periods (dead inventory)
@@ -95,6 +104,7 @@ The platform consists of two primary user roles:
 - Calendar view of all bookings
 
 #### 3.2.3 Promotion Management
+
 - Manual promotion creation
 - AI-powered promotion generation
 - Promotion templates per service type
@@ -103,6 +113,7 @@ The platform consists of two primary user roles:
 - Track promotion usage
 
 #### 3.2.4 AI Promo Builder
+
 - Analyze current inventory gaps
 - Scan for booking cancellations
 - Identify seasonal trends
@@ -111,6 +122,7 @@ The platform consists of two primary user roles:
 - Daily automated scanning (optional)
 
 #### 3.2.5 Order Management
+
 - View all customer orders
 - Filter by service type, date range, status
 - Track order fulfillment
@@ -118,6 +130,7 @@ The platform consists of two primary user roles:
 - Download order reports
 
 #### 3.2.6 Analytics & Reports
+
 - Revenue tracking
 - Booking trends
 - Occupancy analysis
@@ -125,18 +138,21 @@ The platform consists of two primary user roles:
 - Export reports
 
 #### 3.2.7 Team Management
+
 - Add team members
 - Assign roles (Manager, Staff)
 - Manage permissions
 - View team activity
 
 #### 3.2.8 Live Streaming
+
 - Broadcast live sessions
 - Engage with viewers
 - Share promotions
 - Interactive Q&A
 
 #### 3.2.9 Payments & Revenue
+
 - View revenue breakdown
 - Track earnings
 - Manage payouts
@@ -148,6 +164,7 @@ The platform consists of two primary user roles:
 ## 4. Non-Functional Requirements
 
 ### 4.1 Performance
+
 - Page load time < 2 seconds
 - Search results < 500ms
 - Simultaneous users: 10,000+
@@ -155,6 +172,7 @@ The platform consists of two primary user roles:
 - CDN for static assets
 
 ### 4.2 Security
+
 - SSL/TLS encryption (HTTPS)
 - Password hashing with bcrypt
 - JWT tokens for authentication
@@ -164,6 +182,7 @@ The platform consists of two primary user roles:
 - XSS and CSRF protection
 
 ### 4.3 Scalability
+
 - Microservices architecture ready
 - Horizontal scaling support
 - Database replication
@@ -171,12 +190,14 @@ The platform consists of two primary user roles:
 - Load balancing
 
 ### 4.4 Availability
+
 - 99.9% uptime SLA
 - Automated backups
 - Disaster recovery plan
 - Redundant systems
 
 ### 4.5 Usability
+
 - Responsive design (mobile, tablet, desktop)
 - Accessibility (WCAG 2.1 AA)
 - Intuitive navigation
@@ -188,6 +209,7 @@ The platform consists of two primary user roles:
 ## 5. Data Requirements
 
 ### 5.1 User Data
+
 - Profile information
 - Authentication credentials
 - Preferences and settings
@@ -196,6 +218,7 @@ The platform consists of two primary user roles:
 - Social connections
 
 ### 5.2 Service Data
+
 - Listings and descriptions
 - Pricing and availability
 - Images and media
@@ -204,6 +227,7 @@ The platform consists of two primary user roles:
 - Booking history
 
 ### 5.3 Transaction Data
+
 - Bookings and reservations
 - Payment records
 - Refunds and cancellations
@@ -211,6 +235,7 @@ The platform consists of two primary user roles:
 - Revenue tracking
 
 ### 5.4 Analytics Data
+
 - User behavior tracking
 - Engagement metrics
 - Revenue metrics
@@ -222,6 +247,7 @@ The platform consists of two primary user roles:
 ## 6. User Interface Requirements
 
 ### 6.1 Traveler Interface
+
 - Clean, intuitive home page
 - Advanced search and filters
 - Service detail pages
@@ -233,6 +259,7 @@ The platform consists of two primary user roles:
 - Payment management
 
 ### 6.2 Vendor Interface
+
 - Dashboard with key metrics
 - Listing management interface
 - Inventory/calendar view
@@ -247,18 +274,21 @@ The platform consists of two primary user roles:
 ## 7. Integration Requirements
 
 ### 7.1 Payment Processing
+
 - Stripe integration for payments
 - Wallet system
 - Refund processing
 - Tax calculation
 
 ### 7.2 Communication
+
 - Email notifications
 - In-app notifications
 - SMS notifications (optional)
 - Push notifications
 
 ### 7.3 Third-Party Services
+
 - Maps API for location services
 - Image hosting/CDN
 - Analytics platform
@@ -269,6 +299,7 @@ The platform consists of two primary user roles:
 ## 8. Service-Specific Requirements
 
 ### 8.1 Stays
+
 - Check-in/check-out dates
 - Guest capacity
 - Amenities listing
@@ -277,6 +308,7 @@ The platform consists of two primary user roles:
 - Rate per night
 
 ### 8.2 Flights
+
 - Departure/arrival airports
 - Date and time
 - Cabin class options
@@ -285,6 +317,7 @@ The platform consists of two primary user roles:
 - Flight duration
 
 ### 8.3 Experiences
+
 - Activity dates/times
 - Duration
 - Group size
@@ -293,6 +326,7 @@ The platform consists of two primary user roles:
 - Location details
 
 ### 8.4 Events
+
 - Event date and time
 - Venue location
 - Ticket categories
@@ -301,6 +335,7 @@ The platform consists of two primary user roles:
 - Event rules
 
 ### 8.5 Essentials
+
 - Service type specific details
 - Validity periods
 - Coverage details
@@ -312,6 +347,7 @@ The platform consists of two primary user roles:
 ## 9. AI Features Specifications
 
 ### 9.1 AI Planner
+
 - Personalized itinerary generation
 - Service recommendations
 - Optimal route planning
@@ -320,6 +356,7 @@ The platform consists of two primary user roles:
 - Export as PDF/document
 
 ### 9.2 AI Promotions
+
 - Inventory gap detection
 - Trend analysis
 - Discount recommendations
@@ -328,6 +365,7 @@ The platform consists of two primary user roles:
 - Auto-scheduling
 
 ### 9.3 Daily Inventory Scan
+
 - Automated daily execution
 - Booking cancellation detection
 - Occupancy analysis
@@ -337,6 +375,7 @@ The platform consists of two primary user roles:
 - User approval workflow
 
 ### 9.4 Recommendations Engine
+
 - Collaborative filtering
 - Content-based recommendations
 - Personalized suggestions
@@ -348,6 +387,7 @@ The platform consists of two primary user roles:
 ## 10. Reporting & Analytics
 
 ### 10.1 Traveler Analytics
+
 - Booking history
 - Favorite services
 - Spending patterns
@@ -355,6 +395,7 @@ The platform consists of two primary user roles:
 - Friends and connections
 
 ### 10.2 Vendor Analytics
+
 - Revenue reports
 - Occupancy analysis
 - Promotion effectiveness
@@ -363,6 +404,7 @@ The platform consists of two primary user roles:
 - Trend analysis
 
 ### 10.3 Admin Analytics
+
 - Platform metrics
 - User growth
 - Revenue tracking
@@ -374,24 +416,28 @@ The platform consists of two primary user roles:
 ## 11. Testing Requirements
 
 ### 11.1 Functional Testing
+
 - Unit tests for all features
 - Integration tests
 - End-to-end tests
 - API testing
 
 ### 11.2 Performance Testing
+
 - Load testing
 - Stress testing
 - Endurance testing
 - Scalability testing
 
 ### 11.3 Security Testing
+
 - Penetration testing
 - Vulnerability scanning
 - Authentication testing
 - Authorization testing
 
 ### 11.4 User Acceptance Testing
+
 - Traveler workflows
 - Vendor workflows
 - Edge case scenarios
@@ -401,6 +447,7 @@ The platform consists of two primary user roles:
 ## 12. Deployment & Operations
 
 ### 12.1 Deployment
+
 - CI/CD pipeline
 - Automated testing before deployment
 - Blue-green deployment
@@ -408,6 +455,7 @@ The platform consists of two primary user roles:
 - Zero-downtime updates
 
 ### 12.2 Monitoring
+
 - Application performance monitoring
 - Error tracking
 - Log aggregation
@@ -415,6 +463,7 @@ The platform consists of two primary user roles:
 - Health checks
 
 ### 12.3 Maintenance
+
 - Regular backups
 - Database optimization
 - Code updates
@@ -426,12 +475,14 @@ The platform consists of two primary user roles:
 ## 13. Constraints & Assumptions
 
 ### 13.1 Constraints
+
 - Browser compatibility: Modern browsers (Chrome, Firefox, Safari, Edge)
 - Mobile: iOS 12+, Android 8+
 - Internet connectivity required
 - Payment processing subject to provider terms
 
 ### 13.2 Assumptions
+
 - Users have stable internet connection
 - Users are 18+ for certain services
 - Vendors are registered businesses
@@ -466,18 +517,17 @@ The platform consists of two primary user roles:
 
 **Document Approval:**
 
-| Role | Name | Signature | Date |
-|------|------|-----------|------|
-| Project Manager | [TBD] | | |
-| Technical Lead | [TBD] | | |
-| Product Manager | [TBD] | | |
+| Role            | Name  | Signature | Date |
+| --------------- | ----- | --------- | ---- |
+| Project Manager | [TBD] |           |      |
+| Technical Lead  | [TBD] |           |      |
+| Product Manager | [TBD] |           |      |
 
 ---
 
 **Change History:**
 
-| Version | Date | Author | Changes |
-|---------|------|--------|---------|
-| 1.0 | Initial | [Author] | Initial creation |
-| 2.0 | Current | [Author] | Updated with all features |
-
+| Version | Date    | Author   | Changes                   |
+| ------- | ------- | -------- | ------------------------- |
+| 1.0     | Initial | [Author] | Initial creation          |
+| 2.0     | Current | [Author] | Updated with all features |

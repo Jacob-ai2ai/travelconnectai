@@ -110,7 +110,10 @@ export default function App() {
             />
             <Route path="/replace-options/:id" element={<ReplaceOptions />} />
             <Route path="/flight/:flightId" element={<FlightDetails />} />
-            <Route path="/experience/:experienceId" element={<ExperiencePage />} />
+            <Route
+              path="/experience/:experienceId"
+              element={<ExperiencePage />}
+            />
             <Route path="/event/:eventId" element={<EventPage />} />
             <Route path="/product/:productId" element={<ProductDetails />} />
             <Route
@@ -122,23 +125,41 @@ export default function App() {
             <Route path="/traveler-dashboard" element={<TravelerDashboard />} />
             <Route path="/traveler/bookings" element={<TravelerBookings />} />
             <Route path="/traveler/trips" element={<TravelerTrips />} />
-            <Route path="/traveler/trip/:tripId" element={<TravelerTripDetail />} />
+            <Route
+              path="/traveler/trip/:tripId"
+              element={<TravelerTripDetail />}
+            />
             <Route path="/traveler/favorites" element={<TravelerFavorites />} />
             <Route path="/traveler/friends" element={<TravelerFriends />} />
-            <Route path="/traveler/livestream" element={<TravelerLivestream />} />
+            <Route
+              path="/traveler/livestream"
+              element={<TravelerLivestream />}
+            />
             <Route path="/traveler/payments" element={<TravelerPayments />} />
-            <Route path="/traveler/complaints" element={<TravelerComplaints />} />
+            <Route
+              path="/traveler/complaints"
+              element={<TravelerComplaints />}
+            />
             <Route path="/vendor/select-type" element={<VendorTypeSelect />} />
-            <Route path="/vendor/create-listing" element={<VendorListingCreate />} />
+            <Route
+              path="/vendor/create-listing"
+              element={<VendorListingCreate />}
+            />
             <Route path="/vendor/my-listings" element={<VendorMyListings />} />
-            <Route path="/vendor/listing/:listingId" element={<VendorListingDetail />} />
+            <Route
+              path="/vendor/listing/:listingId"
+              element={<VendorListingDetail />}
+            />
             <Route path="/vendor/promotions" element={<VendorPromotions />} />
             <Route path="/vendor/orders" element={<VendorOrders />} />
             <Route path="/vendor/team" element={<VendorTeam />} />
             <Route path="/vendor/livestream" element={<VendorLivestream />} />
             <Route path="/vendor/payments" element={<VendorPayments />} />
             <Route path="/vendor/analytics" element={<VendorAnalytics />} />
-            <Route path="/vendor/booking-calendars" element={<BookingCalendars />} />
+            <Route
+              path="/vendor/booking-calendars"
+              element={<BookingCalendars />}
+            />
             <Route path="/vendor/documents" element={<VendorDocuments />} />
             <Route path="/vendor/demo-setup" element={<VendorDemoSetup />} />
             <Route path="/profile" element={<ProfilePage />} />
