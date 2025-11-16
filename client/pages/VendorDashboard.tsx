@@ -11,6 +11,7 @@ import {
   DollarSign,
   Sparkles,
   ArrowRight,
+  FileText,
 } from 'lucide-react';
 
 interface VendorInfo {
@@ -192,6 +193,14 @@ export default function VendorDashboard() {
       icon: BarChart3,
       route: '/vendor/booking-calendars',
       color: 'bg-cyan-100 text-cyan-800',
+    },
+    {
+      id: 'documents',
+      title: 'Documentation',
+      description: 'Download SRS and product guides',
+      icon: FileText,
+      route: '/vendor/documents',
+      color: 'bg-teal-100 text-teal-800',
     },
   ];
 
