@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Plus, Trash2, Edit2, Sparkles, TrendingUp, Calendar } from 'lucide-react';
+import { ArrowLeft, Plus, Trash2, Edit2, Sparkles, TrendingUp, Calendar, Grid3x3, List } from 'lucide-react';
 
 interface Promotion {
   id: string;
