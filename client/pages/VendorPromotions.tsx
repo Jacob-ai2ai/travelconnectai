@@ -3,27 +3,17 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Plus, Trash2, Edit2, Sparkles, TrendingUp, Calendar, Grid3x3, List } from 'lucide-react';
-
-interface Promotion {
-  id: string;
-  name: string;
-  description: string;
-  serviceType: 'all' | 'stays' | 'flights' | 'experiences' | 'events' | 'essentials';
-  discountType: 'percentage' | 'fixed';
-  discountValue: number;
-  startDate: string;
-  endDate: string;
-  status: 'active' | 'scheduled' | 'expired';
-  applicableListings: number;
-  usageCount: number;
-}
+import { ArrowLeft, Plus, Trash2, Edit2, Sparkles, TrendingUp, Calendar, Grid3x3, List, Zap } from 'lucide-react';
+import { Promotion } from '@/types/promotions';
+import AIPromotionDialog from '@/components/AIPromotionDialog';
 
 export default function VendorPromotions() {
   const [promotions, setPromotions] = useState<Promotion[]>([]);
   const [statusFilter, setStatusFilter] = useState('all');
   const [serviceFilter, setServiceFilter] = useState('all');
   const [viewMode, setViewMode] = useState<'tile' | 'list'>('tile');
+  const [showAIDialog, setShowAIDialog] = useState(false);
+  const [selectedServiceForAI, setSelectedServiceForAI] = useState('stays');
 
   useEffect(() => {
     const savedPromotions = localStorage.getItem('vendorPromotions');
@@ -125,6 +115,18 @@ export default function VendorPromotions() {
     localStorage.setItem('vendorPromotions', JSON.stringify(updated));
   };
 
+  const handleAIPromotionApprove = (promotion: Promotion) => {
+    const updated = [...promotions, promotion];
+    setPromotions(updated);
+    localStorage.setItem('vendorPromotions', JSON.stringify(updated));
+    setShowAIDialog(false);
+  };
+
+  const openAIDialog = (serviceType: string) => {
+    setSelectedServiceForAI(serviceType);
+    setShowAIDialog(true);
+  };
+
   const filteredPromotions = getFilteredPromotions();
   const activeCount = promotions.filter((p) => p.status === 'active').length;
   const totalUsage = promotions.reduce((sum, p) => sum + p.usageCount, 0);
@@ -166,6 +168,14 @@ export default function VendorPromotions() {
               >
                 <List className="h-4 w-4" />
                 List
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => openAIDialog(serviceFilter !== 'all' ? serviceFilter : 'stays')}
+                className="gap-2 text-orange-600 border-orange-200 hover:bg-orange-50"
+              >
+                <Zap className="h-4 w-4" />
+                AI Promotion
               </Button>
               <Button className="bg-travel-blue hover:bg-travel-blue/90">
                 <Plus className="h-4 w-4 mr-2" />
