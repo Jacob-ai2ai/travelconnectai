@@ -287,6 +287,11 @@ export default function VendorDashboard() {
             );
           })}
         </div>
+
+        {/* Booking Calendar Tile */}
+        <div className="mt-12">
+          <BookingCalendar inventories={inventories} />
+        </div>
       </div>
     </div>
   );
