@@ -103,6 +103,7 @@ export default function App() {
             />
             <Route path="/vendors" element={<VendorCategories />} />
             <Route path="/vendor-dashboard" element={<VendorDashboard />} />
+            <Route path="/traveler-dashboard" element={<TravelerDashboard />} />
             <Route path="/vendor/select-type" element={<VendorTypeSelect />} />
             <Route path="/vendor/create-listing" element={<VendorListingCreate />} />
             <Route path="/vendor/my-listings" element={<VendorMyListings />} />
