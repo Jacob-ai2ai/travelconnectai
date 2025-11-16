@@ -480,33 +480,67 @@ export default function DocumentDownload() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid md:grid-cols-3 gap-4">
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-travel-green/10 rounded-lg flex items-center justify-center mx-auto mb-2">
-                    <Users className="h-6 w-6 text-travel-green" />
-                  </div>
-                  <h4 className="font-semibold mb-1">For Developers</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Implementation guidelines and technical specifications
-                  </p>
-                </div>
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-travel-orange/10 rounded-lg flex items-center justify-center mx-auto mb-2">
-                    <Shield className="h-6 w-6 text-travel-orange" />
-                  </div>
-                  <h4 className="font-semibold mb-1">For Stakeholders</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Business requirements and project scope overview
-                  </p>
-                </div>
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-travel-purple/10 rounded-lg flex items-center justify-center mx-auto mb-2">
-                    <FileCheck className="h-6 w-6 text-travel-purple" />
-                  </div>
-                  <h4 className="font-semibold mb-1">For QA Teams</h4>
-                  <p className="text-sm text-muted-foreground">
-                    Testing requirements and acceptance criteria
-                  </p>
-                </div>
+                {selectedDocument === "srs" ? (
+                  <>
+                    <div className="text-center">
+                      <div className="w-12 h-12 bg-travel-green/10 rounded-lg flex items-center justify-center mx-auto mb-2">
+                        <Users className="h-6 w-6 text-travel-green" />
+                      </div>
+                      <h4 className="font-semibold mb-1">For Developers</h4>
+                      <p className="text-sm text-muted-foreground">
+                        Implementation guidelines and technical specifications
+                      </p>
+                    </div>
+                    <div className="text-center">
+                      <div className="w-12 h-12 bg-travel-orange/10 rounded-lg flex items-center justify-center mx-auto mb-2">
+                        <Shield className="h-6 w-6 text-travel-orange" />
+                      </div>
+                      <h4 className="font-semibold mb-1">For Stakeholders</h4>
+                      <p className="text-sm text-muted-foreground">
+                        Business requirements and project scope overview
+                      </p>
+                    </div>
+                    <div className="text-center">
+                      <div className="w-12 h-12 bg-travel-purple/10 rounded-lg flex items-center justify-center mx-auto mb-2">
+                        <FileCheck className="h-6 w-6 text-travel-purple" />
+                      </div>
+                      <h4 className="font-semibold mb-1">For QA Teams</h4>
+                      <p className="text-sm text-muted-foreground">
+                        Testing requirements and acceptance criteria
+                      </p>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="text-center">
+                      <div className="w-12 h-12 bg-travel-green/10 rounded-lg flex items-center justify-center mx-auto mb-2">
+                        <Users className="h-6 w-6 text-travel-green" />
+                      </div>
+                      <h4 className="font-semibold mb-1">For Sales Teams</h4>
+                      <p className="text-sm text-muted-foreground">
+                        Platform capabilities and customer value proposition
+                      </p>
+                    </div>
+                    <div className="text-center">
+                      <div className="w-12 h-12 bg-travel-orange/10 rounded-lg flex items-center justify-center mx-auto mb-2">
+                        <Shield className="h-6 w-6 text-travel-orange" />
+                      </div>
+                      <h4 className="font-semibold mb-1">For Partners</h4>
+                      <p className="text-sm text-muted-foreground">
+                        Integration capabilities and platform overview
+                      </p>
+                    </div>
+                    <div className="text-center">
+                      <div className="w-12 h-12 bg-travel-purple/10 rounded-lg flex items-center justify-center mx-auto mb-2">
+                        <FileCheck className="h-6 w-6 text-travel-purple" />
+                      </div>
+                      <h4 className="font-semibold mb-1">For Management</h4>
+                      <p className="text-sm text-muted-foreground">
+                        Strategic overview and business capabilities
+                      </p>
+                    </div>
+                  </>
+                )}
               </div>
             </CardContent>
           </Card>
