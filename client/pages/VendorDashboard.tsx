@@ -279,34 +279,6 @@ export default function VendorDashboard() {
             );
           })}
         </div>
-
-        {/* Quick Stats */}
-        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Card>
-            <CardContent className="pt-6 text-center">
-              <p className="text-3xl font-bold text-travel-blue">{listingCount}</p>
-              <p className="text-sm text-muted-foreground">Total Listings</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6 text-center">
-              <p className="text-3xl font-bold text-travel-blue">{mockOrders.total}</p>
-              <p className="text-sm text-muted-foreground">Total Orders</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6 text-center">
-              <p className="text-3xl font-bold text-travel-blue">${vendorInfo.revenue.toLocaleString()}</p>
-              <p className="text-sm text-muted-foreground">Total Revenue</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6 text-center">
-              <p className="text-3xl font-bold text-travel-blue">{vendorInfo.rating}</p>
-              <p className="text-sm text-muted-foreground">Business Rating</p>
-            </CardContent>
-          </Card>
-        </div>
       </div>
     </div>
   );
