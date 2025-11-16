@@ -98,8 +98,24 @@ export default function TravelerFriends() {
   };
 
   const getFilteredFriends = () => {
-    if (statusFilter === 'all') return friends;
-    return friends.filter((f) => f.status === statusFilter);
+    let filtered = friends;
+
+    // Apply status filter
+    if (statusFilter !== 'all') {
+      filtered = filtered.filter((f) => f.status === statusFilter);
+    }
+
+    // Apply search filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(
+        (f) =>
+          f.name.toLowerCase().includes(query) ||
+          (f.email && f.email.toLowerCase().includes(query))
+      );
+    }
+
+    return filtered;
   };
 
   const handleRemoveFriend = (id: string) => {
