@@ -83,6 +83,48 @@ export default function VendorPromotions() {
         applicableListings: 4,
         usageCount: 89,
       },
+      {
+        id: 'ai-1',
+        name: 'Remote Work Retreats',
+        description: 'Perfect for remote workers. Book a stay and get 12% off coworking spaces.',
+        serviceType: 'stays',
+        discountType: 'percentage',
+        discountValue: 12,
+        startDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),
+        endDate: new Date(Date.now() + 35 * 24 * 60 * 60 * 1000).toISOString(),
+        status: 'scheduled',
+        applicableListings: 2,
+        usageCount: 0,
+        aiGenerated: true,
+        aiAnalysis: {
+          trend: 'Remote Work Retreats',
+          trendPopularity: 92,
+          peakSeason: 'Year-round',
+          reasoning:
+            'HIGH inventory pressure detected. The "Remote Work Retreats" trend is gaining momentum with 92% popularity among travelers. This balanced promotion balances conversion rate with margin preservation.',
+        },
+      },
+      {
+        id: 'ai-2',
+        name: 'Local Authentic Experiences Special',
+        description: 'Discover authentic local experiences. 18% off curated activities.',
+        serviceType: 'experiences',
+        discountType: 'percentage',
+        discountValue: 18,
+        startDate: new Date(Date.now() + 8 * 24 * 60 * 60 * 1000).toISOString(),
+        endDate: new Date(Date.now() + 38 * 24 * 60 * 60 * 1000).toISOString(),
+        status: 'draft',
+        applicableListings: 3,
+        usageCount: 0,
+        aiGenerated: true,
+        aiAnalysis: {
+          trend: 'Local Authentic Experiences',
+          trendPopularity: 90,
+          peakSeason: 'Year-round with peaks on weekends',
+          reasoning:
+            'MODERATE inventory pressure detected. The "Local Authentic Experiences" trend is gaining momentum with 90% popularity among travelers. This strategic offer positions you competitively in a crowded market.',
+        },
+      },
     ];
     setPromotions(demoPromotions);
     localStorage.setItem('vendorPromotions', JSON.stringify(demoPromotions));
