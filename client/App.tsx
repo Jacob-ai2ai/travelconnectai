@@ -36,6 +36,7 @@ import VendorLivestream from "./pages/VendorLivestream";
 import VendorPayments from "./pages/VendorPayments";
 import VendorAnalytics from "./pages/VendorAnalytics";
 import BookingCalendars from "./pages/BookingCalendars";
+import VendorDocuments from "./pages/VendorDocuments";
 import TravelerDashboard from "./pages/TravelerDashboard";
 import TravelerBookings from "./pages/TravelerBookings";
 import TravelerTrips from "./pages/TravelerTrips";
@@ -138,6 +139,7 @@ export default function App() {
             <Route path="/vendor/payments" element={<VendorPayments />} />
             <Route path="/vendor/analytics" element={<VendorAnalytics />} />
             <Route path="/vendor/booking-calendars" element={<BookingCalendars />} />
+            <Route path="/vendor/documents" element={<VendorDocuments />} />
             <Route path="/vendor/demo-setup" element={<VendorDemoSetup />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/edit-profile" element={<EditProfile />} />
