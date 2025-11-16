@@ -169,20 +169,34 @@ export default function TravelerFriends() {
           </div>
         </div>
 
-        {/* Filter */}
+        {/* Search and Filter */}
         <Card className="mb-6">
           <CardContent className="pt-6">
-            <div>
-              <label className="text-sm font-medium block mb-2">Filter by Status:</label>
-              <select
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
-                className="w-full md:w-64 border rounded-lg p-2 text-sm"
-              >
-                <option value="all">All Friends ({friends.length})</option>
-                <option value="active">Active ({activeFriends})</option>
-                <option value="offline">Offline ({friends.length - activeFriends})</option>
-              </select>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Search bar */}
+              <div>
+                <label className="text-sm font-medium block mb-2">Find New Friends:</label>
+                <Input
+                  placeholder="Search by name or email..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full"
+                />
+              </div>
+
+              {/* Status filter */}
+              <div>
+                <label className="text-sm font-medium block mb-2">Filter by Status:</label>
+                <select
+                  value={statusFilter}
+                  onChange={(e) => setStatusFilter(e.target.value)}
+                  className="w-full border rounded-lg p-2 text-sm"
+                >
+                  <option value="all">All Friends ({friends.length})</option>
+                  <option value="active">Active ({activeFriends})</option>
+                  <option value="offline">Offline ({friends.length - activeFriends})</option>
+                </select>
+              </div>
             </div>
           </CardContent>
         </Card>
