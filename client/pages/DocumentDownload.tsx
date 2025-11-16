@@ -187,23 +187,23 @@ export default function DocumentDownload() {
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Document Type:</span>
                   <span className="font-medium">
-                    Software Requirements Specification
+                    {selectedDocument === "srs" ? "Software Requirements Specification" : "Product Descriptions"}
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Version:</span>
-                  <span className="font-medium">{documentInfo.version}</span>
+                  <span className="font-medium">{documentInfo[selectedDocument].version}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Last Updated:</span>
                   <span className="font-medium flex items-center">
                     <Calendar className="h-4 w-4 mr-1" />
-                    {documentInfo.date}
+                    {documentInfo[selectedDocument].date}
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">File Size:</span>
-                  <span className="font-medium">{documentInfo.fileSize}</span>
+                  <span className="font-medium">{documentInfo[selectedDocument].fileSize}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Language:</span>
