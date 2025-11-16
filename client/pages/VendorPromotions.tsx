@@ -421,6 +421,14 @@ export default function VendorPromotions() {
             </Card>
           </div>
         )}
+
+        {/* AI Promotion Dialog */}
+        <AIPromotionDialog
+          open={showAIDialog}
+          onOpenChange={setShowAIDialog}
+          serviceType={selectedServiceForAI}
+          onPromotionApprove={handleAIPromotionApprove}
+        />
       </div>
     </div>
   );
