@@ -23,6 +23,7 @@ type Post = {
 function uid(prefix = ''){ return prefix + Math.random().toString(36).slice(2,9); }
 
 export default function ProfilePage(){
+  const navigate = useNavigate();
   const [user, setUser] = useState<User | null>(null);
   const [posts, setPosts] = useState<Post[]>([]);
 
