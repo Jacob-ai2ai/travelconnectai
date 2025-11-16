@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
-import BookingCalendar from '@/components/BookingCalendar';
-import { generateMockInventories } from '@/lib/inventoryManager';
 import {
   ShoppingCart,
   Home,
@@ -62,7 +60,6 @@ export default function VendorDashboard() {
   const [vendorInfo, setVendorInfo] = useState<VendorInfo | null>(null);
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [listingCount, setListingCount] = useState(0);
-  const [inventories, setInventories] = useState<any[]>([]);
 
   useEffect(() => {
     const signedIn = localStorage.getItem('isSignedIn') === 'true';
@@ -118,9 +115,6 @@ export default function VendorDashboard() {
       setListingCount(dummyListings.length);
     }
 
-    // Generate mock inventories for calendar
-    const mockInventories = generateMockInventories(listingsToUse);
-    setInventories(mockInventories);
   }, []);
 
   const tiles: DashboardTile[] = [
@@ -190,6 +184,14 @@ export default function VendorDashboard() {
       icon: Settings,
       route: '/edit-profile',
       color: 'bg-gray-100 text-gray-800',
+    },
+    {
+      id: 'bookings',
+      title: 'Booking Calendars',
+      description: 'View inventory and booking status',
+      icon: BarChart3,
+      route: '/vendor/booking-calendars',
+      color: 'bg-cyan-100 text-cyan-800',
     },
   ];
 
@@ -288,10 +290,6 @@ export default function VendorDashboard() {
           })}
         </div>
 
-        {/* Booking Calendar Tile */}
-        <div className="mt-12">
-          <BookingCalendar inventories={inventories} />
-        </div>
       </div>
     </div>
   );
