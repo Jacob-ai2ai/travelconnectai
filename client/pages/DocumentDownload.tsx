@@ -62,15 +62,22 @@ export default function DocumentDownload() {
     }
   };
 
-  const documentInfo = {
-    title: "Software Requirements Specification (SRS)",
-    subtitle: "Traveltheworld.ai Platform",
-    version: "1.0",
-    date: "December 2024",
-    pages: "45+",
-    sections: 11,
-    requirements: "200+",
-    fileSize: "2.5 MB",
+  const documentInfo: Record<DocumentType, { version: string; date: string; pages: string; sections: number; requirements?: string; fileSize: string }> = {
+    srs: {
+      version: "1.0",
+      date: "December 2024",
+      pages: "45+",
+      sections: 11,
+      requirements: "200+",
+      fileSize: "2.5 MB",
+    },
+    product: {
+      version: "1.0",
+      date: "December 2024",
+      pages: "30+",
+      sections: 7,
+      fileSize: "1.8 MB",
+    },
   };
 
   const keyFeatures = [
