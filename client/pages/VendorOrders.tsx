@@ -208,106 +208,249 @@ export default function VendorOrders() {
         <h1 className="text-3xl font-bold mb-2">All Orders</h1>
         <p className="text-muted-foreground mb-6">Track orders and customer requests</p>
 
+        {/* Summary Stats at TOP */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <Card>
+            <CardContent className="pt-6 text-center">
+              <p className="text-3xl font-bold text-travel-blue">{orders.length}</p>
+              <p className="text-sm text-muted-foreground">Total Orders</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-6 text-center">
+              <p className="text-3xl font-bold text-travel-blue">
+                ${orders.reduce((sum, o) => sum + o.amount, 0).toLocaleString()}
+              </p>
+              <p className="text-sm text-muted-foreground">Total Revenue</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-6 text-center">
+              <p className="text-3xl font-bold text-green-600">
+                {orders.filter((o) => o.status === 'completed').length}
+              </p>
+              <p className="text-sm text-muted-foreground">Completed</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-6 text-center">
+              <p className="text-3xl font-bold text-yellow-600">
+                {orders.filter((o) => o.status === 'pending').length}
+              </p>
+              <p className="text-sm text-muted-foreground">Pending</p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Filters and View Controls */}
         <Card className="mb-6">
-          <CardContent className="pt-6">
-            <select
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full md:w-64 border rounded-lg p-2 text-sm"
-            >
-              <option value="all">All Orders ({orders.length})</option>
-              <option value="pending">Pending ({orders.filter((o) => o.status === 'pending').length})</option>
-              <option value="confirmed">Confirmed ({orders.filter((o) => o.status === 'confirmed').length})</option>
-              <option value="completed">Completed ({orders.filter((o) => o.status === 'completed').length})</option>
-              <option value="cancelled">Cancelled ({orders.filter((o) => o.status === 'cancelled').length})</option>
-            </select>
+          <CardContent className="pt-6 space-y-4">
+            {/* Filters Row 1 */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div>
+                <label className="text-xs font-semibold text-muted-foreground mb-2 block">Service Type</label>
+                <select
+                  value={serviceFilter}
+                  onChange={(e) => setServiceFilter(e.target.value)}
+                  className="w-full border rounded-lg p-2 text-sm"
+                >
+                  <option value="all">All Services ({orders.length})</option>
+                  <option value="stays">Stays ({orders.filter((o) => o.serviceType === 'stays').length})</option>
+                  <option value="flights">Flights ({orders.filter((o) => o.serviceType === 'flights').length})</option>
+                  <option value="experiences">Experiences ({orders.filter((o) => o.serviceType === 'experiences').length})</option>
+                  <option value="events">Events ({orders.filter((o) => o.serviceType === 'events').length})</option>
+                  <option value="essentials">Essentials ({orders.filter((o) => o.serviceType === 'essentials').length})</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="text-xs font-semibold text-muted-foreground mb-2 block">Status</label>
+                <select
+                  value={statusFilter}
+                  onChange={(e) => setStatusFilter(e.target.value)}
+                  className="w-full border rounded-lg p-2 text-sm"
+                >
+                  <option value="all">All Statuses ({orders.length})</option>
+                  <option value="pending">Pending ({orders.filter((o) => o.status === 'pending').length})</option>
+                  <option value="confirmed">Confirmed ({orders.filter((o) => o.status === 'confirmed').length})</option>
+                  <option value="completed">Completed ({orders.filter((o) => o.status === 'completed').length})</option>
+                  <option value="cancelled">Cancelled ({orders.filter((o) => o.status === 'cancelled').length})</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="text-xs font-semibold text-muted-foreground mb-2 block">Date Range</label>
+                <select
+                  value={dateRange}
+                  onChange={(e) => setDateRange(e.target.value)}
+                  className="w-full border rounded-lg p-2 text-sm"
+                >
+                  <option value="all">All Time</option>
+                  <option value="today">Today</option>
+                  <option value="week">Last 7 Days</option>
+                  <option value="month">Last 30 Days</option>
+                  <option value="quarter">Last 90 Days</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="text-xs font-semibold text-muted-foreground mb-2 block">Sort By</label>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="w-full border rounded-lg p-2 text-sm"
+                >
+                  <option value="newest">Newest First</option>
+                  <option value="oldest">Oldest First</option>
+                  <option value="highestAmount">Highest Amount</option>
+                  <option value="lowestAmount">Lowest Amount</option>
+                </select>
+              </div>
+            </div>
+
+            {/* View Toggle */}
+            <div className="flex items-center justify-between pt-2 border-t">
+              <div className="flex gap-2">
+                <Button
+                  variant={viewMode === 'tile' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setViewMode('tile')}
+                  className="gap-2"
+                >
+                  <Grid3x3 className="h-4 w-4" />
+                  Tile View
+                </Button>
+                <Button
+                  variant={viewMode === 'list' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setViewMode('list')}
+                  className="gap-2"
+                >
+                  <List className="h-4 w-4" />
+                  List View
+                </Button>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Showing {filteredOrders.length} of {orders.length} orders
+              </p>
+            </div>
           </CardContent>
         </Card>
 
-        <div className="space-y-4">
-          {filteredOrders.map((order) => (
-            <Card key={order.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-              <CardContent className="p-6">
-                <div className="flex items-start justify-between gap-4 mb-4">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <ShoppingCart className="h-5 w-5 text-travel-blue" />
+        {/* Orders Display - Tile View */}
+        {viewMode === 'tile' && (
+          <div className="grid md:grid-cols-2 gap-6">
+            {filteredOrders.map((order) => (
+              <Card key={order.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+                <CardContent className="p-6 space-y-4">
+                  <div className="flex items-start justify-between">
+                    <div>
                       <h3 className="font-semibold text-lg">{order.orderNumber}</h3>
-                      <Badge className={`${getStatusColor(order.status)} capitalize`}>{order.status}</Badge>
+                      <p className="text-sm text-muted-foreground">{order.listingTitle}</p>
                     </div>
-                    <p className="text-muted-foreground mb-3">{order.listingTitle}</p>
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                      <div className="flex items-center gap-1">
-                        <User className="h-4 w-4" />
-                        <span>{order.customerName}</span>
+                    <Badge className={`${getStatusColor(order.status)} capitalize`}>{order.status}</Badge>
+                  </div>
+
+                  <Badge className={`${getServiceColor(order.serviceType)} capitalize text-xs`}>
+                    {order.serviceType}
+                  </Badge>
+
+                  <div className="space-y-2 text-sm">
+                    <div className="flex items-center gap-2">
+                      <User className="h-4 w-4 text-muted-foreground" />
+                      <span>{order.customerName}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Mail className="h-4 w-4 text-muted-foreground" />
+                      <span className="text-xs">{order.customerEmail}</span>
+                    </div>
+                  </div>
+
+                  <div className="pt-2 border-t flex items-center justify-between">
+                    <div>
+                      <p className="text-2xl font-bold text-travel-blue">${order.amount}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {new Date(order.createdAt).toLocaleDateString()}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <Button variant="outline" size="sm" className="flex-1">
+                      View Details
+                    </Button>
+                    <Button size="sm" className="flex-1">
+                      Update Status
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
+
+        {/* Orders Display - List View */}
+        {viewMode === 'list' && (
+          <div className="space-y-3">
+            {filteredOrders.map((order) => (
+              <Card key={order.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-3 mb-2">
+                        <ShoppingCart className="h-5 w-5 text-travel-blue flex-shrink-0" />
+                        <h3 className="font-semibold">{order.orderNumber}</h3>
+                        <Badge className={`${getStatusColor(order.status)} capitalize text-xs`}>
+                          {order.status}
+                        </Badge>
+                        <Badge className={`${getServiceColor(order.serviceType)} capitalize text-xs`}>
+                          {order.serviceType}
+                        </Badge>
                       </div>
-                      <div className="flex items-center gap-1">
-                        <Mail className="h-4 w-4" />
-                        <span>{order.customerEmail}</span>
+                      <p className="text-sm text-muted-foreground mb-2">{order.listingTitle}</p>
+                      <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                        <div className="flex items-center gap-1">
+                          <User className="h-3 w-3" />
+                          <span>{order.customerName}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Mail className="h-3 w-3" />
+                          <span>{order.customerEmail}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-4 flex-shrink-0">
+                      <div className="text-right">
+                        <p className="text-xl font-bold text-travel-blue">${order.amount}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {new Date(order.createdAt).toLocaleDateString()}
+                        </p>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button variant="outline" size="sm">
+                          View Details
+                        </Button>
+                        <Button size="sm">
+                          Update
+                        </Button>
                       </div>
                     </div>
                   </div>
-                  <div className="text-right flex-shrink-0">
-                    <p className="text-2xl font-bold text-travel-blue">${order.amount}</p>
-                    <p className="text-xs text-muted-foreground mt-2">
-                      {new Date(order.createdAt).toLocaleDateString()}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex gap-2 pt-4 border-t">
-                  <Button variant="outline" size="sm" className="flex-1">
-                    View Details
-                  </Button>
-                  <Button size="sm" className="flex-1">
-                    Update Status
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
 
         {filteredOrders.length === 0 && (
           <Card className="text-center py-12">
-            <CardContent>
-              <p className="text-muted-foreground">No orders found.</p>
+            <CardContent className="space-y-2">
+              <TrendingUp className="h-12 w-12 mx-auto text-muted-foreground" />
+              <p className="text-muted-foreground">No orders found matching your filters.</p>
+              <p className="text-xs text-muted-foreground">Try adjusting your filters to see more results.</p>
             </CardContent>
           </Card>
-        )}
-
-        {filteredOrders.length > 0 && (
-          <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Card>
-              <CardContent className="pt-6 text-center">
-                <p className="text-3xl font-bold text-travel-blue">{orders.length}</p>
-                <p className="text-sm text-muted-foreground">Total Orders</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="pt-6 text-center">
-                <p className="text-3xl font-bold text-travel-blue">
-                  ${orders.reduce((sum, o) => sum + o.amount, 0).toLocaleString()}
-                </p>
-                <p className="text-sm text-muted-foreground">Total Revenue</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="pt-6 text-center">
-                <p className="text-3xl font-bold text-green-600">
-                  {orders.filter((o) => o.status === 'completed').length}
-                </p>
-                <p className="text-sm text-muted-foreground">Completed</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="pt-6 text-center">
-                <p className="text-3xl font-bold text-yellow-600">
-                  {orders.filter((o) => o.status === 'pending').length}
-                </p>
-                <p className="text-sm text-muted-foreground">Pending</p>
-              </CardContent>
-            </Card>
-          </div>
         )}
       </div>
     </div>
