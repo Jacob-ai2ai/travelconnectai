@@ -224,34 +224,74 @@ export default function DocumentDownload() {
                 <div className="space-y-3">
                   <Button
                     onClick={() => handleDownload("pdf")}
+                    disabled={isDownloading}
                     className="w-full justify-start bg-red-600 hover:bg-red-700"
                   >
-                    <FileDown className="h-4 w-4 mr-2" />
-                    Download PDF (Recommended)
+                    {isDownloading ? (
+                      <>
+                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                        Generating PDF...
+                      </>
+                    ) : (
+                      <>
+                        <FileDown className="h-4 w-4 mr-2" />
+                        Download PDF (Recommended)
+                      </>
+                    )}
                   </Button>
                   <Button
                     onClick={() => handleDownload("docx")}
+                    disabled={isDownloading}
                     variant="outline"
                     className="w-full justify-start"
                   >
-                    <FileDown className="h-4 w-4 mr-2" />
-                    Download Word Document (.docx)
+                    {isDownloading ? (
+                      <>
+                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                        Generating...
+                      </>
+                    ) : (
+                      <>
+                        <FileDown className="h-4 w-4 mr-2" />
+                        Download Word Document (.docx)
+                      </>
+                    )}
                   </Button>
                   <Button
                     onClick={() => handleDownload("md")}
+                    disabled={isDownloading}
                     variant="outline"
                     className="w-full justify-start"
                   >
-                    <FileDown className="h-4 w-4 mr-2" />
-                    Download Markdown (.md)
+                    {isDownloading ? (
+                      <>
+                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                        Generating...
+                      </>
+                    ) : (
+                      <>
+                        <FileDown className="h-4 w-4 mr-2" />
+                        Download Markdown (.md)
+                      </>
+                    )}
                   </Button>
                   <Button
                     onClick={() => handleDownload("txt")}
+                    disabled={isDownloading}
                     variant="outline"
                     className="w-full justify-start"
                   >
-                    <FileDown className="h-4 w-4 mr-2" />
-                    Download Text File (.txt)
+                    {isDownloading ? (
+                      <>
+                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                        Generating...
+                      </>
+                    ) : (
+                      <>
+                        <FileDown className="h-4 w-4 mr-2" />
+                        Download Text File (.txt)
+                      </>
+                    )}
                   </Button>
                 </div>
                 <div className="pt-4 border-t">
