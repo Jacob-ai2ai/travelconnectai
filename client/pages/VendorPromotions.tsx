@@ -214,85 +214,159 @@ export default function VendorPromotions() {
           </CardContent>
         </Card>
 
-        {/* Promotions Grid */}
+        {/* Promotions View */}
         {filteredPromotions.length > 0 ? (
-          <div className="grid md:grid-cols-2 gap-6">
-            {filteredPromotions.map((promotion) => (
-              <Card key={promotion.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                <CardHeader className="pb-3">
-                  <div className="flex items-start justify-between mb-2">
-                    <Badge className={`${getStatusColor(promotion.status)} capitalize`}>
-                      {promotion.status}
-                    </Badge>
-                  </div>
-                  <CardTitle className="text-lg line-clamp-2 flex items-center gap-2">
-                    <Sparkles className="h-5 w-5 text-orange-500" />
-                    {promotion.name}
-                  </CardTitle>
-                  <p className="text-sm text-muted-foreground mt-1">{promotion.description}</p>
-                </CardHeader>
+          viewMode === 'tile' ? (
+            // Tile View
+            <div className="grid md:grid-cols-2 gap-6">
+              {filteredPromotions.map((promotion) => (
+                <Card key={promotion.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+                  <CardHeader className="pb-3">
+                    <div className="flex items-start justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        <Badge className={`${getStatusColor(promotion.status)} capitalize text-xs`}>
+                          {promotion.status}
+                        </Badge>
+                        <Badge className="bg-gray-100 text-gray-800 text-xs capitalize">
+                          {promotion.serviceType}
+                        </Badge>
+                      </div>
+                    </div>
+                    <CardTitle className="text-lg line-clamp-2 flex items-center gap-2">
+                      <Sparkles className="h-5 w-5 text-orange-500" />
+                      {promotion.name}
+                    </CardTitle>
+                    <p className="text-sm text-muted-foreground mt-1">{promotion.description}</p>
+                  </CardHeader>
 
-                <CardContent className="space-y-4">
-                  {/* Discount Info */}
-                  <div className="p-3 bg-muted rounded-lg">
-                    <p className="text-2xl font-bold text-travel-blue">
-                      {promotion.discountType === 'percentage'
-                        ? `${promotion.discountValue}%`
-                        : `$${promotion.discountValue}`}
-                      <span className="text-sm font-normal text-muted-foreground ml-2">
-                        {promotion.discountType === 'percentage' ? 'off' : 'discount'}
+                  <CardContent className="space-y-4">
+                    {/* Discount Info */}
+                    <div className="p-3 bg-muted rounded-lg">
+                      <p className="text-2xl font-bold text-travel-blue">
+                        {promotion.discountType === 'percentage'
+                          ? `${promotion.discountValue}%`
+                          : `$${promotion.discountValue}`}
+                        <span className="text-sm font-normal text-muted-foreground ml-2">
+                          {promotion.discountType === 'percentage' ? 'off' : 'discount'}
+                        </span>
+                      </p>
+                    </div>
+
+                    {/* Date Range */}
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Calendar className="h-4 w-4" />
+                      <span>
+                        {new Date(promotion.startDate).toLocaleDateString('en-US', {
+                          month: 'short',
+                          day: 'numeric',
+                        })}{' '}
+                        -{' '}
+                        {new Date(promotion.endDate).toLocaleDateString('en-US', {
+                          month: 'short',
+                          day: 'numeric',
+                        })}
                       </span>
-                    </p>
-                  </div>
-
-                  {/* Date Range */}
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Calendar className="h-4 w-4" />
-                    <span>
-                      {new Date(promotion.startDate).toLocaleDateString('en-US', {
-                        month: 'short',
-                        day: 'numeric',
-                      })}{' '}
-                      -{' '}
-                      {new Date(promotion.endDate).toLocaleDateString('en-US', {
-                        month: 'short',
-                        day: 'numeric',
-                      })}
-                    </span>
-                  </div>
-
-                  {/* Stats */}
-                  <div className="grid grid-cols-2 gap-3 text-sm">
-                    <div className="p-2 bg-muted rounded">
-                      <p className="text-muted-foreground text-xs">Applicable Listings</p>
-                      <p className="font-semibold">{promotion.applicableListings}</p>
                     </div>
-                    <div className="p-2 bg-muted rounded">
-                      <p className="text-muted-foreground text-xs">Usage Count</p>
-                      <p className="font-semibold">{promotion.usageCount}</p>
-                    </div>
-                  </div>
 
-                  {/* Actions */}
-                  <div className="flex gap-2 pt-2 border-t">
-                    <Button variant="outline" size="sm" className="flex-1">
-                      <Edit2 className="h-4 w-4 mr-1" />
-                      Edit
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="flex-1 text-red-600 hover:text-red-600"
-                      onClick={() => handleDeletePromotion(promotion.id)}
-                    >
-                      <Trash2 className="h-4 w-4 mr-1" />
-                      Delete
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                    {/* Stats */}
+                    <div className="grid grid-cols-2 gap-3 text-sm">
+                      <div className="p-2 bg-muted rounded">
+                        <p className="text-muted-foreground text-xs">Applicable Listings</p>
+                        <p className="font-semibold">{promotion.applicableListings}</p>
+                      </div>
+                      <div className="p-2 bg-muted rounded">
+                        <p className="text-muted-foreground text-xs">Usage Count</p>
+                        <p className="font-semibold">{promotion.usageCount}</p>
+                      </div>
+                    </div>
+
+                    {/* Actions */}
+                    <div className="flex gap-2 pt-2 border-t">
+                      <Button variant="outline" size="sm" className="flex-1">
+                        <Edit2 className="h-4 w-4 mr-1" />
+                        Edit
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="flex-1 text-red-600 hover:text-red-600"
+                        onClick={() => handleDeletePromotion(promotion.id)}
+                      >
+                        <Trash2 className="h-4 w-4 mr-1" />
+                        Delete
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            // List View
+            <div className="space-y-3">
+              {filteredPromotions.map((promotion) => (
+                <Card key={promotion.id} className="overflow-hidden hover:shadow-md transition-shadow">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between gap-4">
+                      {/* Left side - Promo details */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h3 className="font-semibold">{promotion.name}</h3>
+                          <Badge className={`${getStatusColor(promotion.status)} capitalize text-xs`}>
+                            {promotion.status}
+                          </Badge>
+                          <Badge className="bg-gray-100 text-gray-800 text-xs capitalize">
+                            {promotion.serviceType}
+                          </Badge>
+                        </div>
+                        <p className="text-sm text-muted-foreground truncate">{promotion.description}</p>
+                        <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground">
+                          <span>
+                            {new Date(promotion.startDate).toLocaleDateString('en-US', {
+                              month: 'short',
+                              day: 'numeric',
+                            })}{' '}
+                            -{' '}
+                            {new Date(promotion.endDate).toLocaleDateString('en-US', {
+                              month: 'short',
+                              day: 'numeric',
+                            })}
+                          </span>
+                          <span>Used {promotion.usageCount} times</span>
+                        </div>
+                      </div>
+
+                      {/* Right side - Discount & Actions */}
+                      <div className="flex items-center gap-4 flex-shrink-0">
+                        <div className="text-right">
+                          <p className="text-lg font-bold text-travel-blue">
+                            {promotion.discountType === 'percentage'
+                              ? `${promotion.discountValue}%`
+                              : `$${promotion.discountValue}`}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {promotion.applicableListings} listing{promotion.applicableListings !== 1 ? 's' : ''}
+                          </p>
+                        </div>
+                        <div className="flex gap-2">
+                          <Button variant="outline" size="sm">
+                            <Edit2 className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="text-red-600 hover:text-red-600"
+                            onClick={() => handleDeletePromotion(promotion.id)}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )
         ) : (
           <Card className="text-center py-12">
             <CardContent>
