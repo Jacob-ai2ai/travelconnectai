@@ -9,6 +9,7 @@ interface Promotion {
   id: string;
   name: string;
   description: string;
+  serviceType: 'all' | 'stays' | 'flights' | 'experiences' | 'events' | 'essentials';
   discountType: 'percentage' | 'fixed';
   discountValue: number;
   startDate: string;
