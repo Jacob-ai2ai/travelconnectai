@@ -22,6 +22,8 @@ export default function VendorOrders() {
   const [statusFilter, setStatusFilter] = useState('all');
   const [serviceFilter, setServiceFilter] = useState('all');
   const [dateRange, setDateRange] = useState('all');
+  const [customDateStart, setCustomDateStart] = useState('');
+  const [customDateEnd, setCustomDateEnd] = useState('');
   const [sortBy, setSortBy] = useState('newest');
   const [viewMode, setViewMode] = useState<'tile' | 'list'>('list');
 
@@ -172,6 +174,15 @@ export default function VendorOrders() {
             return daysDiff <= 30;
           case 'quarter':
             return daysDiff <= 90;
+          case 'custom':
+            if (customDateStart && customDateEnd) {
+              const startDate = new Date(customDateStart);
+              const endDate = new Date(customDateEnd);
+              // Set end date to end of day
+              endDate.setHours(23, 59, 59, 999);
+              return orderDate >= startDate && orderDate <= endDate;
+            }
+            return true;
           default:
             return true;
         }
