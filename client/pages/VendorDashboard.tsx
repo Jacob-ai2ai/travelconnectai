@@ -105,10 +105,11 @@ export default function VendorDashboard() {
 
     // Load listings
     const listings = localStorage.getItem('listings');
+    let listingsToUse = dummyListings;
     if (listings) {
       try {
-        const parsedListings = JSON.parse(listings);
-        setListingCount(parsedListings.length);
+        listingsToUse = JSON.parse(listings);
+        setListingCount(listingsToUse.length);
       } catch (e) {
         setListingCount(dummyListings.length);
       }
@@ -116,6 +117,10 @@ export default function VendorDashboard() {
       localStorage.setItem('listings', JSON.stringify(dummyListings));
       setListingCount(dummyListings.length);
     }
+
+    // Generate mock inventories for calendar
+    const mockInventories = generateMockInventories(listingsToUse);
+    setInventories(mockInventories);
   }, []);
 
   const tiles: DashboardTile[] = [
