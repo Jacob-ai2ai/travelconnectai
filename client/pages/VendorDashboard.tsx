@@ -193,11 +193,39 @@ export default function VendorDashboard() {
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted py-8">
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Header */}
-        <div className="mb-12">
+        <div className="mb-8">
           <h1 className="text-4xl font-bold mb-2">Vendor Dashboard</h1>
           <p className="text-muted-foreground text-lg">
             Welcome back, {vendorInfo.name}! Manage your travel services and grow your business.
           </p>
+        </div>
+
+        {/* Quick Stats */}
+        <div className="mb-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+          <Card>
+            <CardContent className="pt-6 text-center">
+              <p className="text-3xl font-bold text-travel-blue">{listingCount}</p>
+              <p className="text-sm text-muted-foreground">Total Listings</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-6 text-center">
+              <p className="text-3xl font-bold text-travel-blue">{mockOrders.total}</p>
+              <p className="text-sm text-muted-foreground">Total Orders</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-6 text-center">
+              <p className="text-3xl font-bold text-travel-blue">${vendorInfo.revenue.toLocaleString()}</p>
+              <p className="text-sm text-muted-foreground">Total Revenue</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="pt-6 text-center">
+              <p className="text-3xl font-bold text-travel-blue">{vendorInfo.rating}</p>
+              <p className="text-sm text-muted-foreground">Business Rating</p>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Dashboard Tiles */}
