@@ -201,84 +201,158 @@ export default function TravelerFriends() {
           </CardContent>
         </Card>
 
-        {/* Friends Grid */}
+        {/* Friends View */}
         {filteredFriends.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredFriends.map((friend) => (
-              <Card key={friend.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                <CardContent className="pt-6">
-                  {/* Avatar and Status */}
-                  <div className="flex items-start gap-4 mb-4">
-                    <div className="relative">
-                      <img
-                        src={friend.avatar}
-                        alt={friend.name}
-                        className="w-16 h-16 rounded-full object-cover"
-                      />
-                      <div
-                        className={`absolute bottom-0 right-0 w-4 h-4 rounded-full border-2 border-white ${
-                          friend.status === 'active' ? 'bg-green-500' : 'bg-gray-400'
-                        }`}
-                      />
+          viewMode === 'tile' ? (
+            // Tile View
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredFriends.map((friend) => (
+                <Card key={friend.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+                  <CardContent className="pt-6">
+                    {/* Avatar and Status */}
+                    <div className="flex items-start gap-4 mb-4">
+                      <div className="relative">
+                        <img
+                          src={friend.avatar}
+                          alt={friend.name}
+                          className="w-16 h-16 rounded-full object-cover"
+                        />
+                        <div
+                          className={`absolute bottom-0 right-0 w-4 h-4 rounded-full border-2 border-white ${
+                            friend.status === 'active' ? 'bg-green-500' : 'bg-gray-400'
+                          }`}
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-lg">{friend.name}</h3>
+                        <Badge
+                          className={`mt-1 ${
+                            friend.status === 'active'
+                              ? 'bg-green-100 text-green-800'
+                              : 'bg-gray-100 text-gray-800'
+                          }`}
+                        >
+                          {friend.status === 'active' ? '🟢 Active' : '⚪ Offline'}
+                        </Badge>
+                      </div>
                     </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-lg">{friend.name}</h3>
-                      <Badge
-                        className={`mt-1 ${
-                          friend.status === 'active'
-                            ? 'bg-green-100 text-green-800'
-                            : 'bg-gray-100 text-gray-800'
-                        }`}
+
+                    {/* Friend Details */}
+                    <div className="space-y-2 mb-4 pb-4 border-b">
+                      {friend.email && (
+                        <p className="text-sm text-muted-foreground">{friend.email}</p>
+                      )}
+                      {friend.mutualFriends && (
+                        <p className="text-sm text-muted-foreground">
+                          {friend.mutualFriends} mutual friends
+                        </p>
+                      )}
+                      {friend.joinedDate && (
+                        <p className="text-xs text-muted-foreground">
+                          Friends since {new Date(friend.joinedDate).toLocaleDateString('en-US', {
+                            month: 'short',
+                            day: 'numeric',
+                            year: 'numeric',
+                          })}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" className="flex-1">
+                        <MessageSquare className="h-4 w-4 mr-1" />
+                        Message
+                      </Button>
+                      <Button variant="outline" size="sm" className="flex-1">
+                        <User className="h-4 w-4 mr-1" />
+                        Profile
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleRemoveFriend(friend.id)}
+                        className="text-red-600 hover:text-red-700 hover:bg-red-50"
                       >
-                        {friend.status === 'active' ? '🟢 Active' : '⚪ Offline'}
-                      </Badge>
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
                     </div>
-                  </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            // List View
+            <div className="space-y-3">
+              {filteredFriends.map((friend) => (
+                <Card key={friend.id} className="overflow-hidden hover:shadow-md transition-shadow">
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-4">
+                      {/* Avatar */}
+                      <div className="relative flex-shrink-0">
+                        <img
+                          src={friend.avatar}
+                          alt={friend.name}
+                          className="w-12 h-12 rounded-full object-cover"
+                        />
+                        <div
+                          className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-white ${
+                            friend.status === 'active' ? 'bg-green-500' : 'bg-gray-400'
+                          }`}
+                        />
+                      </div>
 
-                  {/* Friend Details */}
-                  <div className="space-y-2 mb-4 pb-4 border-b">
-                    {friend.email && (
-                      <p className="text-sm text-muted-foreground">{friend.email}</p>
-                    )}
-                    {friend.mutualFriends && (
-                      <p className="text-sm text-muted-foreground">
-                        {friend.mutualFriends} mutual friends
-                      </p>
-                    )}
-                    {friend.joinedDate && (
-                      <p className="text-xs text-muted-foreground">
-                        Friends since {new Date(friend.joinedDate).toLocaleDateString('en-US', {
-                          month: 'short',
-                          day: 'numeric',
-                          year: 'numeric',
-                        })}
-                      </p>
-                    )}
-                  </div>
+                      {/* Friend Info */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h3 className="font-semibold">{friend.name}</h3>
+                          <Badge
+                            className={`text-xs ${
+                              friend.status === 'active'
+                                ? 'bg-green-100 text-green-800'
+                                : 'bg-gray-100 text-gray-800'
+                            }`}
+                          >
+                            {friend.status === 'active' ? '🟢 Active' : '⚪ Offline'}
+                          </Badge>
+                        </div>
+                        <p className="text-sm text-muted-foreground truncate">{friend.email}</p>
+                        <div className="flex gap-3 mt-1 text-xs text-muted-foreground">
+                          {friend.mutualFriends && <span>{friend.mutualFriends} mutual friends</span>}
+                          {friend.joinedDate && (
+                            <span>
+                              Friends since {new Date(friend.joinedDate).toLocaleDateString('en-US', {
+                                month: 'short',
+                                day: 'numeric',
+                              })}
+                            </span>
+                          )}
+                        </div>
+                      </div>
 
-                  {/* Action Buttons */}
-                  <div className="flex gap-2">
-                    <Button variant="outline" size="sm" className="flex-1">
-                      <MessageSquare className="h-4 w-4 mr-1" />
-                      Message
-                    </Button>
-                    <Button variant="outline" size="sm" className="flex-1">
-                      <User className="h-4 w-4 mr-1" />
-                      Profile
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleRemoveFriend(friend.id)}
-                      className="text-red-600 hover:text-red-700 hover:bg-red-50"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                      {/* Action Buttons */}
+                      <div className="flex gap-2 flex-shrink-0">
+                        <Button variant="outline" size="sm">
+                          <MessageSquare className="h-4 w-4" />
+                        </Button>
+                        <Button variant="outline" size="sm">
+                          <User className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleRemoveFriend(friend.id)}
+                          className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )
         ) : (
           <Card className="text-center py-12">
             <CardContent>
