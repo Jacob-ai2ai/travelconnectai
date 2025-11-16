@@ -193,13 +193,30 @@ export default function ProfilePage(){
 
                   <div className="w-full mt-4 space-y-2">
                     <Link to="/edit-profile"><Button className="w-full"><Edit3 className="mr-2 h-4 w-4"/>Edit Profile</Button></Link>
-                    {isVendor && (
-                      <Link to="/vendor-dashboard">
-                        <Button className="w-full bg-travel-orange hover:bg-travel-orange/90">
-                          Go to Vendor Dashboard
-                        </Button>
-                      </Link>
-                    )}
+
+                    {/* Three-Stop Toggle Switch */}
+                    <div className="flex items-center gap-1 bg-muted p-1 rounded-lg">
+                      <button
+                        onClick={() => navigate('/traveler-dashboard')}
+                        className="flex-1 py-2 px-3 text-sm font-medium rounded transition-colors bg-white text-travel-blue shadow-sm hover:bg-gray-50"
+                      >
+                        Traveler
+                      </button>
+                      <button
+                        onClick={() => navigate('/profile')}
+                        className="flex-1 py-2 px-3 text-sm font-medium rounded transition-colors bg-travel-blue text-white hover:bg-travel-blue/90"
+                      >
+                        Profile
+                      </button>
+                      {isVendor && (
+                        <button
+                          onClick={() => navigate('/vendor-dashboard')}
+                          className="flex-1 py-2 px-3 text-sm font-medium rounded transition-colors bg-white text-travel-orange hover:bg-gray-50"
+                        >
+                          Vendor
+                        </button>
+                      )}
+                    </div>
                   </div>
 
                 </div>
