@@ -212,34 +212,6 @@ export default function TravelerDashboard() {
             );
           })}
         </div>
-
-        {/* Quick Stats */}
-        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Card>
-            <CardContent className="pt-6 text-center">
-              <p className="text-3xl font-bold text-travel-blue">{bookingCount}</p>
-              <p className="text-sm text-muted-foreground">Active Bookings</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6 text-center">
-              <p className="text-3xl font-bold text-travel-blue">{tripCount}</p>
-              <p className="text-sm text-muted-foreground">Trips</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6 text-center">
-              <p className="text-3xl font-bold text-travel-blue">{favoriteCount}</p>
-              <p className="text-sm text-muted-foreground">Favorites</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6 text-center">
-              <p className="text-3xl font-bold text-travel-blue">{friendCount}</p>
-              <p className="text-sm text-muted-foreground">Friends</p>
-            </CardContent>
-          </Card>
-        </div>
       </div>
     </div>
   );
