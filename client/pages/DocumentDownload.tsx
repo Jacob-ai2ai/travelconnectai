@@ -13,21 +13,40 @@ import {
   Shield,
   Users,
   Zap,
+  Loader2,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
+type DocumentType = "srs" | "product";
+
 export default function DocumentDownload() {
   const [downloadFormat, setDownloadFormat] = useState("pdf");
+  const [selectedDocument, setSelectedDocument] = useState<DocumentType>("srs");
+  const [isDownloading, setIsDownloading] = useState(false);
+
+  const documents: Record<DocumentType, { title: string; description: string; filename: string }> = {
+    srs: {
+      title: "Software Requirements Specification (SRS)",
+      description: "Complete technical specifications and requirements for the TravelConnect platform",
+      filename: "TravelConnect-SRS",
+    },
+    product: {
+      title: "Product Descriptions",
+      description: "Comprehensive product overview, features, and capabilities for all stakeholders",
+      filename: "TravelConnect-Product-Descriptions",
+    },
+  };
 
   const handleDownload = async (format: string) => {
     try {
-      const response = await fetch(`/api/download-srs?format=${format}`);
+      setIsDownloading(true);
+      const response = await fetch(`/api/download-srs?format=${format}&document=${selectedDocument}`);
       if (response.ok) {
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = `Traveltheworld-AI-SRS.${format}`;
+        a.download = `${documents[selectedDocument].filename}.${format}`;
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
@@ -38,6 +57,8 @@ export default function DocumentDownload() {
     } catch (error) {
       console.error("Download error:", error);
       alert("Download failed. Please try again.");
+    } finally {
+      setIsDownloading(false);
     }
   };
 
