@@ -22,6 +22,8 @@ interface Promotion {
 export default function VendorPromotions() {
   const [promotions, setPromotions] = useState<Promotion[]>([]);
   const [statusFilter, setStatusFilter] = useState('all');
+  const [serviceFilter, setServiceFilter] = useState('all');
+  const [viewMode, setViewMode] = useState<'tile' | 'list'>('tile');
 
   useEffect(() => {
     const savedPromotions = localStorage.getItem('vendorPromotions');
