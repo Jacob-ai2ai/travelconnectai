@@ -346,77 +346,17 @@ export default function VendorPromotions() {
           </Card>
         </div>
 
-        {/* Daily Auto-Scan Section */}
-        <Card className="mb-6 bg-gradient-to-r from-purple-50 to-purple-100 border-purple-200">
-          <CardContent className="pt-6">
-            <div className="flex items-start justify-between">
-              <div className="flex items-start gap-4 flex-1">
-                <Activity className="h-6 w-6 text-purple-600 flex-shrink-0 mt-1" />
-                <div>
-                  <h3 className="font-semibold text-purple-900 mb-1">Daily Inventory Scan</h3>
-                  <p className="text-sm text-purple-800 mb-3">
-                    Enable AI to automatically scan your inventory daily for gaps and vacancies. AI will generate promotions and notify you for approval.
-                  </p>
-                  <p className="text-xs text-purple-700">
-                    {dailyScanEnabled ? '✓ Auto-scan enabled • Runs daily at 9:00 AM' : 'Disabled'}
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3 flex-shrink-0">
-                <Switch
-                  checked={dailyScanEnabled}
-                  onCheckedChange={handleDailyScanToggle}
-                  className="data-[state=checked]:bg-purple-600"
-                />
-                <Button
-                  size="sm"
-                  onClick={performInventoryScan}
-                  disabled={scanInProgress}
-                  className="bg-purple-600 hover:bg-purple-700"
-                >
-                  {scanInProgress ? 'Scanning...' : 'Scan Now'}
-                </Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
 
-        {/* AI Insights Section */}
-        <Card className="mb-6 bg-gradient-to-r from-orange-50 to-orange-100 border-orange-200">
-          <CardContent className="pt-6">
-            <div className="flex items-start gap-4">
-              <Sparkles className="h-6 w-6 text-orange-600 flex-shrink-0 mt-1" />
-              <div className="flex-1">
-                <h3 className="font-semibold text-orange-900 mb-2">AI-Powered Promotion Tips</h3>
-                <p className="text-sm text-orange-800 mb-4">
-                  Let our AI analyze your inventory and current travel trends to generate targeted promotions that help move unsold inventory quickly.
-                </p>
-                <div className="flex gap-2">
-                  <Button
-                    size="sm"
-                    onClick={() => openAIDialog('stays')}
-                    className="bg-orange-600 hover:bg-orange-700 text-white"
-                  >
-                    <Zap className="h-4 w-4 mr-1" />
-                    Try AI Generator
-                  </Button>
-                  <Button size="sm" variant="outline" className="border-orange-300">
-                    Learn More
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Pending AI Approvals Section */}
-        <PendingAIApprovalsSection onPromotionApproved={handlePendingPromotionApproved} />
 
         {/* Tabs Section */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
-          <TabsList className="grid w-full grid-cols-2 mb-6">
+          <TabsList className="grid w-full grid-cols-3 mb-6">
             <TabsTrigger value="all-promotions">
               All Promotions
+            </TabsTrigger>
+            <TabsTrigger value="inventory-gaps" className="flex items-center gap-2">
+              <AlertCircle className="h-4 w-4" />
+              Inventory Gaps
             </TabsTrigger>
             <TabsTrigger value="ai-promo-builder" className="flex items-center gap-2">
               <Zap className="h-4 w-4" />
@@ -680,8 +620,43 @@ export default function VendorPromotions() {
             )}
           </TabsContent>
 
-          {/* AI Promo Builder Tab */}
-          <TabsContent value="ai-promo-builder" className="space-y-6">
+          {/* Inventory Gaps Tab */}
+          <TabsContent value="inventory-gaps" className="space-y-6">
+            {/* Daily Auto-Scan Section */}
+            <Card className="mb-6 bg-gradient-to-r from-purple-50 to-purple-100 border-purple-200">
+              <CardContent className="pt-6">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-start gap-4 flex-1">
+                    <Activity className="h-6 w-6 text-purple-600 flex-shrink-0 mt-1" />
+                    <div>
+                      <h3 className="font-semibold text-purple-900 mb-1">Daily Inventory Scan</h3>
+                      <p className="text-sm text-purple-800 mb-3">
+                        Enable AI to automatically scan your inventory daily for gaps and vacancies. AI will generate promotions and notify you for approval.
+                      </p>
+                      <p className="text-xs text-purple-700">
+                        {dailyScanEnabled ? '✓ Auto-scan enabled • Runs daily at 9:00 AM' : 'Disabled'}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 flex-shrink-0">
+                    <Switch
+                      checked={dailyScanEnabled}
+                      onCheckedChange={handleDailyScanToggle}
+                      className="data-[state=checked]:bg-purple-600"
+                    />
+                    <Button
+                      size="sm"
+                      onClick={performInventoryScan}
+                      disabled={scanInProgress}
+                      className="bg-purple-600 hover:bg-purple-700"
+                    >
+                      {scanInProgress ? 'Scanning...' : 'Scan Now'}
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
             {/* Inventory Gaps Section */}
             {inventoryGaps.length > 0 ? (
               <Card>
@@ -749,27 +724,37 @@ export default function VendorPromotions() {
                 </CardContent>
               </Card>
             )}
+          </TabsContent>
 
-            {/* AI Promotion Creation Button */}
-            {inventoryGaps.length > 0 && (
-              <Card className="bg-gradient-to-r from-blue-50 to-blue-100 border-blue-200">
-                <CardContent className="pt-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h4 className="font-semibold text-blue-900 mb-1">Ready to Create a Promotion?</h4>
-                      <p className="text-sm text-blue-800">Use our AI-powered builder to create targeted promotions based on your inventory gaps.</p>
+          {/* AI Promo Builder Tab */}
+          <TabsContent value="ai-promo-builder" className="space-y-6">
+            {/* AI Insights Section */}
+            <Card className="mb-6 bg-gradient-to-r from-orange-50 to-orange-100 border-orange-200">
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-4">
+                  <Sparkles className="h-6 w-6 text-orange-600 flex-shrink-0 mt-1" />
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-orange-900 mb-2">AI-Powered Promotion Tips</h3>
+                    <p className="text-sm text-orange-800 mb-4">
+                      Let our AI analyze your inventory and current travel trends to generate targeted promotions that help move unsold inventory quickly.
+                    </p>
+                    <div className="flex gap-2">
+                      <Button
+                        size="sm"
+                        onClick={() => openAIDialog('stays')}
+                        className="bg-orange-600 hover:bg-orange-700 text-white"
+                      >
+                        <Zap className="h-4 w-4 mr-1" />
+                        Try AI Generator
+                      </Button>
+                      <Button size="sm" variant="outline" className="border-orange-300">
+                        Learn More
+                      </Button>
                     </div>
-                    <Button
-                      className="bg-travel-blue hover:bg-travel-blue/90"
-                      onClick={() => openAIDialog('stays')}
-                    >
-                      <Zap className="h-4 w-4 mr-2" />
-                      Launch AI Builder
-                    </Button>
                   </div>
-                </CardContent>
-              </Card>
-            )}
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
         </Tabs>
 
