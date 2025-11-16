@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Plus, MessageSquare, User, Trash2 } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { ArrowLeft, MessageSquare, User, Trash2, Grid3x3, List } from 'lucide-react';
 
 interface Friend {
   id: string;
