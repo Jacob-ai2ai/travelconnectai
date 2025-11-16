@@ -304,40 +304,14 @@ export default function VendorPromotions() {
             </Button>
           </Link>
 
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h1 className="text-3xl font-bold mb-2">Create Promotions</h1>
-              <p className="text-muted-foreground">
-                Attract more customers with special offers and discounts
-              </p>
-            </div>
-            <div className="flex items-center gap-2">
-              <Button
-                variant={viewMode === 'tile' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setViewMode('tile')}
-                className="gap-2"
-              >
-                <Grid3x3 className="h-4 w-4" />
-                Tile
-              </Button>
-              <Button
-                variant={viewMode === 'list' ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setViewMode('list')}
-                className="gap-2"
-              >
-                <List className="h-4 w-4" />
-                List
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => openAIDialog(serviceFilter !== 'all' ? serviceFilter : 'stays')}
-                className="gap-2 text-orange-600 border-orange-200 hover:bg-orange-50"
-              >
-                <Zap className="h-4 w-4" />
-                AI Promotion
-              </Button>
+          <div className="mb-6">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h1 className="text-3xl font-bold mb-2">Create Promotions</h1>
+                <p className="text-muted-foreground">
+                  Attract more customers with special offers and discounts
+                </p>
+              </div>
               <Button className="bg-travel-blue hover:bg-travel-blue/90">
                 <Plus className="h-4 w-4 mr-2" />
                 New Promotion
