@@ -117,6 +117,9 @@ export default function App() {
             <Route path="/traveler/trip/:tripId" element={<TravelerTripDetail />} />
             <Route path="/traveler/favorites" element={<TravelerFavorites />} />
             <Route path="/traveler/friends" element={<TravelerFriends />} />
+            <Route path="/traveler/livestream" element={<TravelerLivestream />} />
+            <Route path="/traveler/payments" element={<TravelerPayments />} />
+            <Route path="/traveler/complaints" element={<TravelerComplaints />} />
             <Route path="/vendor/select-type" element={<VendorTypeSelect />} />
             <Route path="/vendor/create-listing" element={<VendorListingCreate />} />
             <Route path="/vendor/my-listings" element={<VendorMyListings />} />
