@@ -363,7 +363,7 @@ export default function VendorPromotions() {
                     <div className="flex items-center justify-between gap-4">
                       {/* Left side - Promo details */}
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
+                        <div className="flex items-center gap-2 mb-1 flex-wrap">
                           <h3 className="font-semibold">{promotion.name}</h3>
                           <Badge className={`${getStatusColor(promotion.status)} capitalize text-xs`}>
                             {promotion.status}
@@ -371,6 +371,12 @@ export default function VendorPromotions() {
                           <Badge className="bg-gray-100 text-gray-800 text-xs capitalize">
                             {promotion.serviceType}
                           </Badge>
+                          {promotion.aiGenerated && (
+                            <Badge className="bg-orange-100 text-orange-800 text-xs flex items-center gap-1">
+                              <Sparkles className="h-3 w-3" />
+                              AI
+                            </Badge>
+                          )}
                         </div>
                         <p className="text-sm text-muted-foreground truncate">{promotion.description}</p>
                         <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground">
