@@ -148,10 +148,30 @@ export default function VendorPromotions() {
                 Attract more customers with special offers and discounts
               </p>
             </div>
-            <Button className="bg-travel-blue hover:bg-travel-blue/90">
-              <Plus className="h-4 w-4 mr-2" />
-              New Promotion
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button
+                variant={viewMode === 'tile' ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setViewMode('tile')}
+                className="gap-2"
+              >
+                <Grid3x3 className="h-4 w-4" />
+                Tile
+              </Button>
+              <Button
+                variant={viewMode === 'list' ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setViewMode('list')}
+                className="gap-2"
+              >
+                <List className="h-4 w-4" />
+                List
+              </Button>
+              <Button className="bg-travel-blue hover:bg-travel-blue/90">
+                <Plus className="h-4 w-4 mr-2" />
+                New Promotion
+              </Button>
+            </div>
           </div>
         </div>
 
