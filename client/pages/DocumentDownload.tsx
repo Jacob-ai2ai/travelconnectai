@@ -382,54 +382,93 @@ export default function DocumentDownload() {
             </CardHeader>
             <CardContent>
               <div className="grid md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-travel-blue rounded-full"></div>
-                    <span className="text-sm">1. Introduction & Overview</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-travel-blue rounded-full"></div>
-                    <span className="text-sm">2. System Overview</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-travel-blue rounded-full"></div>
-                    <span className="text-sm">3. Functional Requirements</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-travel-blue rounded-full"></div>
-                    <span className="text-sm">4. Non-Functional Requirements</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-travel-blue rounded-full"></div>
-                    <span className="text-sm">5. System Architecture</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-travel-blue rounded-full"></div>
-                    <span className="text-sm">6. User Interface Requirements</span>
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-travel-purple rounded-full"></div>
-                    <span className="text-sm">7. Data Requirements</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-travel-purple rounded-full"></div>
-                    <span className="text-sm">8. Integration Requirements</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-travel-purple rounded-full"></div>
-                    <span className="text-sm">9. Security Requirements</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-travel-purple rounded-full"></div>
-                    <span className="text-sm">10. Performance Requirements</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-travel-purple rounded-full"></div>
-                    <span className="text-sm">11. Appendices</span>
-                  </div>
-                </div>
+                {selectedDocument === "srs" ? (
+                  <>
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-travel-blue rounded-full"></div>
+                        <span className="text-sm">1. Introduction & Overview</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-travel-blue rounded-full"></div>
+                        <span className="text-sm">2. System Overview</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-travel-blue rounded-full"></div>
+                        <span className="text-sm">3. Functional Requirements</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-travel-blue rounded-full"></div>
+                        <span className="text-sm">4. Non-Functional Requirements</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-travel-blue rounded-full"></div>
+                        <span className="text-sm">5. System Architecture</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-travel-blue rounded-full"></div>
+                        <span className="text-sm">6. User Interface Requirements</span>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-travel-purple rounded-full"></div>
+                        <span className="text-sm">7. Data Requirements</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-travel-purple rounded-full"></div>
+                        <span className="text-sm">8. Integration Requirements</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-travel-purple rounded-full"></div>
+                        <span className="text-sm">9. Security Requirements</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-travel-purple rounded-full"></div>
+                        <span className="text-sm">10. Performance Requirements</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-travel-purple rounded-full"></div>
+                        <span className="text-sm">11. Appendices</span>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-travel-blue rounded-full"></div>
+                        <span className="text-sm">1. Platform Overview</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-travel-blue rounded-full"></div>
+                        <span className="text-sm">2. For Travelers</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-travel-blue rounded-full"></div>
+                        <span className="text-sm">3. For Vendors</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-travel-blue rounded-full"></div>
+                        <span className="text-sm">4. Service Categories</span>
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-travel-purple rounded-full"></div>
+                        <span className="text-sm">5. AI-Powered Features</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-travel-purple rounded-full"></div>
+                        <span className="text-sm">6. Key Benefits</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-travel-purple rounded-full"></div>
+                        <span className="text-sm">7. Platform Capabilities</span>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </CardContent>
           </Card>
