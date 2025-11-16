@@ -369,9 +369,36 @@ export default function VendorPromotions() {
             {/* Filter */}
             <Card className="mb-6">
               <CardContent className="pt-6">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2"></div>
-                  <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
+                  {/* Service Type Filter */}
+                  <select
+                    value={serviceFilter}
+                    onChange={(e) => setServiceFilter(e.target.value)}
+                    className="flex-1 min-w-[200px] border rounded-lg p-2 text-sm"
+                  >
+                    <option value="all">All Services ({promotions.length})</option>
+                    <option value="stays">Stays ({promotions.filter((p) => p.serviceType === 'stays').length})</option>
+                    <option value="flights">Flights ({promotions.filter((p) => p.serviceType === 'flights').length})</option>
+                    <option value="experiences">Experiences ({promotions.filter((p) => p.serviceType === 'experiences').length})</option>
+                    <option value="events">Events ({promotions.filter((p) => p.serviceType === 'events').length})</option>
+                    <option value="essentials">Essentials ({promotions.filter((p) => p.serviceType === 'essentials').length})</option>
+                  </select>
+
+                  {/* Status Filter */}
+                  <select
+                    value={statusFilter}
+                    onChange={(e) => setStatusFilter(e.target.value)}
+                    className="flex-1 min-w-[200px] border rounded-lg p-2 text-sm"
+                  >
+                    <option value="all">All Statuses ({promotions.length})</option>
+                    <option value="active">Active ({promotions.filter((p) => p.status === 'active').length})</option>
+                    <option value="scheduled">Scheduled ({promotions.filter((p) => p.status === 'scheduled').length})</option>
+                    <option value="draft">Draft ({promotions.filter((p) => p.status === 'draft').length})</option>
+                    <option value="expired">Expired ({promotions.filter((p) => p.status === 'expired').length})</option>
+                  </select>
+
+                  {/* View Mode Buttons */}
+                  <div className="flex items-center gap-2 ml-auto">
                     <Button
                       variant={viewMode === 'tile' ? 'default' : 'outline'}
                       size="sm"
@@ -390,38 +417,6 @@ export default function VendorPromotions() {
                       <List className="h-4 w-4" />
                       List
                     </Button>
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {/* Service Type Filter */}
-                  <div>
-                    <select
-                      value={serviceFilter}
-                      onChange={(e) => setServiceFilter(e.target.value)}
-                      className="w-full border rounded-lg p-2 text-sm"
-                    >
-                      <option value="all">All Services ({promotions.length})</option>
-                      <option value="stays">Stays ({promotions.filter((p) => p.serviceType === 'stays').length})</option>
-                      <option value="flights">Flights ({promotions.filter((p) => p.serviceType === 'flights').length})</option>
-                      <option value="experiences">Experiences ({promotions.filter((p) => p.serviceType === 'experiences').length})</option>
-                      <option value="events">Events ({promotions.filter((p) => p.serviceType === 'events').length})</option>
-                      <option value="essentials">Essentials ({promotions.filter((p) => p.serviceType === 'essentials').length})</option>
-                    </select>
-                  </div>
-
-                  {/* Status Filter */}
-                  <div>
-                    <select
-                      value={statusFilter}
-                      onChange={(e) => setStatusFilter(e.target.value)}
-                      className="w-full border rounded-lg p-2 text-sm"
-                    >
-                      <option value="all">All Statuses ({promotions.length})</option>
-                      <option value="active">Active ({promotions.filter((p) => p.status === 'active').length})</option>
-                      <option value="scheduled">Scheduled ({promotions.filter((p) => p.status === 'scheduled').length})</option>
-                      <option value="draft">Draft ({promotions.filter((p) => p.status === 'draft').length})</option>
-                      <option value="expired">Expired ({promotions.filter((p) => p.status === 'expired').length})</option>
-                    </select>
                   </div>
                 </div>
               </CardContent>
